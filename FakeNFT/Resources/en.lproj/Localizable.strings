@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  FakeNFT  
+*/
+
+"profile.title" = "Profile";
+"profile.name" = "Name";
+"profile.description" = "Description";
+"profile.website" = "Website";
+
+"cart.title" = "Cart";
+"cart.pay" = "Pay";
+"cart.toBePaid" = "To be paid";
+
+"statistics.title" = "Statistics";
+
+"catalog.title" = "Catalog";

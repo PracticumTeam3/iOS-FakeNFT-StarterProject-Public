@@ -64,7 +64,11 @@ struct DefaultNetworkClient: NetworkClient {
     }
 
     @discardableResult
-    func send<T: Decodable>(request: NetworkRequest, type: T.Type, onResponse: @escaping (Result<T, Error>) -> Void) -> NetworkTask? {
+    func send<T: Decodable>(
+        request: NetworkRequest,
+        type: T.Type,
+        onResponse: @escaping (Result<T, Error>) -> Void
+    ) -> NetworkTask? {
         return send(request: request) { result in
             switch result {
             case let .success(data):
@@ -95,7 +99,11 @@ struct DefaultNetworkClient: NetworkClient {
         return urlRequest
     }
 
-    private func parse<T: Decodable>(data: Data, type _: T.Type, onResponse: @escaping (Result<T, Error>) -> Void) {
+    private func parse<T: Decodable>(
+        data: Data,
+        type _: T.Type,
+        onResponse: @escaping (Result<T, Error>) -> Void
+    ) {
         do {
             let response = try decoder.decode(T.self, from: data)
             onResponse(.success(response))
