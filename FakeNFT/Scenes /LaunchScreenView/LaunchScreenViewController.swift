@@ -10,7 +10,7 @@ import UIKit
 final class LaunchScreenViewController: UIViewController {
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
-        let image = UIImage(named: "splashScreen") ?? UIImage()
+        let image = A.Icons.splashScreen.image
         imageView.image = image
         imageView.contentMode = .scaleAspectFill
         return imageView
