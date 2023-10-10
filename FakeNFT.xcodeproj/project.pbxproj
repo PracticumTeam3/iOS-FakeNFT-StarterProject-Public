@@ -27,6 +27,10 @@
 		3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C38A29D242E90081F015 /* ProductDetailsTableViewCell.swift */; };
 		3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39029D2453B0081F015 /* ExampleRequest.swift */; };
 		3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */; };
+		7F07A6EA2AD45BA200589943 /* CartTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07A6E92AD45BA200589943 /* CartTableViewCellViewModel.swift */; };
+		7F07A6EC2AD45BCE00589943 /* CartTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07A6EB2AD45BCE00589943 /* CartTableViewViewModel.swift */; };
+		7F07A6EE2AD45BF300589943 /* CartTableViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07A6ED2AD45BF300589943 /* CartTableViewViewController.swift */; };
+		7F07A6F02AD45C3000589943 /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F07A6EF2AD45C3000589943 /* CartTableViewCell.swift */; };
 		9D4D904FE300BF76B4E31C45 /* Pods_FakeNFT_FakeNFTUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 082D3AA4E98CAF85DF374B62 /* Pods_FakeNFT_FakeNFTUITests.framework */; };
 		AAF482A0D4C1738DA9FBC45E /* Pods_FakeNFT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B85D3BC7736CC3B5B1F6A961 /* Pods_FakeNFT.framework */; };
 		D9B9733791154B2C5C689757 /* Pods_FakeNFTTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 625DE10C99B1457B1FD5B31A /* Pods_FakeNFTTests.framework */; };
@@ -84,6 +88,10 @@
 		625DE10C99B1457B1FD5B31A /* Pods_FakeNFTTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FakeNFTTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C115F6273C9214EF595EEDC /* Pods-FakeNFTTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FakeNFTTests.release.xcconfig"; path = "Target Support Files/Pods-FakeNFTTests/Pods-FakeNFTTests.release.xcconfig"; sourceTree = "<group>"; };
 		706E2EA669DA0A6FCA22082B /* Pods-FakeNFT-FakeNFTUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FakeNFT-FakeNFTUITests.debug.xcconfig"; path = "Target Support Files/Pods-FakeNFT-FakeNFTUITests/Pods-FakeNFT-FakeNFTUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7F07A6E92AD45BA200589943 /* CartTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		7F07A6EB2AD45BCE00589943 /* CartTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewViewModel.swift; sourceTree = "<group>"; };
+		7F07A6ED2AD45BF300589943 /* CartTableViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewViewController.swift; sourceTree = "<group>"; };
+		7F07A6EF2AD45C3000589943 /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		8A3ECB03122A50B3655AB22E /* Pods-FakeNFT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FakeNFT.debug.xcconfig"; path = "Target Support Files/Pods-FakeNFT/Pods-FakeNFT.debug.xcconfig"; sourceTree = "<group>"; };
 		9F48B1308BFF810416B69BBB /* Pods-FakeNFT-FakeNFTUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FakeNFT-FakeNFTUITests.release.xcconfig"; path = "Target Support Files/Pods-FakeNFT-FakeNFTUITests/Pods-FakeNFT-FakeNFTUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B85D3BC7736CC3B5B1F6A961 /* Pods_FakeNFT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FakeNFT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,6 +212,7 @@
 		3F6806C729CBBC5B00B4F915 /* Scenes  */ = {
 			isa = PBXGroup;
 			children = (
+				7F07A6E82AD45B5D00589943 /* CartView */,
 				3F6806C829CBBC8100B4F915 /* ProductDetails */,
 			);
 			path = "Scenes ";
@@ -260,6 +269,17 @@
 				3FC8C39029D2453B0081F015 /* ExampleRequest.swift */,
 			);
 			path = Requests;
+			sourceTree = "<group>";
+		};
+		7F07A6E82AD45B5D00589943 /* CartView */ = {
+			isa = PBXGroup;
+			children = (
+				7F07A6EB2AD45BCE00589943 /* CartTableViewViewModel.swift */,
+				7F07A6ED2AD45BF300589943 /* CartTableViewViewController.swift */,
+				7F07A6EF2AD45C3000589943 /* CartTableViewCell.swift */,
+				7F07A6E92AD45BA200589943 /* CartTableViewCellViewModel.swift */,
+			);
+			path = CartView;
 			sourceTree = "<group>";
 		};
 		CCE3ACD0EC2CB49A1AEF01F1 /* Frameworks */ = {
@@ -568,15 +588,19 @@
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				F31CFF372ACC6B74008C4F1F /* Strings+Generated.swift in Sources */,
+				7F07A6EE2AD45BF300589943 /* CartTableViewViewController.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
+				7F07A6EA2AD45BA200589943 /* CartTableViewCellViewModel.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
+				7F07A6F02AD45C3000589943 /* CartTableViewCell.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				3F6806CB29CBBCC700B4F915 /* ExampleNetworkModel.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
+				7F07A6EC2AD45BCE00589943 /* CartTableViewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

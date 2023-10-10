@@ -13,6 +13,8 @@ public enum L {
   public enum Cart {
     /// Оплатить
     public static let pay = L.tr("Localizable", "cart.pay", fallback: "Оплатить")
+    /// Цена
+    public static let price = L.tr("Localizable", "cart.price", fallback: "Цена")
     /// Корзина
     public static let title = L.tr("Localizable", "cart.title", fallback: "Корзина")
     /// К оплате

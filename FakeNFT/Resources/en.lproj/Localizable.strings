@@ -11,6 +11,7 @@
 "cart.title" = "Cart";
 "cart.pay" = "Pay";
 "cart.toBePaid" = "To be paid";
+"cart.price" = "Price";
 
 "statistics.title" = "Statistics";
 

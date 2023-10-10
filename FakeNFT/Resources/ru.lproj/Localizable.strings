@@ -11,6 +11,7 @@
 "cart.title" = "Корзина";
 "cart.pay" = "Оплатить";
 "cart.toBePaid" = "К оплате";
+"cart.price" = "Цена";
 
 "statistics.title" = "Статистика";
 
