@@ -3,10 +3,26 @@
   FakeNFT
 */
 
+"alert.ok" = "ОК";
+"alert.yes" = "Да";
+"alert.no" = "Нет";
+"alert.close" = "Закрыть";
+"alert.tryAgain" = "Попробовать еще раз";
+
 "profile.title" = "Профиль";
 "profile.name" = "Имя";
 "profile.description" = "Описание";
 "profile.website" = "Сайт";
+"profile.about" = "О разработчике";
+"profile.avatar.change" = "Сменить\nфото";
+"profile.alert.urlError" = "Произошла ошибка при парсинге ссылки";
+"profile.alert.fetchError" = "Произошла ошибка во время загрузки профиля";
+"profile.alert.editError" = "Произошла ошибка во время изменения данных профиля";
+"profile.alert.saveChanges" = "Вы хотите сохранить изменения?";
+"profile.sort.title" = "Сортировка";
+"profile.sort.price" = "По цене";
+"profile.sort.rating" = "По рейтингу";
+"profile.sort.name" = "По названию";
 
 "cart.title" = "Корзина";
 "cart.pay" = "Оплатить";

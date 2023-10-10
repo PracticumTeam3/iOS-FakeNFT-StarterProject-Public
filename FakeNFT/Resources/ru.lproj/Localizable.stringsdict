@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>profile.mynft</key>
+	<key>profile.myNFT</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
@@ -16,6 +16,22 @@
 			<string>Мои NFT</string>
 			<key>other</key>
 			<string>Мои NFT (%d)</string>
+		</dict>
+	</dict>
+	<key>profile.favouriteNFT</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>Избранные NFT</string>
+			<key>other</key>
+			<string>Избранные NFT (%d)</string>
 		</dict>
 	</dict>
 </dict>

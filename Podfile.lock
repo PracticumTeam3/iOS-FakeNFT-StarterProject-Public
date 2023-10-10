@@ -1,20 +1,24 @@
 PODS:
+  - SkeletonView (1.30.4)
   - SwiftGen (6.6.2)
   - SwiftLint (0.52.4)
 
 DEPENDENCIES:
+  - SkeletonView (= 1.30.4)
   - SwiftGen (= 6.6.2)
   - SwiftLint (= 0.52.4)
 
 SPEC REPOS:
   trunk:
+    - SkeletonView
     - SwiftGen
     - SwiftLint
 
 SPEC CHECKSUMS:
+  SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
 
-PODFILE CHECKSUM: e5ae206bc5d6c0139cf6c020baecd5d1a807ae7f
+PODFILE CHECKSUM: efb782284edc602e21e0ed8824a45d44dd6a01be
 
 COCOAPODS: 1.12.1

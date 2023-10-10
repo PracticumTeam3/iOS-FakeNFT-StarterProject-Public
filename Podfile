@@ -4,10 +4,12 @@
 target 'FakeNFT' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
+  inhibit_all_warnings!
 
   # Pods for FakeNFT
   pod 'SwiftGen', '6.6.2'
   pod 'SwiftLint', '0.52.4'
+  pod 'SkeletonView', '1.30.4'
 
   target 'FakeNFTTests' do
     inherit! :search_paths

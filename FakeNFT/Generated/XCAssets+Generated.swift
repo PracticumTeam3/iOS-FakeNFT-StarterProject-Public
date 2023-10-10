@@ -44,6 +44,7 @@ public enum A {
       public static let profile = ImageAsset(name: "profile")
       public static let statistic = ImageAsset(name: "statistic")
     }
+    public static let back = ImageAsset(name: "back")
     public static let close = ImageAsset(name: "close")
     public static let edit = ImageAsset(name: "edit")
     public static let favouriteActive = ImageAsset(name: "favouriteActive")
@@ -56,6 +57,9 @@ public enum A {
       public static let page1 = ImageAsset(name: "page1")
       public static let page2 = ImageAsset(name: "page2")
       public static let page3 = ImageAsset(name: "page3")
+    }
+    public enum Profile {
+      public static let avatar = ImageAsset(name: "avatar")
     }
   }
 }

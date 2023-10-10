@@ -3,10 +3,26 @@
   FakeNFT  
 */
 
+"alert.ok" = "OK";
+"alert.yes" = "Yes";
+"alert.no" = "No";
+"alert.close" = "Close";
+"alert.tryAgain" = "Try again";
+
 "profile.title" = "Profile";
 "profile.name" = "Name";
 "profile.description" = "Description";
 "profile.website" = "Website";
+"profile.about" = "About the developer";
+"profile.avatar.change" = "Change\nphoto";
+"profile.alert.urlError" = "An error occurred while parsing the link";
+"profile.alert.fetchError" = "An error occurred while loading the profile";
+"profile.alert.editError" = "An error occurred while changing profile data";
+"profile.alert.saveChanges" = "Do you want to save the changes?";
+"profile.sort.title" = "Sort";
+"profile.sort.price" = "By price";
+"profile.sort.rating" = "By rating";
+"profile.sort.name" = "By name";
 
 "cart.title" = "Cart";
 "cart.pay" = "Pay";
