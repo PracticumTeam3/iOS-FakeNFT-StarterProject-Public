@@ -33,7 +33,7 @@ final class EditProfileView: UIView {
         static let textFieldMaxLength: Int = 100
         static let textViewMaxLength: Int = 400
         enum ContentView {
-            static let leadingAndTrailingInset: CGFloat = 16
+            static let horizontalSpacing: CGFloat = 16
         }
         enum ImageView {
             static let topInset: CGFloat = 22
@@ -115,7 +115,6 @@ final class EditProfileView: UIView {
     private let websiteTextField = TextField(cornerRadius: Constants.cornerRadius)
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
-        textView.isEditable = true
         textView.backgroundColor = A.Colors.lightGrayDynamic.color
         textView.textColor = A.Colors.blackDynamic.color
         textView.isScrollEnabled = false
@@ -156,12 +155,12 @@ final class EditProfileView: UIView {
             safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.leadingAnchor.constraint(
                 equalTo: scrollView.leadingAnchor,
-                constant: Constants.ContentView.leadingAndTrailingInset
+                constant: Constants.ContentView.horizontalSpacing
             ),
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             scrollView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: Constants.ContentView.leadingAndTrailingInset
+                constant: Constants.ContentView.horizontalSpacing
             ),
             scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ]

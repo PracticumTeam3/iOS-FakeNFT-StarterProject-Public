@@ -54,12 +54,12 @@ final class EditProfileViewController: UIViewController {
 
     private func showAlert() {
         AlertPresenter.show(in: self, model: .confirmChanging(
-            yes: { [weak self] in
+            agreeCompletion: { [weak self] in
                 guard let self else { return }
                 self.viewModel.editProfile(editProfileModel: self.editProfileView.editProfileModel)
                 self.dismiss(animated: true)
             },
-            no: { [weak self] in
+            cancelCompletion: { [weak self] in
                 self?.dismiss(animated: true)
             })
         )

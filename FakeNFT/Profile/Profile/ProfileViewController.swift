@@ -47,7 +47,7 @@ final class ProfileViewController: UIViewController {
             guard let self else { return }
             DispatchQueue.main.async {
                 self.profileView.updateUI()
-                self.profileView.hideSceleton()
+                self.profileView.changeSkeletonState(isShown: false)
                 self.editButton?.isEnabled = true
             }
         }
@@ -88,7 +88,7 @@ final class ProfileViewController: UIViewController {
         )
         profileView.initialize(gestureRecognizer: gestureRecognizer)
         if viewModel.model == nil {
-            profileView.showSceleton()
+            profileView.changeSkeletonState(isShown: true)
             editButton?.isEnabled = false
         }
     }
@@ -110,6 +110,3 @@ final class ProfileViewController: UIViewController {
     }
 
 }
-
-// MARK: - ProfileNavigationController
-final class ProfileNavigationController: UINavigationController { }

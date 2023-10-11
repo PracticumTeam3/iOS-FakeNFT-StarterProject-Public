@@ -30,19 +30,22 @@ struct AlertModel {
         )
     }
 
-    static func confirmChanging(yes: @escaping () -> Void, no: @escaping () -> Void) -> AlertModel {
+    static func confirmChanging(
+        agreeCompletion: @escaping () -> Void,
+        cancelCompletion: @escaping () -> Void
+    ) -> AlertModel {
         AlertModel(
             title: L.Profile.Alert.saveChanges,
             message: nil,
             primaryButton: AlertButton(
                 text: L.Alert.yes,
                 style: .default,
-                completion: yes
+                completion: agreeCompletion
             ),
             secondaryButton: AlertButton(
                 text: L.Alert.no,
                 style: .destructive,
-                completion: no
+                completion: cancelCompletion
             ),
             preferredStyle: .alert
         )

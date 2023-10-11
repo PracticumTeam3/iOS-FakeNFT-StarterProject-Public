@@ -11,8 +11,8 @@ import UIKit
 final class TabBarController: UITabBarController {
 
     // MARK: - Private Properties
-    private var profileNavigationController: ProfileNavigationController {
-        let navigationController = ProfileNavigationController()
+    private var profileNavigationController: UINavigationController {
+        let navigationController = UINavigationController()
         let viewModel = ProfileViewModel()
         let viewController = ProfileViewController(viewModel: viewModel)
 

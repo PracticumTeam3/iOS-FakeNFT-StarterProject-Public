@@ -15,21 +15,21 @@ final class ProfileView: UIView {
     // MARK: - Private properties
     private enum Constants {
         enum ContentView {
-            static let leadingAndTrailingInset: CGFloat = 16
+            static let horizontalSpacing: CGFloat = 16
         }
         enum ImageView {
             static let topInset: CGFloat = 20
             static let widthAndHeight: CGFloat = 70
         }
         enum TableView {
-            static let topInset: CGFloat = 40
-            static let leadingAndTrailingInset: CGFloat = 20
+            static let topInset: CGFloat = 44
+            static let horizontalSpacing: CGFloat = 20
             static let maxHeight: CGFloat = 300
+            static let height: CGFloat = 54
         }
         enum DescriptionLabel {
             static let topInset: CGFloat = 20
-            static let bottomInset: CGFloat = 8
-            static let leadingInset: CGFloat = -6
+            static let bottomInset: CGFloat = 12
         }
         enum NameLabel {
             static let leadingInset: CGFloat = 16
@@ -75,11 +75,20 @@ final class ProfileView: UIView {
 
     private let descriptionLabel: UITextView = {
         let textView = UITextView()
-        textView.font = .regular13
         textView.backgroundColor = A.Colors.whiteDynamic.color
-        textView.textColor = A.Colors.blackDynamic.color
         textView.isScrollEnabled = false
+        textView.textContainer.lineFragmentPadding = 0
+        textView.textContainerInset = .zero
         textView.sizeToFit()
+        textView.isEditable = false
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 3
+        let attributes: [NSAttributedString.Key: Any] = [
+            .paragraphStyle: style,
+            .foregroundColor: A.Colors.blackDynamic.color,
+            .font: UIFont.regular13
+        ]
+        textView.typingAttributes = attributes
         textView.isSkeletonable = true
         return textView
     }()
@@ -145,12 +154,12 @@ final class ProfileView: UIView {
         tableView.reloadData()
     }
 
-    func showSceleton() {
-        contentView.showAnimatedSkeleton()
-    }
-
-    func hideSceleton() {
-        contentView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+    func changeSkeletonState(isShown: Bool) {
+        if isShown {
+            contentView.showAnimatedSkeleton()
+        } else {
+            contentView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+        }
     }
 
     // MARK: - Layout
@@ -163,12 +172,12 @@ final class ProfileView: UIView {
             safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.leadingAnchor.constraint(
                 equalTo: scrollView.leadingAnchor,
-                constant: Constants.ContentView.leadingAndTrailingInset
+                constant: Constants.ContentView.horizontalSpacing
             ),
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             scrollView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: Constants.ContentView.leadingAndTrailingInset
+                constant: Constants.ContentView.horizontalSpacing
             ),
             scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ]
@@ -200,8 +209,7 @@ final class ProfileView: UIView {
     private var descriptionLabelConstraints: [NSLayoutConstraint] {
         [
             descriptionLabel.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: Constants.DescriptionLabel.leadingInset
+                equalTo: contentView.leadingAnchor
             ),
             descriptionLabel.topAnchor.constraint(
                 equalTo: imageView.bottomAnchor,
@@ -226,7 +234,7 @@ final class ProfileView: UIView {
         [
             contentView.leadingAnchor.constraint(
                 equalTo: tableView.leadingAnchor,
-                constant: Constants.TableView.leadingAndTrailingInset
+                constant: Constants.TableView.horizontalSpacing
             ),
             tableView.topAnchor.constraint(
                 equalTo: websiteLabel.bottomAnchor,
@@ -234,7 +242,7 @@ final class ProfileView: UIView {
             ),
             tableView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: Constants.TableView.leadingAndTrailingInset
+                constant: Constants.TableView.horizontalSpacing
             ),
             contentView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
             tableViewHeightAnchor
@@ -296,4 +304,9 @@ extension ProfileView: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension ProfileView: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        Constants.TableView.height
+    }
+
 }
