@@ -49,6 +49,8 @@ public enum A {
     public static let edit = ImageAsset(name: "edit")
     public static let favouriteActive = ImageAsset(name: "favouriteActive")
     public static let favouriteInactive = ImageAsset(name: "favouriteInactive")
+    public static let ratingOff = ImageAsset(name: "ratingOff")
+    public static let ratingOn = ImageAsset(name: "ratingOn")
     public static let sort = ImageAsset(name: "sort")
     public static let splashScreen = ImageAsset(name: "splashScreen")
   }
