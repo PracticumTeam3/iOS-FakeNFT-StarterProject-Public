@@ -9,7 +9,6 @@ import Foundation
 
 final class UserSortedService {
     private let userDefaults = UserDefaults.standard
-    //сортировка корзины
     var cartSorted: CartSortedStorage {
         get {
             guard let data = userDefaults.data(forKey: Keys.cartSorted.rawValue),

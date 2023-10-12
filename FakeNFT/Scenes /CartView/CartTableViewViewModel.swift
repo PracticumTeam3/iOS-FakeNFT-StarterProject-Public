@@ -13,7 +13,7 @@ protocol CartTableViewViewModelDelegateProtocol {
 final class CartTableViewViewModel {
     private var nfts = mockNFT
     @CartObservable private(set) var sortedNFT = [CartTableViewCellViewModel]()
-    @CartObservable private(set) var nftIsEmpty: Bool = false
+    @CartObservable private(set) var nftIsEmpty: Bool = true
     @CartObservable private(set) var nftCount: String = "10 NFT"
     @CartObservable private(set) var nftPrices: String = "5,34 ETH"
     private var userSortedService = UserSortedService()
@@ -21,15 +21,16 @@ final class CartTableViewViewModel {
     var delegate: CartTableViewViewModelDelegateProtocol?
     init() {
         sortedName = userSortedService.cartSorted
-        sortedCart()
         checkNFTCount()
+        sortedCart()
     }
     
     private func checkNFTCount() {
-        nftIsEmpty = sortedNFT.isEmpty
+        nftIsEmpty = nfts.isEmpty
     }
     private func sortedCart() {
         guard let sortedName = sortedName else { return }
+        if nftIsEmpty { return }
         switch sortedName {
         case .name:
             sortedNFT = nfts.sorted{$0.nftName < $1.nftName}
@@ -59,6 +60,7 @@ extension CartTableViewViewModel: CartTableViewCellViewModelDelegateProtocol {
 extension CartTableViewViewModel: NfyDeleteAlertDelegateProtocol {
     func deleteNft(index: Int) {
         print("delete nft, index \(index)")
+        checkNFTCount()
     }
 }
 

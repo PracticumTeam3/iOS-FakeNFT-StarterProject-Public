@@ -20,6 +20,7 @@
 "cart.sortedByRating" = "By rating";
 "cart.sortedByName" = "By name";
 "cart.sortedClose" = "Close";
+"cart.cartEmpty" = "Cart is Empty";
 
 "statistics.title" = "Statistics";
 

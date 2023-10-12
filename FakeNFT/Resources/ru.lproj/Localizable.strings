@@ -20,6 +20,7 @@
 "cart.sortedByRating" = "По рейтингу";
 "cart.sortedByName" = "По названию";
 "cart.sortedClose" = "Закрыть";
+"cart.cartEmpty" = "Корзина пуста";
 
 "statistics.title" = "Статистика";
 

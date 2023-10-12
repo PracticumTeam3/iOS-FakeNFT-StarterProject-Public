@@ -15,6 +15,7 @@ final class CartTableViewViewController: UIViewController {
         label.font = .bold17
         label.textAlignment = .center
         label.textColor = A.Colors.blackDynamic.color
+        label.text = L.Cart.cartEmpty
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -157,9 +158,9 @@ final class CartTableViewViewController: UIViewController {
     }
     @objc
     private func sortedNFT(){
-        showSheet()
+        showAcionSheet()
     }
-    private func showSheet(){
+    private func showAcionSheet(){
         let alert = UIAlertController(title: L.Cart.sorted,
                                       message: nil,
                                       preferredStyle: .actionSheet)
@@ -186,7 +187,7 @@ final class CartTableViewViewController: UIViewController {
     }
     @objc
     private func payNFT(){
-        //TODO: метод оплаты нфт
+        //TODO: метод оплаты нфт, следующее ревью
     }
 }
 
