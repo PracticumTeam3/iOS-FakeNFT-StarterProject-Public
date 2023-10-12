@@ -12,6 +12,9 @@
 "cart.pay" = "Pay";
 "cart.toBePaid" = "To be paid";
 "cart.price" = "Price";
+"cart.delete" = "Delete";
+"cart.return" =  "Return";
+"cart.deleteQuestion" = "Are you sure you want\nto remove the item from the Trash?";
 
 "statistics.title" = "Statistics";
 

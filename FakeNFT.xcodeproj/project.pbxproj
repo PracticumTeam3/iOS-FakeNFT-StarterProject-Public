@@ -33,6 +33,7 @@
 		7F65A5862AD59C88003E33FE /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F65A5852AD59C88003E33FE /* RatingView.swift */; };
 		7F65A5882AD5A2AB003E33FE /* CartObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F65A5872AD5A2AB003E33FE /* CartObservable.swift */; };
 		7F65A58A2AD5B80B003E33FE /* CartSortedStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F65A5892AD5B80B003E33FE /* CartSortedStorage.swift */; };
+		7F65A58E2AD6DF11003E33FE /* NftDeleteAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F65A58D2AD6DF11003E33FE /* NftDeleteAlert.swift */; };
 		7F8F93462AD3E088003A67A1 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8F93452AD3E088003A67A1 /* LaunchScreenViewController.swift */; };
 		7F8F93492AD3E4AB003A67A1 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8F93482AD3E4AB003A67A1 /* TabBarViewModel.swift */; };
 		7F8F934B2AD3E4C8003A67A1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8F934A2AD3E4C8003A67A1 /* TabBarViewController.swift */; };
@@ -99,6 +100,7 @@
 		7F65A5852AD59C88003E33FE /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		7F65A5872AD5A2AB003E33FE /* CartObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartObservable.swift; sourceTree = "<group>"; };
 		7F65A5892AD5B80B003E33FE /* CartSortedStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartSortedStorage.swift; sourceTree = "<group>"; };
+		7F65A58D2AD6DF11003E33FE /* NftDeleteAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftDeleteAlert.swift; sourceTree = "<group>"; };
 		7F8F93452AD3E088003A67A1 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		7F8F93482AD3E4AB003A67A1 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
 		7F8F934A2AD3E4C8003A67A1 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				7F07A6E92AD45BA200589943 /* CartTableViewCellViewModel.swift */,
 				7F65A5852AD59C88003E33FE /* RatingView.swift */,
 				7F65A5872AD5A2AB003E33FE /* CartObservable.swift */,
+				7F65A58D2AD6DF11003E33FE /* NftDeleteAlert.swift */,
 			);
 			path = CartView;
 			sourceTree = "<group>";
@@ -556,7 +559,7 @@
 		3FC8C39529D24CDB0081F015 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -597,7 +600,7 @@
 		F31CFF1A2ACC5A17008C4F1F /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -644,6 +647,7 @@
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				3F6806CB29CBBCC700B4F915 /* ExampleNetworkModel.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
+				7F65A58E2AD6DF11003E33FE /* NftDeleteAlert.swift in Sources */,
 				7F07A6EC2AD45BCE00589943 /* CartTableViewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

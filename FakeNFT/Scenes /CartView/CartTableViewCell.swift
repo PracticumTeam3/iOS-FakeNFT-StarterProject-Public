@@ -10,6 +10,7 @@ import Kingfisher
 
 final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
     static var defaultReuseIdentifier: String  = "CartTableViewCell"
+    var cellIndex: Int?
     private var nftImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
@@ -112,7 +113,8 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
     }
     @objc
     private func deleteNft(){
-       //метод удаления
+        guard let image = nftImageView.image,
+              let index = cellIndex else { return }
+        viewModel.pressDelete(image:image, index: index)
     }
 }
-

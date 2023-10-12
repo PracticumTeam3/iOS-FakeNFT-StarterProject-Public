@@ -12,6 +12,9 @@
 "cart.pay" = "Оплатить";
 "cart.toBePaid" = "К оплате";
 "cart.price" = "Цена";
+"cart.delete" = "Удалить";
+"cart.return" =  "Вернуться";
+"cart.deleteQuestion" = "Вы уверены, что хотите\nудалить объект из корзины?";
 
 "statistics.title" = "Статистика";
 
