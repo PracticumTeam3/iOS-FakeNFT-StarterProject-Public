@@ -90,7 +90,6 @@ final class CartTableViewViewController: UIViewController {
         layoutSupport()
         bind()
         nftTableView.dataSource = self
-        nftTableView.delegate = self
     }
     private func layoutSupport() {
         view.addSubview(emptyLabel)
@@ -158,10 +157,35 @@ final class CartTableViewViewController: UIViewController {
     }
     @objc
     private func sortedNFT(){
-        //TODO: метод сортировки нфт
+        showSheet()
+    }
+    private func showSheet(){
+        let alert = UIAlertController(title: L.Cart.sorted,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        let action1 = UIAlertAction(title: L.Cart.sortedByPrice,
+                                    style: .default) { [weak self] _ in
+            self?.viewModel.changeSortes(CartSortedStorage.price)
+        }
+        let action2 = UIAlertAction(title: L.Cart.sortedByRating,
+                                    style: .default) { [weak self] _ in
+            self?.viewModel.changeSortes(CartSortedStorage.rating)
+        }
+        let action3 = UIAlertAction(title: L.Cart.sortedByName,
+                                    style: .default) { [weak self] _ in
+            self?.viewModel.changeSortes(CartSortedStorage.name)
+        }
+        let action4 = UIAlertAction(title: L.Cart.sortedClose,
+                                    style: .cancel,
+                                    handler: nil)
+        alert.addAction(action1)
+        alert.addAction(action2)
+        alert.addAction(action3)
+        alert.addAction(action4)
+        self.present(alert, animated: true)
     }
     @objc
-    private func payNFT() {
+    private func payNFT(){
         //TODO: метод оплаты нфт
     }
 }
@@ -182,12 +206,6 @@ extension CartTableViewViewController: UITableViewDataSource {
         return cell
     }
 }
-
-//MARK: - Extension UITableViewDelegate
-extension CartTableViewViewController: UITableViewDelegate {
-    
-}
-
 
 //MARK: - Extension CartTableViewViewModelDelegateProtocol
 extension CartTableViewViewController: CartTableViewViewModelDelegateProtocol {

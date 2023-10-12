@@ -22,6 +22,16 @@ public enum L {
     public static let price = L.tr("Localizable", "cart.price", fallback: "Цена")
     /// Вернуться
     public static let `return` = L.tr("Localizable", "cart.return", fallback: "Вернуться")
+    /// Сортировка
+    public static let sorted = L.tr("Localizable", "cart.sorted", fallback: "Сортировка")
+    /// По названию
+    public static let sortedByName = L.tr("Localizable", "cart.sortedByName", fallback: "По названию")
+    /// По цене
+    public static let sortedByPrice = L.tr("Localizable", "cart.sortedByPrice", fallback: "По цене")
+    /// По рейтингу
+    public static let sortedByRating = L.tr("Localizable", "cart.sortedByRating", fallback: "По рейтингу")
+    /// Закрыть
+    public static let sortedClose = L.tr("Localizable", "cart.sortedClose", fallback: "Закрыть")
     /// Корзина
     public static let title = L.tr("Localizable", "cart.title", fallback: "Корзина")
     /// К оплате

@@ -15,6 +15,11 @@
 "cart.delete" = "Delete";
 "cart.return" =  "Return";
 "cart.deleteQuestion" = "Are you sure you want\nto remove the item from the Trash?";
+"cart.sorted" = "Sorting";
+"cart.sortedByPrice" = "By price";
+"cart.sortedByRating" = "By rating";
+"cart.sortedByName" = "By name";
+"cart.sortedClose" = "Close";
 
 "statistics.title" = "Statistics";
 

@@ -7,8 +7,9 @@
 
 import Foundation
 
-enum CartSortedStorage: String {
-    case price = "По цене"
-    case raiting = "По рейтингу"
-    case name = "По названию"
+enum CartSortedStorage: Codable {
+    case price
+    case rating
+    case name
 }
+

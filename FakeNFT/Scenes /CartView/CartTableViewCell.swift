@@ -59,7 +59,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         didSet {
             nftImageView.kf.setImage(with: viewModel.imageURL)
             nftNameLabel.text = viewModel.nftName
-            nftPriceLabel.text = viewModel.price
+            nftPriceLabel.text = viewModel.priceString
             ratingView.updateRating(viewModel.rating)
         }
     }

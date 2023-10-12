@@ -15,6 +15,11 @@
 "cart.delete" = "Удалить";
 "cart.return" =  "Вернуться";
 "cart.deleteQuestion" = "Вы уверены, что хотите\nудалить объект из корзины?";
+"cart.sorted" = "Сортировка";
+"cart.sortedByPrice" = "По цене";
+"cart.sortedByRating" = "По рейтингу";
+"cart.sortedByName" = "По названию";
+"cart.sortedClose" = "Закрыть";
 
 "statistics.title" = "Статистика";
 
