@@ -17,27 +17,15 @@ final class AlertPresenter {
             preferredStyle: model.preferredStyle
         )
 
-        if let primaryButton = model.primaryButton {
-            let primaryButtonAction = UIAlertAction(
-                title: primaryButton.text,
-                style: primaryButton.style
-            ) { _ in
-                primaryButton.completion()
+        for button in model.buttons {
+            let action = UIAlertAction(title: button.text, style: button.style) { _ in
+                button.completion()
             }
-            alert.addAction(primaryButtonAction)
+            alert.addAction(action)
         }
-
-        if let secondaryButton = model.secondaryButton {
-            let secondaryButtonAction = UIAlertAction(
-                title: secondaryButton.text,
-                style: secondaryButton.style
-            ) { _ in
-                secondaryButton.completion()
-            }
-            alert.addAction(secondaryButtonAction)
+        if controller.presentedViewController == nil {
+            controller.present(alert, animated: true, completion: nil)
         }
-
-        controller.present(alert, animated: true, completion: nil)
     }
 
 }

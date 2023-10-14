@@ -11,6 +11,11 @@ import UIKit
 final class ProfileViewController: UIViewController {
 
     // MARK: - Private properties
+    private enum Constants {
+        enum TableView {
+            static let height: CGFloat = 54
+        }
+    }
     private let profileView: ProfileView
     private let viewModel: ProfileViewModel
     private var editButton: UIBarButtonItem? {
@@ -77,7 +82,7 @@ final class ProfileViewController: UIViewController {
             target: self,
             action: #selector(presentEditProfileViewController)
         )
-        navBar.topItem?.setRightBarButton(rightButton, animated: false)
+        navigationItem.setRightBarButton(rightButton, animated: false)
         navBar.tintColor = A.Colors.blackDynamic.color
     }
 
@@ -86,6 +91,8 @@ final class ProfileViewController: UIViewController {
            target: self,
            action: #selector(presentWebViewController)
         )
+        profileView.tableView.dataSource = self
+        profileView.tableView.delegate = self
         profileView.initialize(gestureRecognizer: gestureRecognizer)
         if viewModel.model == nil {
             profileView.changeSkeletonState(isShown: true)
@@ -107,6 +114,46 @@ final class ProfileViewController: UIViewController {
         let viewModel = WebViewModel()
         let vc = WebViewController(webViewModel: viewModel, url: url)
         present(vc, animated: true)
+    }
+
+}
+
+// MARK: - UITableViewDataSource
+extension ProfileViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.cells.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: ProfileTableViewCell = tableView.dequeueReusableCell()
+        cell.configCell(label: viewModel.cells[indexPath.row].name)
+        return cell
+    }
+
+}
+
+// MARK: - UITableViewDelegate
+extension ProfileViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        Constants.TableView.height
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = viewModel.cells[indexPath.row]
+        switch cell {
+        case .myNFT:
+            let viewModel = MyNFTViewModel()
+            let viewController = MyNFTViewController(viewModel: viewModel)
+            navigationController?.pushViewController(viewController, animated: true)
+        case .favouriteNFT:
+            // TODO: implement FavouriteNFT
+            break
+        case .about:
+            // TODO: implement About
+            break
+        }
     }
 
 }

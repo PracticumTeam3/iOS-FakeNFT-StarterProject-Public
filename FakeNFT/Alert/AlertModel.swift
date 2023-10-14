@@ -12,20 +12,20 @@ struct AlertModel {
 
     let title: String
     let message: String?
-    let primaryButton: AlertButton?
-    let secondaryButton: AlertButton?
+    let buttons: [AlertButton]
     let preferredStyle: UIAlertController.Style
 
     static var urlParsingError: AlertModel {
         AlertModel(
             title: L.Profile.Alert.urlError,
             message: nil,
-            primaryButton: AlertButton(
-                text: L.Alert.ok,
-                style: .default,
-                completion: {}
-            ),
-            secondaryButton: nil,
+            buttons: [
+                AlertButton(
+                    text: L.Alert.ok,
+                    style: .default,
+                    completion: {}
+                )
+            ],
             preferredStyle: .alert
         )
     }
@@ -37,51 +37,104 @@ struct AlertModel {
         AlertModel(
             title: L.Profile.Alert.saveChanges,
             message: nil,
-            primaryButton: AlertButton(
-                text: L.Alert.yes,
-                style: .default,
-                completion: agreeCompletion
-            ),
-            secondaryButton: AlertButton(
-                text: L.Alert.no,
-                style: .destructive,
-                completion: cancelCompletion
-            ),
+            buttons: [
+                AlertButton(
+                    text: L.Alert.yes,
+                    style: .default,
+                    completion: agreeCompletion
+                ),
+                AlertButton(
+                    text: L.Alert.no,
+                    style: .destructive,
+                    completion: cancelCompletion
+                )
+            ],
             preferredStyle: .alert
         )
     }
 
     static func profileFetchError(
         message: String,
-        primaryButtonCompletion: @escaping () -> Void
+        tryAgainCompletion: @escaping () -> Void
     ) -> AlertModel {
         AlertModel(
             title: L.Profile.Alert.fetchError,
             message: message,
-            primaryButton: AlertButton(
-                text: L.Alert.tryAgain,
-                style: .default,
-                completion: primaryButtonCompletion
-            ),
-            secondaryButton: nil,
+            buttons: [
+                AlertButton(
+                    text: L.Alert.tryAgain,
+                    style: .default,
+                    completion: tryAgainCompletion
+                )
+            ],
+            preferredStyle: .alert
+        )
+    }
+
+    static func myNFTLoadError(message: String) -> AlertModel {
+        AlertModel(
+            title: L.Profile.MyNFT.Alert.fetchError,
+            message: message,
+            buttons: [
+                AlertButton(
+                    text: L.Alert.ok,
+                    style: .default,
+                    completion: {}
+                )
+            ],
             preferredStyle: .alert
         )
     }
 
     static func profileEditError(
         message: String,
-        primaryButtonCompletion: @escaping () -> Void
+        okCompletion: @escaping () -> Void
     ) -> AlertModel {
         AlertModel(
             title: L.Profile.Alert.editError,
             message: message,
-            primaryButton: AlertButton(
-                text: L.Alert.ok,
-                style: .default,
-                completion: primaryButtonCompletion
-            ),
-            secondaryButton: nil,
+            buttons: [
+                AlertButton(
+                    text: L.Alert.ok,
+                    style: .default,
+                    completion: okCompletion
+                )
+            ],
             preferredStyle: .alert
+        )
+    }
+
+    static func sortActionSheet(
+        priceCompletion: @escaping () -> Void,
+        ratingCompletion: @escaping () -> Void,
+        nameCompletion: @escaping () -> Void
+    ) -> AlertModel {
+        AlertModel(
+            title: L.Profile.MyNFT.Sort.title,
+            message: nil,
+            buttons: [
+                AlertButton(
+                    text: L.Profile.MyNFT.Sort.price,
+                    style: .default,
+                    completion: priceCompletion
+                ),
+                AlertButton(
+                    text: L.Profile.MyNFT.Sort.rating,
+                    style: .default,
+                    completion: ratingCompletion
+                ),
+                AlertButton(
+                    text: L.Profile.MyNFT.Sort.name,
+                    style: .default,
+                    completion: nameCompletion
+                ),
+                AlertButton(
+                    text: L.Alert.close,
+                    style: .cancel,
+                    completion: {}
+                )
+            ],
+            preferredStyle: .actionSheet
         )
     }
 

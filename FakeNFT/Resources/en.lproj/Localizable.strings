@@ -19,10 +19,19 @@
 "profile.alert.fetchError" = "An error occurred while loading the profile";
 "profile.alert.editError" = "An error occurred while changing profile data";
 "profile.alert.saveChanges" = "Do you want to save the changes?";
-"profile.sort.title" = "Sort";
-"profile.sort.price" = "By price";
-"profile.sort.rating" = "By rating";
-"profile.sort.name" = "By name";
+
+"profile.myNFT.title" = "My NFT";
+"profile.myNFT.empty" = "You don't have NFT yet";
+"profile.myNFT.price.title" = "Price";
+"profile.myNFT.author.title" = "by";
+"profile.myNFT.sort.title" = "Sort";
+"profile.myNFT.sort.price" = "By price";
+"profile.myNFT.sort.rating" = "By rating";
+"profile.myNFT.sort.name" = "By name";
+"profile.myNFT.alert.fetchError" = "An error occurred while loading the nfts";
+
+"profile.favouriteNFT.title" = "Favourite NFT";
+"profile.favouriteNFT.empty" = "You don't have favourite NFT yet";
 
 "cart.title" = "Cart";
 "cart.pay" = "Pay";

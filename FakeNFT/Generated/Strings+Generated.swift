@@ -69,15 +69,39 @@ public enum L {
       /// фото
       public static let change = L.tr("Localizable", "profile.avatar.change", fallback: "Сменить\nфото")
     }
-    public enum Sort {
-      /// По названию
-      public static let name = L.tr("Localizable", "profile.sort.name", fallback: "По названию")
-      /// По цене
-      public static let price = L.tr("Localizable", "profile.sort.price", fallback: "По цене")
-      /// По рейтингу
-      public static let rating = L.tr("Localizable", "profile.sort.rating", fallback: "По рейтингу")
-      /// Сортировка
-      public static let title = L.tr("Localizable", "profile.sort.title", fallback: "Сортировка")
+    public enum FavouriteNFT {
+      /// У Вас еще нет избранных NFT
+      public static let empty = L.tr("Localizable", "profile.favouriteNFT.empty", fallback: "У Вас еще нет избранных NFT")
+      /// Избранные NFT
+      public static let title = L.tr("Localizable", "profile.favouriteNFT.title", fallback: "Избранные NFT")
+    }
+    public enum MyNFT {
+      /// У Вас еще нет NFT
+      public static let empty = L.tr("Localizable", "profile.myNFT.empty", fallback: "У Вас еще нет NFT")
+      /// Мои NFT
+      public static let title = L.tr("Localizable", "profile.myNFT.title", fallback: "Мои NFT")
+      public enum Alert {
+        /// Произошла ошибка во время загрузки NFT
+        public static let fetchError = L.tr("Localizable", "profile.myNFT.alert.fetchError", fallback: "Произошла ошибка во время загрузки NFT")
+      }
+      public enum Author {
+        /// от
+        public static let title = L.tr("Localizable", "profile.myNFT.author.title", fallback: "от")
+      }
+      public enum Price {
+        /// Цена
+        public static let title = L.tr("Localizable", "profile.myNFT.price.title", fallback: "Цена")
+      }
+      public enum Sort {
+        /// По названию
+        public static let name = L.tr("Localizable", "profile.myNFT.sort.name", fallback: "По названию")
+        /// По цене
+        public static let price = L.tr("Localizable", "profile.myNFT.sort.price", fallback: "По цене")
+        /// По рейтингу
+        public static let rating = L.tr("Localizable", "profile.myNFT.sort.rating", fallback: "По рейтингу")
+        /// Сортировка
+        public static let title = L.tr("Localizable", "profile.myNFT.sort.title", fallback: "Сортировка")
+      }
     }
   }
   public enum Statistics {

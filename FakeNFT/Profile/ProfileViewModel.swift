@@ -28,9 +28,15 @@ final class ProfileViewModel {
     }
 
     // MARK: - Private properties
+    private let profileService: ProfileServiceProtocol
     private var profileObservation: NSKeyValueObservation?
     private var userDefaults: UserDefaults {
         UserDefaults.standard
+    }
+
+    // MARK: - Initializers
+    init(profileService: ProfileServiceProtocol = ProfileService()) {
+        self.profileService = profileService
     }
 
     // MARK: - Public methods
@@ -40,7 +46,7 @@ final class ProfileViewModel {
     }
 
     func fetchProfile() {
-        ProfileService.fetchProfile { [weak self] result in
+        profileService.fetchProfile { [weak self] result in
             switch result {
             case .success: break
             case .failure(let error): self?.onFetchError?(error.localizedDescription)
@@ -49,7 +55,7 @@ final class ProfileViewModel {
     }
 
     func editProfile(editProfileModel: EditProfileModel) {
-        ProfileService.editProfile(editProfileModel) { [weak self] result in
+        profileService.editProfile(editProfileModel) { [weak self] result in
             switch result {
             case .success: break
             case .failure(let error): self?.onEditError?(error.localizedDescription)
@@ -58,7 +64,7 @@ final class ProfileViewModel {
     }
 
     // MARK: - Private methods
-    func registerProfileLastChangeTimeObserver() {
+    private func registerProfileLastChangeTimeObserver() {
         profileObservation = userDefaults.observe(
             \.profileLastChangeTime,
              options: []
