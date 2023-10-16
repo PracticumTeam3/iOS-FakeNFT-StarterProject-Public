@@ -8,13 +8,14 @@
 import UIKit
 
 final class RatingView: UIView {
+    
     private let rating: Int
     private let horizontalStack = UIStackView()
     private var imageViewArray = [UIImageView]()
+    
     init(rating: Int) {
         self.rating = rating
         super .init(frame: CGRect())
-//        self.backgroundColor = .yellow
         layoutSupport()
     }
     

@@ -9,8 +9,10 @@ import UIKit
 import Kingfisher
 
 final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
+    
     static var defaultReuseIdentifier: String  = "CartTableViewCell"
     var cellIndex: Int?
+    
     private var nftImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
@@ -18,6 +20,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
     private var nftNameLabel: UILabel = {
         let label = UILabel()
         label.font = .bold17
@@ -28,6 +31,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     private var ratingView = RatingView(rating: 0)
     private var priceLabel: UILabel = {
         let label = UILabel()
@@ -38,6 +42,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     private var nftPriceLabel: UILabel = {
         let label = UILabel()
         label.font = .bold17
@@ -47,6 +52,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     private var deletebutton: UIButton = {
         let button = UIButton()
         let image = A.Icons.deleteNft.image
@@ -55,6 +61,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
     var viewModel: CartTableViewCellViewModel! {
         didSet {
             nftImageView.kf.setImage(with: viewModel.imageURL)
@@ -63,6 +70,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
             ratingView.updateRating(viewModel.rating)
         }
     }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = A.Colors.whiteDynamic.color
@@ -111,6 +119,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
             deletebutton.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
+    
     @objc
     private func deleteNft(){
         guard let image = nftImageView.image,

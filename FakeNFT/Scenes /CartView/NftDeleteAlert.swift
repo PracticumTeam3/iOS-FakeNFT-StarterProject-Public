@@ -21,6 +21,7 @@ final class NftDeleteAlert: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
     private let questionLabel: UILabel = {
         let label = UILabel()
         label.font = .regular13
@@ -31,6 +32,7 @@ final class NftDeleteAlert: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     private let deleteButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = A.Colors.blackDynamic.color
@@ -41,6 +43,7 @@ final class NftDeleteAlert: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
     private let returnButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = A.Colors.blackDynamic.color
@@ -51,14 +54,17 @@ final class NftDeleteAlert: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
     init(image:UIImage, index: Int){
         self.alertImage.image = image
         self.index = index
         super .init(nibName: nil, bundle: nil)
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         deleteButton.addTarget(self, action: #selector(pressedDelete), for: .touchUpInside)
@@ -70,10 +76,12 @@ final class NftDeleteAlert: UIViewController {
         view.addSubview(returnButton)
         layoutSupport()
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         additionalSafeAreaInsets = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
     }
+    
     private func backgroudViewSupport(){
         let blurEffect = UIBlurEffect(style: .light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -81,6 +89,7 @@ final class NftDeleteAlert: UIViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
     }
+    
     private func layoutSupport(){
         NSLayoutConstraint.activate([
             alertImage.widthAnchor.constraint(equalToConstant: 108),
@@ -105,11 +114,13 @@ final class NftDeleteAlert: UIViewController {
             returnButton.topAnchor.constraint(equalTo: questionLabel.bottomAnchor, constant: 20)
         ])
     }
+    
     @objc
     private func pressedDelete(){
         delegate?.deleteNft(index: index)
         dismiss(animated: false)
     }
+    
     @objc
     private func pressedReturn(){
         dismiss(animated: false)

@@ -12,4 +12,3 @@ enum CartSortedStorage: Codable {
     case rating
     case name
 }
-
