@@ -2,39 +2,42 @@
 <br /> Кагорта: 6
 <br /> Группа: 3
 <br /> Эпик: Корзина
+<br /> Архитектура: MVVM
+<br /> Верстка: кодом
+<br /> Таск-трекер: https://github.com/orgs/PracticumTeam3/projects/1/views/1
 
 <hr>
 
 # Cart Flow Decomposition
 
-## Экран Cart (est 1680 min; fact x min).
+## Экран Cart (est 1680 min; fact 1500 min).
 ### Module 1:
 
 #### Верстка экрана Корзины
-- вьюМодель для ячейки (est: 60 min; fact: x min).
-- вьюМодель для главного экрана (est: 60 min; fact: x min).
-- моковые данные для UItableView (est: 60 min; fact: x min).
-- основной вью и переход на него в коде (est: 60 min; fact: x min).
-- UITableViewCell (est: 240 min; fact: x min).
-- UITableView (est: 240 min; fact: x min).
-- добавление нестандартной кнопки сортировка (est: 60 min; fact: x min).
-- вью с кнопкой оплатить (est: 60 min; fact: x min).
-- вью пустой корзины (est: 60 min; fact: x min).
+- вьюМодель для ячейки (est: 60 min; fact: 60 min).
+- вьюМодель для главного экрана (est: 60 min; fact: 60 min).
+- моковые данные для UItableView (est: 60 min; fact: 60 min).
+- основной вью и переход на него в коде (est: 60 min; fact: 60 min).
+- UITableViewCell (est: 240 min; fact: 240 min).
+- UITableView (est: 240 min; fact: 180 min).
+- добавление нестандартной кнопки сортировка (est: 60 min; fact: 60 min).
+- вью с кнопкой оплатить (est: 60 min; fact: 60 min).
+- вью пустой корзины (est: 60 min; fact: 60 min).
 
-`Total:` est: 1020 min; fact: x min.
+`Total:` est: 1020 min; fact: 960 min.
 
 #### Верстка алерт контроллера Удалить
-- настройка недефолтного алерта (est: 360 min; fact: x min).
+- настройка недефолтного алерта (est: 360 min; fact: 300 min).
 
-`Total:` est: 360 min; fact: x min.
+`Total:` est: 360 min; fact: 300 min.
 
 #### Логика
-- удаление из корзины (est: 60 min; fact: x min).
-- сортировка корзины (est: 60 min; fact: x min).
-- логика отображения итогового значения оплатить или пустой корзины (est: 120 min; fact: x min).
-- сохранить способ сортировки в UserDefaults (est: 60 min; fact: x min).
+- удаление из корзины (est: 60 min; fact: 60 min).
+- сортировка корзины (est: 60 min; fact: 60 min).
+- логика отображения итогового значения оплатить или пустой корзины (est: 120 min; fact: 90 min).
+- сохранить способ сортировки в UserDefaults (est: 60 min; fact: 30 min).
 
-`Total:` est: 300 min; fact: x min.
+`Total:` est: 300 min; fact: 240 min.
 
 ## Экран Способ оплатить (est 840; fact x).
 
