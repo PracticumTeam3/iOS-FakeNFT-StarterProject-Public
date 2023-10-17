@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  FakeNFT  
+*/
+
+"profile.title" = "Profile";
+"profile.name" = "Name";
+"profile.description" = "Description";
+"profile.website" = "Website";
+
+"cart.title" = "Cart";
+"cart.pay" = "Pay";
+"cart.toBePaid" = "To be paid";
+"cart.price" = "Price";
+"cart.delete" = "Delete";
+"cart.return" =  "Return";
+"cart.deleteQuestion" = "Are you sure you want\nto remove the item from the Trash?";
+"cart.sorted" = "Sorting";
+"cart.sortedByPrice" = "By price";
+"cart.sortedByRating" = "By rating";
+"cart.sortedByName" = "By name";
+"cart.sortedClose" = "Close";
+"cart.cartEmpty" = "Cart is Empty";
+
+"statistics.title" = "Statistics";
+
+"catalog.title" = "Catalog";
