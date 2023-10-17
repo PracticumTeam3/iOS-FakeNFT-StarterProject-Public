@@ -21,7 +21,7 @@ final class CartTableViewViewController: UIViewController {
         return label
     }()
     
-    private var nftTableView: UITableView = {
+    private let nftTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CartTableViewCell.self)
         tableView.isScrollEnabled = true
@@ -32,7 +32,7 @@ final class CartTableViewViewController: UIViewController {
         return tableView
     }()
     
-    private var cartView: UIView = {
+    private let cartView: UIView = {
         let view = UIView()
         view.backgroundColor = A.Colors.lightGrayDynamic.color
         view.layer.masksToBounds = true
@@ -42,7 +42,7 @@ final class CartTableViewViewController: UIViewController {
         return view
     }()
     
-    private var countNFTLabel: UILabel = {
+    private let countNFTLabel: UILabel = {
         let label = UILabel()
         label.font = .regular15
         label.textColor = A.Colors.blackDynamic.color
@@ -53,7 +53,7 @@ final class CartTableViewViewController: UIViewController {
         return label
     }()
     
-    private var priceLabel: UILabel = {
+    private let priceLabel: UILabel = {
         let label = UILabel()
         label.font = .bold17
         label.textColor = A.Colors.green.color
@@ -172,11 +172,11 @@ final class CartTableViewViewController: UIViewController {
     }
     
     @objc
-    private func sortedNFT(){
+    private func sortedNFT() {
         showAcionSheet()
     }
     
-    private func showAcionSheet(){
+    private func showAcionSheet() {
         let alert = UIAlertController(title: L.Cart.sorted,
                                       message: nil,
                                       preferredStyle: .actionSheet)
@@ -202,7 +202,7 @@ final class CartTableViewViewController: UIViewController {
         self.present(alert, animated: true)
     }
     @objc
-    private func payNFT(){
+    private func payNFT() {
         // TODO: метод оплаты нфт, следующее ревью
     }
 }

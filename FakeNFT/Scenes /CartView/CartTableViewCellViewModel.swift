@@ -30,7 +30,7 @@ final class CartTableViewCellViewModel {
         self.priceString = String(price) + " " + currency
     }
     
-    func pressDelete(image:UIImage, index: Int){
+    func pressDelete(image:UIImage, index: Int) {
         delegate?.showAlert(nftImage: image, index: index)
     }
 }

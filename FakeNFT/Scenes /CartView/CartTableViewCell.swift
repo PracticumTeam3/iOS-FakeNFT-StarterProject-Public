@@ -13,7 +13,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
     static var defaultReuseIdentifier: String  = "CartTableViewCell"
     var cellIndex: Int?
     
-    private var nftImageView: UIImageView = {
+    private let nftImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
@@ -21,7 +21,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         return imageView
     }()
     
-    private var nftNameLabel: UILabel = {
+    private let nftNameLabel: UILabel = {
         let label = UILabel()
         label.font = .bold17
         label.textColor = A.Colors.blackDynamic.color
@@ -32,8 +32,8 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         return label
     }()
     
-    private var ratingView = RatingView(rating: 0)
-    private var priceLabel: UILabel = {
+    private let ratingView = RatingView(rating: 0)
+    private let priceLabel: UILabel = {
         let label = UILabel()
         label.font = .regular13
         label.textColor = A.Colors.blackDynamic.color
@@ -43,7 +43,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         return label
     }()
     
-    private var nftPriceLabel: UILabel = {
+    private let nftPriceLabel: UILabel = {
         let label = UILabel()
         label.font = .bold17
         label.textColor = A.Colors.blackDynamic.color
@@ -53,7 +53,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         return label
     }()
     
-    private var deletebutton: UIButton = {
+    private let deletebutton: UIButton = {
         let button = UIButton()
         let image = A.Icons.deleteNft.image
         button.setImage(image, for: .normal)
@@ -88,7 +88,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func layoutSupport(){
+    private func layoutSupport() {
         NSLayoutConstraint.activate([
             contentView.heightAnchor.constraint(equalToConstant: 140),
             nftImageView.widthAnchor.constraint(equalToConstant: 108),
@@ -121,7 +121,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
     }
     
     @objc
-    private func deleteNft(){
+    private func deleteNft() {
         guard let image = nftImageView.image,
               let index = cellIndex else { return }
         viewModel.pressDelete(image:image, index: index)

@@ -12,14 +12,14 @@ protocol CartTableViewViewModelDelegateProtocol {
 
 final class CartTableViewViewModel {
     
-    private var nfts = mockNFT
+    private let nfts = mockNFT
     
     @CartObservable private(set) var sortedNFT = [CartTableViewCellViewModel]()
     @CartObservable private(set) var nftIsEmpty: Bool = true
     @CartObservable private(set) var nftCount: String = "10 NFT"
     @CartObservable private(set) var nftPrices: String = "5,34 ETH"
     
-    private var userSortedService = UserSortedService()
+    private let userSortedService = UserSortedService()
     private var sortedName: CartSortedStorage?
     var delegate: CartTableViewViewModelDelegateProtocol?
     
@@ -38,11 +38,11 @@ final class CartTableViewViewModel {
         if nftIsEmpty { return }
         switch sortedName {
         case .name:
-            sortedNFT = nfts.sorted{$0.nftName < $1.nftName}
+            sortedNFT = nfts.sorted {$0.nftName < $1.nftName}
         case .price:
-            sortedNFT = nfts.sorted{$0.price > $1.price}
+            sortedNFT = nfts.sorted {$0.price > $1.price}
         case .rating:
-            sortedNFT = nfts.sorted{$0.rating > $1.rating}
+            sortedNFT = nfts.sorted {$0.rating > $1.rating}
         }
     }
     

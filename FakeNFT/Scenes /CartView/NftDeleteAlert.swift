@@ -55,7 +55,7 @@ final class NftDeleteAlert: UIViewController {
         return button
     }()
     
-    init(image:UIImage, index: Int){
+    init(image:UIImage, index: Int) {
         self.alertImage.image = image
         self.index = index
         super .init(nibName: nil, bundle: nil)
@@ -65,7 +65,7 @@ final class NftDeleteAlert: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad(){
+    override func viewDidLoad() {
         super.viewDidLoad()
         deleteButton.addTarget(self, action: #selector(pressedDelete), for: .touchUpInside)
         returnButton.addTarget(self, action: #selector(pressedReturn), for: .touchUpInside)
@@ -82,7 +82,7 @@ final class NftDeleteAlert: UIViewController {
         additionalSafeAreaInsets = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
     }
     
-    private func backgroudViewSupport(){
+    private func backgroudViewSupport() {
         let blurEffect = UIBlurEffect(style: .light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
@@ -90,7 +90,7 @@ final class NftDeleteAlert: UIViewController {
         view.addSubview(blurEffectView)
     }
     
-    private func layoutSupport(){
+    private func layoutSupport() {
         NSLayoutConstraint.activate([
             alertImage.widthAnchor.constraint(equalToConstant: 108),
             alertImage.heightAnchor.constraint(equalToConstant: 108),
@@ -116,13 +116,13 @@ final class NftDeleteAlert: UIViewController {
     }
     
     @objc
-    private func pressedDelete(){
+    private func pressedDelete() {
         delegate?.deleteNft(index: index)
         dismiss(animated: false)
     }
     
     @objc
-    private func pressedReturn(){
+    private func pressedReturn() {
         dismiss(animated: false)
     }
 }
