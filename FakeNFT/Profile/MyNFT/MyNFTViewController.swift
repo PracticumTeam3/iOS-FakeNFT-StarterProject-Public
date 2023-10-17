@@ -25,6 +25,7 @@ final class MyNFTViewController: UIViewController {
     init(viewModel: MyNFTViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -41,7 +42,6 @@ final class MyNFTViewController: UIViewController {
         configureNavigationBar()
         viewModel.viewDidLoad()
         bind()
-        myNFTView.tableView.delegate = self
         myNFTView.tableView.dataSource = self
     }
 
@@ -53,16 +53,16 @@ final class MyNFTViewController: UIViewController {
     // MARK: - Private methods
     private func bind() {
         viewModel.onNFTListLoaded = { [weak self] in
-            guard let self else { return }
             DispatchQueue.main.async {
+                guard let self else { return }
                 self.setNeededState()
                 self.changeSortButtonState(isEnabled: true)
                 self.myNFTView.tableView.reloadData()
             }
         }
         viewModel.onNFTListLoadError = { [weak self] error in
-            guard let self else { return }
             DispatchQueue.main.async {
+                guard let self else { return }
                 AlertPresenter.show(in: self, model: .myNFTLoadError(message: error))
             }
         }
@@ -147,6 +147,3 @@ extension MyNFTViewController: SkeletonTableViewDataSource {
     }
 
 }
-
-// MARK: - UITableViewDelegate
-extension MyNFTViewController: UITableViewDelegate { }

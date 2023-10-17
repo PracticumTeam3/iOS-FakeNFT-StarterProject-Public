@@ -29,7 +29,6 @@ final class ProfileViewModel {
 
     // MARK: - Private properties
     private let profileService: ProfileServiceProtocol
-    private var profileObservation: NSKeyValueObservation?
     private var userDefaults: UserDefaults {
         UserDefaults.standard
     }
@@ -40,38 +39,31 @@ final class ProfileViewModel {
     }
 
     // MARK: - Public methods
-    func viewDidLoad() {
-        registerProfileLastChangeTimeObserver()
-        fetchProfile()
-    }
-
     func fetchProfile() {
         profileService.fetchProfile { [weak self] result in
+            guard let self else { return }
             switch result {
-            case .success: break
-            case .failure(let error): self?.onFetchError?(error.localizedDescription)
+            case .success(let model): self.updateProfileIfNeeded(profileModel: model)
+            case .failure(let error): self.onFetchError?(error.localizedDescription)
             }
         }
     }
 
     func editProfile(editProfileModel: EditProfileModel) {
         profileService.editProfile(editProfileModel) { [weak self] result in
+            guard let self else { return }
             switch result {
-            case .success: break
-            case .failure(let error): self?.onEditError?(error.localizedDescription)
+            case .success(let model): self.updateProfileIfNeeded(profileModel: model)
+            case .failure(let error): self.onEditError?(error.localizedDescription)
             }
         }
     }
 
     // MARK: - Private methods
-    private func registerProfileLastChangeTimeObserver() {
-        profileObservation = userDefaults.observe(
-            \.profileLastChangeTime,
-             options: []
-        ) { [weak self] _, _ in
-            guard let self else { return }
-            self.onProfileInfoChanged?()
-        }
+    private func updateProfileIfNeeded(profileModel: ProfileModel) {
+        guard userDefaults.profile != profileModel else { return }
+        userDefaults.profile = profileModel
+        onProfileInfoChanged?()
     }
 
 }

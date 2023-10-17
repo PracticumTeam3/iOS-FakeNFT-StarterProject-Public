@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - SortType
-@objc enum SortType: Int, Codable {
+enum SortType: String {
     case byPrice
     case byRating
     case byName

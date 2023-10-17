@@ -10,8 +10,8 @@ import UIKit
 // MARK: - RatingStackView
 final class RatingStackView: UIStackView {
 
-    // MARK: - Public properties
-    var rating: Int = 0
+    // MARK: - Private properties
+    private var rating: Int = 0
 
     // MARK: - Initializers
     init(rating: Int = 0) {

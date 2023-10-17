@@ -10,16 +10,7 @@ import Foundation
 extension UserDefaults {
 
     private enum Keys: String {
-        case profile, profileLastChangeTime, sortType
-    }
-
-    @objc dynamic var profileLastChangeTime: Int {
-        get {
-            integer(forKey: Keys.profileLastChangeTime.rawValue)
-        }
-        set {
-            setValue(newValue, forKey: Keys.profileLastChangeTime.rawValue)
-        }
+        case profile, sortType
     }
 
     var profile: ProfileModel? {
@@ -39,20 +30,18 @@ extension UserDefaults {
         }
     }
 
-    @objc dynamic var sortType: SortType {
+    var sortType: SortType {
         get {
-            guard let data = data(forKey: Keys.sortType.rawValue),
-                  let record = try? JSONDecoder().decode(SortType.self, from: data) else {
+            guard
+                let sortTypeString = string(forKey: Keys.sortType.rawValue),
+                let sortType = SortType(rawValue: sortTypeString)
+            else {
                 return .byRating
             }
-            return record
+            return sortType
         }
         set {
-            guard let data = try? JSONEncoder().encode(newValue) else {
-                print("Невозможно сохранить результат")
-                return
-            }
-            set(data, forKey: Keys.sortType.rawValue)
+            setValue(newValue.rawValue, forKey: Keys.sortType.rawValue)
         }
     }
 

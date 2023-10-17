@@ -9,6 +9,14 @@
 "alert.close" = "Закрыть";
 "alert.tryAgain" = "Попробовать еще раз";
 
+"network.error.httpStatusCode" = "Что-то пошло не так";
+"network.error.httpStatusCode4xx" = "Ошибка клиента";
+"network.error.httpStatusCode5xx" = "Ошибка сервера";
+"network.error.httpStatusCode429" = "Слишком много запросов. Попробуйте снова позже.";
+"network.error.urlRequestError" = "Что-то пошло не так";
+"network.error.urlSessionError" = "Что-то пошло не так";
+"network.error.parsingError" = "Не удалось обработать ответ сервера";
+
 "profile.title" = "Профиль";
 "profile.name" = "Имя";
 "profile.description" = "Описание";

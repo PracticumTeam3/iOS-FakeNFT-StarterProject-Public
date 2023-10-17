@@ -40,33 +40,33 @@ final class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.viewDidLoad()
         configureNavigationBar()
         configureView()
         bind()
+        viewModel.fetchProfile()
     }
 
     // MARK: - Private methods
     private func bind() {
         viewModel.onProfileInfoChanged = { [weak self] in
-            guard let self else { return }
             DispatchQueue.main.async {
-                self.profileView.updateUI()
+                guard let self else { return }
                 self.profileView.changeSkeletonState(isShown: false)
                 self.editButton?.isEnabled = true
+                self.profileView.updateUI()
             }
         }
         viewModel.onFetchError = { [weak self] error in
-            guard let self else { return }
             DispatchQueue.main.async {
+                guard let self else { return }
                 AlertPresenter.show(in: self, model: .profileFetchError(message: error) {
                     self.viewModel.fetchProfile()
                 })
             }
         }
         viewModel.onEditError = { [weak self] error in
-            guard let self else { return }
             DispatchQueue.main.async {
+                guard let self else { return }
                 AlertPresenter.show(in: self, model: .profileEditError(message: error) {
                     self.viewModel.fetchProfile()
                 })

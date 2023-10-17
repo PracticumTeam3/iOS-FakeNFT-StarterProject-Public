@@ -50,6 +50,7 @@
 		F3ACCA1B2AD463860039431A /* GetProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ACCA1A2AD463860039431A /* GetProfileRequest.swift */; };
 		F3ACCA1D2AD476710039431A /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ACCA1C2AD476710039431A /* ProfileService.swift */; };
 		F3ACCA1F2AD47CDF0039431A /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ACCA1E2AD47CDF0039431A /* Storage.swift */; };
+		F3BDA6012ADECE610045E535 /* NetworkClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BDA6002ADECE610045E535 /* NetworkClientError.swift */; };
 		F3C85F7F2ACF22DF000F3CC2 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C85F7E2ACF22DF000F3CC2 /* ProfileModel.swift */; };
 		F3C85F812ACF29EB000F3CC2 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C85F802ACF29EB000F3CC2 /* EditProfileViewController.swift */; };
 		F3C85F842ACF2A37000F3CC2 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C85F832ACF2A37000F3CC2 /* EditProfileView.swift */; };
@@ -147,6 +148,7 @@
 		F3ACCA1A2AD463860039431A /* GetProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileRequest.swift; sourceTree = "<group>"; };
 		F3ACCA1C2AD476710039431A /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		F3ACCA1E2AD47CDF0039431A /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		F3BDA6002ADECE610045E535 /* NetworkClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientError.swift; sourceTree = "<group>"; };
 		F3C85F7E2ACF22DF000F3CC2 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		F3C85F802ACF29EB000F3CC2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		F3C85F832ACF2A37000F3CC2 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				3F6806D029CBBE6B00B4F915 /* NetworkClient.swift */,
 				3F6806D229CBBE9600B4F915 /* NetworkRequest.swift */,
 				3F6806D429CBBEC700B4F915 /* NetworkTask.swift */,
+				F3BDA6002ADECE610045E535 /* NetworkClientError.swift */,
 			);
 			path = NetworkClient;
 			sourceTree = "<group>";
@@ -464,6 +467,8 @@
 				F3F10D4A2ACEF64B00C53BF4 /* Models */,
 				F3568BD02AD5A53000D46FC1 /* Views */,
 				F3F10D412ACEDFBA00C53BF4 /* ProfileViewController.swift */,
+				F3F10D452ACEDFFA00C53BF4 /* ProfileViewModel.swift */,
+				F3FD16452AD6F2C50042BF12 /* ProfileNavigationController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -482,8 +487,6 @@
 		F3F10D402ACEDFAC00C53BF4 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				F3FD16452AD6F2C50042BF12 /* ProfileNavigationController.swift */,
-				F3F10D452ACEDFFA00C53BF4 /* ProfileViewModel.swift */,
 				F3FD164B2AD702BC0042BF12 /* Base */,
 				F3568BD12AD5A55400D46FC1 /* Storage */,
 				F3568BCF2AD5A51300D46FC1 /* Service */,
@@ -845,6 +848,7 @@
 				F3C85F7F2ACF22DF000F3CC2 /* ProfileModel.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
+				F3BDA6012ADECE610045E535 /* NetworkClientError.swift in Sources */,
 				F31CFF372ACC6B74008C4F1F /* Strings+Generated.swift in Sources */,
 				F3ACCA1D2AD476710039431A /* ProfileService.swift in Sources */,
 				F3C85F882AD085D6000F3CC2 /* EditProfileLabel.swift in Sources */,

@@ -9,6 +9,14 @@
 "alert.close" = "Close";
 "alert.tryAgain" = "Try again";
 
+"network.error.httpStatusCode" = "Something went wrong";
+"network.error.httpStatusCode4xx" = "Client Error";
+"network.error.httpStatusCode5xx" = "Server Error";
+"network.error.httpStatusCode429" = "Too many requests. Try again later.";
+"network.error.urlRequestError" = "Something went wrong";
+"network.error.urlSessionError" = "Something went wrong";
+"network.error.parsingError" = "Failed to parse the response";
+
 "profile.title" = "Profile";
 "profile.name" = "Name";
 "profile.description" = "Description";

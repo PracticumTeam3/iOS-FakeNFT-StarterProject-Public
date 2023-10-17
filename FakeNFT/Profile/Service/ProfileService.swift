@@ -38,12 +38,10 @@ struct ProfileService: ProfileServiceProtocol {
 
     // MARK: - Public methods
     func fetchProfile(completion: @escaping (Result<ProfileModel, Error>) -> Void) {
-        assert(Thread.isMainThread)
         let request = GetProfileRequest()
         networkClient.send(request: request, type: ProfileModel.self) { result in
             switch result {
             case .success(let model):
-                updateProfileIfNeeded(profileModel: model)
                 completion(.success(model))
             case .failure(let error):
                 completion(.failure(error))
@@ -55,12 +53,10 @@ struct ProfileService: ProfileServiceProtocol {
         _ editProfileModel: EditProfileModel,
         completion: @escaping (Result<ProfileModel, Error>) -> Void
     ) {
-        assert(Thread.isMainThread)
         let request = ChangeProfileRequest(model: editProfileModel)
         networkClient.send(request: request, type: ProfileModel.self) { result in
             switch result {
             case .success(let model):
-                updateProfileIfNeeded(profileModel: model)
                 completion(.success(model))
             case .failure(let error):
                 completion(.failure(error))
@@ -132,15 +128,6 @@ struct ProfileService: ProfileServiceProtocol {
         }
         dispatchGroup.notify(queue: dispatchQueue) {
             completion(.success(nfts.compactMap { $0 }))
-        }
-    }
-
-    // MARK: - Private methods
-    private func updateProfileIfNeeded(profileModel: ProfileModel) {
-        let userDefaults = UserDefaults.standard
-        if userDefaults.profile != profileModel {
-            userDefaults.profile = profileModel
-            userDefaults.profileLastChangeTime = Int(Date().timeIntervalSince1970)
         }
     }
 
