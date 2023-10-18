@@ -35,6 +35,24 @@ public enum L {
     /// Каталог
     public static let title = L.tr("Localizable", "catalog.title", fallback: "Каталог")
   }
+  public enum Network {
+    public enum Error {
+      /// Что-то пошло не так
+      public static let httpStatusCode = L.tr("Localizable", "network.error.httpStatusCode", fallback: "Что-то пошло не так")
+      /// Слишком много запросов. Попробуйте снова позже.
+      public static let httpStatusCode429 = L.tr("Localizable", "network.error.httpStatusCode429", fallback: "Слишком много запросов. Попробуйте снова позже.")
+      /// Ошибка клиента
+      public static let httpStatusCode4xx = L.tr("Localizable", "network.error.httpStatusCode4xx", fallback: "Ошибка клиента")
+      /// Ошибка сервера
+      public static let httpStatusCode5xx = L.tr("Localizable", "network.error.httpStatusCode5xx", fallback: "Ошибка сервера")
+      /// Не удалось обработать ответ сервера
+      public static let parsingError = L.tr("Localizable", "network.error.parsingError", fallback: "Не удалось обработать ответ сервера")
+      /// Что-то пошло не так
+      public static let urlRequestError = L.tr("Localizable", "network.error.urlRequestError", fallback: "Что-то пошло не так")
+      /// Что-то пошло не так
+      public static let urlSessionError = L.tr("Localizable", "network.error.urlSessionError", fallback: "Что-то пошло не так")
+    }
+  }
   public enum Profile {
     /// О разработчике
     public static let about = L.tr("Localizable", "profile.about", fallback: "О разработчике")
@@ -69,15 +87,39 @@ public enum L {
       /// фото
       public static let change = L.tr("Localizable", "profile.avatar.change", fallback: "Сменить\nфото")
     }
-    public enum Sort {
-      /// По названию
-      public static let name = L.tr("Localizable", "profile.sort.name", fallback: "По названию")
-      /// По цене
-      public static let price = L.tr("Localizable", "profile.sort.price", fallback: "По цене")
-      /// По рейтингу
-      public static let rating = L.tr("Localizable", "profile.sort.rating", fallback: "По рейтингу")
-      /// Сортировка
-      public static let title = L.tr("Localizable", "profile.sort.title", fallback: "Сортировка")
+    public enum FavouriteNFT {
+      /// У Вас еще нет избранных NFT
+      public static let empty = L.tr("Localizable", "profile.favouriteNFT.empty", fallback: "У Вас еще нет избранных NFT")
+      /// Избранные NFT
+      public static let title = L.tr("Localizable", "profile.favouriteNFT.title", fallback: "Избранные NFT")
+    }
+    public enum MyNFT {
+      /// У Вас еще нет NFT
+      public static let empty = L.tr("Localizable", "profile.myNFT.empty", fallback: "У Вас еще нет NFT")
+      /// Мои NFT
+      public static let title = L.tr("Localizable", "profile.myNFT.title", fallback: "Мои NFT")
+      public enum Alert {
+        /// Произошла ошибка во время загрузки NFT
+        public static let fetchError = L.tr("Localizable", "profile.myNFT.alert.fetchError", fallback: "Произошла ошибка во время загрузки NFT")
+      }
+      public enum Author {
+        /// от
+        public static let title = L.tr("Localizable", "profile.myNFT.author.title", fallback: "от")
+      }
+      public enum Price {
+        /// Цена
+        public static let title = L.tr("Localizable", "profile.myNFT.price.title", fallback: "Цена")
+      }
+      public enum Sort {
+        /// По названию
+        public static let name = L.tr("Localizable", "profile.myNFT.sort.name", fallback: "По названию")
+        /// По цене
+        public static let price = L.tr("Localizable", "profile.myNFT.sort.price", fallback: "По цене")
+        /// По рейтингу
+        public static let rating = L.tr("Localizable", "profile.myNFT.sort.rating", fallback: "По рейтингу")
+        /// Сортировка
+        public static let title = L.tr("Localizable", "profile.myNFT.sort.title", fallback: "Сортировка")
+      }
     }
   }
   public enum Statistics {

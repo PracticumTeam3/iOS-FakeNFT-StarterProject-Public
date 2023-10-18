@@ -12,7 +12,7 @@ final class TabBarController: UITabBarController {
 
     // MARK: - Private Properties
     private var profileNavigationController: UINavigationController {
-        let navigationController = UINavigationController()
+        let navigationController = ProfileNavigationController()
         let viewModel = ProfileViewModel()
         let viewController = ProfileViewController(viewModel: viewModel)
 
@@ -27,7 +27,7 @@ final class TabBarController: UITabBarController {
         return navigationController
     }
 
-    // MARK: - Overridden Methods
+    // MARK: - Overridden methods
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -9,6 +9,14 @@
 "alert.close" = "Закрыть";
 "alert.tryAgain" = "Попробовать еще раз";
 
+"network.error.httpStatusCode" = "Что-то пошло не так";
+"network.error.httpStatusCode4xx" = "Ошибка клиента";
+"network.error.httpStatusCode5xx" = "Ошибка сервера";
+"network.error.httpStatusCode429" = "Слишком много запросов. Попробуйте снова позже.";
+"network.error.urlRequestError" = "Что-то пошло не так";
+"network.error.urlSessionError" = "Что-то пошло не так";
+"network.error.parsingError" = "Не удалось обработать ответ сервера";
+
 "profile.title" = "Профиль";
 "profile.name" = "Имя";
 "profile.description" = "Описание";
@@ -19,10 +27,19 @@
 "profile.alert.fetchError" = "Произошла ошибка во время загрузки профиля";
 "profile.alert.editError" = "Произошла ошибка во время изменения данных профиля";
 "profile.alert.saveChanges" = "Вы хотите сохранить изменения?";
-"profile.sort.title" = "Сортировка";
-"profile.sort.price" = "По цене";
-"profile.sort.rating" = "По рейтингу";
-"profile.sort.name" = "По названию";
+
+"profile.myNFT.title" = "Мои NFT";
+"profile.myNFT.empty" = "У Вас еще нет NFT";
+"profile.myNFT.price.title" = "Цена";
+"profile.myNFT.author.title" = "от";
+"profile.myNFT.sort.title" = "Сортировка";
+"profile.myNFT.sort.price" = "По цене";
+"profile.myNFT.sort.rating" = "По рейтингу";
+"profile.myNFT.sort.name" = "По названию";
+"profile.myNFT.alert.fetchError" = "Произошла ошибка во время загрузки NFT";
+
+"profile.favouriteNFT.title" = "Избранные NFT";
+"profile.favouriteNFT.empty" = "У Вас еще нет избранных NFT";
 
 "cart.title" = "Корзина";
 "cart.pay" = "Оплатить";

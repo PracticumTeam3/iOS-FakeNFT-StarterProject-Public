@@ -32,24 +32,22 @@
 `Total:` est: 12 h; fact: 13 h.
 
 
-## Module 2
+## Module 2 (est: 17 h; fact: 18 h)
 ### Экран Мои NFT
-- UI (est: 5 h; fact: x h):
-	- `TableViewCell` (est: 2 h; fact: x h);
-	- `TableView` (est: 2 h; fact: x h);
-	- `NavBar` с кнопками `Back`, `Sort` и лейблом `Мои NFT` (est: 1 h; fact: x h).
-- Сеть (est: 5 h; fact: x h):
-	- Загрузка списка NFT (est: 5 h; fact: x h);
-- Сортировка (est: 5 h; fact: x h):
-	- Логика сортировки (est: 4 h; fact: x h);
-	- `ActionSheet` (est: 1 h; fact: x h).
-- Пустой экран (est: 2 h; fact: x h):
-	- UI (пустой экран с лейблом и кнопкой `Back` в `NavBar` (est: 1 h; fact: x h);
-	- Логика показа пустого экрана (est: 1 h; fact: x h).
+- UI (est: 5 h; fact: 6 h):
+	- `TableViewCell` (est: 2 h; fact: 4 h);
+	- `TableView` (est: 2 h; fact: 1 h);
+	- `NavBar` с кнопками `Back`, `Sort` и лейблом `Мои NFT` (est: 1 h; fact: 1 h).
+- Сеть (est: 5 h; fact: 5 h):
+	- Загрузка списка NFT (est: 5 h; fact: 5 h);
+- Сортировка (est: 5 h; fact: 5 h):
+	- Логика сортировки (est: 4 h; fact: 4 h);
+	- `ActionSheet` (est: 1 h; fact: 1 h).
+- Пустой экран (est: 2 h; fact: 2 h):
+	- UI (пустой экран с лейблом и кнопкой `Back` в `NavBar` (est: 1 h; fact: 1 h);
+	- Логика показа пустого экрана (est: 1 h; fact: 1 h).
 
-`Total:` est: 17 h; fact: x h.
-
-## Module 3
+## Module 3 (est: 17 h; fact: x h)
 ### Экран Избранные NFT
 - UI (est: 5 h; fact: x h):
 	- `CollectionViewCell` (est: 2 h; fact: x h);
@@ -61,7 +59,5 @@
 - Пустой экран (est: 2 h; fact: x h):
 	- UI (пустой экран с лейблом и кнопкой `Back` в `NavBar` (est: 1 h; fact: x h);
 	- Логика показа пустого экрана (est: 1 h; fact: x h).
-
-`Total:` est: 17 h; fact: x h.
 
 ## `Total:` est: 57 h; fact: x h.
