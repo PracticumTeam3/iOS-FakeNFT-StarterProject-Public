@@ -12,6 +12,7 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Private properties
     private enum Constants {
+        static let aboutDeveloperUrl = URL(string: "https://practicum.yandex.ru/ios-developer")
         enum TableView {
             static let height: CGFloat = 54
         }
@@ -100,6 +101,30 @@ final class ProfileViewController: UIViewController {
         }
     }
 
+    private func pushMyNFTViewController() {
+        let viewModel = MyNFTViewModel()
+        let viewController = MyNFTViewController(viewModel: viewModel)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    private func pushFavouriteNFTViewController() {
+        let viewModel = FavouriteNFTViewModel()
+        let viewController = FavouriteNFTViewController(viewModel: viewModel)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    private func pushAboutWebViewController() {
+        guard let url = Constants.aboutDeveloperUrl else {
+            AlertPresenter.show(in: self, model: .urlParsingError)
+            return
+        }
+        let viewModel = WebViewModel()
+        let viewController = WebViewController(webViewModel: viewModel,
+                                               url: url,
+                                               presentation: .navigation)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+
     @objc private func presentEditProfileViewController() {
         let vc = EditProfileViewController(viewModel: viewModel)
         present(vc, animated: true)
@@ -112,7 +137,7 @@ final class ProfileViewController: UIViewController {
             return
         }
         let viewModel = WebViewModel()
-        let vc = WebViewController(webViewModel: viewModel, url: url)
+        let vc = WebViewController(webViewModel: viewModel, url: url, presentation: .modal)
         present(vc, animated: true)
     }
 
@@ -143,16 +168,9 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = viewModel.cells[indexPath.row]
         switch cell {
-        case .myNFT:
-            let viewModel = MyNFTViewModel()
-            let viewController = MyNFTViewController(viewModel: viewModel)
-            navigationController?.pushViewController(viewController, animated: true)
-        case .favouriteNFT:
-            // TODO: implement FavouriteNFT
-            break
-        case .about:
-            // TODO: implement About
-            break
+        case .myNFT: pushMyNFTViewController()
+        case .favouriteNFT: pushFavouriteNFTViewController()
+        case .about: pushAboutWebViewController()
         }
     }
 

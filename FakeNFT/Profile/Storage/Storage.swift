@@ -10,7 +10,16 @@ import Foundation
 extension UserDefaults {
 
     private enum Keys: String {
-        case profile, sortType
+        case profile, profileLastChangeTime, sortType
+    }
+
+    @objc dynamic var profileLastChangeTime: Int {
+        get {
+            integer(forKey: Keys.profileLastChangeTime.rawValue)
+        }
+        set {
+            setValue(newValue, forKey: Keys.profileLastChangeTime.rawValue)
+        }
     }
 
     var profile: ProfileModel? {

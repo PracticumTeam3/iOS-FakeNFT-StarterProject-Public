@@ -68,7 +68,7 @@ final class MyNFTViewModel: MyNFTViewModelProtocol {
     private func sortNFTList() {
         switch sortType {
         case .byPrice:
-            self.nftList?.sort { $0.price < $1.price }
+            self.nftList?.sort { $0.price > $1.price }
         case .byRating:
             self.nftList?.sort { $0.rating > $1.rating }
         case .byName:

@@ -29,6 +29,7 @@ final class ProfileViewModel {
 
     // MARK: - Private properties
     private let profileService: ProfileServiceProtocol
+    private var profileObservation: NSKeyValueObservation?
     private var userDefaults: UserDefaults {
         UserDefaults.standard
     }
@@ -36,6 +37,7 @@ final class ProfileViewModel {
     // MARK: - Initializers
     init(profileService: ProfileServiceProtocol = ProfileService()) {
         self.profileService = profileService
+        registerProfileLastChangeTimeObserver()
     }
 
     // MARK: - Public methods
@@ -63,7 +65,18 @@ final class ProfileViewModel {
     private func updateProfileIfNeeded(profileModel: ProfileModel) {
         guard userDefaults.profile != profileModel else { return }
         userDefaults.profile = profileModel
+        userDefaults.profileLastChangeTime = Int(Date().timeIntervalSince1970)
         onProfileInfoChanged?()
+    }
+
+    private func registerProfileLastChangeTimeObserver() {
+        profileObservation = userDefaults.observe(
+            \.profileLastChangeTime,
+             options: []
+        ) { [weak self] _, _ in
+            guard let self else { return }
+            self.onProfileInfoChanged?()
+        }
     }
 
 }
