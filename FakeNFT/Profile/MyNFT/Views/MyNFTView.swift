@@ -30,7 +30,7 @@ final class MyNFTView: UIView {
     private let emptyLabel: UILabel = {
         let label = UILabel()
         label.textColor = A.Colors.blackDynamic.color
-        label.font = .bold17
+        label.font = .Bold.small
         label.text = L.Profile.MyNFT.empty
         label.textAlignment = .center
         return label

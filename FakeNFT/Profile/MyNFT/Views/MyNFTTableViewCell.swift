@@ -14,6 +14,7 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
 
     // MARK: - Private properties
     private enum Constants {
+        static let skeletonText = "             "
         enum ImageView {
             static let cornerRadius: CGFloat = 12
             static let widthAndHeight: CGFloat = 108
@@ -88,15 +89,15 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
 
     private let nftNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .bold17
+        label.font = .Bold.small
         label.textColor = A.Colors.blackDynamic.color
-        label.text = "             "
+        label.text = Constants.skeletonText
         return label
     }()
 
     private let authorTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .regular15
+        label.font = .Regular.medium
         label.textColor = A.Colors.blackDynamic.color
         label.text = L.Profile.MyNFT.Author.title
         return label
@@ -104,15 +105,15 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
 
     private let authorLabel: UILabel = {
         let label = UILabel()
-        label.font = .regular13
+        label.font = .Regular.small
         label.textColor = A.Colors.blackDynamic.color
-        label.text = "             "
+        label.text = Constants.skeletonText
         return label
     }()
 
     private let priceTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .regular13
+        label.font = .Regular.small
         label.textColor = A.Colors.blackDynamic.color
         label.text = L.Profile.MyNFT.Price.title
         return label
@@ -120,9 +121,9 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
 
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.font = .bold17
+        label.font = .Bold.small
         label.textColor = A.Colors.blackDynamic.color
-        label.text = "             "
+        label.text = Constants.skeletonText
         return label
     }()
 

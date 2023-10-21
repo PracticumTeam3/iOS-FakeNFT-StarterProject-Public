@@ -53,6 +53,7 @@ final class EditProfileView: UIView {
     }
 
     private let viewModel: ProfileViewModel
+
     private var model: ProfileModel? {
         viewModel.model
     }
@@ -66,23 +67,29 @@ final class EditProfileView: UIView {
         scrollView.contentInset.bottom = Constants.ScrollView.bottomContentInset
         return scrollView
     }()
+
     private let contentView = UIView()
+
     private lazy var stackView = EditProfileStackView(
         spacing: Constants.StackView.bigInset,
         arrangedSubviews: [nameStackView, descriptionStackView, websiteStackView]
     )
+
     private lazy var nameStackView = EditProfileStackView(
         spacing: Constants.StackView.smallInset,
         arrangedSubviews: [nameLabel, nameTextField]
     )
+
     private lazy var descriptionStackView = EditProfileStackView(
         spacing: Constants.StackView.smallInset,
         arrangedSubviews: [descriptionLabel, descriptionTextView]
     )
+
     private lazy var websiteStackView = EditProfileStackView(
         spacing: Constants.StackView.smallInset,
         arrangedSubviews: [websiteLabel, websiteTextField]
     )
+
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = A.Images.Profile.avatar.image
@@ -92,15 +99,17 @@ final class EditProfileView: UIView {
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
+
     private let changeAvatarLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        label.font = .medium10
+        label.font = .Medium.small
         label.textAlignment = .center
         label.textColor = A.Colors.white.color
         label.isUserInteractionEnabled = true
         return label
     }()
+
     private lazy var changeAvatarView: UIView = {
         let view = UIView()
         view.backgroundColor = A.Colors.background.color
@@ -108,18 +117,24 @@ final class EditProfileView: UIView {
         view.isUserInteractionEnabled = true
         return view
     }()
+
     private let nameLabel = EditProfileLabel()
+
     private let descriptionLabel = EditProfileLabel()
+
     private let websiteLabel = EditProfileLabel()
+
     private let nameTextField = TextField(cornerRadius: Constants.cornerRadius)
+
     private let websiteTextField = TextField(cornerRadius: Constants.cornerRadius)
+
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = A.Colors.lightGrayDynamic.color
         textView.textColor = A.Colors.blackDynamic.color
         textView.isScrollEnabled = false
         textView.sizeToFit()
-        textView.font = .regular17
+        textView.font = .Regular.large
         textView.layer.cornerRadius = Constants.cornerRadius
         textView.textContainerInset = UIEdgeInsets(top: 11, left: 16, bottom: 11, right: 16)
         return textView

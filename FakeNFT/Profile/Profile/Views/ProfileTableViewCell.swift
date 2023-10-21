@@ -16,7 +16,7 @@ final class ProfileTableViewCell: UITableViewCell, ReuseIdentifying {
         selectionStyle = .none
         accessoryType = .disclosureIndicator
         backgroundColor = A.Colors.whiteDynamic.color
-        textLabel?.font = .bold17
+        textLabel?.font = .Bold.small
         textLabel?.textColor = A.Colors.blackDynamic.color
     }
 

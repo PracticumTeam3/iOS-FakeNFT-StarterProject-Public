@@ -12,7 +12,6 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Private properties
     private enum Constants {
-        static let aboutDeveloperUrl = URL(string: "https://practicum.yandex.ru/ios-developer")
         enum TableView {
             static let height: CGFloat = 54
         }
@@ -114,7 +113,10 @@ final class ProfileViewController: UIViewController {
     }
 
     private func pushAboutWebViewController() {
-        guard let url = Constants.aboutDeveloperUrl else {
+        guard
+            let profile = viewModel.model,
+            let url = URL(string: profile.website)
+        else {
             AlertPresenter.show(in: self, model: .urlParsingError)
             return
         }

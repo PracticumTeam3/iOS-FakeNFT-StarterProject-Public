@@ -30,13 +30,15 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
 
     // MARK: - Private properties
     private let profileService: ProfileServiceProtocol
-    private var userDefaults: UserDefaults {
-        UserDefaults.standard
-    }
+    private let storageService: StorageService
 
     // MARK: - Initializers
-    init(profileService: ProfileServiceProtocol = ProfileService()) {
+    init(
+        profileService: ProfileServiceProtocol = ProfileService(),
+        storageService: StorageService = StorageService.shared
+    ) {
         self.profileService = profileService
+        self.storageService = storageService
     }
 
     // MARK: - Public methods
@@ -45,7 +47,7 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
     }
 
     func unlikeNFT(with id: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let profile = userDefaults.profile else { return }
+        guard let profile = storageService.profile else { return }
         let newLikes = profile.likes.filter { $0 != id }
         let likesModel = LikesModel(likes: newLikes)
         profileService.setLikes(likesModel) { [weak self] result in
@@ -75,9 +77,8 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
     }
 
     private func updateProfileIfNeeded(profileModel: ProfileModel) {
-        guard userDefaults.profile != profileModel else { return }
-        userDefaults.profile = profileModel
-        userDefaults.profileLastChangeTime = Int(Date().timeIntervalSince1970)
+        guard storageService.profile != profileModel else { return }
+        storageService.profile = profileModel
     }
 
 }

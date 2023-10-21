@@ -22,7 +22,7 @@ final class TextField: UITextField {
         super.init(frame: .zero)
         backgroundColor = A.Colors.lightGrayDynamic.color
         textColor = A.Colors.blackDynamic.color
-        font = .regular17
+        font = .Regular.large
         layer.cornerRadius = cornerRadius
         clearButtonMode = .whileEditing
     }

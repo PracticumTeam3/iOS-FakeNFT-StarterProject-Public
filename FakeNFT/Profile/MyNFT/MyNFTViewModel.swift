@@ -28,21 +28,23 @@ final class MyNFTViewModel: MyNFTViewModelProtocol {
     var onNFTListLoaded: (() -> Void)?
     var onNFTListLoadError: ((String) -> Void)?
     var sortType: SortType {
-        get { userDefaults.sortType }
+        get { storageService.sortType }
         set {
-            userDefaults.sortType = newValue
+            storageService.sortType = newValue
             sortNFTList()
         }
     }
 
     // MARK: - Private properties
+    private let storageService: StorageService
     private let profileService: ProfileServiceProtocol
-    private var userDefaults: UserDefaults {
-        UserDefaults.standard
-    }
 
     // MARK: - Initializers
-    init(profileService: ProfileServiceProtocol = ProfileService()) {
+    init(
+        profileService: ProfileServiceProtocol = ProfileService(),
+        storageService: StorageService = StorageService.shared
+    ) {
+        self.storageService = storageService
         self.profileService = profileService
     }
 

@@ -11,12 +11,16 @@ import Foundation
 final class ProfileViewModel {
 
     // MARK: - Public properties
-    var onProfileInfoChanged: (() -> Void)?
+    var onProfileInfoChanged: (() -> Void)? {
+        didSet {
+            storageService.onProfileInfoChanged = onProfileInfoChanged
+        }
+    }
     var onFetchError: ((String) -> Void)?
     var onEditError: ((String) -> Void)?
 
     var model: ProfileModel? {
-        userDefaults.profile
+        storageService.profile
     }
 
     var cells: [ProfileTableViewCells] {
@@ -29,15 +33,16 @@ final class ProfileViewModel {
 
     // MARK: - Private properties
     private let profileService: ProfileServiceProtocol
+    private let storageService: StorageService
     private var profileObservation: NSKeyValueObservation?
-    private var userDefaults: UserDefaults {
-        UserDefaults.standard
-    }
 
     // MARK: - Initializers
-    init(profileService: ProfileServiceProtocol = ProfileService()) {
+    init(
+        profileService: ProfileServiceProtocol = ProfileService(),
+        storageService: StorageService = StorageService.shared
+    ) {
+        self.storageService = storageService
         self.profileService = profileService
-        registerProfileLastChangeTimeObserver()
     }
 
     // MARK: - Public methods
@@ -63,20 +68,9 @@ final class ProfileViewModel {
 
     // MARK: - Private methods
     private func updateProfileIfNeeded(profileModel: ProfileModel) {
-        guard userDefaults.profile != profileModel else { return }
-        userDefaults.profile = profileModel
-        userDefaults.profileLastChangeTime = Int(Date().timeIntervalSince1970)
+        guard storageService.profile != profileModel else { return }
+        storageService.profile = profileModel
         onProfileInfoChanged?()
-    }
-
-    private func registerProfileLastChangeTimeObserver() {
-        profileObservation = userDefaults.observe(
-            \.profileLastChangeTime,
-             options: []
-        ) { [weak self] _, _ in
-            guard let self else { return }
-            self.onProfileInfoChanged?()
-        }
     }
 
 }

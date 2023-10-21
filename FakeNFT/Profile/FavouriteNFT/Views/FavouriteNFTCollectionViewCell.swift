@@ -23,6 +23,7 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
 
     // MARK: - Private properties
     private enum Constants {
+        static let skeletonText = "             "
         enum ImageView {
             static let cornerRadius: CGFloat = 12
             static let widthAndHeight: CGFloat = 80
@@ -66,17 +67,17 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
 
     private let nftNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .bold17
+        label.font = .Bold.small
         label.textColor = A.Colors.blackDynamic.color
-        label.text = "             "
+        label.text = Constants.skeletonText
         return label
     }()
 
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.font = .regular15
+        label.font = .Regular.medium
         label.textColor = A.Colors.blackDynamic.color
-        label.text = "             "
+        label.text = Constants.skeletonText
         return label
     }()
 

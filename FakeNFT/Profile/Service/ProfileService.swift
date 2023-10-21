@@ -35,12 +35,14 @@ struct ProfileService: ProfileServiceProtocol {
 
     // MARK: - Private properties
     private let networkClient: NetworkClient
-    private var userDefaults: UserDefaults {
-        UserDefaults.standard
-    }
+    private let storageService: StorageService
 
     // MARK: - Initializers
-    init(networkClient: NetworkClient = DefaultNetworkClient()) {
+    init(
+        networkClient: NetworkClient = DefaultNetworkClient(),
+        storageService: StorageService = StorageService.shared
+    ) {
+        self.storageService = storageService
         self.networkClient = networkClient
     }
 
@@ -118,7 +120,7 @@ struct ProfileService: ProfileServiceProtocol {
     }
 
     func getNFTs(completion: @escaping (Result<[NFTModel], Error>) -> Void) {
-        guard let profile = userDefaults.profile else { return }
+        guard let profile = storageService.profile else { return }
         var nfts: [NFTModel?] = Array(repeating: nil, count: profile.nfts.count)
         let dispatchGroup = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: "load_nfts_queue")
@@ -155,7 +157,7 @@ struct ProfileService: ProfileServiceProtocol {
     }
 
     func getFavouriteNFTs(completion: @escaping (Result<[FavouriteNFTModel], Error>) -> Void) {
-        guard let profile = userDefaults.profile else { return }
+        guard let profile = storageService.profile else { return }
         var nfts: [FavouriteNFTModel?] = Array(repeating: nil, count: profile.likes.count)
         let dispatchGroup = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: "load_fav_nfts_queue")

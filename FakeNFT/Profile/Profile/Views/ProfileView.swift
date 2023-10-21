@@ -77,7 +77,7 @@ final class ProfileView: UIView {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .bold22
+        label.font = .Bold.medium
         label.numberOfLines = 2
         label.textColor = A.Colors.blackDynamic.color
         label.isSkeletonable = true
@@ -97,7 +97,7 @@ final class ProfileView: UIView {
         let attributes: [NSAttributedString.Key: Any] = [
             .paragraphStyle: style,
             .foregroundColor: A.Colors.blackDynamic.color,
-            .font: UIFont.regular13
+            .font: UIFont.Regular.small
         ]
         textView.typingAttributes = attributes
         textView.isSkeletonable = true
@@ -106,7 +106,7 @@ final class ProfileView: UIView {
 
     private let websiteLabel: UILabel = {
         let label = UILabel()
-        label.font = .regular15
+        label.font = .Regular.medium
         label.textColor = A.Colors.blue.color
         label.isUserInteractionEnabled = true
         label.isSkeletonable = true
