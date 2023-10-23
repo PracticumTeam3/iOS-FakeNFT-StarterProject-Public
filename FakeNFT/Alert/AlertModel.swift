@@ -72,17 +72,23 @@ struct AlertModel {
     }
 
     static func myNFTLoadError(message: String) -> AlertModel {
-        AlertModel(
+        baseLoadError(
             title: L.Profile.MyNFT.Alert.fetchError,
-            message: message,
-            buttons: [
-                AlertButton(
-                    text: L.Alert.ok,
-                    style: .default,
-                    completion: {}
-                )
-            ],
-            preferredStyle: .alert
+            message: message
+        )
+    }
+
+    static func favouriteNFTLoadError(message: String) -> AlertModel {
+        baseLoadError(
+            title: L.Profile.FavouriteNFT.Alert.fetchError,
+            message: message
+        )
+    }
+
+    static func unlikeError(message: String) -> AlertModel {
+        baseLoadError(
+            title: L.Profile.FavouriteNFT.Alert.unlikeError,
+            message: message
         )
     }
 
@@ -135,6 +141,21 @@ struct AlertModel {
                 )
             ],
             preferredStyle: .actionSheet
+        )
+    }
+
+    private static func baseLoadError(title: String, message: String) -> AlertModel {
+        AlertModel(
+            title: title,
+            message: message,
+            buttons: [
+                AlertButton(
+                    text: L.Alert.ok,
+                    style: .default,
+                    completion: {}
+                )
+            ],
+            preferredStyle: .alert
         )
     }
 

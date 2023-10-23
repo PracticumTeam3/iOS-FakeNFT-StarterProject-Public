@@ -1,14 +1,15 @@
 //
-//  MyNFTView.swift
+//  FavouriteNFTView.swift
 //  FakeNFT
 //
-//  Created by Artem Novikov on 11.10.2023.
+//  Created by Artem Novikov on 18.10.2023.
 //
 
 import UIKit
+import SkeletonView
 
-// MARK: - MyNFTView
-final class MyNFTView: UIView {
+// MARK: - FavouriteNFTView
+final class FavouriteNFTView: UIView {
 
     // MARK: - Public properties
     enum State {
@@ -16,14 +17,16 @@ final class MyNFTView: UIView {
         case standart
     }
 
-    let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = A.Colors.whiteDynamic.color
-        tableView.tableFooterView = UIView()
-        tableView.allowsSelection = false
-        tableView.register(MyNFTTableViewCell.self)
-        return tableView
+    let collectionView: UICollectionView = {
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: UICollectionViewFlowLayout()
+        )
+        collectionView.isSkeletonable = true
+        collectionView.backgroundColor = A.Colors.whiteDynamic.color
+        collectionView.allowsSelection = false
+        collectionView.register(FavouriteNFTCollectionViewCell.self)
+        return collectionView
     }()
 
     // MARK: - Private properties
@@ -31,7 +34,7 @@ final class MyNFTView: UIView {
         let label = UILabel()
         label.textColor = A.Colors.blackDynamic.color
         label.font = .Bold.small
-        label.text = L.Profile.MyNFT.empty
+        label.text = L.Profile.FavouriteNFT.empty
         label.textAlignment = .center
         return label
     }()
@@ -52,10 +55,10 @@ final class MyNFTView: UIView {
         switch state {
         case .empty:
             emptyLabel.isHidden = false
-            tableView.isHidden = true
+            collectionView.isHidden = true
         case .standart:
             emptyLabel.isHidden = true
-            tableView.isHidden = false
+            collectionView.isHidden = false
         }
     }
 
@@ -66,15 +69,15 @@ final class MyNFTView: UIView {
     }
 
     private func setupLayout() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
 
-        addSubview(tableView)
+        addSubview(collectionView)
 
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
 
         emptyLabel.translatesAutoresizingMaskIntoConstraints = false

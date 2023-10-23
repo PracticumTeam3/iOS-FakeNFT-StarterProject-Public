@@ -40,6 +40,10 @@
 
 "profile.favouriteNFT.title" = "Favourite NFT";
 "profile.favouriteNFT.empty" = "You don't have favourite NFT yet";
+"profile.favouriteNFT.alert.fetchError" = "An error occurred while loading the favourite nfts";
+"profile.favouriteNFT.alert.unlikeError" = "An error occurred while removing the like";
+
+"profile.aboutDeveloper.title" = "About the developer";
 
 "cart.title" = "Cart";
 "cart.pay" = "Pay";

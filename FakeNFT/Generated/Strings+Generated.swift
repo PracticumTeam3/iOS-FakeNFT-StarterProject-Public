@@ -72,6 +72,10 @@ public enum L {
     public static let title = L.tr("Localizable", "profile.title", fallback: "Профиль")
     /// Сайт
     public static let website = L.tr("Localizable", "profile.website", fallback: "Сайт")
+    public enum AboutDeveloper {
+      /// О разработчике
+      public static let title = L.tr("Localizable", "profile.aboutDeveloper.title", fallback: "О разработчике")
+    }
     public enum Alert {
       /// Произошла ошибка во время изменения данных профиля
       public static let editError = L.tr("Localizable", "profile.alert.editError", fallback: "Произошла ошибка во время изменения данных профиля")
@@ -92,6 +96,12 @@ public enum L {
       public static let empty = L.tr("Localizable", "profile.favouriteNFT.empty", fallback: "У Вас еще нет избранных NFT")
       /// Избранные NFT
       public static let title = L.tr("Localizable", "profile.favouriteNFT.title", fallback: "Избранные NFT")
+      public enum Alert {
+        /// Произошла ошибка во время загрузки избранных NFT
+        public static let fetchError = L.tr("Localizable", "profile.favouriteNFT.alert.fetchError", fallback: "Произошла ошибка во время загрузки избранных NFT")
+        /// Произошла ошибка во время снятия лайка
+        public static let unlikeError = L.tr("Localizable", "profile.favouriteNFT.alert.unlikeError", fallback: "Произошла ошибка во время снятия лайка")
+      }
     }
     public enum MyNFT {
       /// У Вас еще нет NFT

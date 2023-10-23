@@ -40,6 +40,10 @@
 
 "profile.favouriteNFT.title" = "Избранные NFT";
 "profile.favouriteNFT.empty" = "У Вас еще нет избранных NFT";
+"profile.favouriteNFT.alert.fetchError" = "Произошла ошибка во время загрузки избранных NFT";
+"profile.favouriteNFT.alert.unlikeError" = "Произошла ошибка во время снятия лайка";
+
+"profile.aboutDeveloper.title" = "О разработчике";
 
 "cart.title" = "Корзина";
 "cart.pay" = "Оплатить";

@@ -13,7 +13,7 @@ final class EditProfileLabel: UILabel {
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
-        font = .bold22
+        font = .Bold.medium
         textColor = A.Colors.blackDynamic.color
     }
 

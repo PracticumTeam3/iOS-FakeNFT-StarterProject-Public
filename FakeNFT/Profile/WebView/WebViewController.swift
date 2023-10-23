@@ -15,15 +15,18 @@ final class WebViewController: UIViewController {
     private let webViewModel: WebViewModel
     private let url: URL
     private var estimatedProgressObservation: NSKeyValueObservation?
-    private lazy var webView = WebView {
-        self.didTapCloseButton()
-    }
+    private let webView: WebView
+    private let presentation: WebViewPresentation
 
     // MARK: - Initializers
-    init(webViewModel: WebViewModel, url: URL) {
+    init(webViewModel: WebViewModel, url: URL, presentation: WebViewPresentation) {
+        self.presentation = presentation
+        self.webView = WebView(presentation: presentation)
         self.webViewModel = webViewModel
         self.url = url
         super.init(nibName: nil, bundle: nil)
+        webView.delegate = self
+        hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -39,10 +42,11 @@ final class WebViewController: UIViewController {
         super.viewDidLoad()
         registerEstimatedProgressObserver()
         bind()
+        configureNavigationBarIfNeeded()
         load(url: url)
     }
 
-    // MARK: - Private  methods
+    // MARK: - Private methods
     private func bind() {
         webViewModel.onProgressChange = { [weak self] progress in
             self?.setProgressValue(progress)
@@ -76,8 +80,27 @@ final class WebViewController: UIViewController {
         webView.progressView.isHidden = isHidden
     }
 
-    @objc private func didTapCloseButton() {
-        dismiss(animated: true)
+    private func configureNavigationBarIfNeeded() {
+        guard presentation == .navigation else { return }
+        let leftButton = UIBarButtonItem(
+            image: A.Icons.back.image,
+            style: .plain,
+            target: self,
+            action: #selector(back)
+        )
+        navigationItem.setLeftBarButton(leftButton, animated: false)
+        navigationItem.title = L.Profile.AboutDeveloper.title
     }
 
+    @objc private func back() {
+        navigationController?.popViewController(animated: true)
+    }
+
+}
+
+// MARK: - WebViewController
+extension WebViewController: WebViewDelegate {
+    func didTapCloseButton() {
+        dismiss(animated: true)
+    }
 }
