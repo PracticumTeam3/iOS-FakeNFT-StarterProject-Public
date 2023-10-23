@@ -45,9 +45,9 @@ final class TabBarViewController: UITabBarController {
             selectedImage: nil)
         
         self.viewControllers = [
+            viewModel.profileVC,
             viewModel.catalogeVC,
             viewModel.cartVC,
-            viewModel.profileVC,
             viewModel.statisticVC
         ]
     }
