@@ -44,6 +44,7 @@ public enum A {
       public static let profile = ImageAsset(name: "profile")
       public static let statistic = ImageAsset(name: "statistic")
     }
+    public static let backward = ImageAsset(name: "backward")
     public static let close = ImageAsset(name: "close")
     public static let deleteNft = ImageAsset(name: "deleteNft")
     public static let edit = ImageAsset(name: "edit")

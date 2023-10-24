@@ -15,8 +15,7 @@ class CartObservable<Value> {
             onChange?(wrappedValue)
         }
     }
-    var
-projectedValue: CartObservable<Value> {
+    var projectedValue: CartObservable<Value> {
         return self
     }
     

@@ -203,7 +203,11 @@ final class CartTableViewViewController: UIViewController {
     }
     @objc
     private func payNFT() {
-        // TODO: метод оплаты нфт, следующее ревью
+        let paymentViewModel = PaymentViewViewModel()
+        let paymentVC = PaymentViewController(viewModel: paymentViewModel)
+        let navigationController = UINavigationController(rootViewController: paymentVC)
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: true)
     }
 }
 

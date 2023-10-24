@@ -21,6 +21,9 @@
 "cart.sortedByName" = "По названию";
 "cart.sortedClose" = "Закрыть";
 "cart.cartEmpty" = "Корзина пуста";
+"cart.choosePay" = "Выберите способ оплаты";
+"cart.userAgreementStart" = "Совершая покупку, вы соглашаетесь с условиями";
+"cart.userAgreementEnd" = "Пользовательского соглашения";
 
 "statistics.title" = "Статистика";
 
