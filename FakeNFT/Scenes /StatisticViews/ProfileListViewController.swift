@@ -15,6 +15,7 @@ final class ProfileListViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
     lazy private var sortButton: UIButton = {
         let button = UIButton()
         button.setImage(A.Icons.sort.image, for: .normal)
@@ -22,17 +23,19 @@ final class ProfileListViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = A.Colors.whiteDynamic.color
         tableView.separatorStyle = .none
-        tableView.allowsSelection = false
         tableView.register(ProfileTableViewCell.self,
                            forCellReuseIdentifier: "cell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
     private var viewModel: ProfileListViewModelProtocol?
+    
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +53,7 @@ final class ProfileListViewController: UIViewController {
             }
         }
     }
+    
     // MARK: - Private properties
     private func addSubviews() {
         view.addSubview(topView)
@@ -72,23 +76,28 @@ final class ProfileListViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
     private func bind() {
             self.viewModel?.onChange = self.tableView.reloadData
     }
+    
     @objc private func showAlert() {
         let alert = UIAlertController(
             title: "Сортировка",
             message: nil,
             preferredStyle: .actionSheet
         )
+        
         let sortByNameAction = UIAlertAction(title: "По имени", style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.viewModel?.sortProfilesByName()
         }
+        
         let sortByRatingAction = UIAlertAction(title: "По рейтингу", style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.viewModel?.sortProfilesByRating()
         }
+        
         let cancel = UIAlertAction(title: "Закрыть", style: .cancel) { _ in }
         alert.addAction(sortByNameAction)
         alert.addAction(sortByRatingAction)
@@ -101,6 +110,7 @@ extension ProfileListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel?.numberOfRows() ?? 0
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "cell",
@@ -109,8 +119,16 @@ extension ProfileListViewController: UITableViewDataSource {
         return cell
     }
 }
+
 extension ProfileListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DetailsProfileViewController()
+        vc.viewModel = viewModel?.cellViewModel(at: indexPath)
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
 }

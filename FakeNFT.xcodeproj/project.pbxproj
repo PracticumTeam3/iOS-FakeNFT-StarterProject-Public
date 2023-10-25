@@ -12,6 +12,7 @@
 		1D7073A12AE739000077C298 /* ProfileListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7073A02AE739000077C298 /* ProfileListViewModel.swift */; };
 		1D7073A32AE7393C0077C298 /* ProfileCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7073A22AE7393C0077C298 /* ProfileCellViewModel.swift */; };
 		1D7073A52AE73A120077C298 /* GetProfilesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7073A42AE73A110077C298 /* GetProfilesRequest.swift */; };
+		1D7073AF2AE9D91C0077C298 /* DetailsProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7073AE2AE9D91C0077C298 /* DetailsProfileViewController.swift */; };
 		3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ECE29DB474E00F6D39E /* Colors.swift */; };
 		3F478ED129DB476500F6D39E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ED029DB476500F6D39E /* Fonts.swift */; };
 		3F603CCD29DB4A53000C43D7 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 3F603CCC29DB4A53000C43D7 /* ProgressHUD */; };
@@ -69,6 +70,7 @@
 		1D7073A02AE739000077C298 /* ProfileListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListViewModel.swift; sourceTree = "<group>"; };
 		1D7073A22AE7393C0077C298 /* ProfileCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellViewModel.swift; sourceTree = "<group>"; };
 		1D7073A42AE73A110077C298 /* GetProfilesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfilesRequest.swift; sourceTree = "<group>"; };
+		1D7073AE2AE9D91C0077C298 /* DetailsProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsProfileViewController.swift; sourceTree = "<group>"; };
 		3CFD7A46F7015E1169F2C069 /* Pods-FakeNFT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FakeNFT.release.xcconfig"; path = "Target Support Files/Pods-FakeNFT/Pods-FakeNFT.release.xcconfig"; sourceTree = "<group>"; };
 		3F478ECE29DB474E00F6D39E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3F478ED029DB476500F6D39E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				1D70739E2AE7371B0077C298 /* ProfileTableViewCell.swift */,
 				1D7073A02AE739000077C298 /* ProfileListViewModel.swift */,
 				1D7073A22AE7393C0077C298 /* ProfileCellViewModel.swift */,
+				1D7073AE2AE9D91C0077C298 /* DetailsProfileViewController.swift */,
 			);
 			path = StatisticViews;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				7F8F934B2AD3E4C8003A67A1 /* TabBarViewController.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
+				1D7073AF2AE9D91C0077C298 /* DetailsProfileViewController.swift in Sources */,
 				7F8F93492AD3E4AB003A67A1 /* TabBarViewModel.swift in Sources */,
 				F31CFF372ACC6B74008C4F1F /* Strings+Generated.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,

@@ -27,6 +27,7 @@ final class ProfileListViewModel: ProfileListViewModelProtocol {
     }
     let request = GetProfilesRequest()
     let networkClient = DefaultNetworkClient()
+    
     // MARK: - Public methods
     func fetchProfiles(completion: @escaping() -> Void) {
         networkClient.send(
@@ -41,16 +42,20 @@ final class ProfileListViewModel: ProfileListViewModelProtocol {
                 }
             }
     }
+    
     func numberOfRows() -> Int {
         profiles.count
     }
+    
     func cellViewModel(at indexPath: IndexPath) -> ProfileCellViewModelProtocol {
         return ProfileCellViewModel(profile: profiles[indexPath.row], indexPath: indexPath)
     }
+    
     func sortProfilesByName() {
         let sortProfiles = profiles.sorted { $0.name < $1.name }
         profiles = sortProfiles
     }
+    
     func sortProfilesByRating() {
         let sortProfiles = profiles.sorted { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
         profiles = sortProfiles
