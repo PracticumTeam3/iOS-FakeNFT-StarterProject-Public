@@ -42,10 +42,9 @@ final class FavouriteNFTViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
+        configureView()
         bind()
-        viewModel.viewDidLoad()
-        favouriteNFTView.collectionView.dataSource = self
-        favouriteNFTView.collectionView.delegate = self
+        viewModel.fetchFavouriteNFTs { _ in }
     }
 
     override func viewDidLayoutSubviews() {
@@ -54,6 +53,14 @@ final class FavouriteNFTViewController: UIViewController {
     }
 
     // MARK: - Private methods
+    private func configureView() {
+        favouriteNFTView.collectionView.dataSource = self
+        favouriteNFTView.collectionView.delegate = self
+        favouriteNFTView.refreshControl.addTarget(self,
+                                                  action: #selector(refresh),
+                                                  for: .valueChanged)
+    }
+
     private func bind() {
         viewModel.onNFTListLoaded = { [weak self] in
             DispatchQueue.main.async {
@@ -102,6 +109,14 @@ final class FavouriteNFTViewController: UIViewController {
 
     @objc private func back() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc private func refresh() {
+        viewModel.fetchFavouriteNFTs { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.favouriteNFTView.refreshControl.endRefreshing()
+            }
+        }
     }
 
 }

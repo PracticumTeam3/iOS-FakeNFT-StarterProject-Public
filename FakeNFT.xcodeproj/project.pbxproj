@@ -42,6 +42,7 @@
 		F3568BCA2AD5896900D46FC1 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3568BC92AD5896900D46FC1 /* AlertPresenter.swift */; };
 		F3568BCC2AD59B8400D46FC1 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3568BCB2AD59B8400D46FC1 /* Configuration.swift */; };
 		F3568BCE2AD59FB300D46FC1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3568BCD2AD59FB300D46FC1 /* String+Extensions.swift */; };
+		F373FED92AE83BC100610B6E /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373FED82AE83BC100610B6E /* RefreshControl.swift */; };
 		F3ACCA0E2AD4153E0039431A /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ACCA0D2AD4153E0039431A /* UIViewController+Extensions.swift */; };
 		F3ACCA102AD4178B0039431A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ACCA0F2AD4178B0039431A /* WebViewController.swift */; };
 		F3ACCA152AD41ED90039431A /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ACCA142AD41ED90039431A /* WebView.swift */; };
@@ -148,6 +149,7 @@
 		F3568BC92AD5896900D46FC1 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		F3568BCB2AD59B8400D46FC1 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		F3568BCD2AD59FB300D46FC1 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		F373FED82AE83BC100610B6E /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
 		F3ACCA0D2AD4153E0039431A /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		F3ACCA0F2AD4178B0039431A /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F3ACCA142AD41ED90039431A /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -594,6 +596,7 @@
 			isa = PBXGroup;
 			children = (
 				F3FD164C2AD702D40042BF12 /* RatingStackView.swift */,
+				F373FED82AE83BC100610B6E /* RefreshControl.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -929,6 +932,7 @@
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				F3F10D4C2ACEF65500C53BF4 /* ProfileTableViewCells.swift in Sources */,
 				F3568BCE2AD59FB300D46FC1 /* String+Extensions.swift in Sources */,
+				F373FED92AE83BC100610B6E /* RefreshControl.swift in Sources */,
 				F3ACCA192AD455860039431A /* UIBlockingProgressHUD.swift in Sources */,
 				F3F10D462ACEDFFA00C53BF4 /* ProfileViewModel.swift in Sources */,
 				F3FD163D2AD6E7A40042BF12 /* MyNFTView.swift in Sources */,

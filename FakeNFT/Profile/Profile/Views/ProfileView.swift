@@ -23,6 +23,8 @@ final class ProfileView: UIView {
         return tableView
     }()
 
+    let refreshControl = RefreshControl()
+
     // MARK: - Private properties
     private enum Constants {
         enum ContentView {
@@ -57,6 +59,8 @@ final class ProfileView: UIView {
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.contentInset.bottom = Constants.ScrollView.bottomContentInset
+        scrollView.isScrollEnabled = true
+        scrollView.alwaysBounceVertical = true
         return scrollView
     }()
 
@@ -123,6 +127,7 @@ final class ProfileView: UIView {
         super.init(frame: .zero)
         setupLayout()
         setupUI()
+        scrollView.refreshControl = refreshControl
     }
 
     required init?(coder: NSCoder) {
@@ -266,6 +271,7 @@ final class ProfileView: UIView {
     private func setupLayout() {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
+        scrollView.addSubview(refreshControl)
 
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false

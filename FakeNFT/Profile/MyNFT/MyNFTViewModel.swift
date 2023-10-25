@@ -13,7 +13,7 @@ protocol MyNFTViewModelProtocol {
     var onNFTListLoaded: (() -> Void)? { get set }
     var onNFTListLoadError: ((String) -> Void)? { get set }
     var sortType: SortType { get set }
-    func viewDidLoad()
+    func fetchNFTs(completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 // MARK: - MyNFTViewModel
@@ -48,25 +48,23 @@ final class MyNFTViewModel: MyNFTViewModelProtocol {
         self.profileService = profileService
     }
 
-    // MARK: - Public methods
-    func viewDidLoad() {
-        fetchNFTs()
-    }
-
-    // MARK: - Private methods
-    private func fetchNFTs() {
+    // MARK: - Public methods   
+    func fetchNFTs(completion: @escaping (Result<Void, Error>) -> Void) {
         profileService.getNFTs { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let nftModels):
                 self.nftList = nftModels
                 sortNFTList()
+                completion(.success(()))
             case .failure(let error):
                 onNFTListLoadError?(error.localizedDescription)
+                completion(.failure(error))
             }
         }
     }
 
+    // MARK: - Private methods
     private func sortNFTList() {
         switch sortType {
         case .byPrice:

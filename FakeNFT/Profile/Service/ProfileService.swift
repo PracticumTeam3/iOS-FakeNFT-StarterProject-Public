@@ -35,14 +35,9 @@ struct ProfileService: ProfileServiceProtocol {
 
     // MARK: - Private properties
     private let networkClient: NetworkClient
-    private let storageService: StorageService
 
     // MARK: - Initializers
-    init(
-        networkClient: NetworkClient = DefaultNetworkClient(),
-        storageService: StorageService = StorageService.shared
-    ) {
-        self.storageService = storageService
+    init(networkClient: NetworkClient = DefaultNetworkClient()) {
         self.networkClient = networkClient
     }
 
@@ -120,24 +115,68 @@ struct ProfileService: ProfileServiceProtocol {
     }
 
     func getNFTs(completion: @escaping (Result<[NFTModel], Error>) -> Void) {
-        guard let profile = storageService.profile else { return }
-        var nfts: [NFTModel?] = Array(repeating: nil, count: profile.nfts.count)
         let dispatchGroup = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: "load_nfts_queue")
-        for (index, nftId) in profile.nfts.enumerated() {
-            dispatchGroup.enter()
-            getNFT(id: nftId) { result in
-                switch result {
-                case .success(let nftModel):
-                    getUser(id: nftModel.author) { result in
+        fetchProfile { result in
+            switch result {
+            case .success(let profile):
+                var nfts: [NFTModel?] = Array(repeating: nil, count: profile.nfts.count)
+                for (index, nftId) in profile.nfts.enumerated() {
+                    dispatchGroup.enter()
+                    getNFT(id: nftId) { result in
                         switch result {
-                        case .success(let userModel):
+                        case .success(let nftModel):
+                            getUser(id: nftModel.author) { result in
+                                switch result {
+                                case .success(let userModel):
+                                    dispatchQueue.async {
+                                        nfts[index] = NFTModel(image: nftModel.images[0],
+                                                               name: nftModel.name,
+                                                               authorName: userModel.name,
+                                                               rating: nftModel.rating,
+                                                               price: nftModel.price)
+                                        dispatchGroup.leave()
+                                    }
+                                case .failure(let error):
+                                    completion(.failure(error))
+                                    dispatchGroup.leave()
+                                }
+                            }
+                        case .failure(let error):
+                            completion(.failure(error))
+                            dispatchGroup.leave()
+                        }
+                    }
+                }
+                dispatchGroup.notify(queue: dispatchQueue) {
+                    completion(.success(nfts.compactMap { $0 }))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func getFavouriteNFTs(completion: @escaping (Result<[FavouriteNFTModel], Error>) -> Void) {
+        let dispatchGroup = DispatchGroup()
+        let dispatchQueue = DispatchQueue(label: "load_fav_nfts_queue")
+        fetchProfile { result in
+            switch result {
+            case .success(let profile):
+                var nfts: [FavouriteNFTModel?] = Array(repeating: nil, count: profile.likes.count)
+                for (index, nftId) in profile.likes.enumerated() {
+                    dispatchGroup.enter()
+                    getNFT(id: nftId) { result in
+                        switch result {
+                        case .success(let nftModel):
                             dispatchQueue.async {
-                                nfts[index] = NFTModel(image: nftModel.images[0],
-                                                       name: nftModel.name,
-                                                       authorName: userModel.name,
-                                                       rating: nftModel.rating,
-                                                       price: nftModel.price)
+                                nfts[index] = FavouriteNFTModel(
+                                    id: nftModel.id,
+                                    image: nftModel.images[0],
+                                    name: nftModel.name,
+                                    rating: nftModel.rating,
+                                    price: nftModel.price
+                                )
                                 dispatchGroup.leave()
                             }
                         case .failure(let error):
@@ -145,45 +184,13 @@ struct ProfileService: ProfileServiceProtocol {
                             dispatchGroup.leave()
                         }
                     }
-                case .failure(let error):
-                    completion(.failure(error))
-                    dispatchGroup.leave()
                 }
-            }
-        }
-        dispatchGroup.notify(queue: dispatchQueue) {
-            completion(.success(nfts.compactMap { $0 }))
-        }
-    }
-
-    func getFavouriteNFTs(completion: @escaping (Result<[FavouriteNFTModel], Error>) -> Void) {
-        guard let profile = storageService.profile else { return }
-        var nfts: [FavouriteNFTModel?] = Array(repeating: nil, count: profile.likes.count)
-        let dispatchGroup = DispatchGroup()
-        let dispatchQueue = DispatchQueue(label: "load_fav_nfts_queue")
-        for (index, nftId) in profile.likes.enumerated() {
-            dispatchGroup.enter()
-            getNFT(id: nftId) { result in
-                switch result {
-                case .success(let nftModel):
-                    dispatchQueue.async {
-                        nfts[index] = FavouriteNFTModel(
-                            id: nftModel.id,
-                            image: nftModel.images[0],
-                            name: nftModel.name,
-                            rating: nftModel.rating,
-                            price: nftModel.price
-                        )
-                        dispatchGroup.leave()
-                    }
-                case .failure(let error):
-                    completion(.failure(error))
-                    dispatchGroup.leave()
+                dispatchGroup.notify(queue: dispatchQueue) {
+                    completion(.success(nfts.compactMap { $0 }))
                 }
+            case .failure(let error):
+                completion(.failure(error))
             }
-        }
-        dispatchGroup.notify(queue: dispatchQueue) {
-            completion(.success(nfts.compactMap { $0 }))
         }
     }
 

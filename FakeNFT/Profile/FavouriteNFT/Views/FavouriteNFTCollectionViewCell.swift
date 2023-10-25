@@ -109,6 +109,7 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
     override func prepareForReuse() {
         super.prepareForReuse()
         nftImageView.kf.cancelDownloadTask()
+        changeLikeButtonState(isEnabled: true)
     }
 
     // MARK: - Public methods

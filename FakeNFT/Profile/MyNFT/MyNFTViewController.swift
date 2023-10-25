@@ -40,9 +40,9 @@ final class MyNFTViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        viewModel.viewDidLoad()
+        configureView()
+        viewModel.fetchNFTs { _ in }
         bind()
-        myNFTView.tableView.dataSource = self
     }
 
     override func viewDidLayoutSubviews() {
@@ -66,6 +66,13 @@ final class MyNFTViewController: UIViewController {
                 AlertPresenter.show(in: self, model: .myNFTLoadError(message: error))
             }
         }
+    }
+
+    private func configureView() {
+        myNFTView.tableView.dataSource = self
+        myNFTView.refreshControl.addTarget(self,
+                                           action: #selector(refresh),
+                                           for: .valueChanged)
     }
 
     private func configureNavigationBar() {
@@ -119,6 +126,14 @@ final class MyNFTViewController: UIViewController {
                 self?.viewModel.sortType = .byName
             })
         )
+    }
+
+    @objc private func refresh() {
+        viewModel.fetchNFTs { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.myNFTView.refreshControl.endRefreshing()
+            }
+        }
     }
 
 }

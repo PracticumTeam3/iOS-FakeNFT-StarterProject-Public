@@ -16,6 +16,8 @@ final class MyNFTView: UIView {
         case standart
     }
 
+    let refreshControl = RefreshControl()
+
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
@@ -41,6 +43,7 @@ final class MyNFTView: UIView {
         super.init(frame: frame)
         setupLayout()
         setupUI()
+        tableView.refreshControl = refreshControl
     }
 
     required init?(coder: NSCoder) {
@@ -69,6 +72,7 @@ final class MyNFTView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(tableView)
+        tableView.addSubview(refreshControl)
 
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
