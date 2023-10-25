@@ -43,7 +43,7 @@ final class ProfileViewController: UIViewController {
         configureNavigationBar()
         configureView()
         bind()
-        viewModel.fetchProfile()
+        viewModel.fetchProfile { _ in }
     }
 
     // MARK: - Private methods
@@ -60,7 +60,7 @@ final class ProfileViewController: UIViewController {
             DispatchQueue.main.async {
                 guard let self else { return }
                 AlertPresenter.show(in: self, model: .profileFetchError(message: error) {
-                    self.viewModel.fetchProfile()
+                    self.viewModel.fetchProfile { _ in }
                 })
             }
         }
@@ -68,7 +68,7 @@ final class ProfileViewController: UIViewController {
             DispatchQueue.main.async {
                 guard let self else { return }
                 AlertPresenter.show(in: self, model: .profileEditError(message: error) {
-                    self.viewModel.fetchProfile()
+                    self.viewModel.fetchProfile { _ in }
                 })
             }
         }
@@ -94,6 +94,9 @@ final class ProfileViewController: UIViewController {
         profileView.tableView.dataSource = self
         profileView.tableView.delegate = self
         profileView.initialize(gestureRecognizer: gestureRecognizer)
+        profileView.refreshControl.addTarget(self,
+                                             action: #selector(refresh),
+                                             for: .valueChanged)
         if viewModel.model == nil {
             profileView.changeSkeletonState(isShown: true)
             editButton?.isEnabled = false
@@ -141,6 +144,14 @@ final class ProfileViewController: UIViewController {
         let viewModel = WebViewModel()
         let vc = WebViewController(webViewModel: viewModel, url: url, presentation: .modal)
         present(vc, animated: true)
+    }
+
+    @objc private func refresh() {
+        viewModel.fetchProfile { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.profileView.refreshControl.endRefreshing()
+            }
+        }
     }
 
 }

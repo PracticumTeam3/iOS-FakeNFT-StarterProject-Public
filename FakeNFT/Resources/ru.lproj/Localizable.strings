@@ -9,6 +9,8 @@
 "alert.close" = "Закрыть";
 "alert.tryAgain" = "Попробовать еще раз";
 
+"ptr" = "Потяните, чтобы обновить";
+
 "network.error.httpStatusCode" = "Что-то пошло не так";
 "network.error.httpStatusCode4xx" = "Ошибка клиента";
 "network.error.httpStatusCode5xx" = "Ошибка сервера";

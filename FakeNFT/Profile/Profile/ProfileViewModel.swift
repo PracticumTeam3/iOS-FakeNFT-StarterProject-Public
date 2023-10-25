@@ -46,12 +46,16 @@ final class ProfileViewModel {
     }
 
     // MARK: - Public methods
-    func fetchProfile() {
+    func fetchProfile(completion: @escaping (Result<Void, Error>) -> Void) {
         profileService.fetchProfile { [weak self] result in
             guard let self else { return }
             switch result {
-            case .success(let model): self.updateProfileIfNeeded(profileModel: model)
-            case .failure(let error): self.onFetchError?(error.localizedDescription)
+            case .success(let model):
+                self.updateProfileIfNeeded(profileModel: model)
+                completion(.success(()))
+            case .failure(let error):
+                self.onFetchError?(error.localizedDescription)
+                completion(.failure(error))
             }
         }
     }

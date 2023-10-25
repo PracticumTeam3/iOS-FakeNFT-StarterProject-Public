@@ -12,7 +12,7 @@ protocol FavouriteNFTViewModelProtocol {
     var nftList: [FavouriteNFTModel]? { get }
     var onNFTListLoaded: (() -> Void)? { get set }
     var onNFTListLoadError: ((String) -> Void)? { get set }
-    func viewDidLoad()
+    func fetchFavouriteNFTs(completion: @escaping (Result<Void, Error>) -> Void)
     func unlikeNFT(with index: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
@@ -42,10 +42,6 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
     }
 
     // MARK: - Public methods
-    func viewDidLoad() {
-        fetchFavouriteNFTs()
-    }
-
     func unlikeNFT(with id: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let profile = storageService.profile else { return }
         let newLikes = profile.likes.filter { $0 != id }
@@ -55,7 +51,7 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
             switch result {
             case .success(let profile):
                 self.updateProfileIfNeeded(profileModel: profile)
-                self.fetchFavouriteNFTs()
+                self.fetchFavouriteNFTs { _ in }
                 completion(.success(()))
             case .failure(let error):
                 completion(.failure(error))
@@ -63,15 +59,16 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
         }
     }
 
-    // MARK: - Private methods
-    private func fetchFavouriteNFTs() {
+    func fetchFavouriteNFTs(completion: @escaping (Result<Void, Error>) -> Void) {
         profileService.getFavouriteNFTs { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let nftModels):
                 self.nftList = nftModels
+                completion(.success(()))
             case .failure(let error):
                 self.onNFTListLoadError?(error.localizedDescription)
+                completion(.failure(error))
             }
         }
     }
