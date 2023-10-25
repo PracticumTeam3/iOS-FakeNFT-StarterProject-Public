@@ -12,7 +12,12 @@ protocol CartTableViewViewModelDelegateProtocol {
 
 final class CartTableViewViewModel {
     
-    private let nfts = mockNFT
+    private var nfts = [CartTableViewCellViewModel]()
+    
+    private enum ConstantName: String {
+        case nft = "NFT"
+        case eth = "ETH"
+    }
     
     @CartObservable private(set) var sortedNFT = [CartTableViewCellViewModel]()
     @CartObservable private(set) var nftIsEmpty: Bool = true
@@ -20,13 +25,27 @@ final class CartTableViewViewModel {
     @CartObservable private(set) var nftPrices: String = "5,34 ETH"
     
     private let userSortedService = UserSortedService()
+    private let orderService = OrderService.shared
     private var sortedName: CartSortedStorage?
     var delegate: CartTableViewViewModelDelegateProtocol?
     
     init() {
         sortedName = userSortedService.cartSorted
+        fetchOrder()
         checkNFTCount()
         sortedCart()
+        countNft()
+        checkOverPrice()
+        bind()
+    }
+    
+    private func fetchOrder() {
+        orderService.fetchOrder()
+        nfts = orderService.nfts.compactMap { CartTableViewCellViewModel(imageURL: $0.images[0],
+                                                                         nftName: $0.name,
+                                                                         rating: $0.rating,
+                                                                         price: $0.price,
+                                                                         currency: ConstantName.eth.rawValue)}
     }
     
     private func checkNFTCount() {
@@ -51,6 +70,30 @@ final class CartTableViewViewModel {
         sortedName = userSortedService.cartSorted
         sortedCart()
     }
+    
+    private func bind() {
+        orderService.$nfts.bind { [weak self] newNftModel in
+            self?.nfts = newNftModel.compactMap { CartTableViewCellViewModel(imageURL: $0.images[0],
+                                                                             nftName: $0.name,
+                                                                             rating: $0.rating,
+                                                                             price: $0.price,
+                                                                             currency: ConstantName.eth.rawValue)}
+            self?.checkNFTCount()
+            self?.sortedCart()
+            self?.countNft()
+            self?.checkOverPrice()
+        }
+    }
+    
+    private func countNft() {
+        nftCount = String(nfts.count) + " " + ConstantName.nft.rawValue
+    }
+    
+    private func checkOverPrice() {
+        let price = nfts.reduce(0) {$0 + $1.price}
+        nftPrices = String(price) + " " + ConstantName.eth.rawValue
+    }
+    
 }
 // MARK: - Extension CartCellViewModelDelegateProtocol
 extension CartTableViewViewModel: CartCellViewModelDelegateProtocol {

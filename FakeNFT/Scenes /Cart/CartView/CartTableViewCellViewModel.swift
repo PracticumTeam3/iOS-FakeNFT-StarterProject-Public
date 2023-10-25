@@ -16,12 +16,12 @@ final class CartTableViewCellViewModel {
     private(set) var imageURL: URL
     private(set) var nftName: String
     private(set) var rating: Int
-    private(set) var price: Double
+    private(set) var price: Float
     private(set) var currency: String
     private(set) var priceString: String
     var delegate: CartCellViewModelDelegateProtocol?
     
-    init(imageURL: URL, nftName: String, rating: Int, price: Double, currency: String ) {
+    init(imageURL: URL, nftName: String, rating: Int, price: Float, currency: String ) {
         self.imageURL = imageURL
         self.nftName = nftName
         self.rating = rating
