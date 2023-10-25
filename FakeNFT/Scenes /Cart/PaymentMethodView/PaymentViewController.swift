@@ -177,7 +177,8 @@ extension PaymentViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PaymentCollectionCell.defaultReuseIdentifier, for: indexPath) as?  PaymentCollectionCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PaymentCollectionCell.defaultReuseIdentifier,
+                                                            for: indexPath) as?  PaymentCollectionCell
         else { return UICollectionViewCell()}
         let cellViewModel = viewModel.coins[indexPath.row]
         cell.viewModel = cellViewModel

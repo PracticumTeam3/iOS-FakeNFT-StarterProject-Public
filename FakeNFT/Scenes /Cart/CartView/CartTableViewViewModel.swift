@@ -114,6 +114,7 @@ extension CartTableViewViewModel: NfyDeleteAlertDelegateProtocol {
 }
 
 // МОКОВЫЕ ЗНАЧЕНИЯ ДЛЯ НФТ
+/*
 private let mockURL = URL(string: "https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/April/1.png")!
 private let cartTableViewCellViewModel1 = CartTableViewCellViewModel(imageURL: mockURL,
                                                                      nftName: "First Test",
@@ -140,3 +141,4 @@ let mockNFT = [cartTableViewCellViewModel1,
                cartTableViewCellViewModel2,
                cartTableViewCellViewModel3,
                cartTableViewCellViewModel4]
+*/

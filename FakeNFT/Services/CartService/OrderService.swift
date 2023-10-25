@@ -33,7 +33,7 @@ final class OrderService {
     
     func fetchOrder() {
         
-        var request = URLRequest.makeHTTPRequest(
+        let request = URLRequest.makeHTTPRequest(
             path: "/api/v1/orders/1",
             httpMethod: "GET")
         currentTask?.cancel()

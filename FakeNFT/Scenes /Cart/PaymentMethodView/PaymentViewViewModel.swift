@@ -12,18 +12,20 @@ final class PaymentViewViewModel {
     @CartObservable private(set) var coins: [PaymentCellViewModel] = []
     @CartObservable private(set) var isSelectedCoin:Bool = false
     
+    private let coinsService = PaymentService.shared
+    
     private var selectedCoin:Int? {
         didSet {
             checkSelectedCoin()
         }
     }
     
-    private let coinsService = mockCoins
-    
     init(selectedCoin: Int? = nil) {
-        self.coins = coinsService
+        coinsService.fetchCurrencies()
+        self.coins = self.currenciesToCoins(coinsService.currencies)
         self.selectedCoin = selectedCoin
         checkSelectedCoin()
+        bind()
     }
     
     func changeSelectedCoin(index: Int) {
@@ -37,11 +39,23 @@ final class PaymentViewViewModel {
             isSelectedCoin = false
         }
     }
+    
+    private func bind() {
+        coinsService.$currencies.bind { [weak self] newCurrencies in
+            guard let self else { return }
+            self.coins = self.currenciesToCoins(newCurrencies)
+        }
+    }
+    
+    private func currenciesToCoins(_ currencies: [Currency]) -> [PaymentCellViewModel] {
+        return currencies.compactMap { PaymentCellViewModel(imageURL: $0.image,
+                                                            coinName: $0.title,
+                                                            coinShortName: $0.name) }
+    }
 }
 
 /*
  Mock data for PaymentCellViewModel
- */
 
 let bitcoinViewModel = PaymentCellViewModel(imageURL: URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Bitcoin_(BTC).png")!,
                                             coinName: "Bitcoin",
@@ -71,3 +85,4 @@ let mockCoins = [bitcoinViewModel, dogeCoinViewModel,
                  tetherCoinViewModel, apecoinCoinViewModel,
                  solanaCoinViewModel, ethereumCoinViewModel,
                  cardanoCoinViewModel, shibaCoinViewModel]
+ */
