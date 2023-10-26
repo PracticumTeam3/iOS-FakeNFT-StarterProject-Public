@@ -48,9 +48,18 @@ final class StorageService {
         }
     }
 
+    var wasOnboardingShown: Bool {
+        get {
+            userDefaults.bool(forKey: Keys.wasOnboardingShown.rawValue)
+        }
+        set {
+            userDefaults.set(newValue, forKey: Keys.wasOnboardingShown.rawValue)
+        }
+    }
+
     // MARK: - Private  properties
     private enum Keys: String {
-        case profile, sortType
+        case profile, sortType, wasOnboardingShown
     }
 
     private let userDefaults = UserDefaults.standard

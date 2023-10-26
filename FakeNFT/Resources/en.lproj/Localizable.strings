@@ -9,6 +9,14 @@
 "alert.close" = "Close";
 "alert.tryAgain" = "Try again";
 
+"onboarding.page1.title" = "Explore";
+"onboarding.page1.subtitle" = "Join us and discover a new world of unique NFT for collectors";
+"onboarding.page2.title" = "Collect";
+"onboarding.page2.subtitle" = "Replenish your collection with exclusive pictures created by the neural network!";
+"onboarding.page3.title" = "Compete";
+"onboarding.page3.subtitle" = "See the statistics of others and show everyone that you have the most valuable collection";
+"onboarding.page3.button" = "What's inside?";
+
 "ptr" = "Pull down to refresh";
 
 "network.error.httpStatusCode" = "Something went wrong";

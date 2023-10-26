@@ -43,6 +43,12 @@
 		F3568BCC2AD59B8400D46FC1 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3568BCB2AD59B8400D46FC1 /* Configuration.swift */; };
 		F3568BCE2AD59FB300D46FC1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3568BCD2AD59FB300D46FC1 /* String+Extensions.swift */; };
 		F373FED92AE83BC100610B6E /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373FED82AE83BC100610B6E /* RefreshControl.swift */; };
+		F373FEDC2AE9309D00610B6E /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373FEDB2AE9309D00610B6E /* OnboardingPage.swift */; };
+		F373FEDE2AE930B900610B6E /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373FEDD2AE930B900610B6E /* OnboardingPageViewController.swift */; };
+		F373FEE02AE930D000610B6E /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373FEDF2AE930D000610B6E /* OnboardingViewController.swift */; };
+		F373FEE22AE9457F00610B6E /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373FEE12AE9457F00610B6E /* AppUtility.swift */; };
+		F373FEE42AEAB8C100610B6E /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373FEE32AEAB8C100610B6E /* PageControl.swift */; };
+		F373FEE62AEAC89500610B6E /* OnboardingViewControllerProps.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373FEE52AEAC89500610B6E /* OnboardingViewControllerProps.swift */; };
 		F3ACCA0E2AD4153E0039431A /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ACCA0D2AD4153E0039431A /* UIViewController+Extensions.swift */; };
 		F3ACCA102AD4178B0039431A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ACCA0F2AD4178B0039431A /* WebViewController.swift */; };
 		F3ACCA152AD41ED90039431A /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ACCA142AD41ED90039431A /* WebView.swift */; };
@@ -150,6 +156,12 @@
 		F3568BCB2AD59B8400D46FC1 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		F3568BCD2AD59FB300D46FC1 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		F373FED82AE83BC100610B6E /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
+		F373FEDB2AE9309D00610B6E /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
+		F373FEDD2AE930B900610B6E /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
+		F373FEDF2AE930D000610B6E /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		F373FEE12AE9457F00610B6E /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
+		F373FEE32AEAB8C100610B6E /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
+		F373FEE52AEAC89500610B6E /* OnboardingViewControllerProps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerProps.swift; sourceTree = "<group>"; };
 		F3ACCA0D2AD4153E0039431A /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		F3ACCA0F2AD4178B0039431A /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F3ACCA142AD41ED90039431A /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -257,6 +269,7 @@
 		3F68069529CBBAF100B4F915 /* FakeNFT */ = {
 			isa = PBXGroup;
 			children = (
+				F373FEDA2AE9307500610B6E /* Onboarding */,
 				F3568BC42AD5893500D46FC1 /* Alert */,
 				F3ACCA0C2AD415300039431A /* Helpers */,
 				F3F10D472ACEE9B000C53BF4 /* TabBar */,
@@ -451,12 +464,25 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		F373FEDA2AE9307500610B6E /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				F373FEDB2AE9309D00610B6E /* OnboardingPage.swift */,
+				F373FEDD2AE930B900610B6E /* OnboardingPageViewController.swift */,
+				F373FEDF2AE930D000610B6E /* OnboardingViewController.swift */,
+				F373FEE32AEAB8C100610B6E /* PageControl.swift */,
+				F373FEE52AEAC89500610B6E /* OnboardingViewControllerProps.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		F3ACCA0C2AD415300039431A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				F3ACCA0D2AD4153E0039431A /* UIViewController+Extensions.swift */,
 				F3ACCA182AD455860039431A /* UIBlockingProgressHUD.swift */,
 				F3568BCD2AD59FB300D46FC1 /* String+Extensions.swift */,
+				F373FEE12AE9457F00610B6E /* AppUtility.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -911,6 +937,7 @@
 				F3BDA6012ADECE610045E535 /* NetworkClientError.swift in Sources */,
 				F31CFF372ACC6B74008C4F1F /* Strings+Generated.swift in Sources */,
 				F3ACCA1D2AD476710039431A /* ProfileService.swift in Sources */,
+				F373FEDE2AE930B900610B6E /* OnboardingPageViewController.swift in Sources */,
 				F3C85F882AD085D6000F3CC2 /* EditProfileLabel.swift in Sources */,
 				F3F10D422ACEDFBA00C53BF4 /* ProfileViewController.swift in Sources */,
 				F3568BC32AD5802400D46FC1 /* EditProfileModel.swift in Sources */,
@@ -925,20 +952,24 @@
 				F3F10D442ACEDFEF00C53BF4 /* ProfileView.swift in Sources */,
 				F3568BCA2AD5896900D46FC1 /* AlertPresenter.swift in Sources */,
 				F3F10D492ACEE9C400C53BF4 /* TabBarController.swift in Sources */,
+				F373FEE02AE930D000610B6E /* OnboardingViewController.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				F3C85F8C2AD08618000F3CC2 /* TextField.swift in Sources */,
 				F3BDA6122ADFF0D50045E535 /* LikesModel.swift in Sources */,
 				F3C85F8A2AD085E1000F3CC2 /* EditProfileStackView.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				F3F10D4C2ACEF65500C53BF4 /* ProfileTableViewCells.swift in Sources */,
+				F373FEE42AEAB8C100610B6E /* PageControl.swift in Sources */,
 				F3568BCE2AD59FB300D46FC1 /* String+Extensions.swift in Sources */,
 				F373FED92AE83BC100610B6E /* RefreshControl.swift in Sources */,
 				F3ACCA192AD455860039431A /* UIBlockingProgressHUD.swift in Sources */,
 				F3F10D462ACEDFFA00C53BF4 /* ProfileViewModel.swift in Sources */,
+				F373FEE22AE9457F00610B6E /* AppUtility.swift in Sources */,
 				F3FD163D2AD6E7A40042BF12 /* MyNFTView.swift in Sources */,
 				F3FD16462AD6F2C50042BF12 /* ProfileNavigationController.swift in Sources */,
 				F3ACCA102AD4178B0039431A /* WebViewController.swift in Sources */,
 				F3ACCA152AD41ED90039431A /* WebView.swift in Sources */,
+				F373FEE62AEAC89500610B6E /* OnboardingViewControllerProps.swift in Sources */,
 				F3BDA6102ADFF03F0045E535 /* SetLikesRequest.swift in Sources */,
 				F3BDA60A2ADFE7800045E535 /* FavouriteNFTCollectionViewCell.swift in Sources */,
 				F3F10D4E2ACEF6B300C53BF4 /* ProfileTableViewCell.swift in Sources */,
@@ -955,6 +986,7 @@
 				F3FD164F2AD82F110042BF12 /* GetNFTRequest.swift in Sources */,
 				F3BDA61A2AE127600045E535 /* WebViewPresentation.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
+				F373FEDC2AE9309D00610B6E /* OnboardingPage.swift in Sources */,
 				F3BDA6042ADFE7150045E535 /* FavouriteNFTViewController.swift in Sources */,
 				F3FD16512AD830870042BF12 /* NFTNetworkModel.swift in Sources */,
 				F3ACCA0E2AD4153E0039431A /* UIViewController+Extensions.swift in Sources */,
