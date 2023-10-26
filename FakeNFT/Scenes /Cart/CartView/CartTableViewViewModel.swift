@@ -21,8 +21,8 @@ final class CartTableViewViewModel {
     
     @CartObservable private(set) var sortedNFT = [CartTableViewCellViewModel]()
     @CartObservable private(set) var nftIsEmpty: Bool = true
-    @CartObservable private(set) var nftCount: String = "10 NFT"
-    @CartObservable private(set) var nftPrices: String = "5,34 ETH"
+    @CartObservable private(set) var nftCount: String = ""
+    @CartObservable private(set) var nftPrices: String = ""
     
     private let userSortedService = UserSortedService()
     private let orderService = OrderService.shared
@@ -45,7 +45,8 @@ final class CartTableViewViewModel {
                                                                          nftName: $0.name,
                                                                          rating: $0.rating,
                                                                          price: $0.price,
-                                                                         currency: ConstantName.eth.rawValue)}
+                                                                         currency: ConstantName.eth.rawValue,
+                                                                         id: $0.id)}
     }
     
     private func checkNFTCount() {
@@ -77,7 +78,8 @@ final class CartTableViewViewModel {
                                                                              nftName: $0.name,
                                                                              rating: $0.rating,
                                                                              price: $0.price,
-                                                                             currency: ConstantName.eth.rawValue)}
+                                                                             currency: ConstantName.eth.rawValue,
+                                                                             id: $0.id)}
             self?.checkNFTCount()
             self?.sortedCart()
             self?.countNft()
@@ -91,14 +93,14 @@ final class CartTableViewViewModel {
     
     private func checkOverPrice() {
         let price = nfts.reduce(0) {$0 + $1.price}
-        nftPrices = String(price) + " " + ConstantName.eth.rawValue
+        nftPrices = String(round(price * 100)/100) + " " + ConstantName.eth.rawValue
     }
     
 }
 // MARK: - Extension CartCellViewModelDelegateProtocol
 extension CartTableViewViewModel: CartCellViewModelDelegateProtocol {
-    func showAlert(nftImage: UIImage, index: Int) {
-        let alertVC = NftDeleteAlert(image: nftImage, index: index)
+    func showAlert(nftImage: UIImage, id: String) {
+        let alertVC = NftDeleteAlert(image: nftImage, id: id)
         alertVC.delegate = self
         alertVC.modalPresentationStyle = .overFullScreen
         delegate?.showVC(alertVC)
@@ -107,9 +109,8 @@ extension CartTableViewViewModel: CartCellViewModelDelegateProtocol {
 
 // MARK: - Extension NfyDeleteAlertDelegateProtocol
 extension CartTableViewViewModel: NfyDeleteAlertDelegateProtocol {
-    func deleteNft(index: Int) {
-        print("delete nft, index \(index)")
-        checkNFTCount()
+    func deleteNft(id: String) {
+        orderService.changeOrder(deleteNftId: id)
     }
 }
 

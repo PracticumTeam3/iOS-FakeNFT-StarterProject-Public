@@ -14,6 +14,7 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
     
     var viewModel: PaymentCellViewModel! {
         didSet {
+            coinImageView.kf.indicatorType = .activity
             coinImageView.kf.setImage(with: viewModel.imageURL)
             coinNameLabel.text = viewModel.coinName
             coinShortNameLabel.text = viewModel.coinShortName

@@ -118,7 +118,7 @@ final class CartTableViewViewController: UIViewController {
             nftTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             nftTableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             nftTableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            nftTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            nftTableView.bottomAnchor.constraint(equalTo: cartView.topAnchor)
         ])
         NSLayoutConstraint.activate([
             cartView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
@@ -224,7 +224,6 @@ extension CartTableViewViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         cell.viewModel = viewModel.sortedNFT[indexPath.row]
         cell.viewModel.delegate = viewModel
-        cell.cellIndex = indexPath.row
         return cell
     }
 }

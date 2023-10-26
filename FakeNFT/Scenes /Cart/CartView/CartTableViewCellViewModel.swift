@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 protocol CartCellViewModelDelegateProtocol {
-    func showAlert(nftImage: UIImage, index: Int)
+    func showAlert(nftImage: UIImage, id: String)
 }
 
 final class CartTableViewCellViewModel {
@@ -19,18 +19,20 @@ final class CartTableViewCellViewModel {
     private(set) var price: Float
     private(set) var currency: String
     private(set) var priceString: String
+    private let id: String
     var delegate: CartCellViewModelDelegateProtocol?
     
-    init(imageURL: URL, nftName: String, rating: Int, price: Float, currency: String ) {
+    init(imageURL: URL, nftName: String, rating: Int, price: Float, currency: String, id: String ) {
         self.imageURL = imageURL
         self.nftName = nftName
         self.rating = rating
         self.price = price
         self.currency = currency
+        self.id = id
         self.priceString = String(price) + " " + currency
     }
     
-    func pressDelete(image:UIImage, index: Int) {
-        delegate?.showAlert(nftImage: image, index: index)
+    func pressDelete(image:UIImage) {
+        delegate?.showAlert(nftImage: image, id: id)
     }
 }

@@ -32,12 +32,27 @@ final class OrderService {
     }
     
     func fetchOrder() {
-        
         let request = URLRequest.makeHTTPRequest(
             path: "/api/v1/orders/1",
             httpMethod: "GET")
+        getOrder(request: request)
+    }
+    
+    func changeOrder(deleteNftId: String) {
+        guard let currentOrder = currentOrder else { return }
+        var request = URLRequest.makeHTTPRequest(
+            path: "/api/v1/orders/1",
+            httpMethod: "PUT")
+        var newNfts = currentOrder.nfts.filter { $0 != deleteNftId }
+        let jsonModel = OrderResult(nfts: newNfts, id: currentOrder.id)
+        let jsonData = try? JSONEncoder().encode(jsonModel)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        getOrder(request: request)
+    }
+    
+    private func getOrder(request: URLRequest) {
         currentTask?.cancel()
-        
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<OrderResult,Error>) in
             guard let self else { return }
             switch result {
@@ -55,6 +70,7 @@ final class OrderService {
     
     private func fetchNFT() {
         guard let nftsOrder = currentOrder?.nfts else { return }
+        nftArray = []
         if !nftsOrder.isEmpty {
             let dispathGroup = DispatchGroup()
             for nftId in nftsOrder {
