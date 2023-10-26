@@ -4,8 +4,8 @@
 //
 //  Created by Andrey Ovchinnikov on 24.10.2023.
 //
-import UIKit
 import ProgressHUD
+import UIKit
 
 final class ProfileListViewController: UIViewController {
     // MARK: - Private properties
@@ -54,12 +54,13 @@ final class ProfileListViewController: UIViewController {
         }
     }
     
-    // MARK: - Private properties
+    // MARK: - Private methods
     private func addSubviews() {
         view.addSubview(topView)
         view.addSubview(sortButton)
         view.addSubview(tableView)
     }
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -105,6 +106,7 @@ final class ProfileListViewController: UIViewController {
         present(alert, animated: true)
     }
 }
+
 // MARK: - Extensions
 extension ProfileListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -115,7 +117,8 @@ extension ProfileListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "cell",
             for: indexPath) as? ProfileTableViewCell else { return UITableViewCell() }
-        cell.viewModel = viewModel?.cellViewModel(at: indexPath)
+        guard let viewModel = viewModel?.cellViewModel(at: indexPath) else { return UITableViewCell() }
+        cell.configure(viewModel: viewModel)
         return cell
     }
 }

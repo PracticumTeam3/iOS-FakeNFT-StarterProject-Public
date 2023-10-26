@@ -8,6 +8,7 @@
 import UIKit
 
 final class LaunchScreenViewController: UIViewController {
+    // MARK: - Private properties
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         let image = A.Icons.splashScreen.image
@@ -15,6 +16,8 @@ final class LaunchScreenViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
+    
+    // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = A.Colors.whiteDynamic.color
@@ -22,6 +25,8 @@ final class LaunchScreenViewController: UIViewController {
         viewsConstrains()
         nextViews()
     }
+    
+    // MARK: - Private methods
     private func viewsConstrains() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -29,6 +34,7 @@ final class LaunchScreenViewController: UIViewController {
             logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
+    
     private func nextViews() {
         guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
         let nextView = TabBarViewController(viewModel: TabBarViewModel())

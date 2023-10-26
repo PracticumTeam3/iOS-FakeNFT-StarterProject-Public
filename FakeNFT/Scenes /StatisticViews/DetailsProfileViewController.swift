@@ -5,8 +5,9 @@
 //  Created by Andrey Ovchinnikov on 26.10.2023.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
+import WebKit
 
 final class DetailsProfileViewController: UIViewController {
     // MARK: - Private properties
@@ -113,6 +114,7 @@ final class DetailsProfileViewController: UIViewController {
         addSubviews()
         setupConstraints()
     }
+    
     // MARK: - Private properties
     private func addSubviews() {
         view.addSubview(topView)
@@ -166,7 +168,10 @@ final class DetailsProfileViewController: UIViewController {
     }
     
     @objc private func pushToWebSiteUser() {
-        print("Im website")
+        let webVC = WebViewController()
+        webVC.viewModel = viewModel
+        webVC.modalPresentationStyle = .fullScreen
+        present(webVC, animated: true)
     }
     
     @objc private func pushToUserCollections() {
@@ -184,4 +189,3 @@ final class DetailsProfileViewController: UIViewController {
         return mutableText
     }
 }
-

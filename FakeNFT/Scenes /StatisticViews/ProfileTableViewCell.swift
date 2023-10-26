@@ -4,9 +4,8 @@
 //
 //  Created by Andrey Ovchinnikov on 24.10.2023.
 //
-
-import UIKit
 import Kingfisher
+import UIKit
 
 final class ProfileTableViewCell: UITableViewCell {
     // MARK: - Private properties
@@ -57,16 +56,6 @@ final class ProfileTableViewCell: UITableViewCell {
         return image
     }()
     
-    // MARK: - Public properties
-    var viewModel: ProfileCellViewModelProtocol? {
-        didSet {
-            nameUser.text = viewModel?.profileName
-            userRating.text = viewModel?.rating
-            numberUser.text = viewModel?.numberUser
-            photoUser.kf.setImage(with: URL(string: viewModel?.profileImage ?? ""))
-        }
-    }
-    
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -105,5 +94,13 @@ final class ProfileTableViewCell: UITableViewCell {
             userRating.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             userRating.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
         ])
+    }
+    
+    // MARK: - Public methods
+    func configure(viewModel: ProfileCellViewModelProtocol) {
+        nameUser.text = viewModel.profileName
+        userRating.text = viewModel.rating
+        numberUser.text = viewModel.numberUser
+        photoUser.kf.setImage(with: URL(string: viewModel.profileImage))
     }
 }
