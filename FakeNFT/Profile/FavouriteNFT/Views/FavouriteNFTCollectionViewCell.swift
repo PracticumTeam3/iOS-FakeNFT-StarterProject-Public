@@ -104,6 +104,16 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
         return stackView
     }()
 
+    private var pulseAnimation: CAKeyframeAnimation {
+        let animation = CAKeyframeAnimation(keyPath: "transform.scale")
+
+        animation.values = [1.0, 1.2, 1.0]
+        animation.keyTimes = [0, 0.5, 1]
+        animation.duration = 0.7
+        return animation
+    }
+
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -137,6 +147,7 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
     // MARK: - Private methods
     @objc private func likeButtonClicked() {
         delegate?.didTapOnLikeButton(self)
+        likeButton.layer.add(pulseAnimation, forKey: "pulse")
     }
 
     private func setImage(
