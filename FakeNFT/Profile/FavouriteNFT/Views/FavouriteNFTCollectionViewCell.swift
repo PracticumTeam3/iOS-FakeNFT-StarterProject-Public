@@ -41,6 +41,15 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
         }
     }
 
+    private static var numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 3
+        formatter.currencyCode = "ETH"
+        formatter.locale = .current
+        return formatter
+    }()
+
     private let viewWithContent: UIView = {
         let view = UIView()
         view.backgroundColor = A.Colors.whiteDynamic.color
@@ -117,7 +126,7 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
         id = model.id
         setImage(url: model.image) { _ in }
         nftNameLabel.text = model.name
-        priceLabel.text = "\(model.price) ETH"
+        priceLabel.text = Self.numberFormatter.string(from: NSNumber(value: model.price))
         ratingStackView.setRating(rating: model.rating)
     }
 
