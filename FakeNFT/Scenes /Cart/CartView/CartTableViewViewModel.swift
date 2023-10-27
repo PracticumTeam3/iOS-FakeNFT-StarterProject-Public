@@ -6,7 +6,8 @@
 //
 
 import UIKit
-protocol CartTableViewViewModelDelegateProtocol {
+
+protocol CartTableViewViewModelDelegate {
     func showVC(_ vc: UIViewController)
 }
 
@@ -23,13 +24,15 @@ final class CartTableViewViewModel {
     @CartObservable private(set) var nftIsEmpty: Bool = true
     @CartObservable private(set) var nftCount: String = ""
     @CartObservable private(set) var nftPrices: String = ""
+    @CartObservable private(set) var progressHUDIsActive: Bool = true
     
     private let userSortedService = UserSortedService()
     private let orderService = OrderService.shared
     private var sortedName: CartSortedStorage?
-    var delegate: CartTableViewViewModelDelegateProtocol?
+    var delegate: CartTableViewViewModelDelegate?
     
     init() {
+        progressHUDIsActive = true
         sortedName = userSortedService.cartSorted
         fetchOrder()
         checkNFTCount()
@@ -84,6 +87,7 @@ final class CartTableViewViewModel {
             self?.sortedCart()
             self?.countNft()
             self?.checkOverPrice()
+            self?.progressHUDIsActive = false
         }
     }
     
@@ -93,12 +97,14 @@ final class CartTableViewViewModel {
     
     private func checkOverPrice() {
         let price = nfts.reduce(0) {$0 + $1.price}
-        nftPrices = String(round(price * 100)/100) + " " + ConstantName.eth.rawValue
+        var priceString = String(round(price * 100)/100)
+        priceString = priceString.replacingOccurrences(of: ".", with: ",")
+        nftPrices = priceString + " " + ConstantName.eth.rawValue
     }
     
 }
-// MARK: - Extension CartCellViewModelDelegateProtocol
-extension CartTableViewViewModel: CartCellViewModelDelegateProtocol {
+// MARK: - Extension CartCellViewModelDelegate
+extension CartTableViewViewModel: CartCellViewModelDelegate {
     func showAlert(nftImage: UIImage, id: String) {
         let alertVC = NftDeleteAlert(image: nftImage, id: id)
         alertVC.delegate = self
@@ -107,8 +113,8 @@ extension CartTableViewViewModel: CartCellViewModelDelegateProtocol {
     }
 }
 
-// MARK: - Extension NfyDeleteAlertDelegateProtocol
-extension CartTableViewViewModel: NfyDeleteAlertDelegateProtocol {
+// MARK: - Extension NfyDeleteAlertDelegate
+extension CartTableViewViewModel: NfyDeleteAlertDelegate {
     func deleteNft(id: String) {
         orderService.changeOrder(deleteNftId: id)
     }

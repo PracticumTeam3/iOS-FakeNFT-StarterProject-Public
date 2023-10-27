@@ -20,10 +20,9 @@ final class PaymentService {
     func fetchCurrencies() {
         currentTask?.cancel()
         let request = URLRequest.makeHTTPRequest(
-            path: "/api/v1/currencies",
-            httpMethod: "GET")
+            path: CartNetworkPath.paymentService.rawValue)
         
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<[CurrencyResult],Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<[CurrencyNetwork],Error>) in
             guard self != nil else { return }
             switch result {
             case.success(let currencyResults):
@@ -38,5 +37,23 @@ final class PaymentService {
         }
         currentTask = task
         currentTask?.resume()
+    }
+    
+    func payOrder(_ currencyID: String, completion: @escaping (Result <ResultOrder, Error>) -> Void) {
+        let request = URLRequest.makeHTTPRequest(
+            path: CartNetworkPath.currencyPay.rawValue + currencyID)
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<ResultOrderNetwork, Error>) in
+            guard self != nil else { return }
+            switch result {
+            case .success(let resultOrderNetwork):
+                let resultOrder = ResultOrder(success: resultOrderNetwork.success,
+                                              orderId: resultOrderNetwork.orderId,
+                                              currencyId: resultOrderNetwork.currencyId)
+                completion(.success(resultOrder))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        task.resume()
     }
 }

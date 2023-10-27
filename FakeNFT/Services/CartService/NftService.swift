@@ -15,11 +15,10 @@ final class NftService {
     }
     
     func fetchNft(nftId: String, completion: @escaping(Result<NftModel,Error>) -> Void) {
-        var request = URLRequest.makeHTTPRequest(
-            path: "/api/v1/nft/" + nftId,
-            httpMethod: "GET")
+        let request = URLRequest.makeHTTPRequest(
+            path: CartNetworkPath.nftService.rawValue + nftId)
         
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<NFTResult,Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<NftNetwork,Error>) in
             guard self != nil else { return }
             switch result {
             case.success(let nftResult):

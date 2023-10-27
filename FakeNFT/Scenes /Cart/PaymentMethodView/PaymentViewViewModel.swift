@@ -11,25 +11,47 @@ final class PaymentViewViewModel {
     
     @CartObservable private(set) var coins: [PaymentCellViewModel] = []
     @CartObservable private(set) var isSelectedCoin:Bool = false
+    @CartObservable private(set) var progressHUDIsActive: Bool = true
     
-    private let coinsService = PaymentService.shared
-    
-    private var selectedCoin:Int? {
+    private let paymentService = PaymentService.shared
+    private(set) var selectedCoin: String? {
         didSet {
             checkSelectedCoin()
         }
     }
     
-    init(selectedCoin: Int? = nil) {
-        coinsService.fetchCurrencies()
-        self.coins = self.currenciesToCoins(coinsService.currencies)
+    init(selectedCoin: String? = nil) {
+        progressHUDIsActive = true
+        paymentService.fetchCurrencies()
+        self.coins = self.currenciesToCoins(paymentService.currencies)
         self.selectedCoin = selectedCoin
         checkSelectedCoin()
         bind()
     }
     
-    func changeSelectedCoin(index: Int) {
-        self.selectedCoin = index
+    func changeSelectedCoin(id: String) {
+        self.selectedCoin = id
+    }
+    
+    func pressPay() {
+        progressHUDIsActive = true
+        guard let selectedCoin = selectedCoin else { return }
+        paymentService.payOrder(selectedCoin) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case (.success(let resultOrder)):
+                if resultOrder.success {
+                    print("payment sucess")
+                    self.progressHUDIsActive = false
+                } else {
+                    print("payment false")
+                    self.progressHUDIsActive = false
+                }
+            case (.failure(let error)):
+                print(error.localizedDescription)
+                self.progressHUDIsActive = false
+            }
+        }
     }
     
     private func checkSelectedCoin() {
@@ -41,48 +63,66 @@ final class PaymentViewViewModel {
     }
     
     private func bind() {
-        coinsService.$currencies.bind { [weak self] newCurrencies in
+        paymentService.$currencies.bind { [weak self] newCurrencies in
             guard let self else { return }
             self.coins = self.currenciesToCoins(newCurrencies)
+            self.progressHUDIsActive = false
         }
     }
     
     private func currenciesToCoins(_ currencies: [Currency]) -> [PaymentCellViewModel] {
         return currencies.compactMap { PaymentCellViewModel(imageURL: $0.image,
                                                             coinName: $0.title,
-                                                            coinShortName: $0.name) }
+                                                            coinShortName: $0.name,
+                                                            id:$0.id) }
     }
 }
 
 /*
- Mock data for PaymentCellViewModel
-
-let bitcoinViewModel = PaymentCellViewModel(imageURL: URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Bitcoin_(BTC).png")!,
+ // Mock data for PaymentCellViewModel
+let btcImageURL = URL(string:"https://code.s3.yandex.net/Mobile/iOS/Currencies/Bitcoin_(BTC).png")!
+let dogeCoinImageURL = URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Dogecoin_(DOGE).png")!
+let tetherImageURL = URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Tether_(USDT).png")!
+let apecoinImageURL = URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/ApeCoin_(APE).png")!
+let solanaCoinImageURL = URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Solana_(SOL).png")!
+let ethereumImageURL = URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Ethereum_(ETH).png")!
+let cardanoImageURL = URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Cardano_(ADA).png")!
+let shibaImageURL = URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Shiba_Inu_(SHIB).png")!
+ 
+let bitcoinViewModel = PaymentCellViewModel(imageURL: btcImageURL,
                                             coinName: "Bitcoin",
-                                            coinShortName: "BTC")
-let dogeCoinViewModel = PaymentCellViewModel(imageURL: URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Dogecoin_(DOGE).png")!,
+                                            coinShortName: "BTC",
+                                            id:"1")
+let dogeCoinViewModel = PaymentCellViewModel(imageURL: dogeCoinImageURL,
                                              coinName: "Dogecoin",
-                                             coinShortName: "DOGE")
-let tetherCoinViewModel = PaymentCellViewModel(imageURL: URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Tether_(USDT).png")!,
-                                             coinName: "Tether",
-                                             coinShortName: "USDT")
-let apecoinCoinViewModel = PaymentCellViewModel(imageURL: URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/ApeCoin_(APE).png")!,
-                                             coinName: "Apecoin",
-                                             coinShortName: "APE")
-let solanaCoinViewModel = PaymentCellViewModel(imageURL: URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Solana_(SOL).png")!,
-                                             coinName: "Solana",
-                                             coinShortName: "SOL")
-let ethereumCoinViewModel = PaymentCellViewModel(imageURL: URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Ethereum_(ETH).png")!,
-                                             coinName: "Etherium",
-                                             coinShortName: "ETH")
-let cardanoCoinViewModel = PaymentCellViewModel(imageURL: URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Cardano_(ADA).png")!,
-                                             coinName: "Cardano",
-                                             coinShortName: "ADA")
-let shibaCoinViewModel = PaymentCellViewModel(imageURL: URL(string: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Shiba_Inu_(SHIB).png")!,
-                                             coinName: "Shiba lnu",
-                                             coinShortName: "SHIB")
+                                             coinShortName: "DOGE",
+                                             id:"2")
+let tetherCoinViewModel = PaymentCellViewModel(imageURL: tetherImageURL,
+                                               coinName: "Tether",
+                                               coinShortName: "USDT",
+                                               id:"3")
+let apecoinCoinViewModel = PaymentCellViewModel(imageURL: apecoinImageURL,
+                                                coinName: "Apecoin",
+                                                coinShortName: "APE",
+                                                id:"4")
+let solanaCoinViewModel = PaymentCellViewModel(imageURL: solanaCoinImageURL,
+                                               coinName: "Solana",
+                                               coinShortName: "SOL",
+                                               id:"5")
+let ethereumCoinViewModel = PaymentCellViewModel(imageURL: ethereumImageURL,
+                                                 coinName: "Etherium",
+                                                 coinShortName: "ETH",
+                                                 id:"6")
+let cardanoCoinViewModel = PaymentCellViewModel(imageURL: cardanoImageURL,
+                                                coinName: "Cardano",
+                                                coinShortName: "ADA",
+                                                id:"7")
+let shibaCoinViewModel = PaymentCellViewModel(imageURL: shibaImageURL,
+                                              coinName: "Shiba lnu",
+                                              coinShortName: "SHIB",
+                                              id:"8")
 let mockCoins = [bitcoinViewModel, dogeCoinViewModel,
                  tetherCoinViewModel, apecoinCoinViewModel,
                  solanaCoinViewModel, ethereumCoinViewModel,
                  cardanoCoinViewModel, shibaCoinViewModel]
- */
+*/

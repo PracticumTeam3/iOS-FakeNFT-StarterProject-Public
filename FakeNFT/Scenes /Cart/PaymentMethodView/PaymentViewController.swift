@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 final class PaymentViewController: UIViewController {
     
@@ -122,6 +123,11 @@ final class PaymentViewController: UIViewController {
   
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        progressHUD(viewModel.progressHUDIsActive)
+    }
+    
     private func viewSupport() {
         view.backgroundColor = A.Colors.whiteDynamic.color
         navigationItem.title = L.Cart.choosePay
@@ -140,12 +146,12 @@ final class PaymentViewController: UIViewController {
     
     @objc
     func termsOfUsePressed() {
-        // TODO: Open WebView
+        // TODO: Open WebView, Next Iteration
     }
     
     @objc
     func pressedButton() {
-        // TODO: NextRewiew
+        viewModel.pressPay()
     }
     
     private func bind() {
@@ -155,6 +161,13 @@ final class PaymentViewController: UIViewController {
         viewModel.$isSelectedCoin.bind { [weak self] coinIsSelected in
             self?.buttonIsActivate(coinIsSelected)
         }
+        viewModel.$progressHUDIsActive.bind { [weak self] isShow in
+            self?.progressHUD(isShow)
+        }
+    }
+    
+    private func progressHUD(_ isShow: Bool) {
+        isShow ? ProgressHUD.show() : ProgressHUD.dismiss()
     }
     
     private func buttonIsActivate(_ activate: Bool) {
@@ -177,11 +190,12 @@ extension PaymentViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PaymentCollectionCell.defaultReuseIdentifier,
-                                                            for: indexPath) as?  PaymentCollectionCell
-        else { return UICollectionViewCell()}
+        let cell: PaymentCollectionCell = collectionView.dequeueReusableCell(indexPath: indexPath)
         let cellViewModel = viewModel.coins[indexPath.row]
         cell.viewModel = cellViewModel
+        if cell.viewModel.id == viewModel.selectedCoin {
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .top)
+        }
         return cell
     }
 }
@@ -192,7 +206,7 @@ extension PaymentViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? PaymentCollectionCell
         else { return }
-        viewModel.changeSelectedCoin(index: indexPath.row)
+        viewModel.changeSelectedCoin(id: cell.viewModel.id)
         cell.layer.borderColor = A.Colors.blackDynamic.color.cgColor
         cell.layer.borderWidth = 1
     }

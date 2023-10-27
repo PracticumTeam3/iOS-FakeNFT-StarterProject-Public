@@ -39,26 +39,26 @@
 
 `Total:` est: 300 min; fact: 240 min.
 
-## Экран Способ оплатить (est 1230; fact x).
+## Экран Способ оплатить (est 1230; fact 1470).
 
 ### Module 2:
 #### Верстка экрана способ олпатить
-- вьюМодель для ячейки(est: 60 min; fact: x min).
-- вью модель для коллекции (est: 60 min; fact: x min).
-- CollectionViewCell (est: 180 min; fact: x min).
-- CollectionView (est: 180 min; fact: x min).
-- кнопка Оплатить и пользовательское согласшение (est: 60 min; fact: x min).
+- вьюМодель для ячейки(est: 60 min; fact: 60 min).
+- вью модель для коллекции (est: 60 min; fact: 120 min).
+- CollectionViewCell (est: 180 min; fact: 120 min).
+- CollectionView (est: 180 min; fact: 180 min).
+- кнопка Оплатить и пользовательское согласшение (est: 60 min; fact: 150 min).
 
-`Total:` est: 540 min; fact: x min.
+`Total:` est: 540 min; fact: 630 min.
 
 #### Логика
-- сетевой запрос на получение корзины (est: 240 min; fact: x min)
-- сетевой запрос на удаление из корзины (est: 180 min; fact: x min)
-- выбор ячейки оплаты (est: 60 min; fact: x min).
-- нажатие на кнопку (est: 30 min; fact: x min).
-- сетевой запрос на покупку (est: 180 min; fact: x min).
+- сетевой запрос на получение корзины (est: 240 min; fact: 240 min)
+- сетевой запрос на удаление из корзины (est: 180 min; fact: 300 min)
+- выбор ячейки оплаты (est: 60 min; fact: 60 min).
+- нажатие на кнопку (est: 30 min; fact: 60 min).
+- сетевой запрос на покупку (est: 180 min; fact: 180 min).
 
-`Total:` est: 690 min; fact: x min.
+`Total:` est: 690 min; fact: 840 min.
 
 ## Настройка сетевого слоя (est 900; fact x).
 

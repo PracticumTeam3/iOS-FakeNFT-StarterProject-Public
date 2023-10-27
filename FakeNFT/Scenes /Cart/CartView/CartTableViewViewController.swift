@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 final class CartTableViewViewController: UIViewController {
     
@@ -103,6 +104,11 @@ final class CartTableViewViewController: UIViewController {
         nftTableView.dataSource = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        progressHUD(viewModel.progressHUDIsActive)
+    }
+    
     private func layoutSupport() {
         view.addSubview(emptyLabel)
         view.addSubview(nftTableView)
@@ -143,6 +149,7 @@ final class CartTableViewViewController: UIViewController {
         priceLabel.text = viewModel.nftPrices
         viewModel.$sortedNFT.bind { [weak self] _ in
             self?.nftTableView.reloadData()
+            
         }
         viewModel.$nftCount.bind { [weak self] newCount in
             self?.countNFTLabel.text = newCount
@@ -152,6 +159,9 @@ final class CartTableViewViewController: UIViewController {
         }
         viewModel.$nftIsEmpty.bind { [weak self] newIsEmpty in
             self?.tableViewIsEmpty(newIsEmpty)
+        }
+        viewModel.$progressHUDIsActive.bind { [weak self] isShow in
+            self?.progressHUD(isShow)
         }
     }
     
@@ -171,12 +181,16 @@ final class CartTableViewViewController: UIViewController {
         }
     }
     
-    @objc
-    private func sortedNFT() {
-        showAcionSheet()
+    private func progressHUD(_ isShow: Bool) {
+        isShow ? ProgressHUD.show() : ProgressHUD.dismiss()
     }
     
-    private func showAcionSheet() {
+    @objc
+    private func sortedNFT() {
+        showActionSheet()
+    }
+    
+    private func showActionSheet() {
         let alert = UIAlertController(title: L.Cart.sorted,
                                       message: nil,
                                       preferredStyle: .actionSheet)
@@ -217,10 +231,7 @@ extension CartTableViewViewController: UITableViewDataSource {
         return viewModel.sortedNFT.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = nftTableView.dequeueReusableCell(withIdentifier:CartTableViewCell.defaultReuseIdentifier,
-                                                          for: indexPath) as? CartTableViewCell else {
-            return UITableViewCell()
-        }
+        let cell:CartTableViewCell = tableView.dequeueReusableCell()
         cell.selectionStyle = .none
         cell.viewModel = viewModel.sortedNFT[indexPath.row]
         cell.viewModel.delegate = viewModel
@@ -228,8 +239,8 @@ extension CartTableViewViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - Extension CartTableViewViewModelDelegateProtocol
-extension CartTableViewViewController: CartTableViewViewModelDelegateProtocol {
+// MARK: - Extension CartTableViewViewModelDelegate
+extension CartTableViewViewController: CartTableViewViewModelDelegate {
     func showVC(_ vc: UIViewController) {
         self.present(vc, animated: false)
     }

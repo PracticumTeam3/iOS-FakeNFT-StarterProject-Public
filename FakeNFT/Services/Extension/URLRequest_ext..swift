@@ -24,6 +24,7 @@ extension URLRequest {
         baseURL: URL = defaultBaseURL
     ) -> URLRequest {
         var request = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
+        request.httpMethod = "GET"
         return request
     }
 }

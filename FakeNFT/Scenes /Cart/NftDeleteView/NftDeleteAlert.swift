@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol NfyDeleteAlertDelegateProtocol {
+protocol NfyDeleteAlertDelegate {
     func deleteNft(id: String)
 }
 
 final class NftDeleteAlert: UIViewController {
-    var delegate:NfyDeleteAlertDelegateProtocol?
+    var delegate:NfyDeleteAlertDelegate?
     var id: String
     private let alertImage: UIImageView = {
         let imageView = UIImageView()
