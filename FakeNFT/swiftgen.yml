@@ -21,3 +21,4 @@ xcassets:
         publicAccess: true
         enumName: A
       output: Generated/XCAssets+Generated.swift
+

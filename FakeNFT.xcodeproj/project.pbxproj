@@ -31,6 +31,10 @@
 		7F8F934B2AD3E4C8003A67A1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8F934A2AD3E4C8003A67A1 /* TabBarViewController.swift */; };
 		9D4D904FE300BF76B4E31C45 /* Pods_FakeNFT_FakeNFTUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 082D3AA4E98CAF85DF374B62 /* Pods_FakeNFT_FakeNFTUITests.framework */; };
 		AAF482A0D4C1738DA9FBC45E /* Pods_FakeNFT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B85D3BC7736CC3B5B1F6A961 /* Pods_FakeNFT.framework */; };
+		AAFDD7BF2AE15F5300E66E31 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDD7BE2AE15F5300E66E31 /* CatalogViewController.swift */; };
+		AAFDD7C12AE15FC300E66E31 /* CatalogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDD7C02AE15FC300E66E31 /* CatalogViewModel.swift */; };
+		AAFDD7C32AE166A300E66E31 /* CatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDD7C22AE166A300E66E31 /* CatalogCell.swift */; };
+		AAFDD7C62AEC232A00E66E31 /* CatalogCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDD7C52AEC232A00E66E31 /* CatalogCellModel.swift */; };
 		D9B9733791154B2C5C689757 /* Pods_FakeNFTTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 625DE10C99B1457B1FD5B31A /* Pods_FakeNFTTests.framework */; };
 		F31CFF1D2ACC5A95008C4F1F /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F31CFF1C2ACC5A95008C4F1F /* Colors.xcassets */; };
 		F31CFF212ACC5AB0008C4F1F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F31CFF202ACC5AB0008C4F1F /* Images.xcassets */; };
@@ -90,6 +94,10 @@
 		7F8F934A2AD3E4C8003A67A1 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		8A3ECB03122A50B3655AB22E /* Pods-FakeNFT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FakeNFT.debug.xcconfig"; path = "Target Support Files/Pods-FakeNFT/Pods-FakeNFT.debug.xcconfig"; sourceTree = "<group>"; };
 		9F48B1308BFF810416B69BBB /* Pods-FakeNFT-FakeNFTUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FakeNFT-FakeNFTUITests.release.xcconfig"; path = "Target Support Files/Pods-FakeNFT-FakeNFTUITests/Pods-FakeNFT-FakeNFTUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AAFDD7BE2AE15F5300E66E31 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
+		AAFDD7C02AE15FC300E66E31 /* CatalogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModel.swift; sourceTree = "<group>"; };
+		AAFDD7C22AE166A300E66E31 /* CatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCell.swift; sourceTree = "<group>"; };
+		AAFDD7C52AEC232A00E66E31 /* CatalogCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCellModel.swift; sourceTree = "<group>"; };
 		B85D3BC7736CC3B5B1F6A961 /* Pods_FakeNFT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FakeNFT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F31CFF1C2ACC5A95008C4F1F /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		F31CFF202ACC5AB0008C4F1F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -207,6 +215,7 @@
 		3F6806C729CBBC5B00B4F915 /* Scenes  */ = {
 			isa = PBXGroup;
 			children = (
+				AAFDD7BD2AE15F2400E66E31 /* Catalog */,
 				3F6806C829CBBC8100B4F915 /* ProductDetails */,
 				7F8F93442AD3DFF5003A67A1 /* LaunchScreenView */,
 				7F8F93472AD3E465003A67A1 /* TabBarView */,
@@ -226,6 +235,7 @@
 		3F6806C929CBBCAF00B4F915 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AAFDD7C42AEC225E00E66E31 /* UI */,
 				3F6806D829CC979D00B4F915 /* Network */,
 			);
 			path = Models;
@@ -282,6 +292,24 @@
 				7F8F934A2AD3E4C8003A67A1 /* TabBarViewController.swift */,
 			);
 			path = TabBarView;
+			sourceTree = "<group>";
+		};
+		AAFDD7BD2AE15F2400E66E31 /* Catalog */ = {
+			isa = PBXGroup;
+			children = (
+				AAFDD7BE2AE15F5300E66E31 /* CatalogViewController.swift */,
+				AAFDD7C02AE15FC300E66E31 /* CatalogViewModel.swift */,
+				AAFDD7C22AE166A300E66E31 /* CatalogCell.swift */,
+			);
+			path = Catalog;
+			sourceTree = "<group>";
+		};
+		AAFDD7C42AEC225E00E66E31 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				AAFDD7C52AEC232A00E66E31 /* CatalogCellModel.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		CCE3ACD0EC2CB49A1AEF01F1 /* Frameworks */ = {
@@ -584,12 +612,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F31CFF392ACC6B7A008C4F1F /* XCAssets+Generated.swift in Sources */,
+				AAFDD7C62AEC232A00E66E31 /* CatalogCellModel.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
+				AAFDD7BF2AE15F5300E66E31 /* CatalogViewController.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				7F8F934B2AD3E4C8003A67A1 /* TabBarViewController.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				7F8F93492AD3E4AB003A67A1 /* TabBarViewModel.swift in Sources */,
+				AAFDD7C12AE15FC300E66E31 /* CatalogViewModel.swift in Sources */,
+				AAFDD7C32AE166A300E66E31 /* CatalogCell.swift in Sources */,
 				F31CFF372ACC6B74008C4F1F /* Strings+Generated.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
