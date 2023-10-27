@@ -55,10 +55,10 @@ final class MyNFTViewModel: MyNFTViewModelProtocol {
             switch result {
             case .success(let nftModels):
                 self.nftList = nftModels
-                sortNFTList()
+                self.sortNFTList()
                 completion(.success(()))
             case .failure(let error):
-                onNFTListLoadError?(error.localizedDescription)
+                self.onNFTListLoadError?(error.localizedDescription)
                 completion(.failure(error))
             }
         }

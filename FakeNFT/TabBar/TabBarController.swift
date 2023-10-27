@@ -36,6 +36,17 @@ final class TabBarController: UITabBarController {
         self.viewControllers = [profileNavigationController]
     }
 
+    // MARK: - Public Methods
+    func showOnboardingIfNeeded() {
+        let storageService = StorageService.shared
+        if !storageService.wasOnboardingShown {
+            let onboardingViewController = OnboardingPageViewController()
+            onboardingViewController.modalPresentationStyle = .fullScreen
+            present(onboardingViewController, animated: true)
+            storageService.wasOnboardingShown = true
+        }
+    }
+
     // MARK: - Private Methods
     private func setupUI() {
         tabBar.backgroundColor = A.Colors.whiteDynamic.color

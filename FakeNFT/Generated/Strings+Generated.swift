@@ -55,6 +55,28 @@ public enum L {
       public static let urlSessionError = L.tr("Localizable", "network.error.urlSessionError", fallback: "Что-то пошло не так")
     }
   }
+  public enum Onboarding {
+    public enum Page1 {
+      /// Присоединяйтесь и откройте новый мир уникальных NFT для коллекционеров
+      public static let subtitle = L.tr("Localizable", "onboarding.page1.subtitle", fallback: "Присоединяйтесь и откройте новый мир уникальных NFT для коллекционеров")
+      /// Исследуйте
+      public static let title = L.tr("Localizable", "onboarding.page1.title", fallback: "Исследуйте")
+    }
+    public enum Page2 {
+      /// Пополняйте свою коллекцию эксклюзивными картинками, созданными нейросетью!
+      public static let subtitle = L.tr("Localizable", "onboarding.page2.subtitle", fallback: "Пополняйте свою коллекцию эксклюзивными картинками, созданными нейросетью!")
+      /// Коллекционируйте
+      public static let title = L.tr("Localizable", "onboarding.page2.title", fallback: "Коллекционируйте")
+    }
+    public enum Page3 {
+      /// Что внутри?
+      public static let button = L.tr("Localizable", "onboarding.page3.button", fallback: "Что внутри?")
+      /// Смотрите статистику других и покажите всем, что у вас самая ценная коллекция
+      public static let subtitle = L.tr("Localizable", "onboarding.page3.subtitle", fallback: "Смотрите статистику других и покажите всем, что у вас самая ценная коллекция")
+      /// Состязайтесь
+      public static let title = L.tr("Localizable", "onboarding.page3.title", fallback: "Состязайтесь")
+    }
+  }
   public enum Profile {
     /// О разработчике
     public static let about = L.tr("Localizable", "profile.about", fallback: "О разработчике")

@@ -9,6 +9,14 @@
 "alert.close" = "Закрыть";
 "alert.tryAgain" = "Попробовать еще раз";
 
+"onboarding.page1.title" = "Исследуйте";
+"onboarding.page1.subtitle" = "Присоединяйтесь и откройте новый мир уникальных NFT для коллекционеров";
+"onboarding.page2.title" = "Коллекционируйте";
+"onboarding.page2.subtitle" = "Пополняйте свою коллекцию эксклюзивными картинками, созданными нейросетью!";
+"onboarding.page3.title" = "Состязайтесь";
+"onboarding.page3.subtitle" = "Смотрите статистику других и покажите всем, что у вас самая ценная коллекция";
+"onboarding.page3.button" = "Что внутри?";
+
 "ptr" = "Потяните, чтобы обновить";
 
 "network.error.httpStatusCode" = "Что-то пошло не так";
