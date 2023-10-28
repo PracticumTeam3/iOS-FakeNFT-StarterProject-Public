@@ -44,9 +44,8 @@ class CatalogCell:UITableViewCell {
         lable.translatesAutoresizingMaskIntoConstraints = false
         lable.textColor = UIColor(named: "black")
         lable.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-        lable.textAlignment = .right
+        lable.textAlignment = .left
         lable.text = "нижний текст (11)"
-        lable.backgroundColor = .white
         return lable
     }()
 
@@ -108,4 +107,4 @@ class CatalogCell:UITableViewCell {
         lableCell.text = "\(catalogCellData.collectionName) (\(catalogCellData.nftCount))"
     }
     
-} //end CatalogCell
+} // end CatalogCell
