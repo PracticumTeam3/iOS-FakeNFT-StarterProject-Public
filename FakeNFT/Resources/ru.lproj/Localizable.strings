@@ -19,5 +19,8 @@
 "statistics.close" = "Закрыть";
 "statistics.goToWebsite" = "Перейти на сайт пользователя";
 "statistics.collectionNFT" = "Коллекция NFT";
+"statistics.Error" = "Проблемы с интернет соединением";
+"statistics.ErrorAction" = "Еще раз";
+"statistics.ErrorActionCancel" = "Выход";
 
 "catalog.title" = "Каталог";

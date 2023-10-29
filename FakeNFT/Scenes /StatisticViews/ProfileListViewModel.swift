@@ -6,6 +6,9 @@
 //
 
 import Foundation
+protocol ProfileListViewModelDelegate {
+    func showAlertWithError()
+}
 
 protocol ProfileListViewModelProtocol {
     var profiles: [ProfileResult] { get }
@@ -27,10 +30,10 @@ final class ProfileListViewModel: ProfileListViewModelProtocol {
     }
     let request = GetProfilesRequest()
     let networkClient = DefaultNetworkClient()
-    let delegate: ProfileListViewControllerProtocol
+    let delegate: ProfileListViewModelDelegate
     
     // MARK: - Initializers
-    init(delegate: ProfileListViewControllerProtocol) {
+    init(delegate: ProfileListViewModelDelegate) {
         self.delegate = delegate
     }
     
@@ -44,9 +47,8 @@ final class ProfileListViewModel: ProfileListViewModelProtocol {
                     self?.profiles = data
                     completion()
                 case .failure(let error):
-                    print(error)
                     DispatchQueue.main.async {
-                        self?.delegate.showAlertWithError(error: error.localizedDescription)
+                        self?.delegate.showAlertWithError()
                     }
                 }
             }

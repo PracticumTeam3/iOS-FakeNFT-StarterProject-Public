@@ -19,5 +19,8 @@
 "statistics.close" = "Close";
 "statistics.goToWebsite" = "Go to the user website";
 "statistics.collectionNFT" = "Collection NFT";
+"statistics.Error" = "Network error";
+"statistics.ErrorAction" = "Again";
+"statistics.ErrorActionCancel" = "Cancel";
 
 "catalog.title" = "Catalog";

@@ -7,10 +7,6 @@
 import ProgressHUD
 import UIKit
 
-protocol ProfileListViewControllerProtocol {
-    func showAlertWithError(error: String)
-}
-
 final class ProfileListViewController: UIViewController {
     // MARK: - Private properties
     private let topView: UIView = {
@@ -47,13 +43,19 @@ final class ProfileListViewController: UIViewController {
         setupConstraints()
         tableView.dataSource = self
         tableView.delegate = self
-        ProgressHUD.show()
         viewModel = ProfileListViewModel(delegate: self)
-        viewModel?.fetchProfiles { [weak self] in
-            DispatchQueue.main.async {
-                self?.bind()
-                self?.tableView.reloadData()
-                ProgressHUD.dismiss()
+        fetchProfiles()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *),
+           traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            if traitCollection.userInterfaceStyle == .dark {
+                sortButton.setImage(A.Icons.sortDarkMode.image, for: .normal)
+            } else {
+                sortButton.setImage(A.Icons.sort.image, for: .normal)
             }
         }
     }
@@ -80,6 +82,17 @@ final class ProfileListViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    private func fetchProfiles() {
+        ProgressHUD.show()
+        viewModel?.fetchProfiles { [weak self] in
+            DispatchQueue.main.async {
+                self?.bind()
+                self?.tableView.reloadData()
+                ProgressHUD.dismiss()
+            }
+        }
     }
     
     private func bind() {
@@ -150,13 +163,24 @@ extension ProfileListViewController: UITableViewDelegate {
     }
 }
 
-extension ProfileListViewController: ProfileListViewControllerProtocol {
-    func showAlertWithError(error: String) {
+extension ProfileListViewController: ProfileListViewModelDelegate {
+    func showAlertWithError() {
+        ProgressHUD.dismiss()
         let alert = UIAlertController(
             title: nil,
-            message: error,
+            message: L.Statistics.error,
             preferredStyle: .alert
         )
+        let action = UIAlertAction(
+            title: L.Statistics.errorAction,
+            style: .default) { _ in
+                self.fetchProfiles()
+            }
+        let cancel = UIAlertAction(
+            title: L.Statistics.errorActionCancel,
+            style: .default) { _ in  }
+        alert.addAction(action)
+        alert.addAction(cancel)
         present(alert, animated: true)
     }
 }

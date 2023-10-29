@@ -109,6 +109,19 @@ final class DetailsProfileViewController: UIViewController {
         setupConstraints()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *),
+           traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            if traitCollection.userInterfaceStyle == .dark {
+                backButton.setImage(A.Icons.backDarkMode.image, for: .normal)
+            } else {
+                backButton.setImage(A.Icons.back.image, for: .normal)
+            }
+        }
+    }
+    
     // MARK: - Public methods
     func configure(viewModel: ProfileCellViewModelProtocol) {
         nameUser.text = viewModel.profileName
