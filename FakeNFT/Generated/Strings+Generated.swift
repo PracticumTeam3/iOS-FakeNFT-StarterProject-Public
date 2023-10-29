@@ -38,6 +38,18 @@ public enum L {
     public static let website = L.tr("Localizable", "profile.website", fallback: "Сайт")
   }
   public enum Statistics {
+    /// По имени
+    public static let byName = L.tr("Localizable", "statistics.byName", fallback: "По имени")
+    /// По рейтингу
+    public static let byRating = L.tr("Localizable", "statistics.byRating", fallback: "По рейтингу")
+    /// Закрыть
+    public static let close = L.tr("Localizable", "statistics.close", fallback: "Закрыть")
+    /// Коллекция NFT
+    public static let collectionNFT = L.tr("Localizable", "statistics.collectionNFT", fallback: "Коллекция NFT")
+    /// Перейти на сайт пользователя
+    public static let goToWebsite = L.tr("Localizable", "statistics.goToWebsite", fallback: "Перейти на сайт пользователя")
+    /// Сортировка
+    public static let sorted = L.tr("Localizable", "statistics.sorted", fallback: "Сортировка")
     /// Статистика
     public static let title = L.tr("Localizable", "statistics.title", fallback: "Статистика")
   }

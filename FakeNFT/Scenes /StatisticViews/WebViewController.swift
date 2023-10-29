@@ -9,7 +9,7 @@ import ProgressHUD
 import UIKit
 import WebKit
 
-final class WebViewController: UIViewController {
+final class WebViewController: UIViewController, WKNavigationDelegate {
     private let webView: WKWebView = {
         let view = WKWebView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -25,29 +25,39 @@ final class WebViewController: UIViewController {
     }()
     
     private let progressViewContainer: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.backgroundColor = .systemRed
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    var viewModel: ProfileCellViewModelProtocol? {
-        didSet {
-            webView.load(URLRequest(url: URL(string: viewModel!.websiteUrl)!))
-        }
-    }
-    
-        override func viewDidLoad() {
+    // MARK: - Override methods
+    override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
         setupConstraints()
+        webView.navigationDelegate = self
     }
     
-    // MARK: - Private properties
+    // MARK: - Public methods
+    func configure(viewModel: ProfileCellViewModelProtocol) {
+        guard let url = URL(string: viewModel.websiteUrl) else { return }
+        webView.load(URLRequest(url: url))
+    }
+    
+    // MARK: - Delegate methods
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        ProgressHUD.show()
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        ProgressHUD.dismiss()
+    }
+    
+    // MARK: - Private methods
     private func addSubviews() {
         view.addSubview(webView)
         view.addSubview(backButton)
-       // view.addSubview(progressViewContainer)
     }
     
     private func setupConstraints() {
@@ -59,15 +69,11 @@ final class WebViewController: UIViewController {
             backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 9),
             backButton.widthAnchor.constraint(equalToConstant: 24),
-            backButton.heightAnchor.constraint(equalToConstant: 24),
-       //     progressViewContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      //      progressViewContainer.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-      //      progressViewContainer.heightAnchor.constraint(equalToConstant: 30),
-       //     progressViewContainer.widthAnchor.constraint(equalToConstant: 30)
+            backButton.heightAnchor.constraint(equalToConstant: 24)
         ])
     }
     
-   @objc private func backToDetailsVC() {
+    @objc private func backToDetailsVC() {
         dismiss(animated: true)
     }
 }

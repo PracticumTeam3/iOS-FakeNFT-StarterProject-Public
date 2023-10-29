@@ -61,7 +61,7 @@ final class DetailsProfileViewController: UIViewController {
     lazy private var webSiteUserButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .regular15
-        button.setTitle("Перейти на сайт пользователя", for: .normal)
+        button.setTitle(L.Statistics.goToWebsite, for: .normal)
         button.tintColor = A.Colors.blackDynamic.color
         button.layer.borderWidth = 1
         button.layer.borderColor = A.Colors.blackDynamic.color.cgColor
@@ -73,7 +73,7 @@ final class DetailsProfileViewController: UIViewController {
     
     private let collectionNFTLabel: UILabel = {
         let label = UILabel()
-        label.text = "Коллекция NFT"
+        label.text = L.Statistics.collectionNFT
         label.font = .bold17
         label.numberOfLines = 0
         label.textColor = A.Colors.blackDynamic.color
@@ -99,13 +99,7 @@ final class DetailsProfileViewController: UIViewController {
     }()
     
     // MARK: - Public properties
-    var viewModel: ProfileCellViewModelProtocol? {
-        didSet {
-            nameUser.text = viewModel?.profileName
-            infoUser.attributedText = mutableString(text: viewModel?.infoUser ?? "" )
-            photoUser.kf.setImage(with: URL(string: viewModel?.profileImage ?? ""))
-        }
-    }
+    private var viewModel: ProfileCellViewModelProtocol?
     
     // MARK: - Override methods
     override func viewDidLoad() {
@@ -115,7 +109,15 @@ final class DetailsProfileViewController: UIViewController {
         setupConstraints()
     }
     
-    // MARK: - Private properties
+    // MARK: - Public methods
+    func configure(viewModel: ProfileCellViewModelProtocol) {
+        nameUser.text = viewModel.profileName
+        infoUser.attributedText = mutableString(text: viewModel.infoUser)
+        photoUser.kf.setImage(with: URL(string: viewModel.profileImage))
+        self.viewModel = viewModel
+    }
+    
+    // MARK: - Private methods
     private func addSubviews() {
         view.addSubview(topView)
         view.addSubview(backButton)
@@ -163,29 +165,34 @@ final class DetailsProfileViewController: UIViewController {
         ])
     }
     
+    private func mutableString(text: String) -> NSMutableAttributedString {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineSpacing = 5
+        let mutableText = NSMutableAttributedString(string: text)
+        mutableText.addAttribute(
+            NSAttributedString.Key.paragraphStyle,
+            value: paragraph,
+            range: NSRange(
+                location: 0,
+                length: mutableText.length
+            )
+        )
+        return mutableText
+    }
+    
     @objc private func backToProfileList() {
         dismiss(animated: true)
     }
     
     @objc private func pushToWebSiteUser() {
         let webVC = WebViewController()
-        webVC.viewModel = viewModel
+        guard let viewModel = viewModel else { return }
+        webVC.configure(viewModel: viewModel)
         webVC.modalPresentationStyle = .fullScreen
         present(webVC, animated: true)
     }
     
     @objc private func pushToUserCollections() {
-        print("Im collections")
-    }
-    
-    private func mutableString(text: String) -> NSMutableAttributedString {
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.lineSpacing = 5
-        let mutableText = NSMutableAttributedString(string: text)
-        mutableText.addAttribute(NSAttributedString.Key.paragraphStyle,
-                           value: paragraph,
-                           range: NSRange(location: 0,
-                                          length: mutableText.length))
-        return mutableText
+        print("Im collections vc")
     }
 }

@@ -7,6 +7,10 @@
 import ProgressHUD
 import UIKit
 
+protocol ProfileListViewControllerProtocol {
+    func showAlertWithError(error: String)
+}
+
 final class ProfileListViewController: UIViewController {
     // MARK: - Private properties
     private let topView: UIView = {
@@ -44,7 +48,7 @@ final class ProfileListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         ProgressHUD.show()
-        viewModel = ProfileListViewModel()
+        viewModel = ProfileListViewModel(delegate: self)
         viewModel?.fetchProfiles { [weak self] in
             DispatchQueue.main.async {
                 self?.bind()
@@ -79,27 +83,36 @@ final class ProfileListViewController: UIViewController {
     }
     
     private func bind() {
-            self.viewModel?.onChange = self.tableView.reloadData
+        self.viewModel?.onChange = self.tableView.reloadData
     }
     
     @objc private func showAlert() {
         let alert = UIAlertController(
-            title: "Сортировка",
+            title: L.Statistics.sorted,
             message: nil,
             preferredStyle: .actionSheet
         )
         
-        let sortByNameAction = UIAlertAction(title: "По имени", style: .default) { [weak self] _ in
+        let sortByNameAction = UIAlertAction(
+            title: L.Statistics.byName,
+            style: .default
+        ) { [weak self] _ in
             guard let self = self else { return }
             self.viewModel?.sortProfilesByName()
         }
         
-        let sortByRatingAction = UIAlertAction(title: "По рейтингу", style: .default) { [weak self] _ in
+        let sortByRatingAction = UIAlertAction(
+            title: L.Statistics.byRating,
+            style: .default
+        ) { [weak self] _ in
             guard let self = self else { return }
             self.viewModel?.sortProfilesByRating()
         }
         
-        let cancel = UIAlertAction(title: "Закрыть", style: .cancel) { _ in }
+        let cancel = UIAlertAction(
+            title: L.Statistics.close,
+            style: .cancel
+        ) { _ in }
         alert.addAction(sortByNameAction)
         alert.addAction(sortByRatingAction)
         alert.addAction(cancel)
@@ -130,8 +143,20 @@ extension ProfileListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailsProfileViewController()
-        vc.viewModel = viewModel?.cellViewModel(at: indexPath)
+        guard let viewModel = viewModel?.cellViewModel(at: indexPath) else { return }
+        vc.configure(viewModel: viewModel)
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
+    }
+}
+
+extension ProfileListViewController: ProfileListViewControllerProtocol {
+    func showAlertWithError(error: String) {
+        let alert = UIAlertController(
+            title: nil,
+            message: error,
+            preferredStyle: .alert
+        )
+        present(alert, animated: true)
     }
 }

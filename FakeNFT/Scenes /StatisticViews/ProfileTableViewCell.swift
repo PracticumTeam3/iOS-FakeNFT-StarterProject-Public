@@ -68,6 +68,14 @@ final class ProfileTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public methods
+    func configure(viewModel: ProfileCellViewModelProtocol) {
+        nameUser.text = viewModel.profileName
+        userRating.text = viewModel.rating
+        numberUser.text = viewModel.numberUser
+        photoUser.kf.setImage(with: URL(string: viewModel.profileImage))
+    }
+    
     // MARK: - Private methods
     private func addSubviews() {
         contentView.addSubview(containerView)
@@ -94,13 +102,5 @@ final class ProfileTableViewCell: UITableViewCell {
             userRating.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             userRating.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
         ])
-    }
-    
-    // MARK: - Public methods
-    func configure(viewModel: ProfileCellViewModelProtocol) {
-        nameUser.text = viewModel.profileName
-        userRating.text = viewModel.rating
-        numberUser.text = viewModel.numberUser
-        photoUser.kf.setImage(with: URL(string: viewModel.profileImage))
     }
 }

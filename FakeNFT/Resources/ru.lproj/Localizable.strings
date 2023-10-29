@@ -13,5 +13,11 @@
 "cart.toBePaid" = "К оплате";
 
 "statistics.title" = "Статистика";
+"statistics.sorted" = "Сортировка";
+"statistics.byName" = "По имени";
+"statistics.byRating" = "По рейтингу";
+"statistics.close" = "Закрыть";
+"statistics.goToWebsite" = "Перейти на сайт пользователя";
+"statistics.collectionNFT" = "Коллекция NFT";
 
 "catalog.title" = "Каталог";

@@ -27,6 +27,12 @@ final class ProfileListViewModel: ProfileListViewModelProtocol {
     }
     let request = GetProfilesRequest()
     let networkClient = DefaultNetworkClient()
+    let delegate: ProfileListViewControllerProtocol
+    
+    // MARK: - Initializers
+    init(delegate: ProfileListViewControllerProtocol) {
+        self.delegate = delegate
+    }
     
     // MARK: - Public methods
     func fetchProfiles(completion: @escaping() -> Void) {
@@ -39,6 +45,9 @@ final class ProfileListViewModel: ProfileListViewModelProtocol {
                     completion()
                 case .failure(let error):
                     print(error)
+                    DispatchQueue.main.async {
+                        self?.delegate.showAlertWithError(error: error.localizedDescription)
+                    }
                 }
             }
     }
