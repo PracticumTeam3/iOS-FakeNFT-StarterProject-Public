@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  FakeNFT
+*/
+
+"profile.title" = "Профиль";
+"profile.name" = "Имя";
+"profile.description" = "Описание";
+"profile.website" = "Сайт";
+
+"cart.title" = "Корзина";
+"cart.pay" = "Оплатить";
+"cart.toBePaid" = "К оплате";
+
+"statistics.title" = "Статистика";
+
+"catalog.title" = "Каталог";
