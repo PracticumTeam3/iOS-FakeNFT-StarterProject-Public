@@ -6,7 +6,7 @@
 //
 
 import Foundation
-protocol ProfileListViewModelDelegate {
+protocol ProfileListViewModelDelegate: AnyObject {
     func showAlertWithError()
 }
 
@@ -44,9 +44,16 @@ final class ProfileListViewModel: ProfileListViewModelProtocol {
             type: [ProfileResult].self) { [weak self] result in
                 switch result {
                 case .success(let data):
-                    self?.profiles = data
-                    completion()
-                case .failure(let error):
+                    DispatchQueue.global(qos: .background).async {
+                        self?.profiles = data
+                        if StorageService.sortProfiles {
+                            self?.sortProfilesByName()
+                        } else {
+                            self?.sortProfilesByRating()
+                        }
+                        completion()
+                    }
+                case .failure(_):
                     DispatchQueue.main.async {
                         self?.delegate.showAlertWithError()
                     }
@@ -64,11 +71,13 @@ final class ProfileListViewModel: ProfileListViewModelProtocol {
     
     func sortProfilesByName() {
         let sortProfiles = profiles.sorted { $0.name < $1.name }
+        StorageService.sortProfiles = true
         profiles = sortProfiles
     }
     
     func sortProfilesByRating() {
         let sortProfiles = profiles.sorted { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
+        StorageService.sortProfiles = false
         profiles = sortProfiles
     }
 }
