@@ -143,7 +143,6 @@ class CollectionViewController: UIViewController {
 
     @objc
     func didAuthorButton() {
-
     }
     
 }// end CollectionViewController

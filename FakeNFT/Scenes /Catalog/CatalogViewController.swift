@@ -41,7 +41,23 @@ final class CatalogViewController: UIViewController {
     
     @objc
     func didTapSortButton() {
-        
+        let alertController = UIAlertController(title: "Сортировка", message: nil, preferredStyle: .actionSheet)
+
+        let sortByTitleAction = UIAlertAction(title: "По названию", style: .default) { _ in
+            // код для сортировки по названию
+        }
+
+        let sortByQuantityAction = UIAlertAction(title: "По количеству NFT", style: .default) { _ in
+            // код для сортировки по количеству NFT
+        }
+
+        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+
+        alertController.addAction(sortByTitleAction)
+        alertController.addAction(sortByQuantityAction)
+        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true, completion: nil)
     }
     
 } // end CatalogViewController
