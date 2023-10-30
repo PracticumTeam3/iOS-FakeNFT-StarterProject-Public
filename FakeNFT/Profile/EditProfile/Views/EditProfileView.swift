@@ -14,6 +14,7 @@ final class EditProfileView: UIView {
     // MARK: - Public properties
     var editProfileModel: EditProfileModel {
         EditProfileModel(
+            avatar: avatar ?? "",
             name: nameTextField.text ?? "",
             description: descriptionTextView.text ?? "",
             website: websiteTextField.text ?? ""
@@ -25,6 +26,20 @@ final class EditProfileView: UIView {
         button.setImage(A.Icons.close.image.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = A.Colors.blackDynamic.color
         return button
+    }()
+
+    var avatar: String? {
+        didSet {
+            updateAvatar()
+        }
+    }
+
+    lazy var changeAvatarView: UIView = {
+        let view = UIView()
+        view.backgroundColor = A.Colors.background.color
+        view.addSubview(changeAvatarLabel)
+        view.isUserInteractionEnabled = true
+        return view
     }()
 
     // MARK: - Private properties
@@ -110,14 +125,6 @@ final class EditProfileView: UIView {
         return label
     }()
 
-    private lazy var changeAvatarView: UIView = {
-        let view = UIView()
-        view.backgroundColor = A.Colors.background.color
-        view.addSubview(changeAvatarLabel)
-        view.isUserInteractionEnabled = true
-        return view
-    }()
-
     private let nameLabel = EditProfileLabel()
 
     private let descriptionLabel = EditProfileLabel()
@@ -158,6 +165,12 @@ final class EditProfileView: UIView {
 
     deinit {
         removeKeyboardObserver()
+    }
+
+    // MARK: - Public methods
+    func hideChangeAvatarView() {
+        self.changeAvatarView.isHidden = true
+        self.imageView.isUserInteractionEnabled = false
     }
 
     // MARK: - Layout
@@ -256,22 +269,16 @@ final class EditProfileView: UIView {
         websiteLabel.text = L.Profile.website
         changeAvatarLabel.text = L.Profile.Avatar.change
 
-        let gestureRecognizer = UITapGestureRecognizer(
-            target: self,
-            action: #selector(changePhoto(_:))
-         )
-        changeAvatarView.addGestureRecognizer(gestureRecognizer)
-
         backgroundColor = A.Colors.whiteDynamic.color
 
         nameTextField.addTarget(self, action: #selector(textFieldChanged(_:)), for: .editingChanged)
         websiteTextField.addTarget(self, action: #selector(textFieldChanged(_:)), for: .editingChanged)
 
         guard let model else { return }
+        avatar = model.avatar
         nameTextField.text = model.name
         descriptionTextView.text = model.description
         websiteTextField.text = model.website
-        updateAvatar()
     }
 
     // MARK: - Private methods
@@ -297,15 +304,10 @@ final class EditProfileView: UIView {
         }
     }
 
-    private func hideChangeAvatarView() {
-        self.changeAvatarView.isHidden = true
-        self.imageView.isUserInteractionEnabled = false
-    }
-
     private func updateAvatar() {
-        guard let model else { return }
+        guard let avatar else { return }
         imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: URL(string: model.avatar))
+        imageView.kf.setImage(with: URL(string: avatar))
     }
 
     private func registerKeyboardObserver() {
@@ -340,14 +342,6 @@ final class EditProfileView: UIView {
     @objc private func keyboardWillHide(notification: NSNotification) {
         scrollView.contentInset.bottom = Constants.ScrollView.bottomContentInset
         scrollView.verticalScrollIndicatorInsets.bottom = Constants.ScrollView.bottomContentInset
-    }
-
-    @objc private func changePhoto(_ sender: UITapGestureRecognizer) {
-        UIBlockingProgressHUD.show()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            UIBlockingProgressHUD.dismiss()
-            self?.hideChangeAvatarView()
-        }
     }
 
 }

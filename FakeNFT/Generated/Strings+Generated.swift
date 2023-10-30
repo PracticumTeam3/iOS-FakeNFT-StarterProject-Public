@@ -109,6 +109,14 @@ public enum L {
       public static let saveChanges = L.tr("Localizable", "profile.alert.saveChanges", fallback: "Вы хотите сохранить изменения?")
       /// Произошла ошибка при парсинге ссылки
       public static let urlError = L.tr("Localizable", "profile.alert.urlError", fallback: "Произошла ошибка при парсинге ссылки")
+      public enum Avatar {
+        /// Введите URL
+        public static let placeholder = L.tr("Localizable", "profile.alert.avatar.placeholder", fallback: "Введите URL")
+        /// Введите URL нового фото
+        public static let subtitle = L.tr("Localizable", "profile.alert.avatar.subtitle", fallback: "Введите URL нового фото")
+        /// Сменить фото
+        public static let title = L.tr("Localizable", "profile.alert.avatar.title", fallback: "Сменить фото")
+      }
     }
     public enum Avatar {
       /// Сменить

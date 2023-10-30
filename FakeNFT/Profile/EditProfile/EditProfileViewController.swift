@@ -16,6 +16,7 @@ final class EditProfileViewController: UIViewController {
 
     private var isProfileEdited: Bool {
         let oldProfileModel = EditProfileModel(
+            avatar: viewModel.model?.avatar ?? "",
             name: viewModel.model?.name ?? "",
             description: viewModel.model?.description ?? "",
             website: viewModel.model?.website ?? ""
@@ -44,15 +45,24 @@ final class EditProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
-        editProfileView.closeButton.addTarget(self, action: #selector(onCloseButtonTap), for: .touchUpInside)
+        configureView()
     }
 
     // MARK: - Private methods
-    @objc private func onCloseButtonTap() {
-        closeAction()
+    private func configureView() {
+        editProfileView.closeButton.addTarget(
+            self,
+            action: #selector(onCloseButtonTap),
+            for: .touchUpInside
+        )
+        let gestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(changePhoto(_:))
+         )
+        editProfileView.changeAvatarView.addGestureRecognizer(gestureRecognizer)
     }
 
-    private func showAlert() {
+    private func showConfirmationAlert() {
         AlertPresenter.show(in: self, model: .confirmChanging(
             agreeCompletion: { [weak self] in
                 guard let self else { return }
@@ -67,10 +77,21 @@ final class EditProfileViewController: UIViewController {
 
     private func closeAction() {
         if isProfileEdited {
-            showAlert()
+            showConfirmationAlert()
         } else {
             dismiss(animated: true)
         }
+    }
+
+    @objc private func onCloseButtonTap() {
+        closeAction()
+    }
+
+    @objc private func changePhoto(_ sender: UITapGestureRecognizer) {
+        AlertPresenter.show(in: self, model: .changePhotoAlert { [weak editProfileView] avatar in
+            editProfileView?.avatar = avatar
+            editProfileView?.hideChangeAvatarView()
+        })
     }
 
 }

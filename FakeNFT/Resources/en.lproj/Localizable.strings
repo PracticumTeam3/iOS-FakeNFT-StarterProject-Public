@@ -33,6 +33,9 @@
 "profile.website" = "Website";
 "profile.about" = "About the developer";
 "profile.avatar.change" = "Change\nphoto";
+"profile.alert.avatar.title" = "Change photo";
+"profile.alert.avatar.subtitle" = "Enter URL of a new photo";
+"profile.alert.avatar.placeholder" = "Enter URL";
 "profile.alert.urlError" = "An error occurred while parsing the link";
 "profile.alert.fetchError" = "An error occurred while loading the profile";
 "profile.alert.editError" = "An error occurred while changing profile data";

@@ -33,6 +33,9 @@
 "profile.website" = "Сайт";
 "profile.about" = "О разработчике";
 "profile.avatar.change" = "Сменить\nфото";
+"profile.alert.avatar.title" = "Сменить фото";
+"profile.alert.avatar.subtitle" = "Введите URL нового фото";
+"profile.alert.avatar.placeholder" = "Введите URL";
 "profile.alert.urlError" = "Произошла ошибка при парсинге ссылки";
 "profile.alert.fetchError" = "Произошла ошибка во время загрузки профиля";
 "profile.alert.editError" = "Произошла ошибка во время изменения данных профиля";

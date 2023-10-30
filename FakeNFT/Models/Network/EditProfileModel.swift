@@ -8,11 +8,13 @@
 import Foundation
 
 struct EditProfileModel: Codable, Equatable {
+    let avatar: String
     let name: String
     let description: String
     let website: String
 
     static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.avatar == rhs.avatar &&
         lhs.name == rhs.name &&
         lhs.description == rhs.description &&
         lhs.website == rhs.website
