@@ -10,15 +10,6 @@ import UIKit
 // swiftlint:disable trailing_whitespace
 final class CatalogViewController: UIViewController {
     
-    let sortButton: UIButton = {
-        let sort = UIButton()
-        let image = UIImage(named: "sort")
-        sort.addTarget(CatalogViewController.self, action: #selector(Self.didTapSortButton), for: .touchUpInside)
-        sort.translatesAutoresizingMaskIntoConstraints = false
-        sort.setImage(image, for: .normal)
-        return sort
-    }()
-    
     let catalogTableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -37,21 +28,14 @@ final class CatalogViewController: UIViewController {
     
     func setupViews() {
         view.backgroundColor = .white
-        view.addSubview(sortButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "sort"), style: .plain, target: self, action: #selector(didTapSortButton))
         view.addSubview(catalogTableView)
-        
-        NSLayoutConstraint.activate([
-            sortButton.heightAnchor.constraint(equalToConstant: 42),
-            sortButton.widthAnchor.constraint(equalToConstant: 42),
-            sortButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 9),
-            sortButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            sortButton.bottomAnchor.constraint(equalTo: catalogTableView.topAnchor, constant: -20)
-        ])
-        
+
         NSLayoutConstraint.activate([
             catalogTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             catalogTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            catalogTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 16)
+            catalogTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 16),
+            catalogTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)
         ])
     }
     
