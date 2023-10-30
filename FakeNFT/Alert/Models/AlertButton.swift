@@ -8,8 +8,8 @@
 import UIKit
 
 // MARK: - AlertButton
-struct AlertButton {
+struct AlertButton<T> {
     let text: String
     let style: UIAlertAction.Style
-    let completion: () -> Void
+    let completion: (T) -> Void
 }

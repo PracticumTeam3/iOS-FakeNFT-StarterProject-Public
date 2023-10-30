@@ -12,7 +12,7 @@ struct AlertModel {
 
     let title: String
     let message: String?
-    let buttons: [AlertButton]
+    let buttons: [AlertButton<Void>]
     let preferredStyle: UIAlertController.Style
 
     static var urlParsingError: AlertModel {

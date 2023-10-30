@@ -35,6 +35,8 @@
 		F31CFF2B2ACC5B75008C4F1F /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = F31CFF2D2ACC5B75008C4F1F /* Localizable.stringsdict */; };
 		F31CFF372ACC6B74008C4F1F /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31CFF362ACC6B74008C4F1F /* Strings+Generated.swift */; };
 		F31CFF392ACC6B7A008C4F1F /* XCAssets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31CFF382ACC6B7A008C4F1F /* XCAssets+Generated.swift */; };
+		F33ADA712AF0481800AC8803 /* AlertWithTextFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ADA702AF0481800AC8803 /* AlertWithTextFieldModel.swift */; };
+		F33ADA742AF0485700AC8803 /* AlertTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ADA732AF0485700AC8803 /* AlertTextField.swift */; };
 		F3568BC12AD57FBF00D46FC1 /* ChangeProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3568BC02AD57FBF00D46FC1 /* ChangeProfileRequest.swift */; };
 		F3568BC32AD5802400D46FC1 /* EditProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3568BC22AD5802400D46FC1 /* EditProfileModel.swift */; };
 		F3568BC62AD5893F00D46FC1 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3568BC52AD5893F00D46FC1 /* AlertModel.swift */; };
@@ -148,6 +150,8 @@
 		F31CFF2E2ACC5B77008C4F1F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		F31CFF362ACC6B74008C4F1F /* Strings+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
 		F31CFF382ACC6B7A008C4F1F /* XCAssets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCAssets+Generated.swift"; sourceTree = "<group>"; };
+		F33ADA702AF0481800AC8803 /* AlertWithTextFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWithTextFieldModel.swift; sourceTree = "<group>"; };
+		F33ADA732AF0485700AC8803 /* AlertTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTextField.swift; sourceTree = "<group>"; };
 		F3568BC02AD57FBF00D46FC1 /* ChangeProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfileRequest.swift; sourceTree = "<group>"; };
 		F3568BC22AD5802400D46FC1 /* EditProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileModel.swift; sourceTree = "<group>"; };
 		F3568BC52AD5893F00D46FC1 /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
@@ -429,11 +433,21 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
+		F33ADA722AF0483900AC8803 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F3568BC72AD5895800D46FC1 /* AlertButton.swift */,
+				F3568BC52AD5893F00D46FC1 /* AlertModel.swift */,
+				F33ADA702AF0481800AC8803 /* AlertWithTextFieldModel.swift */,
+				F33ADA732AF0485700AC8803 /* AlertTextField.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		F3568BC42AD5893500D46FC1 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
-				F3568BC52AD5893F00D46FC1 /* AlertModel.swift */,
-				F3568BC72AD5895800D46FC1 /* AlertButton.swift */,
+				F33ADA722AF0483900AC8803 /* Models */,
 				F3568BC92AD5896900D46FC1 /* AlertPresenter.swift */,
 			);
 			path = Alert;
@@ -967,6 +981,7 @@
 				F373FEE22AE9457F00610B6E /* AppUtility.swift in Sources */,
 				F3FD163D2AD6E7A40042BF12 /* MyNFTView.swift in Sources */,
 				F3FD16462AD6F2C50042BF12 /* ProfileNavigationController.swift in Sources */,
+				F33ADA742AF0485700AC8803 /* AlertTextField.swift in Sources */,
 				F3ACCA102AD4178B0039431A /* WebViewController.swift in Sources */,
 				F3ACCA152AD41ED90039431A /* WebView.swift in Sources */,
 				F373FEE62AEAC89500610B6E /* OnboardingViewControllerProps.swift in Sources */,
@@ -980,6 +995,7 @@
 				F3FD16582AD844F20042BF12 /* SortType.swift in Sources */,
 				F3ACCA172AD420A80039431A /* WebViewModel.swift in Sources */,
 				F3FD16482AD6F48A0042BF12 /* MyNFTTableViewCell.swift in Sources */,
+				F33ADA712AF0481800AC8803 /* AlertWithTextFieldModel.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				F3568BC62AD5893F00D46FC1 /* AlertModel.swift in Sources */,
 				F3ACCA1F2AD47CDF0039431A /* StorageService.swift in Sources */,

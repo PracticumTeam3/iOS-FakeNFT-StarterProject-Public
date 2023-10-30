@@ -14,4 +14,3 @@ struct OnboardingViewControllerProps {
     let subtitle: String
     let buttonText: String?
 }
-
