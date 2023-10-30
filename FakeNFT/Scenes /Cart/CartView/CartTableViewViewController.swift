@@ -28,6 +28,7 @@ final class CartTableViewViewController: UIViewController {
         tableView.isScrollEnabled = true
         tableView.backgroundColor = A.Colors.whiteDynamic.color
         tableView.allowsMultipleSelection = false
+        tableView.alwaysBounceVertical = true
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -68,6 +69,7 @@ final class CartTableViewViewController: UIViewController {
         let button = UIButton()
         button.addTarget(self, action: #selector(payNFT), for: .touchUpInside)
         button.setTitle(L.Cart.toBePaid, for: .normal)
+        button.titleLabel?.font = .bold17
         button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal)
         button.backgroundColor = A.Colors.blackDynamic.color
         button.layer.masksToBounds = true
@@ -148,20 +150,29 @@ final class CartTableViewViewController: UIViewController {
         countNFTLabel.text = viewModel.nftCount
         priceLabel.text = viewModel.nftPrices
         viewModel.$sortedNFT.bind { [weak self] _ in
-            self?.nftTableView.reloadData()
-            
+            DispatchQueue.main.async {
+                self?.nftTableView.reloadData()
+            }
         }
         viewModel.$nftCount.bind { [weak self] newCount in
-            self?.countNFTLabel.text = newCount
+            DispatchQueue.main.async {
+                self?.countNFTLabel.text = newCount
+            }
         }
         viewModel.$nftPrices.bind { [weak self] newPrice in
-            self?.priceLabel.text = newPrice
+            DispatchQueue.main.async {
+                self?.priceLabel.text = newPrice
+            }
         }
         viewModel.$nftIsEmpty.bind { [weak self] newIsEmpty in
-            self?.tableViewIsEmpty(newIsEmpty)
+            DispatchQueue.main.async {
+                self?.tableViewIsEmpty(newIsEmpty)
+            }
         }
         viewModel.$progressHUDIsActive.bind { [weak self] isShow in
-            self?.progressHUD(isShow)
+            DispatchQueue.main.async {
+                self?.progressHUD(isShow)
+            }
         }
     }
     
@@ -219,9 +230,9 @@ final class CartTableViewViewController: UIViewController {
     private func payNFT() {
         let paymentViewModel = PaymentViewViewModel()
         let paymentVC = PaymentViewController(viewModel: paymentViewModel)
-        let navigationController = UINavigationController(rootViewController: paymentVC)
-        navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated: true)
+        paymentVC.modalPresentationStyle = .fullScreen
+        paymentVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(paymentVC, animated: true)
     }
 }
 

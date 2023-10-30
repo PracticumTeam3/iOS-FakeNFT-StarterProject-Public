@@ -10,12 +10,12 @@ import Foundation
 struct Currency {
     var title: String
     var name: String
-    var image: URL
+    var imageURL: URL?
     var id: String
     init(title: String, name: String, image: String, id: String) {
         self.title = title
         self.name = name
-        self.image = URL(string: image)!
+        self.imageURL = URL(string: image)
         self.id = id
     }
 }

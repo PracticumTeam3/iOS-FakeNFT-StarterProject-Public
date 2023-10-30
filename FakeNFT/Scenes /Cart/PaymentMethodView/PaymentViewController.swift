@@ -48,6 +48,7 @@ final class PaymentViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = A.Colors.blackDynamic.color
         button.setTitle(L.Cart.pay, for: .normal)
+        button.titleLabel?.font = .bold17
         button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
@@ -61,6 +62,7 @@ final class PaymentViewController: UIViewController {
                                               collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.register(PaymentCollectionCell.self)
         collectionView.backgroundColor = A.Colors.whiteDynamic.color
+        collectionView.alwaysBounceVertical = true
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -93,7 +95,7 @@ final class PaymentViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: termsOfUseView.topAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -104,7 +106,8 @@ final class PaymentViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            payButton.widthAnchor.constraint(equalTo: termsOfUseView.widthAnchor, constant: -32),
+            payButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
+            payButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16),
             payButton.heightAnchor.constraint(equalToConstant: 60),
             payButton.bottomAnchor.constraint(equalTo: termsOfUseView.bottomAnchor, constant: -50),
             payButton.centerXAnchor.constraint(equalTo: termsOfUseView.centerXAnchor)
@@ -112,13 +115,13 @@ final class PaymentViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             termsOfUseLabel.topAnchor.constraint(equalTo: termsOfUseView.topAnchor, constant: 16),
-            termsOfUseLabel.leftAnchor.constraint(equalTo: termsOfUseView.leftAnchor, constant: 16),
-            termsOfUseLabel.rightAnchor.constraint(equalTo: termsOfUseView.rightAnchor, constant: -16)
+            termsOfUseLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
+            termsOfUseLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16)
         ])
         
         NSLayoutConstraint.activate([
             termsOfUseButton.topAnchor.constraint(equalTo: termsOfUseLabel.bottomAnchor),
-            termsOfUseButton.leftAnchor.constraint(equalTo: termsOfUseLabel.leftAnchor)
+            termsOfUseButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16)
         ])
   
     }
@@ -126,6 +129,14 @@ final class PaymentViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         progressHUD(viewModel.progressHUDIsActive)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate(alongsideTransition: { [weak self] _ in
+            self?.collectionView.collectionViewLayout.invalidateLayout()
+        }, completion: nil)
     }
     
     private func viewSupport() {
@@ -141,7 +152,7 @@ final class PaymentViewController: UIViewController {
     
     @objc
     func backVC() {
-        self.dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
@@ -156,13 +167,19 @@ final class PaymentViewController: UIViewController {
     
     private func bind() {
         viewModel.$coins.bind { [weak self] _ in
-            self?.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
         }
         viewModel.$isSelectedCoin.bind { [weak self] coinIsSelected in
-            self?.buttonIsActivate(coinIsSelected)
+            DispatchQueue.main.async {
+                self?.buttonIsActivate(coinIsSelected)
+            }
         }
         viewModel.$progressHUDIsActive.bind { [weak self] isShow in
-            self?.progressHUD(isShow)
+            DispatchQueue.main.async {
+                self?.progressHUD(isShow)
+            }
         }
     }
     

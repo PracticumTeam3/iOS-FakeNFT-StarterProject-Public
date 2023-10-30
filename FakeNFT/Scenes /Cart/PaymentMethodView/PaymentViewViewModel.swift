@@ -13,7 +13,7 @@ final class PaymentViewViewModel {
     @CartObservable private(set) var isSelectedCoin:Bool = false
     @CartObservable private(set) var progressHUDIsActive: Bool = true
     
-    private let paymentService = PaymentService.shared
+    private let cartService = CartService()
     private(set) var selectedCoin: String? {
         didSet {
             checkSelectedCoin()
@@ -22,11 +22,18 @@ final class PaymentViewViewModel {
     
     init(selectedCoin: String? = nil) {
         progressHUDIsActive = true
-        paymentService.fetchCurrencies()
-        self.coins = self.currenciesToCoins(paymentService.currencies)
+        
+        fetchCoins()
         self.selectedCoin = selectedCoin
         checkSelectedCoin()
         bind()
+    }
+    
+    private func fetchCoins() {
+        cartService.fetchCurrencies()
+        DispatchQueue.main.async {
+            self.coins = self.currenciesToCoins(self.cartService.currencies)
+        }
     }
     
     func changeSelectedCoin(id: String) {
@@ -36,7 +43,7 @@ final class PaymentViewViewModel {
     func pressPay() {
         progressHUDIsActive = true
         guard let selectedCoin = selectedCoin else { return }
-        paymentService.payOrder(selectedCoin) { [weak self] result in
+        cartService.payOrder(selectedCoin) { [weak self] result in
             guard let self else { return }
             switch result {
             case (.success(let resultOrder)):
@@ -55,15 +62,11 @@ final class PaymentViewViewModel {
     }
     
     private func checkSelectedCoin() {
-        if selectedCoin != nil {
-            isSelectedCoin = true
-        } else {
-            isSelectedCoin = false
-        }
+        isSelectedCoin = selectedCoin != nil
     }
     
     private func bind() {
-        paymentService.$currencies.bind { [weak self] newCurrencies in
+        cartService.$currencies.bind { [weak self] newCurrencies in
             guard let self else { return }
             self.coins = self.currenciesToCoins(newCurrencies)
             self.progressHUDIsActive = false
@@ -71,7 +74,7 @@ final class PaymentViewViewModel {
     }
     
     private func currenciesToCoins(_ currencies: [Currency]) -> [PaymentCellViewModel] {
-        return currencies.compactMap { PaymentCellViewModel(imageURL: $0.image,
+        return currencies.compactMap { PaymentCellViewModel(imageURL: $0.imageURL,
                                                             coinName: $0.title,
                                                             coinShortName: $0.name,
                                                             id:$0.id) }

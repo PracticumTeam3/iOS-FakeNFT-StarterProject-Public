@@ -12,7 +12,7 @@ protocol CartCellViewModelDelegate {
 }
 
 final class CartTableViewCellViewModel {
-    private(set) var imageURL: URL
+    private(set) var imageURL: URL?
     private(set) var nftName: String
     private(set) var rating: Int
     private(set) var price: Float
@@ -21,15 +21,14 @@ final class CartTableViewCellViewModel {
     private let id: String
     var delegate: CartCellViewModelDelegate?
     
-    init(imageURL: URL, nftName: String, rating: Int, price: Float, currency: String, id: String ) {
+    init(imageURL: URL?, nftName: String, rating: Int, price: Float, currency: String, id: String ) {
         self.imageURL = imageURL
         self.nftName = nftName
         self.rating = rating
         self.price = price
         self.currency = currency
         self.id = id
-        let stringPrice = String(price).replacingOccurrences(of: ".", with: ",")
-        self.priceString = stringPrice + " " + currency
+        self.priceString = price.nftPriceString(price: currency)
     }
     
     func pressDelete(image:UIImage) {
