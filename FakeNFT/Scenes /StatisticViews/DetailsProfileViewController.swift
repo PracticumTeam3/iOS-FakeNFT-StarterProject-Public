@@ -116,8 +116,10 @@ final class DetailsProfileViewController: UIViewController {
            traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
             if traitCollection.userInterfaceStyle == .dark {
                 backButton.setImage(A.Icons.backDarkMode.image, for: .normal)
+                webSiteUserButton.layer.borderColor = A.Colors.blackDynamic.color.cgColor
             } else {
                 backButton.setImage(A.Icons.back.image, for: .normal)
+                webSiteUserButton.layer.borderColor = A.Colors.blackDynamic.color.cgColor
             }
         }
     }
