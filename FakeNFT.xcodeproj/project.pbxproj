@@ -15,6 +15,7 @@
 		1D7073AF2AE9D91C0077C298 /* DetailsProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7073AE2AE9D91C0077C298 /* DetailsProfileViewController.swift */; };
 		1D7073B32AE9E9390077C298 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7073B22AE9E9390077C298 /* WebViewController.swift */; };
 		1DF1A6FA2AEFD5290025C4F4 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1A6F92AEFD5290025C4F4 /* UserDefaults.swift */; };
+		1DF1A6FD2AF1BEA30025C4F4 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1A6FC2AF1BEA30025C4F4 /* ProfileService.swift */; };
 		3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ECE29DB474E00F6D39E /* Colors.swift */; };
 		3F478ED129DB476500F6D39E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ED029DB476500F6D39E /* Fonts.swift */; };
 		3F603CCD29DB4A53000C43D7 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 3F603CCC29DB4A53000C43D7 /* ProgressHUD */; };
@@ -75,6 +76,7 @@
 		1D7073AE2AE9D91C0077C298 /* DetailsProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsProfileViewController.swift; sourceTree = "<group>"; };
 		1D7073B22AE9E9390077C298 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		1DF1A6F92AEFD5290025C4F4 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		1DF1A6FC2AF1BEA30025C4F4 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		3CFD7A46F7015E1169F2C069 /* Pods-FakeNFT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FakeNFT.release.xcconfig"; path = "Target Support Files/Pods-FakeNFT/Pods-FakeNFT.release.xcconfig"; sourceTree = "<group>"; };
 		3F478ECE29DB474E00F6D39E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3F478ED029DB476500F6D39E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -168,6 +170,14 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		1DF1A6FB2AF1BE4A0025C4F4 /* StatisticServices */ = {
+			isa = PBXGroup;
+			children = (
+				1DF1A6FC2AF1BEA30025C4F4 /* ProfileService.swift */,
+			);
+			path = StatisticServices;
+			sourceTree = "<group>";
+		};
 		3F478ECD29DB473000F6D39E /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +247,7 @@
 		3F6806C629CBBC4E00B4F915 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1DF1A6FB2AF1BE4A0025C4F4 /* StatisticServices */,
 				3FC8C38F29D245250081F015 /* Requests */,
 			);
 			path = Services;
@@ -625,6 +636,7 @@
 			files = (
 				F31CFF392ACC6B7A008C4F1F /* XCAssets+Generated.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
+				1DF1A6FD2AF1BEA30025C4F4 /* ProfileService.swift in Sources */,
 				1D7073A52AE73A120077C298 /* GetProfilesRequest.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
 				1DF1A6FA2AEFD5290025C4F4 /* UserDefaults.swift in Sources */,

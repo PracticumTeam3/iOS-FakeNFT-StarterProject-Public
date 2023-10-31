@@ -23,6 +23,7 @@ final class TabBarViewController: UITabBarController {
         view.backgroundColor = A.Colors.whiteDynamic.color
         self.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
         tabBar.backgroundColor = view.backgroundColor
+        tabBar.shadowImage = UIImage()
         tabBar.unselectedItemTintColor = A.Colors.blackDynamic.color
         guard let viewModel = viewModel else { return }
         

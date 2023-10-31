@@ -7,13 +7,13 @@
 
 import Foundation
 
-class StorageService {
-   static var sortProfiles: Bool {
+class Storage {
+   static var isSortByName: Bool {
         get {
-            UserDefaults.standard.bool(forKey: "key")
+            UserDefaults.standard.bool(forKey: "isSortByKey")
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "key")
+            UserDefaults.standard.set(newValue, forKey: "isSortByKey")
         }
     }
     

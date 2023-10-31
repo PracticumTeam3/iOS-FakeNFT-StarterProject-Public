@@ -11,21 +11,6 @@ import WebKit
 
 final class DetailsProfileViewController: UIViewController {
     // MARK: - Private properties
-    private let topView: UIView = {
-        let view = UIView()
-        view.backgroundColor = A.Colors.whiteDynamic.color
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    lazy private var backButton: UIButton = {
-        let button = UIButton()
-        button.setImage(A.Icons.back.image, for: .normal)
-        button.addTarget(self, action: #selector(backToProfileList), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     private let nameUser: UILabel = {
         let label = UILabel()
         label.text = "Placeholder"
@@ -107,23 +92,9 @@ final class DetailsProfileViewController: UIViewController {
         view.backgroundColor = A.Colors.whiteDynamic.color
         addSubviews()
         setupConstraints()
+        setupNavigationBar()
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        if #available(iOS 13.0, *),
-           traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            if traitCollection.userInterfaceStyle == .dark {
-                backButton.setImage(A.Icons.backDarkMode.image, for: .normal)
-                webSiteUserButton.layer.borderColor = A.Colors.blackDynamic.color.cgColor
-            } else {
-                backButton.setImage(A.Icons.back.image, for: .normal)
-                webSiteUserButton.layer.borderColor = A.Colors.blackDynamic.color.cgColor
-            }
-        }
-    }
-    
+     
     // MARK: - Public methods
     func configure(viewModel: ProfileCellViewModelProtocol) {
         nameUser.text = viewModel.profileName
@@ -134,8 +105,6 @@ final class DetailsProfileViewController: UIViewController {
     
     // MARK: - Private methods
     private func addSubviews() {
-        view.addSubview(topView)
-        view.addSubview(backButton)
         view.addSubview(nameUser)
         view.addSubview(photoUser)
         view.addSubview(infoUser)
@@ -147,15 +116,7 @@ final class DetailsProfileViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topView.topAnchor.constraint(equalTo: view.topAnchor),
-            topView.heightAnchor.constraint(equalToConstant: 88),
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 9),
-            backButton.widthAnchor.constraint(equalToConstant: 24),
-            backButton.heightAnchor.constraint(equalToConstant: 24),
-            photoUser.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
+            photoUser.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             photoUser.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             photoUser.widthAnchor.constraint(equalToConstant: 70),
             photoUser.heightAnchor.constraint(equalToConstant: 70),
@@ -195,16 +156,23 @@ final class DetailsProfileViewController: UIViewController {
         return mutableText
     }
     
+    private func setupNavigationBar() {
+        let backImageBackButton = UIImage(asset: A.Icons.back)
+        navigationController?.navigationBar.backIndicatorImage = backImageBackButton
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImageBackButton
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = A.Colors.blackDynamic.color
+    }
+    
     @objc private func backToProfileList() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc private func pushToWebSiteUser() {
         let webVC = WebViewController()
         guard let viewModel = viewModel else { return }
         webVC.configure(viewModel: viewModel)
-        webVC.modalPresentationStyle = .fullScreen
-        present(webVC, animated: true)
+        navigationController?.pushViewController(webVC, animated: true)
     }
     
     @objc private func pushToUserCollections() {
