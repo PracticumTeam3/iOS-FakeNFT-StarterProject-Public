@@ -62,7 +62,7 @@ class CartService {
         guard let currentOrder = currentOrder else { return }
         let newNfts = currentOrder.nfts.filter { $0 != deleteNftId }
         let orderNetwork = OrderNetwork(nfts: newNfts, id: currentOrder.id)
-        var request = SetOrderRequest(model: orderNetwork)
+        let request = SetOrderRequest(model: orderNetwork)
         
         networkClient.send(request: request,
                            type: OrderNetwork.self) { [weak self] result in
@@ -156,4 +156,3 @@ class CartService {
     }
         
 }
-

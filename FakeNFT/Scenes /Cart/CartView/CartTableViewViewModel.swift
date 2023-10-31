@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol CartTableViewViewModelDelegate {
+protocol CartTableViewViewModelDelegate: AnyObject {
     func showVC(_ vc: UIViewController)
 }
 
@@ -29,7 +29,7 @@ final class CartTableViewViewModel {
     private let userSortedService = UserSortedService()
     private let cartService = CartService.shared
     private var sortedName: CartSortedStorage?
-    var delegate: CartTableViewViewModelDelegate?
+    weak var delegate: CartTableViewViewModelDelegate?
     
     init() {
         progressHUDIsActive = true
@@ -50,8 +50,6 @@ final class CartTableViewViewModel {
                                                                                   price: $0.price,
                                                                                   currency: ConstantName.eth,
                                                                                   id: $0.id)}
-        
-        
     }
     
     private func checkNFTCount() {
