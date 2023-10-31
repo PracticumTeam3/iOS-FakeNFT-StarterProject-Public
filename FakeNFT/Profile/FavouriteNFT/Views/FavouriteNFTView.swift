@@ -15,9 +15,10 @@ final class FavouriteNFTView: UIView {
     enum State {
         case empty
         case standart
+        case nothingFound
     }
 
-    let refreshControl = RefreshControl()
+    var refreshControl: RefreshControl?
 
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(
@@ -37,7 +38,6 @@ final class FavouriteNFTView: UIView {
         let label = UILabel()
         label.textColor = A.Colors.blackDynamic.color
         label.font = .Bold.small
-        label.text = L.Profile.FavouriteNFT.empty
         label.textAlignment = .center
         return label
     }()
@@ -47,7 +47,6 @@ final class FavouriteNFTView: UIView {
         super.init(frame: frame)
         setupLayout()
         setupUI()
-        collectionView.refreshControl = refreshControl
     }
 
     required init?(coder: NSCoder) {
@@ -60,6 +59,11 @@ final class FavouriteNFTView: UIView {
         case .empty:
             emptyLabel.isHidden = false
             collectionView.isHidden = true
+            emptyLabel.text = L.Profile.FavouriteNFT.empty
+        case .nothingFound:
+            emptyLabel.isHidden = false
+            collectionView.isHidden = true
+            emptyLabel.text = L.Profile.FavouriteNFT.nothingFound
         case .standart:
             emptyLabel.isHidden = true
             collectionView.isHidden = false
@@ -76,7 +80,6 @@ final class FavouriteNFTView: UIView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(collectionView)
-        collectionView.addSubview(refreshControl)
 
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),

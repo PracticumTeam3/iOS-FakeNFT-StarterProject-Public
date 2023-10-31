@@ -20,8 +20,19 @@ final class FavouriteNFTViewController: UIViewController {
             static let lineSpacing: CGFloat = 20
         }
     }
+
     private let favouriteNFTView = FavouriteNFTView()
+
     private var viewModel: FavouriteNFTViewModelProtocol
+
+    private lazy var searchController: UISearchController = {
+        let sc = UISearchController(searchResultsController: nil)
+        sc.searchResultsUpdater = self
+        sc.searchBar.tintColor = A.Colors.blue.color
+        sc.searchBar.placeholder = L.Profile.FavouriteNFT.Search.placeholder
+        sc.searchBar.delegate = self
+        return sc
+    }()
 
     // MARK: - Initializers
     init(viewModel: FavouriteNFTViewModelProtocol) {
@@ -56,9 +67,7 @@ final class FavouriteNFTViewController: UIViewController {
     private func configureView() {
         favouriteNFTView.collectionView.dataSource = self
         favouriteNFTView.collectionView.delegate = self
-        favouriteNFTView.refreshControl.addTarget(self,
-                                                  action: #selector(refresh),
-                                                  for: .valueChanged)
+        initRefreshControl()
     }
 
     private func bind() {
@@ -90,7 +99,12 @@ final class FavouriteNFTViewController: UIViewController {
 
     private func setNeededState() {
         if let nftList = viewModel.nftList, nftList.isEmpty {
-            favouriteNFTView.changeState(.empty)
+            switch viewModel.state {
+            case .search:
+                favouriteNFTView.changeState(.nothingFound)
+            case .standart:
+                favouriteNFTView.changeState(.empty)
+            }
         } else {
             favouriteNFTView.changeState(.standart)
         }
@@ -105,6 +119,21 @@ final class FavouriteNFTViewController: UIViewController {
         )
         navigationItem.setLeftBarButton(leftButton, animated: false)
         navigationItem.title = L.Profile.FavouriteNFT.title
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+
+    private func initRefreshControl() {
+        favouriteNFTView.refreshControl = RefreshControl()
+        guard let refreshControl = favouriteNFTView.refreshControl else { return }
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        favouriteNFTView.collectionView.addSubview(refreshControl)
+        favouriteNFTView.collectionView.refreshControl = refreshControl
+    }
+
+    private func removeRefreshControl() {
+        favouriteNFTView.refreshControl = nil
+        favouriteNFTView.collectionView.refreshControl = nil
     }
 
     @objc private func back() {
@@ -114,7 +143,7 @@ final class FavouriteNFTViewController: UIViewController {
     @objc private func refresh() {
         viewModel.fetchFavouriteNFTs { [weak self] _ in
             DispatchQueue.main.async {
-                self?.favouriteNFTView.refreshControl.endRefreshing()
+                self?.favouriteNFTView.refreshControl?.endRefreshing()
             }
         }
     }
@@ -209,6 +238,30 @@ extension FavouriteNFTViewController: FavouriteNFTCollectionViewCellDelegate {
                 }
             }
         }
+    }
+
+}
+
+// MARK: - UISearchResultsUpdating
+extension FavouriteNFTViewController: UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        viewModel.state = .search(searchText: searchController.searchBar.text)
+    }
+
+}
+
+// MARK: - UISearchBarDelegate
+extension FavouriteNFTViewController: UISearchBarDelegate {
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        viewModel.state = .search(searchText: "")
+        removeRefreshControl()
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        viewModel.state = .standart
+        initRefreshControl()
     }
 
 }

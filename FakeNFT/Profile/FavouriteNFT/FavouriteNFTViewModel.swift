@@ -9,6 +9,7 @@ import Foundation
 
 // MARK: - FavouriteNFTViewModelProtocol
 protocol FavouriteNFTViewModelProtocol {
+    var state: FavouriteNFTViewModel.State { get set }
     var nftList: [FavouriteNFTModel]? { get }
     var onNFTListLoaded: (() -> Void)? { get set }
     var onNFTListLoadError: ((String) -> Void)? { get set }
@@ -20,6 +21,11 @@ protocol FavouriteNFTViewModelProtocol {
 final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
 
     // MARK: - Public properties
+    enum State {
+        case search(searchText: String?)
+        case standart
+    }
+
     private(set) var nftList: [FavouriteNFTModel]? {
         didSet {
             onNFTListLoaded?()
@@ -28,9 +34,19 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
     var onNFTListLoaded: (() -> Void)?
     var onNFTListLoadError: ((String) -> Void)?
 
+    var state: State {
+        get { currentState }
+        set {
+            currentState = newValue
+            filterNFTsIfNeeded()
+        }
+    }
+
     // MARK: - Private properties
     private let profileService: ProfileServiceProtocol
     private let storageService: StorageService
+    private var loadedNFTs: [FavouriteNFTModel]?
+    private var currentState: State = .standart
 
     // MARK: - Initializers
     init(
@@ -64,13 +80,32 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
             guard let self else { return }
             switch result {
             case .success(let nftModels):
-                self.nftList = nftModels
+                self.loadedNFTs = nftModels
+                self.filterNFTsIfNeeded()
                 completion(.success(()))
             case .failure(let error):
                 self.onNFTListLoadError?(error.localizedDescription)
                 completion(.failure(error))
             }
         }
+    }
+
+    // MARK: - Private methods
+    private func filterNFTsIfNeeded() {
+        switch currentState {
+        case .search(let searchText):
+            self.searchNFTs(searchText: searchText)
+        case .standart:
+            self.nftList = loadedNFTs
+        }
+    }
+
+    private func searchNFTs(searchText: String?) {
+        guard let searchText, !searchText.isEmpty else {
+            nftList = loadedNFTs
+            return
+        }
+        nftList = loadedNFTs?.filter { $0.name.lowercased().contains(searchText.lowercased()) }
     }
 
     private func updateProfileIfNeeded(profileModel: ProfileModel) {

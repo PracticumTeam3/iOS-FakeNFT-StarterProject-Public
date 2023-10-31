@@ -14,9 +14,10 @@ final class MyNFTView: UIView {
     enum State {
         case empty
         case standart
+        case nothingFound
     }
 
-    let refreshControl = RefreshControl()
+    var refreshControl: RefreshControl?
 
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -33,7 +34,6 @@ final class MyNFTView: UIView {
         let label = UILabel()
         label.textColor = A.Colors.blackDynamic.color
         label.font = .Bold.small
-        label.text = L.Profile.MyNFT.empty
         label.textAlignment = .center
         return label
     }()
@@ -43,7 +43,6 @@ final class MyNFTView: UIView {
         super.init(frame: frame)
         setupLayout()
         setupUI()
-        tableView.refreshControl = refreshControl
     }
 
     required init?(coder: NSCoder) {
@@ -56,6 +55,11 @@ final class MyNFTView: UIView {
         case .empty:
             emptyLabel.isHidden = false
             tableView.isHidden = true
+            emptyLabel.text = L.Profile.MyNFT.empty
+        case .nothingFound:
+            emptyLabel.isHidden = false
+            tableView.isHidden = true
+            emptyLabel.text = L.Profile.MyNFT.nothingFound
         case .standart:
             emptyLabel.isHidden = true
             tableView.isHidden = false
@@ -72,7 +76,6 @@ final class MyNFTView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(tableView)
-        tableView.addSubview(refreshControl)
 
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
