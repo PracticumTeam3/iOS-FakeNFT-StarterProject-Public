@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol CartCellViewModelDelegate {
+protocol CartCellViewModelDelegate: AnyObject {
     func showAlert(nftImage: UIImage, id: String)
 }
 
@@ -19,7 +19,7 @@ final class CartTableViewCellViewModel {
     private(set) var currency: String
     private(set) var priceString: String
     private let id: String
-    var delegate: CartCellViewModelDelegate?
+    weak var delegate: CartCellViewModelDelegate?
     
     init(imageURL: URL?, nftName: String, rating: Int, price: Float, currency: String, id: String ) {
         self.imageURL = imageURL

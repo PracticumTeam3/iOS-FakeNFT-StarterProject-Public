@@ -184,7 +184,11 @@ final class PaymentViewController: UIViewController {
     }
     
     private func progressHUD(_ isShow: Bool) {
-        isShow ? ProgressHUD.show() : ProgressHUD.dismiss()
+        if isShow {
+            ProgressHUD.show()
+        } else {
+            ProgressHUD.dismiss()
+        }
     }
     
     private func buttonIsActivate(_ activate: Bool) {

@@ -193,7 +193,11 @@ final class CartTableViewViewController: UIViewController {
     }
     
     private func progressHUD(_ isShow: Bool) {
-        isShow ? ProgressHUD.show() : ProgressHUD.dismiss()
+        if isShow {
+            ProgressHUD.show()
+        } else {
+            ProgressHUD.dismiss()
+        }
     }
     
     @objc
