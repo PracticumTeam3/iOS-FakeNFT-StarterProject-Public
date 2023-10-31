@@ -8,7 +8,7 @@
 import Foundation
 import os.log
 
-// MARK: - Private properties
+// MARK: - StorageService
 final class StorageService {
 
     // MARK: - Public  properties

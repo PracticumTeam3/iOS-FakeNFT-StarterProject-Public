@@ -137,8 +137,8 @@ public enum L {
         public static let unlikeError = L.tr("Localizable", "profile.favouriteNFT.alert.unlikeError", fallback: "Произошла ошибка во время снятия лайка")
       }
       public enum Search {
-        /// Введите имя избранного NFT
-        public static let placeholder = L.tr("Localizable", "profile.favouriteNFT.search.placeholder", fallback: "Введите имя избранного NFT")
+        /// Введите название избранного NFT
+        public static let placeholder = L.tr("Localizable", "profile.favouriteNFT.search.placeholder", fallback: "Введите название избранного NFT")
       }
     }
     public enum MyNFT {
@@ -161,8 +161,8 @@ public enum L {
         public static let title = L.tr("Localizable", "profile.myNFT.price.title", fallback: "Цена")
       }
       public enum Search {
-        /// Введите имя NFT
-        public static let placeholder = L.tr("Localizable", "profile.myNFT.search.placeholder", fallback: "Введите имя NFT")
+        /// Введите название NFT или имя автора
+        public static let placeholder = L.tr("Localizable", "profile.myNFT.search.placeholder", fallback: "Введите название NFT или имя автора")
       }
       public enum Sort {
         /// По названию
