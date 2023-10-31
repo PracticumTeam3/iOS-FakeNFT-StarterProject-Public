@@ -12,8 +12,21 @@ import SkeletonView
 final class MyNFTViewController: UIViewController {
 
     // MARK: - Private properties
+    private enum State {
+        case search
+        case standart
+    }
+    private var state: State = .standart
     private let myNFTView = MyNFTView()
     private var viewModel: MyNFTViewModelProtocol
+    private lazy var searchController: UISearchController = {
+        let sc = UISearchController(searchResultsController: nil)
+        sc.searchResultsUpdater = self
+        sc.searchBar.tintColor = A.Colors.blue.color
+        sc.searchBar.placeholder = L.Profile.MyNFT.Search.placeholder
+        sc.searchBar.delegate = self
+        return sc
+    }()
     private lazy var sortButton = UIBarButtonItem(
         image: A.Icons.sort.image,
         style: .plain,
@@ -70,9 +83,7 @@ final class MyNFTViewController: UIViewController {
 
     private func configureView() {
         myNFTView.tableView.dataSource = self
-        myNFTView.refreshControl.addTarget(self,
-                                           action: #selector(refresh),
-                                           for: .valueChanged)
+        initRefreshControl()
     }
 
     private func configureNavigationBar() {
@@ -85,12 +96,19 @@ final class MyNFTViewController: UIViewController {
         navigationItem.setLeftBarButton(leftButton, animated: false)
         navigationItem.setRightBarButton(sortButton, animated: false)
         navigationItem.title = L.Profile.MyNFT.title
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         changeSortButtonState(isEnabled: false)
     }
 
     private func setNeededState() {
         if let nftList = viewModel.nftList, nftList.isEmpty {
-            myNFTView.changeState(.empty)
+            switch state {
+            case .search:
+                myNFTView.changeState(.nothingFound)
+            case .standart:
+                myNFTView.changeState(.empty)
+            }
             navigationItem.setRightBarButton(nil, animated: false)
         } else {
             myNFTView.changeState(.standart)
@@ -104,6 +122,18 @@ final class MyNFTViewController: UIViewController {
                 $0.showAnimatedSkeleton(transition: .crossDissolve(0.25))
             }
         }
+    }
+
+    private func initRefreshControl() {
+        myNFTView.refreshControl = RefreshControl()
+        guard let refreshControl = myNFTView.refreshControl else { return }
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        myNFTView.tableView.refreshControl = refreshControl
+    }
+
+    private func removeRefreshControl() {
+        myNFTView.refreshControl = nil
+        myNFTView.tableView.refreshControl = nil
     }
 
     private func changeSortButtonState(isEnabled: Bool) {
@@ -131,7 +161,7 @@ final class MyNFTViewController: UIViewController {
     @objc private func refresh() {
         viewModel.fetchNFTs { [weak self] _ in
             DispatchQueue.main.async {
-                self?.myNFTView.refreshControl.endRefreshing()
+                self?.myNFTView.refreshControl?.endRefreshing()
             }
         }
     }
@@ -159,6 +189,30 @@ extension MyNFTViewController: SkeletonTableViewDataSource {
             cell.configCell(model: nftList[indexPath.row])
         }
         return cell
+    }
+
+}
+
+// MARK: - UISearchResultsUpdating
+extension MyNFTViewController: UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        viewModel.searchNFTs(searchText: searchController.searchBar.text)
+    }
+
+}
+
+// MARK: - UISearchBarDelegate
+extension MyNFTViewController: UISearchBarDelegate {
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        state = .search
+        removeRefreshControl()
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        state = .standart
+        initRefreshControl()
     }
 
 }

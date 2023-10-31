@@ -126,6 +126,8 @@ public enum L {
     public enum FavouriteNFT {
       /// У Вас еще нет избранных NFT
       public static let empty = L.tr("Localizable", "profile.favouriteNFT.empty", fallback: "У Вас еще нет избранных NFT")
+      /// Ничего не найдено
+      public static let nothingFound = L.tr("Localizable", "profile.favouriteNFT.nothingFound", fallback: "Ничего не найдено")
       /// Избранные NFT
       public static let title = L.tr("Localizable", "profile.favouriteNFT.title", fallback: "Избранные NFT")
       public enum Alert {
@@ -134,10 +136,16 @@ public enum L {
         /// Произошла ошибка во время снятия лайка
         public static let unlikeError = L.tr("Localizable", "profile.favouriteNFT.alert.unlikeError", fallback: "Произошла ошибка во время снятия лайка")
       }
+      public enum Search {
+        /// Введите имя избранного NFT
+        public static let placeholder = L.tr("Localizable", "profile.favouriteNFT.search.placeholder", fallback: "Введите имя избранного NFT")
+      }
     }
     public enum MyNFT {
       /// У Вас еще нет NFT
       public static let empty = L.tr("Localizable", "profile.myNFT.empty", fallback: "У Вас еще нет NFT")
+      /// Ничего не найдено
+      public static let nothingFound = L.tr("Localizable", "profile.myNFT.nothingFound", fallback: "Ничего не найдено")
       /// Мои NFT
       public static let title = L.tr("Localizable", "profile.myNFT.title", fallback: "Мои NFT")
       public enum Alert {
@@ -151,6 +159,10 @@ public enum L {
       public enum Price {
         /// Цена
         public static let title = L.tr("Localizable", "profile.myNFT.price.title", fallback: "Цена")
+      }
+      public enum Search {
+        /// Введите имя NFT
+        public static let placeholder = L.tr("Localizable", "profile.myNFT.search.placeholder", fallback: "Введите имя NFT")
       }
       public enum Sort {
         /// По названию
