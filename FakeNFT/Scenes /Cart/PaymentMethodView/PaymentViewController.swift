@@ -166,12 +166,13 @@ final class PaymentViewController: UIViewController {
             switch result {
             case .success(let isSuccess):
                 if isSuccess {
-                    print("sucess")
                     DispatchQueue.main.async {
                         self?.showSuccessVC()
                     }
                 } else {
-                    print("false")
+                    DispatchQueue.main.async {
+                        self?.showAlert()
+                    }
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -183,6 +184,22 @@ final class PaymentViewController: UIViewController {
         let vc = SuccessPayViewController()
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: true)
+    }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: L.Cart.failurePay,
+                                      message: nil,
+                                      preferredStyle: .alert)
+        let actionCansel = UIAlertAction(title: L.Cart.cansel,
+                                    style: .default)
+        let actionRepeat = UIAlertAction(title: L.Cart.repeat,
+                                         style: .default) { [weak self] _ in
+            self?.pressedButton()
+        }
+        alert.addAction(actionCansel)
+        alert.addAction(actionRepeat)
+        alert.preferredAction = actionRepeat
+        self.present(alert, animated: true)
     }
     
     private func bind() {

@@ -13,6 +13,8 @@ public enum L {
   public enum Cart {
     /// Вернуться в каталог
     public static let backCataloge = L.tr("Localizable", "cart.backCataloge", fallback: "Вернуться в каталог")
+    /// Отмена
+    public static let cansel = L.tr("Localizable", "cart.cansel", fallback: "Отмена")
     /// Корзина пуста
     public static let cartEmpty = L.tr("Localizable", "cart.cartEmpty", fallback: "Корзина пуста")
     /// Выберите способ оплаты
@@ -22,10 +24,15 @@ public enum L {
     /// Вы уверены, что хотите
     /// удалить объект из корзины?
     public static let deleteQuestion = L.tr("Localizable", "cart.deleteQuestion", fallback: "Вы уверены, что хотите\nудалить объект из корзины?")
+    /// Не удалось произвести
+    /// оплату
+    public static let failurePay = L.tr("Localizable", "cart.failurePay", fallback: "Не удалось произвести\nоплату")
     /// Оплатить
     public static let pay = L.tr("Localizable", "cart.pay", fallback: "Оплатить")
     /// Цена
     public static let price = L.tr("Localizable", "cart.price", fallback: "Цена")
+    /// Повторить
+    public static let `repeat` = L.tr("Localizable", "cart.repeat", fallback: "Повторить")
     /// Вернуться
     public static let `return` = L.tr("Localizable", "cart.return", fallback: "Вернуться")
     /// Сортировка

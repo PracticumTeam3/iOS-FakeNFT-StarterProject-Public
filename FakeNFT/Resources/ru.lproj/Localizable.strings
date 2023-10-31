@@ -26,6 +26,9 @@
 "cart.userAgreementEnd" = "Пользовательского соглашения";
 "cart.successPay" = "Успех! Оплата прошла,\nпоздравляем с покупкой!";
 "cart.backCataloge" = "Вернуться в каталог";
+"cart.failurePay" = "Не удалось произвести\nоплату";
+"cart.cansel" = "Отмена";
+"cart.repeat" = "Повторить";
 
 "statistics.title" = "Статистика";
 

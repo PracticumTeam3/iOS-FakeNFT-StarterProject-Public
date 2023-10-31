@@ -32,7 +32,7 @@ final class SuccessPayViewController: UIViewController {
     private lazy var backCatalogeButton: UIButton = {
         let button = UIButton()
         button.setTitle(L.Cart.backCataloge, for: .normal)
-        button.titleLabel?.textColor = A.Colors.whiteDynamic.color
+        button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal) 
         button.titleLabel?.font = .bold17
         button.backgroundColor = A.Colors.blackDynamic.color
         button.addTarget(self, action: #selector(backCataloge), for: .touchUpInside)
@@ -72,6 +72,8 @@ final class SuccessPayViewController: UIViewController {
     
     @objc
     func backCataloge() {
-        // TODO: метод возврата на экран
+        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        let tabBar = TabBarViewController(viewModel: TabBarViewModel())
+        window.rootViewController = tabBar
     }
 }

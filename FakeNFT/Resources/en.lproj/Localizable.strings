@@ -26,6 +26,9 @@
 "cart.userAgreementEnd" = "User Agreement";
 "cart.successPay" = "Success! Payment completed,\ncongratulations on your purchase!";
 "cart.backCataloge" = "Return to catalog";
+"cart.failurePay" = "Failed to make\npayment";
+"cart.cansel" = "Cansel";
+"cart.repeat" = "Repeat";
 
 "statistics.title" = "Statistics";
 
