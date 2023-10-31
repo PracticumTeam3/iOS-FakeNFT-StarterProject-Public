@@ -43,7 +43,7 @@
 
 "profile.myNFT.title" = "Мои NFT";
 "profile.myNFT.empty" = "У Вас еще нет NFT";
-"profile.myNFT.search.placeholder" = "Введите имя NFT";
+"profile.myNFT.search.placeholder" = "Введите название NFT или имя автора";
 "profile.myNFT.nothingFound" = "Ничего не найдено";
 "profile.myNFT.price.title" = "Цена";
 "profile.myNFT.author.title" = "от";
@@ -55,7 +55,7 @@
 
 "profile.favouriteNFT.title" = "Избранные NFT";
 "profile.favouriteNFT.empty" = "У Вас еще нет избранных NFT";
-"profile.favouriteNFT.search.placeholder" = "Введите имя избранного NFT";
+"profile.favouriteNFT.search.placeholder" = "Введите название избранного NFT";
 "profile.favouriteNFT.nothingFound" = "Ничего не найдено";
 "profile.favouriteNFT.alert.fetchError" = "Произошла ошибка во время загрузки избранных NFT";
 "profile.favouriteNFT.alert.unlikeError" = "Произошла ошибка во время снятия лайка";

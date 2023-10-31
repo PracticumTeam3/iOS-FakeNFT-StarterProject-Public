@@ -43,7 +43,7 @@
 
 "profile.myNFT.title" = "My NFT";
 "profile.myNFT.empty" = "You don't have NFT yet";
-"profile.myNFT.search.placeholder" = "Enter NFT name";
+"profile.myNFT.search.placeholder" = "Enter NFT name or the author's name";
 "profile.myNFT.nothingFound" = "Nothing found";
 "profile.myNFT.price.title" = "Price";
 "profile.myNFT.author.title" = "by";

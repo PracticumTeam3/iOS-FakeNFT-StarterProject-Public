@@ -73,7 +73,11 @@ final class MyNFTViewModel: MyNFTViewModelProtocol {
             nftList = loadedNFTs
             return
         }
-        nftList = loadedNFTs?.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        let lowercasedSearchText = searchText.lowercased()
+        nftList = loadedNFTs?.filter {
+            $0.name.lowercased().contains(lowercasedSearchText)
+            || $0.authorName.lowercased().contains(lowercasedSearchText)
+        }
     }
 
     // MARK: - Private methods
