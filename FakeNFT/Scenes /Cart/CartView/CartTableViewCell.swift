@@ -11,7 +11,6 @@ import Kingfisher
 final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
     
     static var defaultReuseIdentifier: String  = "CartTableViewCell"
-    var cellIndex: Int?
     
     private let nftImageView: UIImageView = {
         let imageView = UIImageView()
@@ -64,6 +63,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
     
     var viewModel: CartTableViewCellViewModel! {
         didSet {
+            nftImageView.kf.indicatorType = .activity
             nftImageView.kf.setImage(with: viewModel.imageURL)
             nftNameLabel.text = viewModel.nftName
             nftPriceLabel.text = viewModel.priceString
@@ -122,8 +122,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
     
     @objc
     private func deleteNft() {
-        guard let image = nftImageView.image,
-              let index = cellIndex else { return }
-        viewModel.pressDelete(image:image, index: index)
+        guard let image = nftImageView.image else { return }
+        viewModel.pressDelete(image:image)
     }
 }

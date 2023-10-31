@@ -6,27 +6,50 @@
 //
 
 import UIKit
-protocol CartTableViewViewModelDelegateProtocol {
+
+protocol CartTableViewViewModelDelegate: AnyObject {
     func showVC(_ vc: UIViewController)
 }
 
 final class CartTableViewViewModel {
     
-    private let nfts = mockNFT
+    private var nfts = [CartTableViewCellViewModel]()
+    
+    private enum ConstantName {
+        static let nft = "NFT"
+        static let eth = "ETH"
+    }
     
     @CartObservable private(set) var sortedNFT = [CartTableViewCellViewModel]()
     @CartObservable private(set) var nftIsEmpty: Bool = true
-    @CartObservable private(set) var nftCount: String = "10 NFT"
-    @CartObservable private(set) var nftPrices: String = "5,34 ETH"
+    @CartObservable private(set) var nftCount: String = ""
+    @CartObservable private(set) var nftPrices: String = ""
+    @CartObservable private(set) var progressHUDIsActive: Bool = true
     
     private let userSortedService = UserSortedService()
+    private let cartService = CartService.shared
     private var sortedName: CartSortedStorage?
-    var delegate: CartTableViewViewModelDelegateProtocol?
+    weak var delegate: CartTableViewViewModelDelegate?
     
     init() {
+        progressHUDIsActive = true
         sortedName = userSortedService.cartSorted
+        fetchOrder()
         checkNFTCount()
         sortedCart()
+        countNft()
+        checkOverPrice()
+        bind()
+    }
+    
+    private func fetchOrder() {
+        cartService.fetchOrder()
+        self.nfts = self.cartService.nfts.compactMap { CartTableViewCellViewModel(imageURL: $0.imagesURL[0],
+                                                                                  nftName: $0.name,
+                                                                                  rating: $0.rating,
+                                                                                  price: $0.price,
+                                                                                  currency: ConstantName.eth,
+                                                                                  id: $0.id)}
     }
     
     private func checkNFTCount() {
@@ -51,26 +74,52 @@ final class CartTableViewViewModel {
         sortedName = userSortedService.cartSorted
         sortedCart()
     }
+    
+    private func bind() {
+        cartService.$nfts.bind { [weak self] newNftModel in
+            self?.nfts = newNftModel.compactMap { CartTableViewCellViewModel(imageURL: $0.imagesURL[0],
+                                                                             nftName: $0.name,
+                                                                             rating: $0.rating,
+                                                                             price: $0.price,
+                                                                             currency: ConstantName.eth,
+                                                                             id: $0.id)}
+            self?.checkNFTCount()
+            self?.sortedCart()
+            self?.countNft()
+            self?.checkOverPrice()
+            self?.progressHUDIsActive = false
+        }
+    }
+    
+    private func countNft() {
+        nftCount = String(nfts.count) + " " + ConstantName.nft
+    }
+    
+    private func checkOverPrice() {
+        let price = nfts.reduce(0) {$0 + $1.price}
+        nftPrices = price.nftPriceString(price: ConstantName.eth)
+    }
+    
 }
-// MARK: - Extension CartCellViewModelDelegateProtocol
-extension CartTableViewViewModel: CartCellViewModelDelegateProtocol {
-    func showAlert(nftImage: UIImage, index: Int) {
-        let alertVC = NftDeleteAlert(image: nftImage, index: index)
+// MARK: - Extension CartCellViewModelDelegate
+extension CartTableViewViewModel: CartCellViewModelDelegate {
+    func showAlert(nftImage: UIImage, id: String) {
+        let alertVC = NftDeleteAlert(image: nftImage, id: id)
         alertVC.delegate = self
         alertVC.modalPresentationStyle = .overFullScreen
         delegate?.showVC(alertVC)
     }
 }
 
-// MARK: - Extension NfyDeleteAlertDelegateProtocol
-extension CartTableViewViewModel: NfyDeleteAlertDelegateProtocol {
-    func deleteNft(index: Int) {
-        print("delete nft, index \(index)")
-        checkNFTCount()
+// MARK: - Extension NfyDeleteAlertDelegate
+extension CartTableViewViewModel: NfyDeleteAlertDelegate {
+    func deleteNft(id: String) {
+        cartService.changeOrder(deleteNftId: id)
     }
 }
 
-// МОКОВЫЕ ЗНАЧЕНИЯ ДЛЯ НФТ
+// Mock data NFT
+/*
 private let mockURL = URL(string: "https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/April/1.png")!
 private let cartTableViewCellViewModel1 = CartTableViewCellViewModel(imageURL: mockURL,
                                                                      nftName: "First Test",
@@ -97,3 +146,4 @@ let mockNFT = [cartTableViewCellViewModel1,
                cartTableViewCellViewModel2,
                cartTableViewCellViewModel3,
                cartTableViewCellViewModel4]
+*/

@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol NfyDeleteAlertDelegateProtocol {
-    func deleteNft(index: Int)
+protocol NfyDeleteAlertDelegate: AnyObject {
+    func deleteNft(id: String)
 }
 
 final class NftDeleteAlert: UIViewController {
-    var delegate:NfyDeleteAlertDelegateProtocol?
-    var index: Int
+    weak var delegate:NfyDeleteAlertDelegate?
+    var id: String
     private let alertImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
@@ -55,9 +55,9 @@ final class NftDeleteAlert: UIViewController {
         return button
     }()
     
-    init(image:UIImage, index: Int) {
+    init(image:UIImage, id: String) {
         self.alertImage.image = image
-        self.index = index
+        self.id = id
         super .init(nibName: nil, bundle: nil)
     }
     
@@ -117,7 +117,7 @@ final class NftDeleteAlert: UIViewController {
     
     @objc
     private func pressedDelete() {
-        delegate?.deleteNft(index: index)
+        delegate?.deleteNft(id: id)
         dismiss(animated: false)
     }
     

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 final class CartTableViewViewController: UIViewController {
     
@@ -27,6 +28,7 @@ final class CartTableViewViewController: UIViewController {
         tableView.isScrollEnabled = true
         tableView.backgroundColor = A.Colors.whiteDynamic.color
         tableView.allowsMultipleSelection = false
+        tableView.alwaysBounceVertical = true
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -67,6 +69,7 @@ final class CartTableViewViewController: UIViewController {
         let button = UIButton()
         button.addTarget(self, action: #selector(payNFT), for: .touchUpInside)
         button.setTitle(L.Cart.toBePaid, for: .normal)
+        button.titleLabel?.font = .bold17
         button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal)
         button.backgroundColor = A.Colors.blackDynamic.color
         button.layer.masksToBounds = true
@@ -103,6 +106,11 @@ final class CartTableViewViewController: UIViewController {
         nftTableView.dataSource = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        progressHUD(viewModel.progressHUDIsActive)
+    }
+    
     private func layoutSupport() {
         view.addSubview(emptyLabel)
         view.addSubview(nftTableView)
@@ -118,7 +126,7 @@ final class CartTableViewViewController: UIViewController {
             nftTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             nftTableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             nftTableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            nftTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            nftTableView.bottomAnchor.constraint(equalTo: cartView.topAnchor)
         ])
         NSLayoutConstraint.activate([
             cartView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
@@ -142,16 +150,29 @@ final class CartTableViewViewController: UIViewController {
         countNFTLabel.text = viewModel.nftCount
         priceLabel.text = viewModel.nftPrices
         viewModel.$sortedNFT.bind { [weak self] _ in
-            self?.nftTableView.reloadData()
+            DispatchQueue.main.async {
+                self?.nftTableView.reloadData()
+            }
         }
         viewModel.$nftCount.bind { [weak self] newCount in
-            self?.countNFTLabel.text = newCount
+            DispatchQueue.main.async {
+                self?.countNFTLabel.text = newCount
+            }
         }
         viewModel.$nftPrices.bind { [weak self] newPrice in
-            self?.priceLabel.text = newPrice
+            DispatchQueue.main.async {
+                self?.priceLabel.text = newPrice
+            }
         }
         viewModel.$nftIsEmpty.bind { [weak self] newIsEmpty in
-            self?.tableViewIsEmpty(newIsEmpty)
+            DispatchQueue.main.async {
+                self?.tableViewIsEmpty(newIsEmpty)
+            }
+        }
+        viewModel.$progressHUDIsActive.bind { [weak self] isShow in
+            DispatchQueue.main.async {
+                self?.progressHUD(isShow)
+            }
         }
     }
     
@@ -171,12 +192,20 @@ final class CartTableViewViewController: UIViewController {
         }
     }
     
-    @objc
-    private func sortedNFT() {
-        showAcionSheet()
+    private func progressHUD(_ isShow: Bool) {
+        if isShow {
+            ProgressHUD.show()
+        } else {
+            ProgressHUD.dismiss()
+        }
     }
     
-    private func showAcionSheet() {
+    @objc
+    private func sortedNFT() {
+        showActionSheet()
+    }
+    
+    private func showActionSheet() {
         let alert = UIAlertController(title: L.Cart.sorted,
                                       message: nil,
                                       preferredStyle: .actionSheet)
@@ -203,7 +232,11 @@ final class CartTableViewViewController: UIViewController {
     }
     @objc
     private func payNFT() {
-        // TODO: метод оплаты нфт, следующее ревью
+        let paymentViewModel = PaymentViewViewModel()
+        let paymentVC = PaymentViewController(viewModel: paymentViewModel)
+        paymentVC.modalPresentationStyle = .fullScreen
+        paymentVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(paymentVC, animated: true)
     }
 }
 
@@ -213,20 +246,16 @@ extension CartTableViewViewController: UITableViewDataSource {
         return viewModel.sortedNFT.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = nftTableView.dequeueReusableCell(withIdentifier:CartTableViewCell.defaultReuseIdentifier,
-                                                          for: indexPath) as? CartTableViewCell else {
-            return UITableViewCell()
-        }
+        let cell:CartTableViewCell = tableView.dequeueReusableCell()
         cell.selectionStyle = .none
         cell.viewModel = viewModel.sortedNFT[indexPath.row]
         cell.viewModel.delegate = viewModel
-        cell.cellIndex = indexPath.row
         return cell
     }
 }
 
-// MARK: - Extension CartTableViewViewModelDelegateProtocol
-extension CartTableViewViewController: CartTableViewViewModelDelegateProtocol {
+// MARK: - Extension CartTableViewViewModelDelegate
+extension CartTableViewViewController: CartTableViewViewModelDelegate {
     func showVC(_ vc: UIViewController) {
         self.present(vc, animated: false)
     }

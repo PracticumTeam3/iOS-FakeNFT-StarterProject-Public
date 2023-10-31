@@ -21,6 +21,9 @@
 "cart.sortedByName" = "By name";
 "cart.sortedClose" = "Close";
 "cart.cartEmpty" = "Cart is Empty";
+"cart.choosePay" = "Select a payment method";
+"cart.userAgreementStart" = "By making a purchase, you agree to the terms and conditions";
+"cart.userAgreementEnd" = "User Agreement";
 
 "statistics.title" = "Statistics";
 

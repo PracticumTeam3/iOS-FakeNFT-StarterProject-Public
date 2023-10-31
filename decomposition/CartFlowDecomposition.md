@@ -32,47 +32,48 @@
 `Total:` est: 360 min; fact: 300 min.
 
 #### Логика
-- удаление из корзины (est: 60 min; fact: 60 min).
+- удаление из корзины (без сетевого запроса) (est: 60 min; fact: 60 min).
 - сортировка корзины (est: 60 min; fact: 60 min).
 - логика отображения итогового значения оплатить или пустой корзины (est: 120 min; fact: 90 min).
 - сохранить способ сортировки в UserDefaults (est: 60 min; fact: 30 min).
 
 `Total:` est: 300 min; fact: 240 min.
 
-## Экран Способ оплатить (est 840; fact x).
+## Экран Способ оплатить (est 1230; fact 1470).
 
 ### Module 2:
 #### Верстка экрана способ олпатить
-- вьюМодель для ячейки(est: 60 min; fact: x min).
-- вью модель для коллекции (est: 60 min; fact: x min).
-- CollectionViewCell (est: 180 min; fact: x min).
-- CollectionView (est: 180 min; fact: x min).
-- кнопка Оплатить и пользовательское согласшение (est: 60 min; fact: x min).
+- вьюМодель для ячейки(est: 60 min; fact: 60 min).
+- вью модель для коллекции (est: 60 min; fact: 120 min).
+- CollectionViewCell (est: 180 min; fact: 120 min).
+- CollectionView (est: 180 min; fact: 180 min).
+- кнопка Оплатить и пользовательское согласшение (est: 60 min; fact: 150 min).
 
-`Total:` est: 540 min; fact: x min).
+`Total:` est: 540 min; fact: 630 min.
 
 #### Логика
-- выбор ячейки (est: 60 min; fact: x min).
-- нажатие на кнопку (est: 30 min; fact: x min).
-- сетевой запрос на покупку (est: 210 min; fact: x min).
+- сетевой запрос на получение корзины (est: 240 min; fact: 240 min)
+- сетевой запрос на удаление из корзины (est: 180 min; fact: 300 min)
+- выбор ячейки оплаты (est: 60 min; fact: 60 min).
+- нажатие на кнопку (est: 30 min; fact: 60 min).
+- сетевой запрос на покупку (est: 180 min; fact: 180 min).
 
-`Total:` est: 300 min; fact: x min.
+`Total:` est: 690 min; fact: 840 min.
 
 ## Настройка сетевого слоя (est 900; fact x).
 
 ### Module 3:
 #### Верстка экрана результат оплаты
-- вьюМодель для экрана (est: 60 min; fact: x min).
-- вью результата оплаты (est: 60 min; fact: x min).
+- экран вебвью с пользовательским соглашение (est: 300 min; fact: x min).
+- вьюМодель для экрана результат оплаты (est: 60 min; fact: x min).
+- вью результат оплаты (est: 60 min; fact: x min).
+- алертМодель с неудачной оплатой (est: 60 min; fact: x min).
 
-`Total:` est: 120 min; fact: x min).
+`Total:` est: 480 min; fact: x min.
 
 #### Логика
 - обработка сетевого ответа (est: 60 min; fact: x min).
 - нажатие на кнопку (est: 60 min; fact: x min).
-- сетевой запрос GET для экрана корзины(est: 120 min; fact: x min).
-- сетевой запрос POST на удаление из корзины и обновление (est: 120 min; fact: x min).
-- подключение KingFisher для картинок ячеек (est: 120 min; fact: x min).
 - проверка проекта и доработка ошибок (est: 300 min; fact: x min).
 
-`Total:` est: 780 min; fact: x min.
+`Total:` est: 420 min; fact: x min.
