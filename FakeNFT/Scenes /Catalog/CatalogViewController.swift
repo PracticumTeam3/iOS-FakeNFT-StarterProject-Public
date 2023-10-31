@@ -55,6 +55,7 @@ extension CatalogViewController:UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "catalogCell", for: indexPath)
         cell.contentView.layer.cornerRadius = 12
         cell.contentView.clipsToBounds = true
+        cell.selectionStyle = .none
         return cell
     }
 }
@@ -62,5 +63,10 @@ extension CatalogViewController:UITableViewDataSource {
 extension CatalogViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let collectionVC = CollectionViewController()
+        self.navigationController?.pushViewController(collectionVC, animated: true)
     }
 }
