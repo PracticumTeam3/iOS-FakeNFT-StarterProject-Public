@@ -40,7 +40,7 @@ final class PaymentViewViewModel {
         self.selectedCoin = id
     }
     
-    func pressPay() {
+    func pressPay(completion: @escaping (Result<Bool,Error>) -> Void) {
         progressHUDIsActive = true
         guard let selectedCoin = selectedCoin else { return }
         cartService.payOrder(selectedCoin) { [weak self] result in
@@ -48,15 +48,15 @@ final class PaymentViewViewModel {
             switch result {
             case (.success(let resultOrder)):
                 if resultOrder.success {
-                    print("payment sucess")
                     self.progressHUDIsActive = false
+                    completion(.success(true))
                 } else {
-                    print("payment false")
                     self.progressHUDIsActive = false
+                    completion(.success(false))
                 }
             case (.failure(let error)):
-                print(error.localizedDescription)
                 self.progressHUDIsActive = false
+                completion(.failure(error))
             }
         }
     }

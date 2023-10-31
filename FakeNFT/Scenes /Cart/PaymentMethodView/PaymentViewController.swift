@@ -162,7 +162,27 @@ final class PaymentViewController: UIViewController {
     
     @objc
     func pressedButton() {
-        viewModel.pressPay()
+        viewModel.pressPay { [weak self] result in
+            switch result {
+            case .success(let isSuccess):
+                if isSuccess {
+                    print("sucess")
+                    DispatchQueue.main.async {
+                        self?.showSuccessVC()
+                    }
+                } else {
+                    print("false")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func showSuccessVC() {
+        let vc = SuccessPayViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true)
     }
     
     private func bind() {

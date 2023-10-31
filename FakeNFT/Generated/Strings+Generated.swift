@@ -11,6 +11,8 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum L {
   public enum Cart {
+    /// Вернуться в каталог
+    public static let backCataloge = L.tr("Localizable", "cart.backCataloge", fallback: "Вернуться в каталог")
     /// Корзина пуста
     public static let cartEmpty = L.tr("Localizable", "cart.cartEmpty", fallback: "Корзина пуста")
     /// Выберите способ оплаты
@@ -36,6 +38,9 @@ public enum L {
     public static let sortedByRating = L.tr("Localizable", "cart.sortedByRating", fallback: "По рейтингу")
     /// Закрыть
     public static let sortedClose = L.tr("Localizable", "cart.sortedClose", fallback: "Закрыть")
+    /// Успех! Оплата прошла,
+    /// поздравляем с покупкой!
+    public static let successPay = L.tr("Localizable", "cart.successPay", fallback: "Успех! Оплата прошла,\nпоздравляем с покупкой!")
     /// Корзина
     public static let title = L.tr("Localizable", "cart.title", fallback: "Корзина")
     /// К оплате

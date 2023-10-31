@@ -24,6 +24,8 @@
 "cart.choosePay" = "Select a payment method";
 "cart.userAgreementStart" = "By making a purchase, you agree to the terms and conditions";
 "cart.userAgreementEnd" = "User Agreement";
+"cart.successPay" = "Success! Payment completed,\ncongratulations on your purchase!";
+"cart.backCataloge" = "Return to catalog";
 
 "statistics.title" = "Statistics";
 

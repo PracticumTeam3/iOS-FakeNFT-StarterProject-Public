@@ -56,6 +56,9 @@ public enum A {
     public static let splashScreen = ImageAsset(name: "splashScreen")
   }
   public enum Images {
+    public enum Cart {
+      public static let successPay = ImageAsset(name: "successPay")
+    }
     public enum Onboarding {
       public static let page1 = ImageAsset(name: "page1")
       public static let page2 = ImageAsset(name: "page2")
