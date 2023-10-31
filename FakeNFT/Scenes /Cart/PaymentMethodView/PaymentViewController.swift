@@ -157,7 +157,9 @@ final class PaymentViewController: UIViewController {
     
     @objc
     func termsOfUsePressed() {
-        // TODO: Open WebView, Next Iteration
+        let webViewModel = CartWebViewModel()
+        let webVC = CartWebViewController(viewModel: webViewModel)
+        navigationController?.pushViewController(webVC, animated: true)
     }
     
     @objc

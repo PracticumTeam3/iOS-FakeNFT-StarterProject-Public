@@ -35,7 +35,6 @@ final class CartTableViewViewModel {
         progressHUDIsActive = true
         sortedName = userSortedService.cartSorted
         fetchOrder()
-        checkNFTCount()
         sortedCart()
         countNft()
         checkOverPrice()
