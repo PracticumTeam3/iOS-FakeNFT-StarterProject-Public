@@ -14,14 +14,6 @@ protocol ProfileServiceProtocol {
         _ editProfileModel: EditProfileModel,
         completion: @escaping (Result<ProfileModel, Error>) -> Void
     )
-    func getUser(
-        id: String,
-        completion: @escaping (Result<UserNetworkModel, Error>) -> Void
-    )
-    func getNFT(
-        id: String,
-        completion: @escaping (Result<NFTNetworkModel, Error>) -> Void
-    )
     func getNFTs(completion: @escaping (Result<[NFTModel], Error>) -> Void)
     func getFavouriteNFTs(completion: @escaping (Result<[FavouriteNFTModel], Error>) -> Void)
     func setLikes(
@@ -75,36 +67,6 @@ struct ProfileService: ProfileServiceProtocol {
     ) {
         let request = SetLikesRequest(model: likesModel)
         networkClient.send(request: request, type: ProfileModel.self) { result in
-            switch result {
-            case .success(let model):
-                completion(.success(model))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-
-    func getUser(
-        id: String,
-        completion: @escaping (Result<UserNetworkModel, Error>) -> Void
-    ) {
-        let userRequest = GetUserRequest(id: id)
-        networkClient.send(request: userRequest, type: UserNetworkModel.self) { result in
-            switch result {
-            case .success(let userModel):
-                completion(.success(userModel))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-
-    func getNFT(
-        id: String,
-        completion: @escaping (Result<NFTNetworkModel, Error>) -> Void
-    ) {
-        let nftRequest = GetNFTRequest(id: id)
-        networkClient.send(request: nftRequest, type: NFTNetworkModel.self) { result in
             switch result {
             case .success(let model):
                 completion(.success(model))
@@ -188,6 +150,37 @@ struct ProfileService: ProfileServiceProtocol {
                 dispatchGroup.notify(queue: dispatchQueue) {
                     completion(.success(nfts.compactMap { $0 }))
                 }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    // MARK: - Private methods
+    private func getUser(
+        id: String,
+        completion: @escaping (Result<UserNetworkModel, Error>) -> Void
+    ) {
+        let userRequest = GetUserRequest(id: id)
+        networkClient.send(request: userRequest, type: UserNetworkModel.self) { result in
+            switch result {
+            case .success(let userModel):
+                completion(.success(userModel))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    private func getNFT(
+        id: String,
+        completion: @escaping (Result<NFTNetworkModel, Error>) -> Void
+    ) {
+        let nftRequest = GetNFTRequest(id: id)
+        networkClient.send(request: nftRequest, type: NFTNetworkModel.self) { result in
+            switch result {
+            case .success(let model):
+                completion(.success(model))
             case .failure(let error):
                 completion(.failure(error))
             }

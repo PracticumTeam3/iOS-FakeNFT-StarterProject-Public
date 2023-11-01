@@ -30,6 +30,7 @@ final class FavouriteNFTView: UIView {
         collectionView.backgroundColor = A.Colors.whiteDynamic.color
         collectionView.allowsSelection = false
         collectionView.register(FavouriteNFTCollectionViewCell.self)
+        collectionView.accessibilityIdentifier = AccessibilityIdentifier.FavouriteNFTPage.collectionView
         return collectionView
     }()
 
@@ -60,10 +61,12 @@ final class FavouriteNFTView: UIView {
             emptyLabel.isHidden = false
             collectionView.isHidden = true
             emptyLabel.text = L.Profile.FavouriteNFT.empty
+            emptyLabel.accessibilityIdentifier = AccessibilityIdentifier.FavouriteNFTPage.emptyLabel
         case .nothingFound:
             emptyLabel.isHidden = false
             collectionView.isHidden = true
             emptyLabel.text = L.Profile.FavouriteNFT.nothingFound
+            emptyLabel.accessibilityIdentifier = AccessibilityIdentifier.FavouriteNFTPage.nothingFoundLabel
         case .standart:
             emptyLabel.isHidden = true
             collectionView.isHidden = false
@@ -72,6 +75,7 @@ final class FavouriteNFTView: UIView {
 
     // MARK: - Private methods
     private func setupUI() {
+        accessibilityIdentifier = AccessibilityIdentifier.FavouriteNFTPage.view
         backgroundColor = A.Colors.whiteDynamic.color
         emptyLabel.isHidden = true
     }

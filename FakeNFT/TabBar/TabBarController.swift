@@ -23,6 +23,7 @@ final class TabBarController: UITabBarController {
             image: A.Icons.TabBar.profile.image,
             selectedImage: nil
         )
+        navigationController.tabBarItem.accessibilityIdentifier = AccessibilityIdentifier.TabBar.profile
         navigationController.title = L.Profile.title
         return navigationController
     }
@@ -39,6 +40,7 @@ final class TabBarController: UITabBarController {
     // MARK: - Public Methods
     func showOnboardingIfNeeded() {
         let storageService = StorageService.shared
+        guard storageService.environment == .prod else { return }
         if !storageService.wasOnboardingShown {
             let onboardingViewController = OnboardingPageViewController()
             onboardingViewController.modalPresentationStyle = .fullScreen
@@ -49,6 +51,7 @@ final class TabBarController: UITabBarController {
 
     // MARK: - Private Methods
     private func setupUI() {
+        tabBar.accessibilityIdentifier = AccessibilityIdentifier.TabBar.view
         tabBar.backgroundColor = A.Colors.whiteDynamic.color
         tabBar.barTintColor = A.Colors.whiteDynamic.color
         tabBar.tintColor = A.Colors.blue.color

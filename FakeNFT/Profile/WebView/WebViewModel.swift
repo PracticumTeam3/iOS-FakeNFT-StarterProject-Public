@@ -11,6 +11,7 @@ import Foundation
 protocol WebViewModelProtocol: AnyObject {
     var onProgressChange: ((Float) -> Void)? { get set }
     var onProgressHide: ((Bool) -> Void)? { get set }
+
     func didUpdateProgressValue(_ newValue: Double)
 }
 

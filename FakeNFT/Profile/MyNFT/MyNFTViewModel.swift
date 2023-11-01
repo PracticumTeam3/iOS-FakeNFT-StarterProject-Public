@@ -13,6 +13,7 @@ protocol MyNFTViewModelProtocol {
     var onNFTListLoaded: (() -> Void)? { get set }
     var onNFTListLoadError: ((String) -> Void)? { get set }
     var sortType: SortType { get set }
+
     func searchNFTs(searchText: String?)
     func fetchNFTs(completion: @escaping (Result<Void, Error>) -> Void)
 }
@@ -37,14 +38,14 @@ final class MyNFTViewModel: MyNFTViewModelProtocol {
     }
 
     // MARK: - Private properties
-    private let storageService: StorageService
     private let profileService: ProfileServiceProtocol
+    private let storageService: StorageServiceProtocol
     private var loadedNFTs: [NFTModel]?
 
     // MARK: - Initializers
     init(
         profileService: ProfileServiceProtocol = ProfileService(),
-        storageService: StorageService = StorageService.shared
+        storageService: StorageServiceProtocol = StorageService.shared
     ) {
         self.storageService = storageService
         self.profileService = profileService

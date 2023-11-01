@@ -117,10 +117,12 @@ final class FavouriteNFTViewController: UIViewController {
             target: self,
             action: #selector(back)
         )
-        navigationItem.setLeftBarButton(leftButton, animated: false)
-        navigationItem.title = L.Profile.FavouriteNFT.title
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
+        let ni = navigationItem
+        ni.setLeftBarButton(leftButton, animated: false)
+        ni.title = L.Profile.FavouriteNFT.title
+        ni.searchController = searchController
+        ni.hidesSearchBarWhenScrolling = false
+        ni.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifier.FavouriteNFTPage.backButton
     }
 
     private func initRefreshControl() {

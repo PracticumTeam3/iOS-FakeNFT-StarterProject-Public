@@ -45,6 +45,7 @@ final class WebView: UIView {
         button.setImage(A.Icons.close.image.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = A.Colors.blackDynamic.color
         button.addTarget(self, action: #selector(onTap), for: .touchUpInside)
+        button.accessibilityIdentifier = AccessibilityIdentifier.WebView.closeButton
         return button
     }()
 
@@ -61,6 +62,7 @@ final class WebView: UIView {
 
     // MARK: - Private methods
     private func setupLayout() {
+        accessibilityIdentifier = AccessibilityIdentifier.WebView.view
         backgroundColor = A.Colors.whiteDynamic.color
         addSubview(webView)
         addSubview(progressView)

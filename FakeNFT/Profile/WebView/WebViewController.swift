@@ -12,14 +12,14 @@ import WebKit
 final class WebViewController: UIViewController {
 
     // MARK: - Private properties
-    private let webViewModel: WebViewModel
+    private let webViewModel: WebViewModelProtocol
     private let url: URL
     private var estimatedProgressObservation: NSKeyValueObservation?
     private let webView: WebView
     private let presentation: WebViewPresentation
 
     // MARK: - Initializers
-    init(webViewModel: WebViewModel, url: URL, presentation: WebViewPresentation) {
+    init(webViewModel: WebViewModelProtocol, url: URL, presentation: WebViewPresentation) {
         self.presentation = presentation
         self.webView = WebView(presentation: presentation)
         self.webViewModel = webViewModel
@@ -90,6 +90,7 @@ final class WebViewController: UIViewController {
         )
         navigationItem.setLeftBarButton(leftButton, animated: false)
         navigationItem.title = L.Profile.AboutDeveloper.title
+        navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifier.WebView.backButton
     }
 
     @objc private func back() {

@@ -41,14 +41,7 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
         }
     }
 
-    private static var numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.maximumFractionDigits = 3
-        formatter.currencyCode = "ETH"
-        formatter.locale = .current
-        return formatter
-    }()
+    private static var currencyFormatter = CurrencyFormatter()
 
     private let viewWithContent: UIView = {
         let view = UIView()
@@ -60,6 +53,7 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
         let imageView = UIImageView()
         imageView.layer.cornerRadius = Constants.ImageView.cornerRadius
         imageView.layer.masksToBounds = true
+        imageView.accessibilityIdentifier = AccessibilityIdentifier.FavouriteNFTPage.Cell.imageView
         return imageView
     }()
 
@@ -71,6 +65,7 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
             action: #selector(likeButtonClicked),
             for: .touchUpInside
         )
+        button.accessibilityIdentifier = AccessibilityIdentifier.FavouriteNFTPage.Cell.likeButton
         return button
     }()
 
@@ -79,6 +74,7 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
         label.font = .Bold.small
         label.textColor = A.Colors.blackDynamic.color
         label.text = Constants.skeletonText
+        label.accessibilityIdentifier = AccessibilityIdentifier.FavouriteNFTPage.Cell.name
         return label
     }()
 
@@ -87,6 +83,7 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
         label.font = .Regular.medium
         label.textColor = A.Colors.blackDynamic.color
         label.text = Constants.skeletonText
+        label.accessibilityIdentifier = AccessibilityIdentifier.FavouriteNFTPage.Cell.priceLabel
         return label
     }()
 
@@ -134,9 +131,9 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
     // MARK: - Public methods
     func configCell(model: FavouriteNFTModel) {
         id = model.id
-        setImage(url: model.image) { _ in }
+        setImage(url: model.image)
         nftNameLabel.text = model.name
-        priceLabel.text = Self.numberFormatter.string(from: NSNumber(value: model.price))
+        priceLabel.text = Self.currencyFormatter.string(from: NSNumber(value: model.price))
         ratingStackView.setRating(rating: model.rating)
     }
 
@@ -150,10 +147,7 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
         likeButton.layer.add(pulseAnimation, forKey: "pulse")
     }
 
-    private func setImage(
-        url: String,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
+    private func setImage(url: String) {
         guard let url = URL(string: url) else { return }
 
         let placeholder: UIImage = A.Images.Profile.stub.image
@@ -168,13 +162,9 @@ final class FavouriteNFTCollectionViewCell: UICollectionViewCell, ReuseIdentifyi
             placeholder: placeholder,
             options: [.retryStrategy(retry)]
         ) { [weak self] result in
-            guard let self else { return }
             switch result {
-            case .success:
-                completion(.success(()))
-            case .failure(let error):
-                self.nftImageView.image = A.Images.Profile.stub.image
-                completion(.failure(error))
+            case .success: break
+            case .failure: self?.nftImageView.image = A.Images.Profile.stub.image
             }
         }
     }

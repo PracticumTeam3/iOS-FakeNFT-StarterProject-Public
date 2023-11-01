@@ -17,6 +17,9 @@ final class RatingStackView: UIStackView {
     init(rating: Int = 0) {
         super.init(frame: .zero)
         prepareRating(rating)
+        isAccessibilityElement = true
+        accessibilityIdentifier = AccessibilityIdentifier.RatingView.view
+        accessibilityValue = "\(rating)"
         spacing = 2
         axis = .horizontal
         distribution = .fillEqually
@@ -43,6 +46,7 @@ final class RatingStackView: UIStackView {
     // MARK: - Public methods
     func setRating(rating: Int) {
         prepareRating(rating)
+        accessibilityValue = "\(rating)"
         for (index, subview) in subviews.enumerated() {
             guard let imageView = subview as? UIImageView else { break }
             imageView.image = index < self.rating

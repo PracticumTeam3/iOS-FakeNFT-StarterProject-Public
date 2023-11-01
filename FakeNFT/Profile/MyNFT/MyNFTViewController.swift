@@ -93,11 +93,14 @@ final class MyNFTViewController: UIViewController {
             target: self,
             action: #selector(back)
         )
-        navigationItem.setLeftBarButton(leftButton, animated: false)
-        navigationItem.setRightBarButton(sortButton, animated: false)
-        navigationItem.title = L.Profile.MyNFT.title
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
+        let ni = navigationItem
+        ni.setLeftBarButton(leftButton, animated: false)
+        ni.setRightBarButton(sortButton, animated: false)
+        ni.title = L.Profile.MyNFT.title
+        ni.searchController = searchController
+        ni.hidesSearchBarWhenScrolling = false
+        ni.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.backButton
+        ni.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.sortButton
         changeSortButtonState(isEnabled: false)
     }
 

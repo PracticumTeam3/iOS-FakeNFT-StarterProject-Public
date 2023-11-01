@@ -38,6 +38,8 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
         }
     }
 
+    private static var currencyFormatter = CurrencyFormatter()
+
     private let viewWithContent: UIView = {
         let view = UIView()
         view.backgroundColor = A.Colors.whiteDynamic.color
@@ -48,6 +50,7 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = Constants.ImageView.cornerRadius
         imageView.layer.masksToBounds = true
+        imageView.accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.Cell.imageView
         return imageView
     }()
 
@@ -92,6 +95,7 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
         label.font = .Bold.small
         label.textColor = A.Colors.blackDynamic.color
         label.text = Constants.skeletonText
+        label.accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.Cell.name
         return label
     }()
 
@@ -100,6 +104,7 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
         label.font = .Regular.medium
         label.textColor = A.Colors.blackDynamic.color
         label.text = L.Profile.MyNFT.Author.title
+        label.accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.Cell.authorTitle
         return label
     }()
 
@@ -108,6 +113,7 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
         label.font = .Regular.small
         label.textColor = A.Colors.blackDynamic.color
         label.text = Constants.skeletonText
+        label.accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.Cell.authorLabel
         return label
     }()
 
@@ -116,6 +122,7 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
         label.font = .Regular.small
         label.textColor = A.Colors.blackDynamic.color
         label.text = L.Profile.MyNFT.Price.title
+        label.accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.Cell.priceTitle
         return label
     }()
 
@@ -124,6 +131,7 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
         label.font = .Bold.small
         label.textColor = A.Colors.blackDynamic.color
         label.text = Constants.skeletonText
+        label.accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.Cell.priceLabel
         return label
     }()
 
@@ -146,18 +154,15 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
 
     // MARK: - Public methods
     func configCell(model: NFTModel) {
-        setImage(url: model.image) { _ in }
+        setImage(url: model.image)
         authorLabel.text = model.authorName
         nftNameLabel.text = model.name
-        priceLabel.text = "\(model.price) ETH"
+        priceLabel.text = Self.currencyFormatter.string(from: NSNumber(value: model.price))
         ratingStackView.setRating(rating: model.rating)
     }
 
     // MARK: - Private methods
-    private func setImage(
-        url: String,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
+    private func setImage(url: String) {
         guard let url = URL(string: url) else { return }
 
         let placeholder: UIImage = A.Images.Profile.stub.image
@@ -174,11 +179,8 @@ final class MyNFTTableViewCell: UITableViewCell, ReuseIdentifying {
         ) { [weak self] result in
             guard let self else { return }
             switch result {
-            case .success:
-                completion(.success(()))
-            case .failure(let error):
-                self.nftImageView.image = A.Images.Profile.stub.image
-                completion(.failure(error))
+            case .success: break
+            case .failure: self.nftImageView.image = A.Images.Profile.stub.image
             }
         }
     }

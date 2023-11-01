@@ -26,6 +26,7 @@ final class MyNFTView: UIView {
         tableView.tableFooterView = UIView()
         tableView.allowsSelection = false
         tableView.register(MyNFTTableViewCell.self)
+        tableView.accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.tableView
         return tableView
     }()
 
@@ -56,10 +57,12 @@ final class MyNFTView: UIView {
             emptyLabel.isHidden = false
             tableView.isHidden = true
             emptyLabel.text = L.Profile.MyNFT.empty
+            emptyLabel.accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.emptyLabel
         case .nothingFound:
             emptyLabel.isHidden = false
             tableView.isHidden = true
             emptyLabel.text = L.Profile.MyNFT.nothingFound
+            emptyLabel.accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.nothingFoundLabel
         case .standart:
             emptyLabel.isHidden = true
             tableView.isHidden = false
@@ -68,6 +71,7 @@ final class MyNFTView: UIView {
 
     // MARK: - Private methods
     private func setupUI() {
+        accessibilityIdentifier = AccessibilityIdentifier.MyNFTPage.view
         backgroundColor = A.Colors.whiteDynamic.color
         emptyLabel.isHidden = true
     }
