@@ -82,7 +82,7 @@ class CollectionViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "CollectionCell")
+        collection.register(CollectionCell.self, forCellWithReuseIdentifier: "CollectionCell")
         return collection
     }()
 
@@ -164,8 +164,9 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
+        let heightPerItem = widthPerItem * 1.8
 
-        return CGSize(width: widthPerItem, height: widthPerItem)
+        return CGSize(width: widthPerItem, height: heightPerItem)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

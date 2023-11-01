@@ -72,7 +72,6 @@ class CatalogCell:UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-
     private func setupViews() {
         viewCell.addSubview(stackImage)
         viewCell.addSubview(lableCell)

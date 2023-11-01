@@ -44,10 +44,13 @@ public enum A {
       public static let profile = ImageAsset(name: "profile")
       public static let statistic = ImageAsset(name: "statistic")
     }
+    public static let activeStar = ImageAsset(name: "activeStar")
+    public static let cart = ImageAsset(name: "cart")
     public static let close = ImageAsset(name: "close")
     public static let edit = ImageAsset(name: "edit")
     public static let favouriteActive = ImageAsset(name: "favouriteActive")
     public static let favouriteInactive = ImageAsset(name: "favouriteInactive")
+    public static let inactiveStar = ImageAsset(name: "inactiveStar")
     public static let sort = ImageAsset(name: "sort")
     public static let splashScreen = ImageAsset(name: "splashScreen")
   }
