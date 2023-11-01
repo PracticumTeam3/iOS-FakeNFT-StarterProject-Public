@@ -9,34 +9,16 @@ import Foundation
 import UIKit
 // swiftlint:disable trailing_whitespace
 class CollectionViewController: UIViewController {
-    let imageCellFirst: UIImageView = {
+
+    var model: CatalogCellModel?
+
+    let imageHeader: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.layer.cornerRadius = 12
+        image.clipsToBounds = true
+        image.contentMode = .scaleAspectFill
         return image
-    }()
-
-    let imageCellSecond: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-
-    let imageCellThird: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-
-    let stackImage: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.distribution = .fillEqually
-        stack.axis = .horizontal
-        stack.spacing = 0
-        stack.layer.cornerRadius = 12
-        stack.layer.masksToBounds = true
-        stack.backgroundColor = .blue
-        return stack
     }()
 
     let titleLable: UILabel = {
@@ -45,7 +27,6 @@ class CollectionViewController: UIViewController {
         lable.textColor = UIColor(named: "black")
         lable.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         lable.textAlignment = .left
-        lable.text = "заголовок"
         return lable
     }()
 
@@ -54,8 +35,8 @@ class CollectionViewController: UIViewController {
         lable.translatesAutoresizingMaskIntoConstraints = false
         lable.textColor = UIColor(named: "black")
         lable.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        lable.textAlignment = .left
         lable.text = "Автор коллекции:"
+        lable.textAlignment = .left
         return lable
     }()
 
@@ -63,7 +44,6 @@ class CollectionViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(Self.didAuthorButton), for: .touchUpInside)
-        button.setTitle("John Doe", for: .normal)
         return button
     }()
 
@@ -86,42 +66,57 @@ class CollectionViewController: UIViewController {
         return collection
     }()
 
+    let loaderView: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.translatesAutoresizingMaskIntoConstraints = false
+        return loader
+    }()
+
     private let itemsPerRow: CGFloat = 3
     private let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
 
     override func viewDidLoad() {
+        view.backgroundColor = .white
         collectionCollectionView.dataSource = self
         collectionCollectionView.delegate = self
         setupViews()
+        collectionCollectionView.isHidden = true
+        loaderView.isHidden = false
+        loaderView.startAnimating()
+        setData()
+        collectionCollectionView.reloadData()
+        loaderView.stopAnimating()
+        loaderView.isHidden = true
+        collectionCollectionView.isHidden = false
+    }
+
+    private func setData () {
+        if let image = model?.imageCollection.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) {
+            let url = URL(string: image)
+            imageHeader.kf.setImage(with:url)
+        }
+        titleLable.text = model?.collectionName
+        authorButton.setTitle(model?.author, for: .normal)
+        descriptionLable.text = model?.description
     }
 
     private func setupViews() {
-        view.addSubview(stackImage)
+        view.addSubview(imageHeader)
         view.addSubview(titleLable)
         view.addSubview(authorLable)
         view.addSubview(descriptionLable)
         view.addSubview(authorButton)
         view.addSubview(collectionCollectionView)
-
-
-        NSLayoutConstraint.activate([
-            stackImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            stackImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-            stackImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            stackImage.heightAnchor.constraint(equalToConstant: 310)
-        ])
-
-        stackImage.addArrangedSubview(imageCellFirst)
-        stackImage.addArrangedSubview(imageCellSecond)
-        stackImage.addArrangedSubview(imageCellThird)
+        view.addSubview(loaderView)
 
         NSLayoutConstraint.activate([
-            imageCellFirst.heightAnchor.constraint(equalToConstant: 310),
-            imageCellSecond.heightAnchor.constraint(equalToConstant: 310),
-            imageCellThird.heightAnchor.constraint(equalToConstant: 310)
+            imageHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            imageHeader.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            imageHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            imageHeader.heightAnchor.constraint(equalToConstant: 310)
         ])
         NSLayoutConstraint.activate([
-            titleLable.topAnchor.constraint(equalTo: stackImage.bottomAnchor, constant: 16),
+            titleLable.topAnchor.constraint(equalTo: imageHeader.bottomAnchor, constant: 16),
             titleLable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             authorLable.topAnchor.constraint(equalTo: titleLable.bottomAnchor, constant: 13),
             authorLable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -139,10 +134,17 @@ class CollectionViewController: UIViewController {
             collectionCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
             collectionCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
+
+        NSLayoutConstraint.activate([
+            loaderView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            loaderView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
     }
 
     @objc
     func didAuthorButton() {
+        let webView = WebViewController()
+        self.navigationController?.pushViewController(webView, animated: true)
     }
     
 }// end CollectionViewController
@@ -154,7 +156,6 @@ extension CollectionViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath)
-        cell.backgroundColor = .blue
         return cell
     }
 }

@@ -19,23 +19,49 @@ final class CatalogViewController: UIViewController {
         table.separatorStyle = .none
         return table
     }()
+
+    let loaderView: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.translatesAutoresizingMaskIntoConstraints = false
+        return loader
+    }()
+
+    let viewModel = CatalogViewModel()
     
     override func viewDidLoad() {
         catalogTableView.dataSource = self
         catalogTableView.delegate = self
         setupViews()
+        catalogTableView.isHidden = true
+        loaderView.isHidden = false
+        loaderView.startAnimating()
+        viewModel.getCollections()
+        viewModel.onChange = {
+            DispatchQueue.main.async {
+                self.catalogTableView.reloadData()
+                self.loaderView.stopAnimating()
+                self.loaderView.isHidden = true
+                self.catalogTableView.isHidden = false
+            }
+        }
     }
     
     func setupViews() {
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "sort"), style: .plain, target: self, action: #selector(didTapSortButton))
         view.addSubview(catalogTableView)
+        view.addSubview(loaderView)
         
         NSLayoutConstraint.activate([
             catalogTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             catalogTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             catalogTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 16),
             catalogTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)
+        ])
+
+        NSLayoutConstraint.activate([
+            loaderView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            loaderView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
     }
     
@@ -64,14 +90,15 @@ final class CatalogViewController: UIViewController {
 
 extension CatalogViewController:UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return viewModel.collections.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "catalogCell", for: indexPath)
-        cell.contentView.layer.cornerRadius = 12
-        cell.contentView.clipsToBounds = true
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "catalogCell", for: indexPath) as? CatalogCell
+        cell?.setData(catalogCellData: viewModel.collections[indexPath.row])
+        cell?.contentView.layer.cornerRadius = 12
+        cell?.contentView.clipsToBounds = true
+        return cell ?? UITableViewCell()
     }
 }
 
@@ -83,6 +110,7 @@ extension CatalogViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let collectionVC = CollectionViewController()
+        collectionVC.model = viewModel.collections[indexPath.row]
         self.navigationController?.pushViewController(collectionVC, animated: true)
     }
 }

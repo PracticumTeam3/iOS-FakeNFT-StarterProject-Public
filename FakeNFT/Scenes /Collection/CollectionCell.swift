@@ -14,7 +14,6 @@ class CollectionCell:UICollectionViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 12
         image.clipsToBounds = true
-        image.backgroundColor = .cyan
         return image
     }()
 
@@ -30,7 +29,6 @@ class CollectionCell:UICollectionViewCell {
         label.textColor = UIColor(named: "black")
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.textAlignment = .left
-        label.backgroundColor = .red
         label.text = "Archie"
         return label
     }()
@@ -70,7 +68,6 @@ class CollectionCell:UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(viewCell)
-        viewCell.backgroundColor = .brown
 
         NSLayoutConstraint.activate([
             viewCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
