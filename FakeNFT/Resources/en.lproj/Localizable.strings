@@ -29,6 +29,8 @@
 "cart.failurePay" = "Failed to make\npayment";
 "cart.cansel" = "Cansel";
 "cart.repeat" = "Repeat";
+"cart.networkAlertTitle" = "Something went wrong(";
+"cart.networkAlertMessage" = "Internet connection problem";
 
 "statistics.title" = "Statistics";
 

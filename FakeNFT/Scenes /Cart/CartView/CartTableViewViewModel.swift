@@ -24,7 +24,8 @@ final class CartTableViewViewModel {
     @CartObservable private(set) var nftIsEmpty: Bool = true
     @CartObservable private(set) var nftCount: String = ""
     @CartObservable private(set) var nftPrices: String = ""
-    @CartObservable private(set) var progressHUDIsActive: Bool = true
+    @CartObservable private(set) var progressHUDIsActive: Bool = false
+    @CartObservable private(set) var showNetWorkError: Bool?
     
     private let userSortedService = UserSortedService()
     private let cartService = CartService.shared
@@ -32,23 +33,34 @@ final class CartTableViewViewModel {
     weak var delegate: CartTableViewViewModelDelegate?
     
     init() {
-        progressHUDIsActive = true
         sortedName = userSortedService.cartSorted
         fetchOrder()
         sortedCart()
         countNft()
         checkOverPrice()
         bind()
+        checkAlert(cartService.netWorkAlert)
     }
     
-    private func fetchOrder() {
+    func fetchOrder() {
         cartService.fetchOrder()
         self.nfts = self.cartService.nfts.compactMap { CartTableViewCellViewModel(imageURL: $0.imagesURL[0],
-                                                                                  nftName: $0.name,
-                                                                                  rating: $0.rating,
-                                                                                  price: $0.price,
-                                                                                  currency: ConstantName.eth,
-                                                                                  id: $0.id)}
+                                                                                              nftName: $0.name,
+                                                                                              rating: $0.rating,
+                                                                                              price: $0.price,
+                                                                                              currency: ConstantName.eth,
+                                                                                              id: $0.id)}
+
+    }
+    
+    func changeSortes(_ newParametr: CartSortedStorage) {
+        userSortedService.cartSorted = newParametr
+        sortedName = userSortedService.cartSorted
+        sortedCart()
+    }
+    
+    func checkProgress() {
+        progressHUDIsActive = cartService.loadIsShow
     }
     
     private func checkNFTCount() {
@@ -68,12 +80,6 @@ final class CartTableViewViewModel {
         }
     }
     
-    func changeSortes(_ newParametr: CartSortedStorage) {
-        userSortedService.cartSorted = newParametr
-        sortedName = userSortedService.cartSorted
-        sortedCart()
-    }
-    
     private func bind() {
         cartService.$nfts.bind { [weak self] newNftModel in
             self?.nfts = newNftModel.compactMap { CartTableViewCellViewModel(imageURL: $0.imagesURL[0],
@@ -86,7 +92,26 @@ final class CartTableViewViewModel {
             self?.sortedCart()
             self?.countNft()
             self?.checkOverPrice()
+        }
+        cartService.$netWorkAlert.bind { [weak self] netWorkAlert in
+            self?.checkAlert(netWorkAlert)
             self?.progressHUDIsActive = false
+        }
+        cartService.$loadIsShow.bind { [weak self] isShow in
+            self?.progressHUDIsActive = isShow
+        }
+    }
+    
+    private func checkAlert(_ netWorkAlert: NetWorkAlert?) {
+        guard let netWorkAlert else {
+            self.showNetWorkError = nil
+            return
+        }
+        switch netWorkAlert {
+        case .fetchOrder, .fetchNFT ,.changeOrder:
+            self.showNetWorkError = true
+        default:
+            self.showNetWorkError = false
         }
     }
     

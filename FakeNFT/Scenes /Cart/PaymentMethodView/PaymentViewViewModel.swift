@@ -12,8 +12,9 @@ final class PaymentViewViewModel {
     @CartObservable private(set) var coins: [PaymentCellViewModel] = []
     @CartObservable private(set) var isSelectedCoin:Bool = false
     @CartObservable private(set) var progressHUDIsActive: Bool = true
-    
-    private let cartService = CartService()
+    @CartObservable private(set) var showNetWorkError: Bool?
+
+    private let cartService = CartService.shared
     private(set) var selectedCoin: String? {
         didSet {
             checkSelectedCoin()
@@ -21,15 +22,15 @@ final class PaymentViewViewModel {
     }
     
     init(selectedCoin: String? = nil) {
-        progressHUDIsActive = true
-        
+        progressHUDIsActive = cartService.loadIsShow
         fetchCoins()
         self.selectedCoin = selectedCoin
         checkSelectedCoin()
         bind()
+        checkAlert(cartService.netWorkAlert)
     }
     
-    private func fetchCoins() {
+    func fetchCoins() {
         cartService.fetchCurrencies()
         DispatchQueue.main.async {
             self.coins = self.currenciesToCoins(self.cartService.currencies)
@@ -41,21 +42,16 @@ final class PaymentViewViewModel {
     }
     
     func pressPay(completion: @escaping (Result<Bool,Error>) -> Void) {
-        progressHUDIsActive = true
         guard let selectedCoin = selectedCoin else { return }
-        cartService.payOrder(selectedCoin) { [weak self] result in
-            guard let self else { return }
+        cartService.payOrder(selectedCoin) { result in
             switch result {
             case (.success(let resultOrder)):
                 if resultOrder.success {
-                    self.progressHUDIsActive = false
                     completion(.success(true))
                 } else {
-                    self.progressHUDIsActive = false
-                    completion(.success(false))
+                   completion(.success(false))
                 }
             case (.failure(let error)):
-                self.progressHUDIsActive = false
                 completion(.failure(error))
             }
         }
@@ -70,6 +66,26 @@ final class PaymentViewViewModel {
             guard let self else { return }
             self.coins = self.currenciesToCoins(newCurrencies)
             self.progressHUDIsActive = false
+        }
+        cartService.$netWorkAlert.bind { [weak self] netWorkAlert in
+            self?.checkAlert(netWorkAlert)
+            self?.progressHUDIsActive = false
+        }
+        cartService.$loadIsShow.bind { [weak self] isShow in
+            self?.progressHUDIsActive = isShow
+        }
+    }
+    
+    private func checkAlert(_ netWorkAlert: NetWorkAlert?) {
+        guard let netWorkAlert else {
+            self.showNetWorkError = nil
+            return
+        }
+        switch netWorkAlert {
+        case .fetchCurrencies:
+            self.showNetWorkError = true
+        default:
+            self.showNetWorkError = false
         }
     }
     

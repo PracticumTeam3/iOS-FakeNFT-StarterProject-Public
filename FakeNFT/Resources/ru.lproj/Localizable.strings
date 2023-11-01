@@ -29,6 +29,8 @@
 "cart.failurePay" = "Не удалось произвести\nоплату";
 "cart.cansel" = "Отмена";
 "cart.repeat" = "Повторить";
+"cart.networkAlertTitle" = "Что-то пошло не так(";
+"cart.networkAlertMessage" = "Проблема с интернет-соединением";
 
 "statistics.title" = "Статистика";
 

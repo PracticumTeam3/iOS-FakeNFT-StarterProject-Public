@@ -27,6 +27,10 @@ public enum L {
     /// Не удалось произвести
     /// оплату
     public static let failurePay = L.tr("Localizable", "cart.failurePay", fallback: "Не удалось произвести\nоплату")
+    /// Проблема с интернет-соединением
+    public static let networkAlertMessage = L.tr("Localizable", "cart.networkAlertMessage", fallback: "Проблема с интернет-соединением")
+    /// Что-то пошло не так(
+    public static let networkAlertTitle = L.tr("Localizable", "cart.networkAlertTitle", fallback: "Что-то пошло не так(")
     /// Оплатить
     public static let pay = L.tr("Localizable", "cart.pay", fallback: "Оплатить")
     /// Цена

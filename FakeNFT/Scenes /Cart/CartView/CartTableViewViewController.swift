@@ -11,6 +11,8 @@ import ProgressHUD
 final class CartTableViewViewController: UIViewController {
     
     private let viewModel: CartTableViewViewModel
+    private let alertPresenter = CartAlertPresenter()
+    
     private let emptyLabel: UILabel = {
         let label = UILabel()
         label.isHidden = true
@@ -100,7 +102,6 @@ final class CartTableViewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = A.Colors.whiteDynamic.color
-        tableViewIsEmpty(viewModel.nftIsEmpty)
         layoutSupport()
         bind()
         nftTableView.dataSource = self
@@ -108,7 +109,9 @@ final class CartTableViewViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        viewModel.checkProgress()
         progressHUD(viewModel.progressHUDIsActive)
+        showNetWorkAlert(viewModel.showNetWorkError)
     }
     
     private func layoutSupport() {
@@ -174,6 +177,11 @@ final class CartTableViewViewController: UIViewController {
                 self?.progressHUD(isShow)
             }
         }
+        viewModel.$showNetWorkError.bind { [weak self] isShow in
+            DispatchQueue.main.async {
+                self?.showNetWorkAlert(isShow)
+            }
+        }
     }
     
     private func navigationSupport() {
@@ -197,6 +205,15 @@ final class CartTableViewViewController: UIViewController {
             ProgressHUD.show()
         } else {
             ProgressHUD.dismiss()
+            tableViewIsEmpty(viewModel.nftIsEmpty)
+        }
+    }
+    
+    private func showNetWorkAlert(_ isShow: Bool?) {
+        if isShow == true {
+            alertPresenter.showNetWorkAlert(viewController: self) {
+                self.viewModel.fetchOrder()
+            }
         }
     }
     

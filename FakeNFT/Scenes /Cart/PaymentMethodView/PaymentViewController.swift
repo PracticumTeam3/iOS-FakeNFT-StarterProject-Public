@@ -11,6 +11,7 @@ import ProgressHUD
 final class PaymentViewController: UIViewController {
     
     private let viewModel: PaymentViewViewModel
+    private let alertPresenter = CartAlertPresenter()
     
     private let termsOfUseView: UIView = {
         let view = UIView()
@@ -129,6 +130,7 @@ final class PaymentViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         progressHUD(viewModel.progressHUDIsActive)
+        showNetWorkAlert(viewModel.showNetWorkError)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -177,6 +179,9 @@ final class PaymentViewController: UIViewController {
                     }
                 }
             case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.showNetWorkAlert(true)
+                }
                 print(error.localizedDescription)
             }
         }
@@ -220,6 +225,11 @@ final class PaymentViewController: UIViewController {
                 self?.progressHUD(isShow)
             }
         }
+        viewModel.$showNetWorkError.bind { [weak self] isShow in
+            DispatchQueue.main.async {
+                self?.showNetWorkAlert(isShow)
+            }
+        }
     }
     
     private func progressHUD(_ isShow: Bool) {
@@ -227,6 +237,14 @@ final class PaymentViewController: UIViewController {
             ProgressHUD.show()
         } else {
             ProgressHUD.dismiss()
+        }
+    }
+    
+    private func showNetWorkAlert(_ isShow: Bool?) {
+        if isShow == true {
+            alertPresenter.showNetWorkAlert(viewController: self) {
+                self.viewModel.fetchCoins()
+            }
         }
     }
     
