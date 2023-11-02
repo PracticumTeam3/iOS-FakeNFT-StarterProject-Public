@@ -14,7 +14,7 @@ public enum L {
     /// Вернуться в каталог
     public static let backCataloge = L.tr("Localizable", "cart.backCataloge", fallback: "Вернуться в каталог")
     /// Отмена
-    public static let cansel = L.tr("Localizable", "cart.cansel", fallback: "Отмена")
+    public static let cancel = L.tr("Localizable", "cart.cancel", fallback: "Отмена")
     /// Корзина пуста
     public static let cartEmpty = L.tr("Localizable", "cart.cartEmpty", fallback: "Корзина пуста")
     /// Выберите способ оплаты

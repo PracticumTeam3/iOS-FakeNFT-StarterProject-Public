@@ -58,7 +58,7 @@ final class NftDeleteAlert: UIViewController {
     init(image:UIImage, id: String) {
         self.alertImage.image = image
         self.id = id
-        super .init(nibName: nil, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {

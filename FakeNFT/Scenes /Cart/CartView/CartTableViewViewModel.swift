@@ -102,13 +102,13 @@ final class CartTableViewViewModel {
         }
     }
     
-    private func checkAlert(_ netWorkAlert: NetWorkAlert?) {
-        guard let netWorkAlert else {
+    private func checkAlert(_ networkAlert: NetworkAlert?) {
+        guard let networkAlert else {
             self.showNetWorkError = nil
             return
         }
-        switch netWorkAlert {
-        case .fetchOrder, .fetchNFT ,.changeOrder:
+        switch networkAlert {
+        case .fetchOrder, .fetchNFT, .changeOrder:
             self.showNetWorkError = true
         default:
             self.showNetWorkError = false

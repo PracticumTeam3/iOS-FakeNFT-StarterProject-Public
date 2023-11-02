@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetWorkAlert {
+enum NetworkAlert {
     case fetchOrder
     case changeOrder
     case fetchCurrencies
@@ -21,7 +21,7 @@ class CartService {
     private let networkClient: NetworkClient
     @CartObservable private(set) var nfts = [NftModel]()
     @CartObservable private(set) var currencies = [Currency]()
-    @CartObservable private(set) var netWorkAlert: NetWorkAlert?
+    @CartObservable private(set) var netWorkAlert: NetworkAlert?
     @CartObservable private(set) var loadIsShow: Bool = false
 
     private var currentOrder:OrderModel? {
@@ -58,7 +58,7 @@ class CartService {
             case (.failure(let error)):
                 print(error.localizedDescription)
                 self.loadIsShow = false
-                self.netWorkAlert = NetWorkAlert.fetchOrder
+                self.netWorkAlert = NetworkAlert.fetchOrder
             }
         }
     }
@@ -82,7 +82,7 @@ class CartService {
             case (.failure(let error)):
                 print(error.localizedDescription)
                 self.loadIsShow = false
-                self.netWorkAlert = NetWorkAlert.changeOrder
+                self.netWorkAlert = NetworkAlert.changeOrder
             }
         }
     }
@@ -105,7 +105,7 @@ class CartService {
             case .failure(let error):
                 print(error.localizedDescription)
                 self.loadIsShow = false
-                self.netWorkAlert = NetWorkAlert.fetchCurrencies
+                self.netWorkAlert = NetworkAlert.fetchCurrencies
             }
         }
     }
@@ -125,7 +125,7 @@ class CartService {
                 completion(.success(resultOrder))
             case .failure(let error):
                 self.loadIsShow = false
-                self.netWorkAlert = NetWorkAlert.payOrder
+                self.netWorkAlert = NetworkAlert.payOrder
                 completion(.failure(error))
             }
         }
@@ -149,7 +149,7 @@ class CartService {
                             self.nftArray.append(nftModel)
                         case (.failure(let error)):
                             self.loadIsShow = false
-                            self.netWorkAlert = NetWorkAlert.fetchNFT
+                            self.netWorkAlert = NetworkAlert.fetchNFT
                             print(error.localizedDescription)
                         }
                     }
@@ -172,7 +172,7 @@ class CartService {
                 self.netWorkAlert = nil
                 completion(.success(nftModel))
             case .failure(let error):
-                self.netWorkAlert = NetWorkAlert.fetchNFT
+                self.netWorkAlert = NetworkAlert.fetchNFT
                 completion(.failure(error))
             }
         }

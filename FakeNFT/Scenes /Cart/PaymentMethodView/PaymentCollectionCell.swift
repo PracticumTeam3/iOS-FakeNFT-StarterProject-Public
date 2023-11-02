@@ -52,7 +52,7 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
     }()
     
     override init(frame: CGRect) {
-        super .init(frame: CGRect())
+        super.init(frame: CGRect())
         cellSupport()
         layoutSupport()
     }

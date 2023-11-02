@@ -42,24 +42,50 @@ final class SuccessPayViewController: UIViewController {
         return button
     }()
     
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = A.Colors.whiteDynamic.color
+        return scrollView
+    }()
+    
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = A.Colors.whiteDynamic.color
+        return view
+    }()
+    
+    private lazy var contenSize: CGSize = {
+        return CGSize(width: view.frame.width, height: view.frame.height)
+    }()
+    
+    private var topImageViewConstraint: NSLayoutConstraint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = A.Colors.whiteDynamic.color
-        view.addSubview(successImageView)
-        view.addSubview(successLabel)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(successImageView)
+        contentView.addSubview(successLabel)
         view.addSubview(backCatalogeButton)
         layoutSupport()
+        view.layoutIfNeeded()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateContentSize()
+    }
+
     private func layoutSupport() {
+        topImageViewConstraint = successImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
+        topImageViewConstraint?.isActive = true
+        
         NSLayoutConstraint.activate([
-            successImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            successImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 152),
-            successImageView.widthAnchor.constraint(equalToConstant: 278),
-            successImageView.heightAnchor.constraint(equalToConstant: 278)
+            successImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
         NSLayoutConstraint.activate([
-            successLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            successLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             successLabel.topAnchor.constraint(equalTo: successImageView.bottomAnchor, constant: 20)
         ])
         NSLayoutConstraint.activate([
@@ -71,9 +97,26 @@ final class SuccessPayViewController: UIViewController {
     }
     
     @objc
-    func backCataloge() {
+    private func backCataloge() {
         guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
         let tabBar = TabBarViewController(viewModel: TabBarViewModel())
         window.rootViewController = tabBar
     }
+    
+    private func updateContentSize() {
+        if traitCollection.verticalSizeClass == .compact {
+            topImageViewConstraint?.constant = 20
+            contenSize = CGSize(width: view.frame.width,
+                                height: 20 + successImageView.frame.height + 20 +
+                                        successLabel.frame.height + 20 + backCatalogeButton.frame.height + 16)
+        } else {
+            topImageViewConstraint?.constant = 196
+            contenSize = CGSize(width: view.frame.width,
+                                height: view.frame.height)
+        }
+        scrollView.contentSize = contenSize
+        scrollView.frame = view.bounds
+        contentView.frame.size = contenSize
+    }
+    
 }

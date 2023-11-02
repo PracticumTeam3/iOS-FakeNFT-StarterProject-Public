@@ -76,7 +76,7 @@ final class PaymentViewViewModel {
         }
     }
     
-    private func checkAlert(_ netWorkAlert: NetWorkAlert?) {
+    private func checkAlert(_ netWorkAlert: NetworkAlert?) {
         guard let netWorkAlert else {
             self.showNetWorkError = nil
             return

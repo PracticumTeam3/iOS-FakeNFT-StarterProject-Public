@@ -70,7 +70,7 @@ final class PaymentViewController: UIViewController {
         
     init(viewModel: PaymentViewViewModel) {
         self.viewModel = viewModel
-        super .init(nibName: nil, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -197,13 +197,13 @@ final class PaymentViewController: UIViewController {
         let alert = UIAlertController(title: L.Cart.failurePay,
                                       message: nil,
                                       preferredStyle: .alert)
-        let actionCansel = UIAlertAction(title: L.Cart.cansel,
+        let actionCancel = UIAlertAction(title: L.Cart.cancel,
                                     style: .default)
         let actionRepeat = UIAlertAction(title: L.Cart.repeat,
                                          style: .default) { [weak self] _ in
             self?.pressedButton()
         }
-        alert.addAction(actionCansel)
+        alert.addAction(actionCancel)
         alert.addAction(actionRepeat)
         alert.preferredAction = actionRepeat
         self.present(alert, animated: true)

@@ -27,7 +27,7 @@
 "cart.successPay" = "Успех! Оплата прошла,\nпоздравляем с покупкой!";
 "cart.backCataloge" = "Вернуться в каталог";
 "cart.failurePay" = "Не удалось произвести\nоплату";
-"cart.cansel" = "Отмена";
+"cart.cancel" = "Отмена";
 "cart.repeat" = "Повторить";
 "cart.networkAlertTitle" = "Что-то пошло не так(";
 "cart.networkAlertMessage" = "Проблема с интернет-соединением";

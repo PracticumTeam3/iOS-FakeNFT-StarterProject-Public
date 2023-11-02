@@ -91,7 +91,7 @@ final class CartTableViewViewController: UIViewController {
     
     init(viewModel: CartTableViewViewModel = CartTableViewViewModel()) {
         self.viewModel = viewModel
-        super .init(nibName: nil, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
     }
     

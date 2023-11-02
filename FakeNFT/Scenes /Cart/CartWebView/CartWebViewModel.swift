@@ -24,7 +24,7 @@ final class CartWebViewModel {
     }
     
     func getRequest() -> URLRequest? {
-        guard let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") else { return nil }
+        guard let url = URL(string: webURLString) else { return nil }
         return URLRequest(url: url)
     }   
 }

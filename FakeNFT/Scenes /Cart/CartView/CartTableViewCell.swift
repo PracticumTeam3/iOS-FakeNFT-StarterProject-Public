@@ -72,7 +72,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super .init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = A.Colors.whiteDynamic.color
         contentView.addSubview(nftImageView)
         contentView.addSubview(nftNameLabel)
