@@ -98,6 +98,7 @@ extension CatalogViewController:UITableViewDataSource {
         cell?.setData(catalogCellData: viewModel.collections[indexPath.row])
         cell?.contentView.layer.cornerRadius = 12
         cell?.contentView.clipsToBounds = true
+        cell?.selectionStyle = .none
         return cell ?? UITableViewCell()
     }
 }

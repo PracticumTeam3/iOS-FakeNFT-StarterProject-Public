@@ -320,6 +320,7 @@
 				AAFDD7BE2AE15F5300E66E31 /* CatalogViewController.swift */,
 				AAFDD7C02AE15FC300E66E31 /* CatalogViewModel.swift */,
 				AAFDD7C22AE166A300E66E31 /* CatalogCell.swift */,
+				AAFDD7D02AF1854500E66E31 /* CollectionViewController.swift */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
