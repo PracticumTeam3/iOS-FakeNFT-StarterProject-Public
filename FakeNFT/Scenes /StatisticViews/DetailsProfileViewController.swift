@@ -176,6 +176,7 @@ final class DetailsProfileViewController: UIViewController {
     }
     
     @objc private func pushToUserCollections() {
-        print("Im collections vc")
+        let collectionVC = CollectionNFTViewController()
+        navigationController?.pushViewController(collectionVC, animated: true)
     }
 }

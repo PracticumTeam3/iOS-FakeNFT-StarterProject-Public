@@ -14,6 +14,8 @@ protocol ProfileCellViewModelProtocol {
     var profileImage: String { get }
     var infoUser: String { get }
     var websiteUrl: String { get }
+    var nfts: [String] { get }
+    var id: String { get }
     init(profile: ProfileResult, indexPath: IndexPath)
 }
 
@@ -34,6 +36,12 @@ struct ProfileCellViewModel: ProfileCellViewModelProtocol {
     }
     var websiteUrl: String {
         profile.website
+    }
+    var nfts: [String] {
+        profile.nfts
+    }
+    var id: String {
+        profile.id
     }
     
     // MARK: - Private properties

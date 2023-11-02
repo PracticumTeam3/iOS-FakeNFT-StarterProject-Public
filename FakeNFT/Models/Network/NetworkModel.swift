@@ -9,3 +9,10 @@ struct ProfileResult: Codable {
     let rating: String
     let id: String
 }
+
+struct NFTModel: Codable {
+    let images: [String]
+    let name: String
+    let rating: String
+    let price: Float
+}

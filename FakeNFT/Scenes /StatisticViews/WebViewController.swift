@@ -19,6 +19,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = A.Colors.whiteDynamic.color
         addSubviews()
         setupConstraints()
         webView.navigationDelegate = self
