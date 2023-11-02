@@ -18,6 +18,7 @@ target 'FakeNFT' do
 
   target 'FakeNFTUITests' do
     # Pods for testing
+    pod 'Swifter', '~> 1.5.0'
   end
 
 end

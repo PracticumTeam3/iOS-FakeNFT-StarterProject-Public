@@ -20,6 +20,7 @@ final class ProfileView: UIView {
         tableView.tableFooterView = UIView()
         tableView.isScrollEnabled = false
         tableView.register(ProfileTableViewCell.self)
+        tableView.accessibilityIdentifier = AccessibilityIdentifier.ProfilePage.tableView
         return tableView
     }()
 
@@ -51,7 +52,7 @@ final class ProfileView: UIView {
             static let bottomContentInset: CGFloat = 20
         }
     }
-    private let viewModel: ProfileViewModel
+    private let viewModel: ProfileViewModelProtocol
     private var model: ProfileModel? {
         viewModel.model
     }
@@ -76,6 +77,7 @@ final class ProfileView: UIView {
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.isSkeletonable = true
+        imageView.accessibilityIdentifier = AccessibilityIdentifier.ProfilePage.avatarImageView
         return imageView
     }()
 
@@ -85,6 +87,7 @@ final class ProfileView: UIView {
         label.numberOfLines = 2
         label.textColor = A.Colors.blackDynamic.color
         label.isSkeletonable = true
+        label.accessibilityIdentifier = AccessibilityIdentifier.ProfilePage.nameLabel
         return label
     }()
 
@@ -105,6 +108,7 @@ final class ProfileView: UIView {
         ]
         textView.typingAttributes = attributes
         textView.isSkeletonable = true
+        textView.accessibilityIdentifier = AccessibilityIdentifier.ProfilePage.descriptionLabel
         return textView
     }()
 
@@ -114,6 +118,7 @@ final class ProfileView: UIView {
         label.textColor = A.Colors.blue.color
         label.isUserInteractionEnabled = true
         label.isSkeletonable = true
+        label.accessibilityIdentifier = AccessibilityIdentifier.ProfilePage.websiteLabel
         return label
     }()
 
@@ -122,12 +127,14 @@ final class ProfileView: UIView {
     }()
 
     // MARK: - Initializers
-    init(viewModel: ProfileViewModel) {
+    init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         super.init(frame: .zero)
+        backgroundColor = A.Colors.whiteDynamic.color
         setupLayout()
         setupUI()
         scrollView.refreshControl = refreshControl
+        accessibilityIdentifier = AccessibilityIdentifier.ProfilePage.view
     }
 
     required init?(coder: NSCoder) {
@@ -150,11 +157,7 @@ final class ProfileView: UIView {
     }
 
     func updateUI() {
-        guard let model else { return }
-        websiteLabel.text = model.website
-        nameLabel.text = model.name
-        descriptionLabel.text = model.description
-        updateAvatar()
+        setupUI()
         tableView.reloadData()
     }
 
@@ -254,7 +257,6 @@ final class ProfileView: UIView {
     }
 
     private func setupUI() {
-        backgroundColor = A.Colors.whiteDynamic.color
         guard let model else { return }
         websiteLabel.text = model.website
         nameLabel.text = model.name

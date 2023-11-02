@@ -13,6 +13,7 @@ protocol FavouriteNFTViewModelProtocol {
     var nftList: [FavouriteNFTModel]? { get }
     var onNFTListLoaded: (() -> Void)? { get set }
     var onNFTListLoadError: ((String) -> Void)? { get set }
+
     func fetchFavouriteNFTs(completion: @escaping (Result<Void, Error>) -> Void)
     func unlikeNFT(with index: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
@@ -44,14 +45,14 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
 
     // MARK: - Private properties
     private let profileService: ProfileServiceProtocol
-    private let storageService: StorageService
+    private let storageService: StorageServiceProtocol
     private var loadedNFTs: [FavouriteNFTModel]?
     private var currentState: State = .standart
 
     // MARK: - Initializers
     init(
         profileService: ProfileServiceProtocol = ProfileService(),
-        storageService: StorageService = StorageService.shared
+        storageService: StorageServiceProtocol = StorageService.shared
     ) {
         self.profileService = profileService
         self.storageService = storageService
@@ -67,7 +68,12 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
             switch result {
             case .success(let profile):
                 self.updateProfileIfNeeded(profileModel: profile)
-                self.fetchFavouriteNFTs { _ in }
+                self.fetchFavouriteNFTs { result in
+                    switch result {
+                    case .success: completion(.success(()))
+                    case .failure(let error): completion(.failure(error))
+                    }
+                }
                 completion(.success(()))
             case .failure(let error):
                 completion(.failure(error))

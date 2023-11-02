@@ -8,11 +8,19 @@
 import Foundation
 
 enum Endpoint {
+
     case profile
     case nftById(id: String)
     case userById(id: String)
 
-    static let baseURL = URL(string: "https://651ff0bd906e276284c3c180.mockapi.io/")!
+    static var baseURL: URL {
+        switch StorageService.shared.environment {
+        case .prod:
+            return URL(string: "https://651ff0bd906e276284c3c180.mockapi.io/")!
+        case .test:
+            return URL(string: "http://127.0.0.1:9080/")!
+        }
+    }
 
     var path: String {
         switch self {
@@ -31,4 +39,5 @@ enum Endpoint {
                                           relativeTo: Endpoint.baseURL)
         }
     }
+
 }

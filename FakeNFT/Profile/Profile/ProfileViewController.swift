@@ -17,13 +17,13 @@ final class ProfileViewController: UIViewController {
         }
     }
     private let profileView: ProfileView
-    private let viewModel: ProfileViewModel
+    private let viewModel: ProfileViewModelProtocol
     private var editButton: UIBarButtonItem? {
         navigationItem.rightBarButtonItem
     }
 
     // MARK: - Initializers
-    init(viewModel: ProfileViewModel) {
+    init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         self.profileView = ProfileView(viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
@@ -83,6 +83,8 @@ final class ProfileViewController: UIViewController {
             action: #selector(presentEditProfileViewController)
         )
         navigationItem.setRightBarButton(rightButton, animated: false)
+        let accessibilityIdentifier = AccessibilityIdentifier.ProfilePage.editButton
+        navigationItem.rightBarButtonItem?.accessibilityIdentifier = accessibilityIdentifier
         navBar.tintColor = A.Colors.blackDynamic.color
     }
 

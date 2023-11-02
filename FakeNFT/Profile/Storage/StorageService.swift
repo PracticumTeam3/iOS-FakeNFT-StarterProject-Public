@@ -8,8 +8,16 @@
 import Foundation
 import os.log
 
+// MARK: - StorageServiceProtocol
+protocol StorageServiceProtocol: AnyObject {
+    var onProfileInfoChanged: (() -> Void)? { get set }
+    var profile: ProfileModel? { get set }
+    var sortType: SortType { get set }
+    var wasOnboardingShown: Bool { get set }
+}
+
 // MARK: - StorageService
-final class StorageService {
+final class StorageService: StorageServiceProtocol {
 
     // MARK: - Public  properties
     static let shared = StorageService()
@@ -48,6 +56,21 @@ final class StorageService {
         }
     }
 
+    var environment: Environment {
+        get {
+            guard
+                let environmentString = userDefaults.string(forKey: Keys.environment.rawValue),
+                let environment = Environment(rawValue: environmentString)
+            else {
+                return .prod
+            }
+            return environment
+        }
+        set {
+            userDefaults.setValue(newValue.rawValue, forKey: Keys.environment.rawValue)
+        }
+    }
+
     var wasOnboardingShown: Bool {
         get {
             userDefaults.bool(forKey: Keys.wasOnboardingShown.rawValue)
@@ -59,7 +82,7 @@ final class StorageService {
 
     // MARK: - Private  properties
     private enum Keys: String {
-        case profile, sortType, wasOnboardingShown
+        case profile, sortType, wasOnboardingShown, environment
     }
 
     private let userDefaults = UserDefaults.standard

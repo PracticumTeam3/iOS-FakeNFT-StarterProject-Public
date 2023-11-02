@@ -7,8 +7,20 @@
 
 import Foundation
 
+// MARK: - ProfileViewModelProtocol
+protocol ProfileViewModelProtocol: AnyObject {
+    var onProfileInfoChanged: (() -> Void)? { get set }
+    var onFetchError: ((String) -> Void)? { get set }
+    var onEditError: ((String) -> Void)? { get set }
+    var model: ProfileModel? { get }
+    var cells: [ProfileTableViewCells] { get }
+
+    func fetchProfile(completion: @escaping (Result<Void, Error>) -> Void)
+    func editProfile(editProfileModel: EditProfileModel)
+}
+
 // MARK: - ProfileViewModel
-final class ProfileViewModel {
+final class ProfileViewModel: ProfileViewModelProtocol {
 
     // MARK: - Public properties
     var onProfileInfoChanged: (() -> Void)? {
@@ -33,13 +45,13 @@ final class ProfileViewModel {
 
     // MARK: - Private properties
     private let profileService: ProfileServiceProtocol
-    private let storageService: StorageService
+    private let storageService: StorageServiceProtocol
     private var profileObservation: NSKeyValueObservation?
 
     // MARK: - Initializers
     init(
         profileService: ProfileServiceProtocol = ProfileService(),
-        storageService: StorageService = StorageService.shared
+        storageService: StorageServiceProtocol = StorageService.shared
     ) {
         self.storageService = storageService
         self.profileService = profileService

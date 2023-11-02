@@ -12,7 +12,7 @@ final class EditProfileViewController: UIViewController {
 
     // MARK: - Private properties
     private let editProfileView: EditProfileView
-    private let viewModel: ProfileViewModel
+    private let viewModel: ProfileViewModelProtocol
 
     private var isProfileEdited: Bool {
         let oldProfileModel = EditProfileModel(
@@ -26,7 +26,7 @@ final class EditProfileViewController: UIViewController {
     }
 
     // MARK: - Initializers
-    init(viewModel: ProfileViewModel) {
+    init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         self.editProfileView = EditProfileView(viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)

@@ -16,7 +16,7 @@ final class AlertPresenter {
             message: model.message,
             preferredStyle: model.preferredStyle
         )
-
+        alert.view.accessibilityIdentifier = AccessibilityIdentifier.Alert.view
         for button in model.buttons {
             let action = UIAlertAction(title: button.text, style: button.style) { _ in
                 button.completion(())
@@ -34,7 +34,7 @@ final class AlertPresenter {
             message: model.message,
             preferredStyle: .alert
         )
-
+        alert.view.accessibilityIdentifier = AccessibilityIdentifier.Alert.view
         alert.addTextField { (textField) in
             textField.placeholder = model.textField.placeholder
         }

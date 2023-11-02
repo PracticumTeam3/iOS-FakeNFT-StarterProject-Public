@@ -25,6 +25,7 @@ final class EditProfileView: UIView {
         let button = UIButton()
         button.setImage(A.Icons.close.image.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = A.Colors.blackDynamic.color
+        button.accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.closeButton
         return button
     }()
 
@@ -39,6 +40,7 @@ final class EditProfileView: UIView {
         view.backgroundColor = A.Colors.background.color
         view.addSubview(changeAvatarLabel)
         view.isUserInteractionEnabled = true
+        view.accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.avatarChangeView
         return view
     }()
 
@@ -67,7 +69,7 @@ final class EditProfileView: UIView {
         }
     }
 
-    private let viewModel: ProfileViewModel
+    private let viewModel: ProfileViewModelProtocol
 
     private var model: ProfileModel? {
         viewModel.model
@@ -112,6 +114,7 @@ final class EditProfileView: UIView {
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
+        imageView.accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.avatarImageView
         return imageView
     }()
 
@@ -122,6 +125,7 @@ final class EditProfileView: UIView {
         label.textAlignment = .center
         label.textColor = A.Colors.white.color
         label.isUserInteractionEnabled = true
+        label.accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.avatarChangeLabel
         return label
     }()
 
@@ -144,11 +148,12 @@ final class EditProfileView: UIView {
         textView.font = .Regular.large
         textView.layer.cornerRadius = Constants.cornerRadius
         textView.textContainerInset = UIEdgeInsets(top: 11, left: 16, bottom: 11, right: 16)
+        textView.accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.descriptionTextView
         return textView
     }()
 
     // MARK: - Initializers
-    init(viewModel: ProfileViewModel) {
+    init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         nameTextField.delegate = self
@@ -157,6 +162,7 @@ final class EditProfileView: UIView {
         setupUI()
         setupLayout()
         registerKeyboardObserver()
+        accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.view
     }
 
     required init?(coder: NSCoder) {
@@ -169,8 +175,10 @@ final class EditProfileView: UIView {
 
     // MARK: - Public methods
     func hideChangeAvatarView() {
-        self.changeAvatarView.isHidden = true
-        self.imageView.isUserInteractionEnabled = false
+        changeAvatarView.isHidden = true
+        imageView.isUserInteractionEnabled = false
+        let accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.avatarChangeViewHidden
+        changeAvatarView.accessibilityIdentifier = accessibilityIdentifier
     }
 
     // MARK: - Layout
@@ -265,14 +273,22 @@ final class EditProfileView: UIView {
 
     private func setupUI() {
         nameLabel.text = L.Profile.name
+        nameLabel.accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.nameLabel
+
         descriptionLabel.text = L.Profile.description
+        descriptionLabel.accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.descriptionLabel
+
         websiteLabel.text = L.Profile.website
+        websiteLabel.accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.websiteLabel
+
         changeAvatarLabel.text = L.Profile.Avatar.change
 
         backgroundColor = A.Colors.whiteDynamic.color
 
         nameTextField.addTarget(self, action: #selector(textFieldChanged(_:)), for: .editingChanged)
+        nameTextField.accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.nameTextField
         websiteTextField.addTarget(self, action: #selector(textFieldChanged(_:)), for: .editingChanged)
+        websiteTextField.accessibilityIdentifier = AccessibilityIdentifier.EditProfilePage.websiteTextField
 
         guard let model else { return }
         avatar = model.avatar
