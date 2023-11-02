@@ -107,7 +107,6 @@ class CollectionCell:UICollectionViewCell {
             сartButton.topAnchor.constraint(equalTo: lableName.topAnchor, constant: 0),
             сartButton.bottomAnchor.constraint(equalTo: lableCost.bottomAnchor, constant: 0),
             сartButton.trailingAnchor.constraint(equalTo: viewCell.trailingAnchor, constant: 0)
-
         ])
     }
 

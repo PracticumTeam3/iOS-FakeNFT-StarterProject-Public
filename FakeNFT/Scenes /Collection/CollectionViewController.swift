@@ -54,7 +54,6 @@ class CollectionViewController: UIViewController {
         lable.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         lable.textAlignment = .left
         lable.numberOfLines = 4
-        lable.text = "Персиковый — как облака над закатным солнцем в океане. В этой коллекции совмещены трогательная нежность и живая игривость сказочных зефирных зверей."
         return lable
     }()
 
@@ -166,7 +165,6 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
         let heightPerItem = widthPerItem * 1.8
-
         return CGSize(width: widthPerItem, height: heightPerItem)
     }
 
@@ -178,3 +176,4 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
 }
+

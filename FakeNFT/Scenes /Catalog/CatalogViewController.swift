@@ -70,7 +70,7 @@ final class CatalogViewController: UIViewController {
         let alertController = UIAlertController(title: "Сортировка", message: nil, preferredStyle: .actionSheet)
 
         let sortByTitleAction = UIAlertAction(title: "По названию", style: .default) { _ in
-            // код для сортировки по названию
+           
         }
 
         let sortByQuantityAction = UIAlertAction(title: "По количеству NFT", style: .default) { _ in
