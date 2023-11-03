@@ -119,7 +119,12 @@ final class NftDeleteAlert: UIViewController {
     }
     
     private func backgroudViewSupport() {
-        let blurEffect = UIBlurEffect(style: .light)
+        var blurEffect = UIBlurEffect()
+        if traitCollection.userInterfaceStyle == .dark {
+            blurEffect = UIBlurEffect(style: .dark)
+        } else {
+            blurEffect = UIBlurEffect(style: .light)
+        }
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
