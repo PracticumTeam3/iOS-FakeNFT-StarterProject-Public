@@ -18,6 +18,7 @@ final class SuccessPayViewController: UIViewController {
             static let topInset: CGFloat = 20
         }
         enum Button {
+            static let cornerRadius: CGFloat = 16
             static let topInset: CGFloat = 20
             static let leftInset: CGFloat = 16
             static let rightInset: CGFloat = 16
@@ -54,7 +55,7 @@ final class SuccessPayViewController: UIViewController {
         button.backgroundColor = A.Colors.blackDynamic.color
         button.addTarget(self, action: #selector(backCatalog), for: .touchUpInside)
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 16
+        button.layer.cornerRadius = Constants.Button.cornerRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

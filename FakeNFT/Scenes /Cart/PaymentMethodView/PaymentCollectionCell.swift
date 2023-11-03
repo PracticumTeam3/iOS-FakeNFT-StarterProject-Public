@@ -12,6 +12,22 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
     
     static var defaultReuseIdentifier: String  = "PaymentCollectionCell"
     
+    private enum Constants {
+        static let cornerRadius: CGFloat = 12
+        enum CoinImageView {
+            static let cornerRadius: CGFloat = 6
+            static let width: CGFloat = 36
+            static let height: CGFloat = 36
+            static let leftInset: CGFloat = 12
+        }
+        enum CoinNameLabel {
+            static let leftInset: CGFloat = 4
+        }
+        enum CoinShortNameLabel {
+            static let leftInset: CGFloat = 4
+        }
+    }
+    
     var viewModel: PaymentCellViewModel! {
         didSet {
             coinImageView.kf.indicatorType = .activity
@@ -24,7 +40,7 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
     private let coinImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 6
+        imageView.layer.cornerRadius = Constants.CoinImageView.cornerRadius
         imageView.backgroundColor = A.Colors.blackDynamic.color
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -67,24 +83,27 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
         self.addSubview(coinShortNameLabel)
         
         NSLayoutConstraint.activate([
-            coinImageView.widthAnchor.constraint(equalToConstant: 36),
-            coinImageView.heightAnchor.constraint(equalToConstant: 36),
+            coinImageView.widthAnchor.constraint(equalToConstant: Constants.CoinImageView.width),
+            coinImageView.heightAnchor.constraint(equalToConstant: Constants.CoinImageView.height),
             coinImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            coinImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 12)
+            coinImageView.leftAnchor.constraint(equalTo: self.leftAnchor,
+                                                constant: Constants.CoinImageView.leftInset)
         ])
         NSLayoutConstraint.activate([
             coinNameLabel.bottomAnchor.constraint(equalTo: self.centerYAnchor),
-            coinNameLabel.leftAnchor.constraint(equalTo: coinImageView.rightAnchor, constant: 4)
+            coinNameLabel.leftAnchor.constraint(equalTo: coinImageView.rightAnchor,
+                                                constant: Constants.CoinNameLabel.leftInset)
         ])
         NSLayoutConstraint.activate([
             coinShortNameLabel.topAnchor.constraint(equalTo: self.centerYAnchor),
-            coinShortNameLabel.leftAnchor.constraint(equalTo: coinImageView.rightAnchor, constant: 4)
+            coinShortNameLabel.leftAnchor.constraint(equalTo: coinImageView.rightAnchor,
+                                                     constant: Constants.CoinShortNameLabel.leftInset)
         ])
     }
     
     private func cellSupport() {
         self.backgroundColor = A.Colors.lightGrayDynamic.color
         self.layer.masksToBounds = true
-        self.layer.cornerRadius = 12
+        self.layer.cornerRadius = Constants.cornerRadius
     }
 }

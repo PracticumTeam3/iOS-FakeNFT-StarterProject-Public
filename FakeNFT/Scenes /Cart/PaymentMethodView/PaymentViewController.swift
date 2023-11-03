@@ -10,6 +10,40 @@ import ProgressHUD
 
 final class PaymentViewController: UIViewController {
     
+    private enum Constants {
+        enum CollectionView {
+            static let topInset: CGFloat = 20
+            static let leftInset: CGFloat = 16
+            static let bottomInset: CGFloat = 16
+            static let rightInset: CGFloat = 16
+            static let minimumSpacing: CGFloat = 7
+        }
+        enum Cell {
+            static let height: CGFloat = 46
+            static let selectBorderWidth: CGFloat = 1
+            static let deselectBorderWidth: CGFloat = 0
+        }
+        enum TermsOfUseView {
+            static let cornerRadius: CGFloat = 12
+            static let height: CGFloat = 186
+        }
+        enum PayButton {
+            static let cornerRadius: CGFloat = 16
+            static let leftInset: CGFloat = 16
+            static let rightInset: CGFloat = 16
+            static let height: CGFloat = 60
+            static let bottomInset: CGFloat = 50
+        }
+        enum TermsOfUseLabel {
+            static let topInset: CGFloat = 16
+            static let leftInset: CGFloat = 16
+            static let rightInset: CGFloat = 16
+        }
+        enum TermsOfUseButton {
+            static let leftInset: CGFloat = 16
+        }
+    }
+    
     private let viewModel: PaymentViewViewModel
     private let alertPresenter = CartAlertPresenter()
     
@@ -17,7 +51,7 @@ final class PaymentViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = A.Colors.lightGrayDynamic.color
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 12
+        view.layer.cornerRadius = Constants.TermsOfUseView.cornerRadius
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -52,7 +86,7 @@ final class PaymentViewController: UIViewController {
         button.titleLabel?.font = .bold17
         button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal)
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 16
+        button.layer.cornerRadius = Constants.PayButton.cornerRadius
         button.addTarget(self, action: #selector(pressedButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -100,29 +134,36 @@ final class PaymentViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            termsOfUseView.heightAnchor.constraint(equalToConstant: 186),
+            termsOfUseView.heightAnchor.constraint(equalToConstant: Constants.TermsOfUseView.height),
             termsOfUseView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             termsOfUseView.leftAnchor.constraint(equalTo: view.leftAnchor),
             termsOfUseView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            payButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
-            payButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16),
-            payButton.heightAnchor.constraint(equalToConstant: 60),
-            payButton.bottomAnchor.constraint(equalTo: termsOfUseView.bottomAnchor, constant: -50),
+            payButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+                                            constant: Constants.PayButton.leftInset),
+            payButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+                                             constant: -Constants.PayButton.rightInset),
+            payButton.heightAnchor.constraint(equalToConstant: Constants.PayButton.height),
+            payButton.bottomAnchor.constraint(equalTo: termsOfUseView.bottomAnchor,
+                                              constant: -Constants.PayButton.bottomInset),
             payButton.centerXAnchor.constraint(equalTo: termsOfUseView.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            termsOfUseLabel.topAnchor.constraint(equalTo: termsOfUseView.topAnchor, constant: 16),
-            termsOfUseLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
-            termsOfUseLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16)
+            termsOfUseLabel.topAnchor.constraint(equalTo: termsOfUseView.topAnchor,
+                                                 constant: Constants.TermsOfUseLabel.topInset),
+            termsOfUseLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+                                                  constant: Constants.TermsOfUseLabel.leftInset),
+            termsOfUseLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+                                                   constant: -Constants.TermsOfUseLabel.rightInset)
         ])
         
         NSLayoutConstraint.activate([
             termsOfUseButton.topAnchor.constraint(equalTo: termsOfUseLabel.bottomAnchor),
-            termsOfUseButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16)
+            termsOfUseButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+                                                   constant: Constants.TermsOfUseButton.leftInset)
         ])
   
     }
@@ -286,31 +327,39 @@ extension PaymentViewController: UICollectionViewDelegateFlowLayout {
         else { return }
         viewModel.changeSelectedCoin(id: cell.viewModel.id)
         cell.layer.borderColor = A.Colors.blackDynamic.color.cgColor
-        cell.layer.borderWidth = 1
+        cell.layer.borderWidth = Constants.Cell.selectBorderWidth
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? PaymentCollectionCell
         else { return }
-        cell.layer.borderWidth = 0
+        cell.layer.borderColor = UIColor.clear.cgColor
+        cell.layer.borderWidth = Constants.Cell.deselectBorderWidth
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 16, bottom: 16, right: 16)
+        return UIEdgeInsets(top: Constants.CollectionView.topInset,
+                            left: Constants.CollectionView.leftInset,
+                            bottom: Constants.CollectionView.bottomInset,
+                            right: Constants.CollectionView.rightInset)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (collectionView.bounds.width - 39)/2, height: 46)
+        return CGSize(width: (collectionView.bounds.width -
+                              Constants.CollectionView.leftInset -
+                              Constants.CollectionView.rightInset -
+                              Constants.CollectionView.minimumSpacing)/2,
+                      height: Constants.Cell.height)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 7
+        return Constants.CollectionView.minimumSpacing
     }
     
 }

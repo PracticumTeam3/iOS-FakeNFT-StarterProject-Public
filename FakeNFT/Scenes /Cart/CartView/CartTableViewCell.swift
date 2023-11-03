@@ -12,6 +12,36 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
     
     static var defaultReuseIdentifier: String  = "CartTableViewCell"
     
+    private enum Constants {
+        static let height: CGFloat = 140
+        enum NftImageView {
+            static let width: CGFloat = 108
+            static let height: CGFloat = 108
+            static let leftInset: CGFloat = 16
+        }
+        enum NftNameLabel {
+            static let topInset: CGFloat = 24
+            static let leftInset: CGFloat = 20
+        }
+        enum RatingView {
+            static let topInset: CGFloat = 50
+            static let leftInset: CGFloat = 20
+        }
+        enum PriceLabel {
+            static let leftInset: CGFloat = 20
+            static let bottomInset: CGFloat = 2
+        }
+        enum NftPriceLabel {
+            static let leftInset: CGFloat = 20
+            static let bottomInset: CGFloat = 24
+        }
+        enum DeleteButton {
+            static let rightInset: CGFloat = 16
+            static let width: CGFloat = 40
+            static let height: CGFloat = 40
+        }
+    }
+    
     private let nftImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
@@ -90,33 +120,43 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
     
     private func layoutSupport() {
         NSLayoutConstraint.activate([
-            contentView.heightAnchor.constraint(equalToConstant: 140),
-            nftImageView.widthAnchor.constraint(equalToConstant: 108),
-            nftImageView.heightAnchor.constraint(equalToConstant: 108),
-            nftImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            contentView.heightAnchor.constraint(equalToConstant: Constants.height),
+            nftImageView.widthAnchor.constraint(equalToConstant: Constants.NftImageView.width),
+            nftImageView.heightAnchor.constraint(equalToConstant: Constants.NftImageView.height),
+            nftImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor,
+                                               constant: Constants.NftImageView.leftInset),
             nftImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
         NSLayoutConstraint.activate([
-            nftNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
-            nftNameLabel.leftAnchor.constraint(equalTo: nftImageView.rightAnchor, constant: 20)
+            nftNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                              constant: Constants.NftNameLabel.topInset),
+            nftNameLabel.leftAnchor.constraint(equalTo: nftImageView.rightAnchor,
+                                               constant: Constants.NftNameLabel.leftInset)
         ])
         NSLayoutConstraint.activate([
-            ratingView.leftAnchor.constraint(equalTo: nftImageView.rightAnchor, constant: 20),
-            ratingView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50)
+            ratingView.leftAnchor.constraint(equalTo: nftImageView.rightAnchor,
+                                             constant: Constants.RatingView.leftInset),
+            ratingView.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                            constant: Constants.RatingView.topInset)
         ])
         NSLayoutConstraint.activate([
-            priceLabel.leftAnchor.constraint(equalTo: nftImageView.rightAnchor, constant: 20),
-            priceLabel.bottomAnchor.constraint(equalTo: nftPriceLabel.topAnchor, constant: -2)
+            priceLabel.leftAnchor.constraint(equalTo: nftImageView.rightAnchor,
+                                             constant: Constants.PriceLabel.leftInset),
+            priceLabel.bottomAnchor.constraint(equalTo: nftPriceLabel.topAnchor,
+                                               constant: -Constants.PriceLabel.bottomInset)
         ])
         NSLayoutConstraint.activate([
-            nftPriceLabel.leftAnchor.constraint(equalTo: nftImageView.rightAnchor, constant: 20),
-            nftPriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24)
+            nftPriceLabel.leftAnchor.constraint(equalTo: nftImageView.rightAnchor,
+                                                constant: Constants.NftPriceLabel.leftInset),
+            nftPriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
+                                                  constant: -Constants.NftPriceLabel.bottomInset)
         ])
         NSLayoutConstraint.activate([
-            deletebutton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            deletebutton.rightAnchor.constraint(equalTo: contentView.rightAnchor,
+                                                constant: -Constants.DeleteButton.rightInset),
             deletebutton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            deletebutton.heightAnchor.constraint(equalToConstant: 40),
-            deletebutton.widthAnchor.constraint(equalToConstant: 40)
+            deletebutton.heightAnchor.constraint(equalToConstant: Constants.DeleteButton.height),
+            deletebutton.widthAnchor.constraint(equalToConstant: Constants.DeleteButton.width)
         ])
     }
     

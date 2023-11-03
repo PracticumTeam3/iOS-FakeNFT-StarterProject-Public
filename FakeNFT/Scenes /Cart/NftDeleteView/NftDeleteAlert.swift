@@ -12,12 +12,45 @@ protocol NfyDeleteAlertDelegate: AnyObject {
 }
 
 final class NftDeleteAlert: UIViewController {
+    
+    private enum Constants {
+        enum SafeArea {
+            static let topInset: CGFloat = 20
+            static let leftInset: CGFloat = 0
+            static let bottonInset: CGFloat = 0
+            static let rightInset: CGFloat = 0
+        }
+        enum AlertImage {
+            static let cornerRadius: CGFloat = 12
+            static let width: CGFloat = 108
+            static let height: CGFloat = 108
+            static let topInset: CGFloat = 244
+        }
+        enum QuestionLabel {
+            static let bottomInset: CGFloat = 12
+        }
+        enum DeleteButton {
+            static let cornerRadius: CGFloat = 12
+            static let width: CGFloat = 127
+            static let height: CGFloat = 44
+            static let rightInset: CGFloat = 4
+            static let topInset: CGFloat = 20
+        }
+        enum ReturnButton {
+            static let cornerRadius: CGFloat = 12
+            static let width: CGFloat = 127
+            static let height: CGFloat = 44
+            static let leftInset: CGFloat = 4
+            static let topInset: CGFloat = 20
+        }
+    }
+    
     weak var delegate:NfyDeleteAlertDelegate?
     var id: String
     private let alertImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 12
+        imageView.layer.cornerRadius = Constants.AlertImage.cornerRadius
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -39,7 +72,7 @@ final class NftDeleteAlert: UIViewController {
         button.setTitle(L.Cart.delete, for: .normal)
         button.setTitleColor(A.Colors.red.color, for: .normal)
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = Constants.DeleteButton.cornerRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -50,7 +83,7 @@ final class NftDeleteAlert: UIViewController {
         button.setTitle(L.Cart.return, for: .normal)
         button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal)
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = Constants.ReturnButton.cornerRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -79,7 +112,10 @@ final class NftDeleteAlert: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        additionalSafeAreaInsets = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
+        additionalSafeAreaInsets = UIEdgeInsets(top: -Constants.SafeArea.topInset,
+                                                left: Constants.SafeArea.leftInset,
+                                                bottom: Constants.SafeArea.bottonInset,
+                                                right: Constants.SafeArea.rightInset)
     }
     
     private func backgroudViewSupport() {
@@ -92,26 +128,32 @@ final class NftDeleteAlert: UIViewController {
     
     private func layoutSupport() {
         NSLayoutConstraint.activate([
-            alertImage.widthAnchor.constraint(equalToConstant: 108),
-            alertImage.heightAnchor.constraint(equalToConstant: 108),
+            alertImage.widthAnchor.constraint(equalToConstant: Constants.AlertImage.width),
+            alertImage.heightAnchor.constraint(equalToConstant: Constants.AlertImage.height),
             alertImage.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            alertImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 244)
+            alertImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                            constant: Constants.AlertImage.topInset)
         ])
         NSLayoutConstraint.activate([
             questionLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            questionLabel.topAnchor.constraint(equalTo: alertImage.bottomAnchor, constant: 12)
+            questionLabel.topAnchor.constraint(equalTo: alertImage.bottomAnchor,
+                                               constant: Constants.QuestionLabel.bottomInset)
         ])
         NSLayoutConstraint.activate([
-            deleteButton.widthAnchor.constraint(equalToConstant: 127),
-            deleteButton.heightAnchor.constraint(equalToConstant: 44),
-            deleteButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: -4),
-            deleteButton.topAnchor.constraint(equalTo: questionLabel.bottomAnchor, constant: 20)
+            deleteButton.widthAnchor.constraint(equalToConstant: Constants.DeleteButton.width),
+            deleteButton.heightAnchor.constraint(equalToConstant: Constants.DeleteButton.height),
+            deleteButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor,
+                                                constant: -Constants.DeleteButton.rightInset),
+            deleteButton.topAnchor.constraint(equalTo: questionLabel.bottomAnchor,
+                                              constant: Constants.DeleteButton.topInset)
         ])
         NSLayoutConstraint.activate([
-            returnButton.widthAnchor.constraint(equalToConstant: 127),
-            returnButton.heightAnchor.constraint(equalToConstant: 44),
-            returnButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 4),
-            returnButton.topAnchor.constraint(equalTo: questionLabel.bottomAnchor, constant: 20)
+            returnButton.widthAnchor.constraint(equalToConstant: Constants.ReturnButton.width),
+            returnButton.heightAnchor.constraint(equalToConstant: Constants.ReturnButton.height),
+            returnButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor,
+                                               constant: Constants.ReturnButton.leftInset),
+            returnButton.topAnchor.constraint(equalTo: questionLabel.bottomAnchor,
+                                              constant: Constants.ReturnButton.topInset)
         ])
     }
     

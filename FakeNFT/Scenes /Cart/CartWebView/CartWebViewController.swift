@@ -11,7 +11,7 @@ import WebKit
 
 final class CartWebViewController: UIViewController {
     
-    enum Constatns {
+    private enum Constatns {
         static let progressViewHeight: CGFloat = 3
     }
     

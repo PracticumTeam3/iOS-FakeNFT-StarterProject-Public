@@ -9,6 +9,12 @@ import UIKit
 
 final class RatingView: UIView {
     
+    private enum Constants {
+        static let width: CGFloat = 68
+        static let height: CGFloat = 12
+        static let spacing: CGFloat = 2
+    }
+    
     private let rating: Int
     private let horizontalStack = UIStackView()
     private var imageViewArray = [UIImageView]()
@@ -26,7 +32,7 @@ final class RatingView: UIView {
     private func layoutSupport() {
         horizontalStack.axis = .horizontal
         horizontalStack.distribution = .fillEqually
-        horizontalStack.spacing = 2
+        horizontalStack.spacing = Constants.spacing
         for i in 1...5 {
             let imageView = UIImageView()
             if i <= rating {
@@ -41,8 +47,8 @@ final class RatingView: UIView {
         self.addSubview(horizontalStack)
         self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: 68),
-            self.heightAnchor.constraint(equalToConstant: 12),
+            self.widthAnchor.constraint(equalToConstant: Constants.width),
+            self.heightAnchor.constraint(equalToConstant: Constants.height),
             horizontalStack.topAnchor.constraint(equalTo: self.topAnchor),
             horizontalStack.leftAnchor.constraint(equalTo: self.leftAnchor),
             horizontalStack.rightAnchor.constraint(equalTo: self.rightAnchor),

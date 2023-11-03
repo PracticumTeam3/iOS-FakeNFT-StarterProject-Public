@@ -10,6 +10,31 @@ import ProgressHUD
 
 final class CartTableViewViewController: UIViewController {
     
+    private enum Constants {
+        enum NftTableView {
+            static let topInset: CGFloat = 20
+        }
+        enum CartView {
+            static let cornerRadius: CGFloat = 12
+            static let height: CGFloat = 76
+        }
+        enum CountNFTLabel {
+            static let topInset: CGFloat = 16
+            static let leftInset: CGFloat = 16
+        }
+        enum PriceLabel {
+            static let leftInset: CGFloat = 16
+            static let bottomInset: CGFloat = 16
+        }
+        enum PayButton {
+            static let cornerRadius: CGFloat = 16
+            static let topInset: CGFloat = 16
+            static let leftInset: CGFloat = 24
+            static let rightInset: CGFloat = 16
+            static let bottomInset: CGFloat = 16
+        }
+    }
+    
     private let viewModel: CartTableViewViewModel
     private let alertPresenter = CartAlertPresenter()
     
@@ -40,7 +65,7 @@ final class CartTableViewViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = A.Colors.lightGrayDynamic.color
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 12
+        view.layer.cornerRadius = Constants.CartView.cornerRadius
         view.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -75,7 +100,7 @@ final class CartTableViewViewController: UIViewController {
         button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal)
         button.backgroundColor = A.Colors.blackDynamic.color
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 16
+        button.layer.cornerRadius = Constants.PayButton.cornerRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -125,7 +150,8 @@ final class CartTableViewViewController: UIViewController {
             emptyLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         ])
         NSLayoutConstraint.activate([
-            nftTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            nftTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                              constant: Constants.NftTableView.topInset),
             nftTableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             nftTableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             nftTableView.bottomAnchor.constraint(equalTo: cartView.topAnchor)
@@ -134,17 +160,25 @@ final class CartTableViewViewController: UIViewController {
             cartView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             cartView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             cartView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            cartView.heightAnchor.constraint(equalToConstant: 76)
+            cartView.heightAnchor.constraint(equalToConstant: Constants.CartView.height)
         ])
         NSLayoutConstraint.activate([
-            countNFTLabel.topAnchor.constraint(equalTo: cartView.topAnchor, constant: 16),
-            countNFTLabel.leftAnchor.constraint(equalTo: cartView.leftAnchor, constant: 16),
-            priceLabel.leftAnchor.constraint(equalTo: cartView.leftAnchor, constant: 16),
-            priceLabel.bottomAnchor.constraint(equalTo: cartView.bottomAnchor, constant: -16),
-            payButton.topAnchor.constraint(equalTo: cartView.topAnchor, constant: 16),
-            payButton.rightAnchor.constraint(equalTo: cartView.rightAnchor, constant: -16),
-            payButton.bottomAnchor.constraint(equalTo: cartView.bottomAnchor, constant: -16),
-            payButton.leftAnchor.constraint(equalTo: priceLabel.rightAnchor, constant: 24)
+            countNFTLabel.topAnchor.constraint(equalTo: cartView.topAnchor,
+                                               constant: Constants.CountNFTLabel.topInset),
+            countNFTLabel.leftAnchor.constraint(equalTo: cartView.leftAnchor,
+                                                constant: Constants.CountNFTLabel.leftInset),
+            priceLabel.leftAnchor.constraint(equalTo: cartView.leftAnchor,
+                                             constant: Constants.PriceLabel.leftInset),
+            priceLabel.bottomAnchor.constraint(equalTo: cartView.bottomAnchor,
+                                               constant: -Constants.PriceLabel.bottomInset),
+            payButton.topAnchor.constraint(equalTo: cartView.topAnchor,
+                                           constant: Constants.PayButton.topInset),
+            payButton.rightAnchor.constraint(equalTo: cartView.rightAnchor,
+                                             constant: -Constants.PayButton.rightInset),
+            payButton.bottomAnchor.constraint(equalTo: cartView.bottomAnchor,
+                                              constant: -Constants.PayButton.bottomInset),
+            payButton.leftAnchor.constraint(equalTo: priceLabel.rightAnchor,
+                                            constant: Constants.PayButton.leftInset)
         ])
     }
     
