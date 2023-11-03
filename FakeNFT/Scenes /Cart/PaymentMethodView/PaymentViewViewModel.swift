@@ -22,8 +22,8 @@ final class PaymentViewViewModel {
     }
     
     init(selectedCoin: String? = nil) {
-        progressHUDIsActive = cartService.loadIsShow
         fetchCoins()
+        checkProgress(cartService.loadIsShow)
         self.selectedCoin = selectedCoin
         checkSelectedCoin()
         bind()
@@ -71,8 +71,8 @@ final class PaymentViewViewModel {
             self?.checkAlert(netWorkAlert)
             self?.progressHUDIsActive = false
         }
-        cartService.$loadIsShow.bind { [weak self] isShow in
-            self?.progressHUDIsActive = isShow
+        cartService.$loadIsShow.bind { [weak self] loading in
+            self?.checkProgress(loading)
         }
     }
     
@@ -82,10 +82,23 @@ final class PaymentViewViewModel {
             return
         }
         switch netWorkAlert {
-        case .fetchCurrencies:
+        case .payOrder, .fetchCurrencies:
             self.showNetWorkError = true
         default:
             self.showNetWorkError = false
+        }
+    }
+    
+    private func checkProgress(_ loading: Loading?) {
+        guard let loading else {
+            self.progressHUDIsActive = false
+            return
+        }
+        switch loading {
+        case .fetchCurrencies, .payOrder:
+            self.progressHUDIsActive = true
+        default:
+            self.progressHUDIsActive = false
         }
     }
     

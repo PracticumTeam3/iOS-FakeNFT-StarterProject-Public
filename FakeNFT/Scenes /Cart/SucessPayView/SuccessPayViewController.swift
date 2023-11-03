@@ -8,6 +8,23 @@
 import UIKit
 
 final class SuccessPayViewController: UIViewController {
+    
+    private enum Constants {
+        enum ImageView {
+            static let topInsetVertOrient: CGFloat = 196
+            static let topInsetGorOrient: CGFloat = 20
+        }
+        enum Label {
+            static let topInset: CGFloat = 20
+        }
+        enum Button {
+            static let topInset: CGFloat = 20
+            static let leftInset: CGFloat = 16
+            static let rightInset: CGFloat = 16
+            static let bottomInset: CGFloat = 16
+            static let height: CGFloat = 60
+        }
+    }
 
     private let successImageView: UIImageView = {
         let imageView = UIImageView()
@@ -35,7 +52,7 @@ final class SuccessPayViewController: UIViewController {
         button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal) 
         button.titleLabel?.font = .bold17
         button.backgroundColor = A.Colors.blackDynamic.color
-        button.addTarget(self, action: #selector(backCataloge), for: .touchUpInside)
+        button.addTarget(self, action: #selector(backCatalog), for: .touchUpInside)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +95,8 @@ final class SuccessPayViewController: UIViewController {
     }
 
     private func layoutSupport() {
-        topImageViewConstraint = successImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
+        topImageViewConstraint = successImageView.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                                                       constant: Constants.ImageView.topInsetVertOrient)
         topImageViewConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
@@ -86,31 +104,44 @@ final class SuccessPayViewController: UIViewController {
         ])
         NSLayoutConstraint.activate([
             successLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            successLabel.topAnchor.constraint(equalTo: successImageView.bottomAnchor, constant: 20)
+            successLabel.topAnchor.constraint(equalTo: successImageView.bottomAnchor,
+                                              constant: Constants.Label.topInset)
         ])
         NSLayoutConstraint.activate([
-            backCatalogeButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
-            backCatalogeButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16),
-            backCatalogeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            backCatalogeButton.heightAnchor.constraint(equalToConstant: 60)
+            backCatalogeButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+                                                     constant: Constants.Button.leftInset),
+            backCatalogeButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+                                                      constant: -Constants.Button.rightInset),
+            backCatalogeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                                       constant: -Constants.Button.bottomInset),
+            backCatalogeButton.heightAnchor.constraint(equalToConstant: Constants.Button.height)
         ])
     }
     
     @objc
-    private func backCataloge() {
-        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+    private func backCatalog() {
+        guard let window = UIApplication.shared.windows.first else {
+            print("Error SuccessPayViewController: backCatalog")
+            return
+            
+        }
         let tabBar = TabBarViewController(viewModel: TabBarViewModel())
         window.rootViewController = tabBar
     }
     
     private func updateContentSize() {
         if traitCollection.verticalSizeClass == .compact {
-            topImageViewConstraint?.constant = 20
+            topImageViewConstraint?.constant = Constants.ImageView.topInsetGorOrient
             contenSize = CGSize(width: view.frame.width,
-                                height: 20 + successImageView.frame.height + 20 +
-                                        successLabel.frame.height + 20 + backCatalogeButton.frame.height + 16)
+                                height: Constants.ImageView.topInsetGorOrient +
+                                        successImageView.frame.height +
+                                        Constants.Label.topInset +
+                                        successLabel.frame.height +
+                                        Constants.Button.topInset +
+                                        backCatalogeButton.frame.height +
+                                        Constants.Button.bottomInset)
         } else {
-            topImageViewConstraint?.constant = 196
+            topImageViewConstraint?.constant = Constants.ImageView.topInsetVertOrient
             contenSize = CGSize(width: view.frame.width,
                                 height: view.frame.height)
         }

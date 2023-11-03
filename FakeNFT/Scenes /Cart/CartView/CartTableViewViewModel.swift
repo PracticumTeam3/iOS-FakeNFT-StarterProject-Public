@@ -34,11 +34,12 @@ final class CartTableViewViewModel {
     
     init() {
         sortedName = userSortedService.cartSorted
+        checkProgress(cartService.loadIsShow)
+        bind()
         fetchOrder()
         sortedCart()
         countNft()
         checkOverPrice()
-        bind()
         checkAlert(cartService.netWorkAlert)
     }
     
@@ -57,10 +58,6 @@ final class CartTableViewViewModel {
         userSortedService.cartSorted = newParametr
         sortedName = userSortedService.cartSorted
         sortedCart()
-    }
-    
-    func checkProgress() {
-        progressHUDIsActive = cartService.loadIsShow
     }
     
     private func checkNFTCount() {
@@ -97,8 +94,21 @@ final class CartTableViewViewModel {
             self?.checkAlert(netWorkAlert)
             self?.progressHUDIsActive = false
         }
-        cartService.$loadIsShow.bind { [weak self] isShow in
-            self?.progressHUDIsActive = isShow
+        cartService.$loadIsShow.bind { [weak self] loading in
+            self?.checkProgress(loading)
+        }
+    }
+    
+    private func checkProgress(_ loading: Loading?) {
+        guard let loading else {
+            self.progressHUDIsActive = false
+            return
+        }
+        switch loading {
+        case .fetchOrder, .fetchNFT, .changeOrder:
+            self.progressHUDIsActive = true
+        default:
+            self.progressHUDIsActive = false
         }
     }
     

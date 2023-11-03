@@ -11,6 +11,10 @@ import WebKit
 
 final class CartWebViewController: UIViewController {
     
+    enum Constatns {
+        static let progressViewHeight: CGFloat = 3
+    }
+    
     private let viewModel: CartWebViewModel
     
     private let webView: WKWebView = {
@@ -94,7 +98,7 @@ final class CartWebViewController: UIViewController {
             progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             progressView.leftAnchor.constraint(equalTo: view.leftAnchor),
             progressView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            progressView.heightAnchor.constraint(equalToConstant: 3)
+            progressView.heightAnchor.constraint(equalToConstant: Constatns.progressViewHeight)
         ])
     }
     

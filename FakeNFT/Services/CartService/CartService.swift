@@ -15,6 +15,14 @@ enum NetworkAlert {
     case fetchNFT
 }
 
+enum Loading {
+    case fetchOrder
+    case changeOrder
+    case fetchCurrencies
+    case payOrder
+    case fetchNFT
+}
+
 class CartService {
     
     static let shared = CartService()
@@ -22,7 +30,7 @@ class CartService {
     @CartObservable private(set) var nfts = [NftModel]()
     @CartObservable private(set) var currencies = [Currency]()
     @CartObservable private(set) var netWorkAlert: NetworkAlert?
-    @CartObservable private(set) var loadIsShow: Bool = false
+    @CartObservable private(set) var loadIsShow: Loading?
 
     private var currentOrder:OrderModel? {
         didSet {
@@ -44,7 +52,7 @@ class CartService {
     }
     
     func fetchOrder() {
-        loadIsShow = true
+        loadIsShow = Loading.fetchOrder
         let request = GetOrderRequest()
         networkClient.send(request: request,
                            type: OrderNetwork.self) { [weak self] result in
@@ -57,14 +65,14 @@ class CartService {
                 self.netWorkAlert = nil
             case (.failure(let error)):
                 print(error.localizedDescription)
-                self.loadIsShow = false
+                self.loadIsShow = nil
                 self.netWorkAlert = NetworkAlert.fetchOrder
             }
         }
     }
     
     func changeOrder(deleteNftId: String) {
-        loadIsShow = true
+        loadIsShow = Loading.changeOrder
         guard let currentOrder = currentOrder else { return }
         let newNfts = currentOrder.nfts.filter { $0 != deleteNftId }
         let orderNetwork = OrderNetwork(nfts: newNfts, id: currentOrder.id)
@@ -81,14 +89,14 @@ class CartService {
                 self.netWorkAlert = nil
             case (.failure(let error)):
                 print(error.localizedDescription)
-                self.loadIsShow = false
+                self.loadIsShow = nil
                 self.netWorkAlert = NetworkAlert.changeOrder
             }
         }
     }
     
     func fetchCurrencies() {
-        loadIsShow = true
+        loadIsShow = Loading.fetchCurrencies
         let request = GetCurrencyRequest()
         networkClient.send(request: request,
                            type: [CurrencyNetwork].self) { [weak self] result in
@@ -100,18 +108,18 @@ class CartService {
                                                                        image: $0.image,
                                                                        id: $0.id)}
                 self.currencies = currencies
-                self.loadIsShow = false
+                self.loadIsShow = nil
                 self.netWorkAlert = nil
             case .failure(let error):
                 print(error.localizedDescription)
-                self.loadIsShow = false
+                self.loadIsShow = nil
                 self.netWorkAlert = NetworkAlert.fetchCurrencies
             }
         }
     }
     
     func payOrder(_ currencyID: String, completion: @escaping (Result <ResultOrder, Error>) -> Void) {
-        loadIsShow = true
+        loadIsShow = Loading.payOrder
         let request = GetResultOrderRequest(id: currencyID)
         networkClient.send(request: request,
                            type: ResultOrderNetwork.self) { result in
@@ -121,10 +129,10 @@ class CartService {
                                               orderId: resultOrderNetwork.orderId,
                                               currencyId: resultOrderNetwork.currencyId)
                 self.netWorkAlert = nil
-                self.loadIsShow = false
+                self.loadIsShow = nil
                 completion(.success(resultOrder))
             case .failure(let error):
-                self.loadIsShow = false
+                self.loadIsShow = nil
                 self.netWorkAlert = NetworkAlert.payOrder
                 completion(.failure(error))
             }
@@ -143,12 +151,12 @@ class CartService {
                         switch result {
                         case (.success(let nftModel)):
                             if nftId == nftsOrder.last {
-                                self.loadIsShow = false
+                                self.loadIsShow = nil
                                 self.netWorkAlert = nil
                             }
                             self.nftArray.append(nftModel)
                         case (.failure(let error)):
-                            self.loadIsShow = false
+                            self.loadIsShow = nil
                             self.netWorkAlert = NetworkAlert.fetchNFT
                             print(error.localizedDescription)
                         }

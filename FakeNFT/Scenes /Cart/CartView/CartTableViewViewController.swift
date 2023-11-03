@@ -109,7 +109,6 @@ final class CartTableViewViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.checkProgress()
         progressHUD(viewModel.progressHUDIsActive)
         showNetWorkAlert(viewModel.showNetWorkError)
     }
