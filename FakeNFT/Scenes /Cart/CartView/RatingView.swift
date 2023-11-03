@@ -15,7 +15,7 @@ final class RatingView: UIView {
     
     init(rating: Int) {
         self.rating = rating
-        super .init(frame: CGRect())
+        super.init(frame: CGRect())
         layoutSupport()
     }
     

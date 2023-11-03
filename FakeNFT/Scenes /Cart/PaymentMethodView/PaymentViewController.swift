@@ -11,6 +11,7 @@ import ProgressHUD
 final class PaymentViewController: UIViewController {
     
     private let viewModel: PaymentViewViewModel
+    private let alertPresenter = CartAlertPresenter()
     
     private let termsOfUseView: UIView = {
         let view = UIView()
@@ -69,7 +70,7 @@ final class PaymentViewController: UIViewController {
         
     init(viewModel: PaymentViewViewModel) {
         self.viewModel = viewModel
-        super .init(nibName: nil, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -129,6 +130,7 @@ final class PaymentViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         progressHUD(viewModel.progressHUDIsActive)
+        showNetWorkAlert(viewModel.showNetWorkError)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -157,12 +159,54 @@ final class PaymentViewController: UIViewController {
     
     @objc
     func termsOfUsePressed() {
-        // TODO: Open WebView, Next Iteration
+        let webViewModel = CartWebViewModel()
+        let webVC = CartWebViewController(viewModel: webViewModel)
+        navigationController?.pushViewController(webVC, animated: true)
     }
     
     @objc
     func pressedButton() {
-        viewModel.pressPay()
+        viewModel.pressPay { [weak self] result in
+            switch result {
+            case .success(let isSuccess):
+                if isSuccess {
+                    DispatchQueue.main.async {
+                        self?.showSuccessVC()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self?.showAlert()
+                    }
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.showNetWorkAlert(true)
+                }
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func showSuccessVC() {
+        let vc = SuccessPayViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true)
+    }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: L.Cart.failurePay,
+                                      message: nil,
+                                      preferredStyle: .alert)
+        let actionCancel = UIAlertAction(title: L.Cart.cancel,
+                                    style: .default)
+        let actionRepeat = UIAlertAction(title: L.Cart.repeat,
+                                         style: .default) { [weak self] _ in
+            self?.pressedButton()
+        }
+        alert.addAction(actionCancel)
+        alert.addAction(actionRepeat)
+        alert.preferredAction = actionRepeat
+        self.present(alert, animated: true)
     }
     
     private func bind() {
@@ -181,6 +225,11 @@ final class PaymentViewController: UIViewController {
                 self?.progressHUD(isShow)
             }
         }
+        viewModel.$showNetWorkError.bind { [weak self] isShow in
+            DispatchQueue.main.async {
+                self?.showNetWorkAlert(isShow)
+            }
+        }
     }
     
     private func progressHUD(_ isShow: Bool) {
@@ -188,6 +237,14 @@ final class PaymentViewController: UIViewController {
             ProgressHUD.show()
         } else {
             ProgressHUD.dismiss()
+        }
+    }
+    
+    private func showNetWorkAlert(_ isShow: Bool?) {
+        if isShow == true {
+            alertPresenter.showNetWorkAlert(viewController: self) {
+                self.viewModel.fetchCoins()
+            }
         }
     }
     

@@ -11,6 +11,10 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum L {
   public enum Cart {
+    /// Вернуться в каталог
+    public static let backCataloge = L.tr("Localizable", "cart.backCataloge", fallback: "Вернуться в каталог")
+    /// Отмена
+    public static let cancel = L.tr("Localizable", "cart.cancel", fallback: "Отмена")
     /// Корзина пуста
     public static let cartEmpty = L.tr("Localizable", "cart.cartEmpty", fallback: "Корзина пуста")
     /// Выберите способ оплаты
@@ -20,10 +24,19 @@ public enum L {
     /// Вы уверены, что хотите
     /// удалить объект из корзины?
     public static let deleteQuestion = L.tr("Localizable", "cart.deleteQuestion", fallback: "Вы уверены, что хотите\nудалить объект из корзины?")
+    /// Не удалось произвести
+    /// оплату
+    public static let failurePay = L.tr("Localizable", "cart.failurePay", fallback: "Не удалось произвести\nоплату")
+    /// Проблема с интернет-соединением
+    public static let networkAlertMessage = L.tr("Localizable", "cart.networkAlertMessage", fallback: "Проблема с интернет-соединением")
+    /// Что-то пошло не так(
+    public static let networkAlertTitle = L.tr("Localizable", "cart.networkAlertTitle", fallback: "Что-то пошло не так(")
     /// Оплатить
     public static let pay = L.tr("Localizable", "cart.pay", fallback: "Оплатить")
     /// Цена
     public static let price = L.tr("Localizable", "cart.price", fallback: "Цена")
+    /// Повторить
+    public static let `repeat` = L.tr("Localizable", "cart.repeat", fallback: "Повторить")
     /// Вернуться
     public static let `return` = L.tr("Localizable", "cart.return", fallback: "Вернуться")
     /// Сортировка
@@ -36,6 +49,9 @@ public enum L {
     public static let sortedByRating = L.tr("Localizable", "cart.sortedByRating", fallback: "По рейтингу")
     /// Закрыть
     public static let sortedClose = L.tr("Localizable", "cart.sortedClose", fallback: "Закрыть")
+    /// Успех! Оплата прошла,
+    /// поздравляем с покупкой!
+    public static let successPay = L.tr("Localizable", "cart.successPay", fallback: "Успех! Оплата прошла,\nпоздравляем с покупкой!")
     /// Корзина
     public static let title = L.tr("Localizable", "cart.title", fallback: "Корзина")
     /// К оплате

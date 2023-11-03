@@ -24,7 +24,8 @@ final class CartTableViewViewModel {
     @CartObservable private(set) var nftIsEmpty: Bool = true
     @CartObservable private(set) var nftCount: String = ""
     @CartObservable private(set) var nftPrices: String = ""
-    @CartObservable private(set) var progressHUDIsActive: Bool = true
+    @CartObservable private(set) var progressHUDIsActive: Bool = false
+    @CartObservable private(set) var showNetWorkError: Bool?
     
     private let userSortedService = UserSortedService()
     private let cartService = CartService.shared
@@ -32,24 +33,31 @@ final class CartTableViewViewModel {
     weak var delegate: CartTableViewViewModelDelegate?
     
     init() {
-        progressHUDIsActive = true
         sortedName = userSortedService.cartSorted
+        checkProgress(cartService.loadIsShow)
+        bind()
         fetchOrder()
-        checkNFTCount()
         sortedCart()
         countNft()
         checkOverPrice()
-        bind()
+        checkAlert(cartService.netWorkAlert)
     }
     
-    private func fetchOrder() {
+    func fetchOrder() {
         cartService.fetchOrder()
         self.nfts = self.cartService.nfts.compactMap { CartTableViewCellViewModel(imageURL: $0.imagesURL[0],
-                                                                                  nftName: $0.name,
-                                                                                  rating: $0.rating,
-                                                                                  price: $0.price,
-                                                                                  currency: ConstantName.eth,
-                                                                                  id: $0.id)}
+                                                                                              nftName: $0.name,
+                                                                                              rating: $0.rating,
+                                                                                              price: $0.price,
+                                                                                              currency: ConstantName.eth,
+                                                                                              id: $0.id)}
+
+    }
+    
+    func changeSortes(_ newParametr: CartSortedStorage) {
+        userSortedService.cartSorted = newParametr
+        sortedName = userSortedService.cartSorted
+        sortedCart()
     }
     
     private func checkNFTCount() {
@@ -69,12 +77,6 @@ final class CartTableViewViewModel {
         }
     }
     
-    func changeSortes(_ newParametr: CartSortedStorage) {
-        userSortedService.cartSorted = newParametr
-        sortedName = userSortedService.cartSorted
-        sortedCart()
-    }
-    
     private func bind() {
         cartService.$nfts.bind { [weak self] newNftModel in
             self?.nfts = newNftModel.compactMap { CartTableViewCellViewModel(imageURL: $0.imagesURL[0],
@@ -87,7 +89,39 @@ final class CartTableViewViewModel {
             self?.sortedCart()
             self?.countNft()
             self?.checkOverPrice()
+        }
+        cartService.$netWorkAlert.bind { [weak self] netWorkAlert in
+            self?.checkAlert(netWorkAlert)
             self?.progressHUDIsActive = false
+        }
+        cartService.$loadIsShow.bind { [weak self] loading in
+            self?.checkProgress(loading)
+        }
+    }
+    
+    private func checkProgress(_ loading: Loading?) {
+        guard let loading else {
+            self.progressHUDIsActive = false
+            return
+        }
+        switch loading {
+        case .fetchOrder, .fetchNFT, .changeOrder:
+            self.progressHUDIsActive = true
+        default:
+            self.progressHUDIsActive = false
+        }
+    }
+    
+    private func checkAlert(_ networkAlert: NetworkAlert?) {
+        guard let networkAlert else {
+            self.showNetWorkError = nil
+            return
+        }
+        switch networkAlert {
+        case .fetchOrder, .fetchNFT, .changeOrder:
+            self.showNetWorkError = true
+        default:
+            self.showNetWorkError = false
         }
     }
     

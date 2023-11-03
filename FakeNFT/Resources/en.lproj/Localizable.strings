@@ -24,6 +24,13 @@
 "cart.choosePay" = "Select a payment method";
 "cart.userAgreementStart" = "By making a purchase, you agree to the terms and conditions";
 "cart.userAgreementEnd" = "User Agreement";
+"cart.successPay" = "Success! Payment completed,\ncongratulations on your purchase!";
+"cart.backCataloge" = "Return to catalog";
+"cart.failurePay" = "Failed to make\npayment";
+"cart.cancel" = "Cancel";
+"cart.repeat" = "Repeat";
+"cart.networkAlertTitle" = "Something went wrong(";
+"cart.networkAlertMessage" = "Internet connection problem";
 
 "statistics.title" = "Statistics";
 
