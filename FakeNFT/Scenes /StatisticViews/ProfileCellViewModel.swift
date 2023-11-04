@@ -12,10 +12,12 @@ protocol ProfileCellViewModelProtocol {
     var rating: String { get }
     var numberUser: String { get }
     var profileImage: String { get }
+    var infoUser: String { get }
+    var websiteUrl: String { get }
     init(profile: ProfileResult, indexPath: IndexPath)
 }
 
-final class ProfileCellViewModel: ProfileCellViewModelProtocol {
+struct ProfileCellViewModel: ProfileCellViewModelProtocol {
     // MARK: - Public properties
     var numberUser: String
     var rating: String {
@@ -27,10 +29,18 @@ final class ProfileCellViewModel: ProfileCellViewModelProtocol {
     var profileName: String {
         profile.name
     }
+    var infoUser: String {
+        profile.description
+    }
+    var websiteUrl: String {
+        profile.website
+    }
+    
     // MARK: - Private properties
     private let profile: ProfileResult
+    
     // MARK: - init
-    required init(profile: ProfileResult, indexPath: IndexPath) {
+    init(profile: ProfileResult, indexPath: IndexPath) {
         self.profile = profile
         numberUser = String(indexPath.row + 1)
     }

@@ -44,11 +44,14 @@ public enum A {
       public static let profile = ImageAsset(name: "profile")
       public static let statistic = ImageAsset(name: "statistic")
     }
+    public static let back = ImageAsset(name: "back")
+    public static let backDarkMode = ImageAsset(name: "backDarkMode")
     public static let close = ImageAsset(name: "close")
     public static let edit = ImageAsset(name: "edit")
     public static let favouriteActive = ImageAsset(name: "favouriteActive")
     public static let favouriteInactive = ImageAsset(name: "favouriteInactive")
     public static let sort = ImageAsset(name: "sort")
+    public static let sortDarkMode = ImageAsset(name: "sortDarkMode")
     public static let splashScreen = ImageAsset(name: "splashScreen")
   }
   public enum Images {

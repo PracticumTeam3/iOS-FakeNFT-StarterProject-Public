@@ -13,5 +13,14 @@
 "cart.toBePaid" = "To be paid";
 
 "statistics.title" = "Statistics";
+"statistics.sorted" = "Sorted";
+"statistics.byName" = "By name";
+"statistics.byRating" = "By rating";
+"statistics.close" = "Close";
+"statistics.goToWebsite" = "Go to the user website";
+"statistics.collectionNFT" = "Collection NFT";
+"statistics.Error" = "Network error";
+"statistics.ErrorAction" = "Again";
+"statistics.ErrorActionCancel" = "Cancel";
 
 "catalog.title" = "Catalog";

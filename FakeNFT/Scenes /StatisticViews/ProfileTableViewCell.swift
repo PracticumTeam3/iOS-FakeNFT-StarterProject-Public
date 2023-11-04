@@ -4,9 +4,8 @@
 //
 //  Created by Andrey Ovchinnikov on 24.10.2023.
 //
-
-import UIKit
 import Kingfisher
+import UIKit
 
 final class ProfileTableViewCell: UITableViewCell {
     // MARK: - Private properties
@@ -17,6 +16,7 @@ final class ProfileTableViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
     private let numberUser: UILabel = {
         let label = UILabel()
         label.font = .regular15
@@ -24,6 +24,7 @@ final class ProfileTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     private let nameUser: UILabel = {
         let label = UILabel()
         label.text = ""
@@ -32,6 +33,7 @@ final class ProfileTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     private let userRating: UILabel = {
         let label = UILabel()
         label.text = ""
@@ -40,6 +42,7 @@ final class ProfileTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     private let photoUser: UIImageView = {
         let image = UIImageView()
         let placeholderImage = UIImage(systemName: "person.crop.circle.fill")
@@ -52,15 +55,7 @@ final class ProfileTableViewCell: UITableViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    // MARK: - Public properties
-    var viewModel: ProfileCellViewModelProtocol? {
-        didSet {
-            nameUser.text = viewModel?.profileName
-            userRating.text = viewModel?.rating
-            numberUser.text = viewModel?.numberUser
-            photoUser.kf.setImage(with: URL(string: viewModel?.profileImage ?? ""))
-        }
-    }
+    
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -68,9 +63,19 @@ final class ProfileTableViewCell: UITableViewCell {
         addSubviews()
         setupConstraints()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Public methods
+    func configure(viewModel: ProfileCellViewModelProtocol) {
+        nameUser.text = viewModel.profileName
+        userRating.text = viewModel.rating
+        numberUser.text = viewModel.numberUser
+        photoUser.kf.setImage(with: URL(string: viewModel.profileImage))
+    }
+    
     // MARK: - Private methods
     private func addSubviews() {
         contentView.addSubview(containerView)
@@ -79,6 +84,7 @@ final class ProfileTableViewCell: UITableViewCell {
         containerView.addSubview(nameUser)
         containerView.addSubview(userRating)
     }
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 4),
