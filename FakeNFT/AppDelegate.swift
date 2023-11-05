@@ -2,15 +2,31 @@ import UIKit
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    // MARK: - Public properties
+    var orientationLock = UIInterfaceOrientationMask.all
+
+    // MARK: - Private properties
+    private static var isUITestingEnabled: Bool {
+        ProcessInfo.processInfo.arguments.contains("UI-Testing")
+    }
+
+    // MARK: - Public methods
+    func application(
+        _ application: UIApplication,
+        supportedInterfaceOrientationsFor window: UIWindow?
+    ) -> UIInterfaceOrientationMask {
+        orientationLock
+    }
+
     func application(
         _: UIApplication,
         didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        setEnvironment()
         UINavigationBar.appearance().tintColor = UIColor(named: "black")
         return true
     }
-
-    // MARK: UISceneSession Lifecycle
 
     func application(
         _: UIApplication,
@@ -23,4 +39,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         configuration.delegateClass = SceneDelegate.self
         return configuration
     }
+
+    // MARK: - Private methods
+    private func setEnvironment() {
+        StorageService.shared.environment = Self.isUITestingEnabled ? .test : .prod
+    }
+
 }

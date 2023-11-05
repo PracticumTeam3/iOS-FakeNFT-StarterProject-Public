@@ -142,7 +142,7 @@ final class CollectionViewController: UIViewController {
 
     @objc
     func didAuthorButton() {
-        let webView = WebViewController()
+        let webView = CollectionWebViewController()
         self.navigationController?.pushViewController(webView, animated: true)
     }
     

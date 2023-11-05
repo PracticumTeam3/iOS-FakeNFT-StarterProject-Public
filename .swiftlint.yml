@@ -16,7 +16,7 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 included: # case-sensitive paths to include during linting. `--path` is ignored if present
 #  - Sources
 excluded: # case-sensitive paths to ignore during linting. Takes precedence over `included`
-#  - Pods
+  - Pods
 #  - Sources/ExcludedFolder
 #  - Sources/ExcludedFile.swift
 #  - Sources/*/ExcludedFile.swift # exclude files with a wildcard
