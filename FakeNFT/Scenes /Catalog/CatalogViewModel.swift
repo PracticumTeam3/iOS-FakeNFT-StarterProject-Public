@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 class CatalogViewModel {
     let service = CatalogService(networkClient: DefaultNetworkClient())
 

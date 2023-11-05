@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 // swiftlint:disable trailing_whitespace
-class CollectionViewController: UIViewController {
+final class CollectionViewController: UIViewController {
 
     var model: CatalogCellModel?
 
-    let imageHeader: UIImageView = {
+    private let imageHeader: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 12
@@ -21,43 +21,43 @@ class CollectionViewController: UIViewController {
         return image
     }()
 
-    let titleLable: UILabel = {
+    private let titleLable: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-        lable.textColor = UIColor(named: "black")
+        lable.textColor = UIColor(named:A.Colors.black.name)
         lable.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         lable.textAlignment = .left
         return lable
     }()
 
-    let authorLable: UILabel = {
+    private let authorLable: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-        lable.textColor = UIColor(named: "black")
+        lable.textColor = UIColor(named:A.Colors.black.name)
         lable.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         lable.text = "Автор коллекции:"
         lable.textAlignment = .left
         return lable
     }()
 
-    let authorButton: UIButton = {
+    private let authorButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(Self.didAuthorButton), for: .touchUpInside)
         return button
     }()
 
-    let descriptionLable: UILabel = {
+    private let descriptionLable: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-        lable.textColor = UIColor(named: "black")
+        lable.textColor = UIColor(named:A.Colors.black.name)
         lable.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         lable.textAlignment = .left
         lable.numberOfLines = 4
         return lable
     }()
 
-    let collectionCollectionView: UICollectionView = {
+    private let collectionCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
@@ -65,7 +65,7 @@ class CollectionViewController: UIViewController {
         return collection
     }()
 
-    let loaderView: UIActivityIndicatorView = {
+    private let loaderView: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.translatesAutoresizingMaskIntoConstraints = false
         return loader

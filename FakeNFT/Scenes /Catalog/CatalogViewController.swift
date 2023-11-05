@@ -10,7 +10,7 @@ import UIKit
 // swiftlint:disable trailing_whitespace
 final class CatalogViewController: UIViewController {
 
-    let catalogTableView: UITableView = {
+    private let catalogTableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(CatalogCell.self, forCellReuseIdentifier: "catalogCell")
@@ -20,13 +20,13 @@ final class CatalogViewController: UIViewController {
         return table
     }()
 
-    let loaderView: UIActivityIndicatorView = {
+    private let loaderView: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.translatesAutoresizingMaskIntoConstraints = false
         return loader
     }()
 
-    let viewModel = CatalogViewModel()
+    private let viewModel = CatalogViewModel()
     
     override func viewDidLoad() {
         catalogTableView.dataSource = self
@@ -44,6 +44,8 @@ final class CatalogViewController: UIViewController {
                 self.catalogTableView.isHidden = false
             }
         }
+        let backItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backItem
     }
     
     func setupViews() {
@@ -70,7 +72,7 @@ final class CatalogViewController: UIViewController {
         let alertController = UIAlertController(title: "Сортировка", message: nil, preferredStyle: .actionSheet)
 
         let sortByTitleAction = UIAlertAction(title: "По названию", style: .default) { _ in
-           
+
         }
 
         let sortByQuantityAction = UIAlertAction(title: "По количеству NFT", style: .default) { _ in
@@ -112,6 +114,7 @@ extension CatalogViewController:UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let collectionVC = CollectionViewController()
         collectionVC.model = viewModel.collections[indexPath.row]
+        collectionVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(collectionVC, animated: true)
     }
 }
