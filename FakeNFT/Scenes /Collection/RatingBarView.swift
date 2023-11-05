@@ -15,8 +15,8 @@ class RatingBarView:UIStackView {
        axis = .horizontal
        distribution = .fillProportionally
        spacing = 2
-        let activeStarImage = UIImage(named: "activeStar")
-        let inactiveStarImage = UIImage(named: "inactiveStar")
+       let activeStarImage = UIImage(named: A.Icons.activeStar.name)
+       let inactiveStarImage = UIImage(named: A.Icons.inactiveStar.name)
 
         for i in 0..<totalStars {
             let starImageView = UIImageView()
