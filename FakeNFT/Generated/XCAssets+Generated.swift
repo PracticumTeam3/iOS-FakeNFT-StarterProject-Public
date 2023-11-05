@@ -45,7 +45,7 @@ public enum A {
       public static let statistic = ImageAsset(name: "statistic")
     }
     public static let activeStar = ImageAsset(name: "activeStar")
-    public static let cart = ImageAsset(name: "cart")
+    public static let basket = ImageAsset(name: "basket")
     public static let close = ImageAsset(name: "close")
     public static let edit = ImageAsset(name: "edit")
     public static let favouriteActive = ImageAsset(name: "favouriteActive")

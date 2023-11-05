@@ -5,7 +5,6 @@
 //  Created by Алиса Долматова on 19.10.2023.
 //
 
-import Foundation
 import UIKit
 import Kingfisher
 
@@ -23,7 +22,7 @@ class CatalogCell:UITableViewCell {
     let lableCell: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-        lable.textColor = UIColor(named: "black")
+        lable.textColor = UIColor(named:A.Colors.black.name)
         lable.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         lable.textAlignment = .left
         lable.text = "нижний текст (11)"
@@ -44,7 +43,7 @@ class CatalogCell:UITableViewCell {
         viewCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
         viewCell.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
         viewCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
-        viewCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 4)
+        viewCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
         setupViews()
     }

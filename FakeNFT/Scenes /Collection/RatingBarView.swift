@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class RatingBarView:UIStackView {
+final class RatingBarView:UIStackView {
 
    init(rating: Int, totalStars: Int = 5) {
        super.init(frame: .zero)

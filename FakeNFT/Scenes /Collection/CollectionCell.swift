@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+
 class CollectionCell:UICollectionViewCell {
 
     let imageCard: UIImageView = {
@@ -26,7 +27,7 @@ class CollectionCell:UICollectionViewCell {
     let lableName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(named: "black")
+        label.textColor = UIColor(named:A.Colors.black.name)
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.textAlignment = .left
         label.text = "Archie"
@@ -36,7 +37,7 @@ class CollectionCell:UICollectionViewCell {
     let lableCost: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(named: "black")
+        label.textColor = UIColor(named:A.Colors.black.name)
         label.font = UIFont.systemFont(ofSize: 10, weight: .medium)
         label.textAlignment = .left
         label.text = "1 ETH"
@@ -47,7 +48,7 @@ class CollectionCell:UICollectionViewCell {
         let button = UIButton()
         button.addTarget(self, action: #selector(Self.didTaplikeButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "favouriteInactive"), for: .normal)
+        button.setImage(UIImage(named: A.Icons.favouriteInactive.name), for: .normal)
         return button
     }()
 
@@ -55,7 +56,8 @@ class CollectionCell:UICollectionViewCell {
         let button = UIButton()
         button.addTarget(self, action: #selector(Self.didTapСartButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "cart"), for: .normal)
+        button.setImage(UIImage(named: A.Icons.basket.name), for: .normal)
+        button.tintColor = UIColor(named:A.Colors.black.name)
         return button
     }()
 
