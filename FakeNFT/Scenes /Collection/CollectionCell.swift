@@ -45,7 +45,7 @@ class CollectionCell:UICollectionViewCell {
 
     let likeButton: UIButton = {
         let button = UIButton()
-        button.addTarget(CollectionCell.self, action: #selector(Self.didTaplikeButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(Self.didTaplikeButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "favouriteInactive"), for: .normal)
         return button
@@ -53,7 +53,7 @@ class CollectionCell:UICollectionViewCell {
 
     let сartButton: UIButton = {
         let button = UIButton()
-        button.addTarget(CollectionCell.self, action: #selector(Self.didTapСartButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(Self.didTapСartButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "cart"), for: .normal)
         return button
