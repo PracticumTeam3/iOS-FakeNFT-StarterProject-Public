@@ -57,7 +57,7 @@ final class NftDeleteAlert: UIViewController {
     
     private let questionLabel: UILabel = {
         let label = UILabel()
-        label.font = .regular13
+        label.font = .Regular.small
         label.textColor = A.Colors.blackDynamic.color
         label.textAlignment = .center
         label.numberOfLines = 2

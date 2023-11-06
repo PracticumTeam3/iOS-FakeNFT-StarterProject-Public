@@ -40,7 +40,7 @@ final class SuccessPayViewController: UIViewController {
         let label = UILabel()
         label.text = L.Cart.successPay
         label.textColor = A.Colors.blackDynamic.color
-        label.font = .bold22
+        label.font = .Bold.medium
         label.textAlignment = .center
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +51,7 @@ final class SuccessPayViewController: UIViewController {
         let button = UIButton()
         button.setTitle(L.Cart.backCataloge, for: .normal)
         button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal) 
-        button.titleLabel?.font = .bold17
+        button.titleLabel?.font = .Bold.small
         button.backgroundColor = A.Colors.blackDynamic.color
         button.addTarget(self, action: #selector(backCatalog), for: .touchUpInside)
         button.layer.masksToBounds = true
@@ -126,7 +126,7 @@ final class SuccessPayViewController: UIViewController {
             return
             
         }
-        let tabBar = TabBarViewController(viewModel: TabBarViewModel())
+        let tabBar = TabBarController()
         window.rootViewController = tabBar
     }
     

@@ -49,7 +49,7 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
     
     private let coinNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .regular13
+        label.font = .Regular.small
         label.textColor = A.Colors.blackDynamic.color
         label.textAlignment = .left
         label.numberOfLines = 1
@@ -59,7 +59,7 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
     
     private let coinShortNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .regular13
+        label.font = .Regular.small
         label.textColor = A.Colors.green.color
         label.textAlignment = .left
         label.numberOfLines = 1

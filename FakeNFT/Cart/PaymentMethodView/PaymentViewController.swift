@@ -60,7 +60,7 @@ final class PaymentViewController: UIViewController {
     private let termsOfUseLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
-        label.font = .regular13
+        label.font = .Regular.small
         label.textColor = A.Colors.blackDynamic.color
         label.textAlignment = .left
         label.text = L.Cart.userAgreementStart
@@ -73,7 +73,7 @@ final class PaymentViewController: UIViewController {
         button.setTitle(L.Cart.userAgreementEnd, for: .normal)
         button.backgroundColor = .clear
         button.setTitleColor(A.Colors.blue.color, for: .normal)
-        button.titleLabel?.font = .regular13
+        button.titleLabel?.font = .Regular.small
         button.addTarget(self, action: #selector(termsOfUsePressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -83,7 +83,7 @@ final class PaymentViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = A.Colors.blackDynamic.color
         button.setTitle(L.Cart.pay, for: .normal)
-        button.titleLabel?.font = .bold17
+        button.titleLabel?.font = .Bold.small
         button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = Constants.PayButton.cornerRadius

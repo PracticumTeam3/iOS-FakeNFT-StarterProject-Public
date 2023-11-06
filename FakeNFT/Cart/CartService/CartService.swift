@@ -61,6 +61,7 @@ class CartService {
             case (.success(let orderNetwork)):
                 let order = OrderModel(nfts: orderNetwork.nfts,
                                        id: orderNetwork.id)
+                print(order)
                 self.currentOrder = order
                 self.netWorkAlert = nil
             case (.failure(let error)):
@@ -178,6 +179,7 @@ class CartService {
                                         price: nftNetwork.price,
                                         id: nftNetwork.id)
                 self.netWorkAlert = nil
+                print(nftModel)
                 completion(.success(nftModel))
             case .failure(let error):
                 self.netWorkAlert = NetworkAlert.fetchNFT

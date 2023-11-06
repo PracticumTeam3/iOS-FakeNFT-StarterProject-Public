@@ -41,7 +41,7 @@ final class CartTableViewViewController: UIViewController {
     private let emptyLabel: UILabel = {
         let label = UILabel()
         label.isHidden = true
-        label.font = .bold17
+        label.font = .Bold.small
         label.textAlignment = .center
         label.textColor = A.Colors.blackDynamic.color
         label.text = L.Cart.cartEmpty
@@ -73,7 +73,7 @@ final class CartTableViewViewController: UIViewController {
     
     private let countNFTLabel: UILabel = {
         let label = UILabel()
-        label.font = .regular15
+        label.font = .Regular.medium
         label.textColor = A.Colors.blackDynamic.color
         label.textAlignment = .left
         label.numberOfLines = 1
@@ -84,7 +84,7 @@ final class CartTableViewViewController: UIViewController {
     
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.font = .bold17
+        label.font = .Bold.small
         label.textColor = A.Colors.green.color
         label.textAlignment = .left
         label.numberOfLines = 1
@@ -96,7 +96,7 @@ final class CartTableViewViewController: UIViewController {
         let button = UIButton()
         button.addTarget(self, action: #selector(payNFT), for: .touchUpInside)
         button.setTitle(L.Cart.toBePaid, for: .normal)
-        button.titleLabel?.font = .bold17
+        button.titleLabel?.font = .Bold.small
         button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal)
         button.backgroundColor = A.Colors.blackDynamic.color
         button.layer.masksToBounds = true
