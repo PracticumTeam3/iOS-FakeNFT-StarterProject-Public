@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 // swiftlint:disable trailing_whitespace
 struct CatalogCellModel {
-    let imageFirst:UIImage
-    let imageSecond:UIImage
-    let imageThird:UIImage
+    let imageCollection:String
     let collectionName: String
     let nftCount: Int
+    let author:String
+    let description:String
 }

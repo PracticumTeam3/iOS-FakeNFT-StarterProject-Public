@@ -13,7 +13,7 @@ final class TabBarViewModel {
     private(set) var profileVC: UIViewController
     private(set) var statisticVC: UIViewController
     init() {
-        self.catalogeVC = UINavigationController(rootViewController: CatalogViewController())  
+        self.catalogeVC = UINavigationController(rootViewController: CatalogViewController())
         self.cartVC = UIViewController()
         self.profileVC = UIViewController()
         self.statisticVC = UIViewController()
