@@ -90,17 +90,21 @@ final class CollectionViewController: UIViewController {
         collectionCollectionView.isHidden = false
         guard let model = model else {return}
         viewModel.getUsers(id:model.author)
+        viewModel.getNFTs(nfts: model.nfts)
         viewModel.onChange = {
             DispatchQueue.main.async {
+                self.collectionCollectionView.reloadData()
                 self.loaderView.stopAnimating()
                 self.loaderView.isHidden = true
+                self.collectionCollectionView.isHidden = false
                 self.setData()
             }
         }
     }
 
     private func setData () {
-        if let image = model?.imageCollection.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) {
+        if let image = model?.imageCollection.addingPercentEncoding(
+            withAllowedCharacters: .urlFragmentAllowed) {
             let url = URL(string: image)
             imageHeader.kf.setImage(with:url)
         }
@@ -162,11 +166,16 @@ final class CollectionViewController: UIViewController {
 
 extension CollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return viewModel.NFT.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath)
+        if let cell = cell as? CollectionCell {
+            if let id = model?.nfts[indexPath.row], let nft = viewModel.NFT[id] {
+                cell.setData(collectionCellData: nft)
+            }
+        }
         return cell
     }
 }

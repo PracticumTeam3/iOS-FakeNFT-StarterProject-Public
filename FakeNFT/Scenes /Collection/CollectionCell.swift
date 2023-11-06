@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class CollectionCell:UICollectionViewCell {
 
@@ -19,7 +20,7 @@ class CollectionCell:UICollectionViewCell {
     }()
 
     let ratingView: RatingBarView = {
-        let label = RatingBarView(rating: 3)
+        let label = RatingBarView(rating: 0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -120,6 +121,17 @@ class CollectionCell:UICollectionViewCell {
     @objc
     private func didTapСartButton () {
 
+    }
+
+    func setData(collectionCellData: NFTCollectionModel) {
+        lableCost.text = "\(collectionCellData.price) ETH"
+        lableName.text = collectionCellData.name
+        if let image = collectionCellData.image?.addingPercentEncoding(
+            withAllowedCharacters: .urlFragmentAllowed) {
+            let url = URL(string: image)
+            imageCard.kf.setImage(with:url)
+        }
+        ratingView.setData(rating: collectionCellData.rating)
     }
 
 } // end CollectionCell

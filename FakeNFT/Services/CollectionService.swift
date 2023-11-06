@@ -9,7 +9,7 @@ import Foundation
 
 protocol CollectionServiceProtocol {
     func getUsers(id: String, completion: @escaping (Result<AutorModel, Error>) -> Void)
-
+    func getNFT(id: String, completion: @escaping (Result<NFTCollectionModel, Error>) -> Void)
 }
 
 struct CollectionService: CollectionServiceProtocol {
@@ -27,6 +27,22 @@ struct CollectionService: CollectionServiceProtocol {
             switch result {
             case .success(let model):
                 let model = AutorModel(name: model.name, website: model.website)
+                completion(.success(model))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func getNFT(id: String, completion: @escaping (Result<NFTCollectionModel, Error>) -> Void) {
+        let request = GetNFTRequest(id: id)
+        networkClient.send(request: request, type: NFTNetworkModel.self) { result in
+            switch result {
+            case .success(let model):
+                let model = NFTCollectionModel(name: model.name,
+                                               image: model.images.first,
+                                               rating: model.rating,
+                                               price: model.price)
                 completion(.success(model))
             case .failure(let error):
                 completion(.failure(error))
