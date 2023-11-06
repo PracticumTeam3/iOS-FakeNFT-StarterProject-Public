@@ -91,6 +91,7 @@ final class CollectionViewController: UIViewController {
         guard let model = model else {return}
         viewModel.getUsers(id:model.author)
         viewModel.getNFTs(nfts: model.nfts)
+        viewModel.getFavouriteNFTs()
         viewModel.onChange = {
             DispatchQueue.main.async {
                 self.collectionCollectionView.reloadData()
@@ -173,8 +174,9 @@ extension CollectionViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath)
         if let cell = cell as? CollectionCell {
             if let id = model?.nfts[indexPath.row], let nft = viewModel.NFT[id] {
-                cell.setData(collectionCellData: nft)
+                cell.setData(collectionCellData: nft, id: id, isFavorite: viewModel.likes.contains(where: {$0 == id}))
             }
+            cell.viewModel = viewModel
         }
         return cell
     }

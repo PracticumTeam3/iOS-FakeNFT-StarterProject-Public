@@ -68,6 +68,9 @@ class CollectionCell:UICollectionViewCell {
         return cell
     }()
 
+    var viewModel: CollectionViewModel?
+    var id: String?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(viewCell)
@@ -115,7 +118,9 @@ class CollectionCell:UICollectionViewCell {
 
     @objc
     private func didTaplikeButton () {
-
+        if let id = id {
+            viewModel?.setLikes(id: id)
+        }
     }
 
     @objc
@@ -123,7 +128,8 @@ class CollectionCell:UICollectionViewCell {
 
     }
 
-    func setData(collectionCellData: NFTCollectionModel) {
+    func setData(collectionCellData: NFTCollectionModel, id: String, isFavorite:Bool) {
+        self.id = id
         lableCost.text = "\(collectionCellData.price) ETH"
         lableName.text = collectionCellData.name
         if let image = collectionCellData.image?.addingPercentEncoding(
@@ -132,6 +138,11 @@ class CollectionCell:UICollectionViewCell {
             imageCard.kf.setImage(with:url)
         }
         ratingView.setData(rating: collectionCellData.rating)
+        if isFavorite == true {
+            likeButton.setImage(UIImage(named: A.Icons.favouriteActive.name), for: .normal)
+        } else {
+            likeButton.setImage(UIImage(named: A.Icons.favouriteInactive.name), for: .normal)
+        }
     }
 
 } // end CollectionCell
