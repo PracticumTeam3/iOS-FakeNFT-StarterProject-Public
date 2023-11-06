@@ -45,22 +45,22 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
 
     // MARK: - Private properties
     private let profileService: ProfileServiceProtocol
-    private let storageService: StorageServiceProtocol
+    private let profileStorageService: ProfileStorageServiceProtocol
     private var loadedNFTs: [FavouriteNFTModel]?
     private var currentState: State = .standart
 
     // MARK: - Initializers
     init(
         profileService: ProfileServiceProtocol = ProfileService(),
-        storageService: StorageServiceProtocol = StorageService.shared
+        profileStorageService: ProfileStorageServiceProtocol = ProfileStorageService.shared
     ) {
         self.profileService = profileService
-        self.storageService = storageService
+        self.profileStorageService = profileStorageService
     }
 
     // MARK: - Public methods
     func unlikeNFT(with id: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let profile = storageService.profile else { return }
+        guard let profile = profileStorageService.profile else { return }
         let newLikes = profile.likes.filter { $0 != id }
         let likesModel = LikesModel(likes: newLikes)
         profileService.setLikes(likesModel) { [weak self] result in
@@ -115,8 +115,8 @@ final class FavouriteNFTViewModel: FavouriteNFTViewModelProtocol {
     }
 
     private func updateProfileIfNeeded(profileModel: ProfileModel) {
-        guard storageService.profile != profileModel else { return }
-        storageService.profile = profileModel
+        guard profileStorageService.profile != profileModel else { return }
+        profileStorageService.profile = profileModel
     }
 
 }

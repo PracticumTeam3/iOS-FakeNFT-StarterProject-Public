@@ -25,8 +25,8 @@ final class ProfileTests: XCTestCase {
 
     func testViewModelBindsOnProfileInfoChange() {
         // given
-        let storageService = StorageServiceSpy()
-        let profileViewModel = ProfileViewModel(storageService: storageService)
+        let storageService = ProfileStorageServiceSpy()
+        let profileViewModel = ProfileViewModel(profileStorageService: storageService)
         let profileViewController = ProfileViewController(viewModel: profileViewModel)
 
         // when
@@ -38,8 +38,8 @@ final class ProfileTests: XCTestCase {
 
     func testViewModelChangeProfileModel() {
         // given
-        let storageService = StorageServiceSpy()
-        let profileViewModel = ProfileViewModel(storageService: storageService)
+        let storageService = ProfileStorageServiceSpy()
+        let profileViewModel = ProfileViewModel(profileStorageService: storageService)
         XCTAssertEqual(profileViewModel.model, storageService.profile)
 
         // when
@@ -56,8 +56,8 @@ final class ProfileTests: XCTestCase {
 
     func testViewModelCells() {
         // given
-        let storageService = StorageServiceSpy()
-        let profileViewModel = ProfileViewModel(storageService: storageService)
+        let storageService = ProfileStorageServiceSpy()
+        let profileViewModel = ProfileViewModel(profileStorageService: storageService)
 
         XCTAssertEqual(
             profileViewModel.cells.map { $0.name },

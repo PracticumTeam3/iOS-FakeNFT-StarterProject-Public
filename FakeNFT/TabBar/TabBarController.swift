@@ -45,12 +45,11 @@ final class TabBarController: UITabBarController {
         navigationController.viewControllers = [viewController]
 
         navigationController.tabBarItem = UITabBarItem(
-            title: nil,
+            title: L.Profile.title,
             image: A.Icons.TabBar.profile.image,
             selectedImage: nil
         )
         navigationController.tabBarItem.accessibilityIdentifier = AccessibilityIdentifier.TabBar.profile
-        navigationController.title = L.Profile.title
         return navigationController
     }
 

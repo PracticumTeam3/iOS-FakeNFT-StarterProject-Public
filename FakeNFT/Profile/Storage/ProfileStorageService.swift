@@ -1,5 +1,5 @@
 //
-//  StorageService.swift
+//  ProfileStorageService.swift
 //  FakeNFT
 //
 //  Created by Artem Novikov on 09.10.2023.
@@ -8,19 +8,18 @@
 import Foundation
 import os.log
 
-// MARK: - StorageServiceProtocol
-protocol StorageServiceProtocol: AnyObject {
+// MARK: - ProfileStorageServiceProtocol
+protocol ProfileStorageServiceProtocol: AnyObject {
     var onProfileInfoChanged: (() -> Void)? { get set }
     var profile: ProfileModel? { get set }
     var sortType: SortType { get set }
-    var wasOnboardingShown: Bool { get set }
 }
 
-// MARK: - StorageService
-final class StorageService: StorageServiceProtocol {
+// MARK: - ProfileStorageService
+final class ProfileStorageService: ProfileStorageServiceProtocol {
 
     // MARK: - Public  properties
-    static let shared = StorageService()
+    static let shared = ProfileStorageService()
     var onProfileInfoChanged: (() -> Void)?
 
     var profile: ProfileModel? {
@@ -56,33 +55,9 @@ final class StorageService: StorageServiceProtocol {
         }
     }
 
-    var environment: Environment {
-        get {
-            guard
-                let environmentString = userDefaults.string(forKey: Keys.environment.rawValue),
-                let environment = Environment(rawValue: environmentString)
-            else {
-                return .prod
-            }
-            return environment
-        }
-        set {
-            userDefaults.setValue(newValue.rawValue, forKey: Keys.environment.rawValue)
-        }
-    }
-
-    var wasOnboardingShown: Bool {
-        get {
-            userDefaults.bool(forKey: Keys.wasOnboardingShown.rawValue)
-        }
-        set {
-            userDefaults.set(newValue, forKey: Keys.wasOnboardingShown.rawValue)
-        }
-    }
-
     // MARK: - Private  properties
     private enum Keys: String {
-        case profile, sortType, wasOnboardingShown, environment
+        case profile, sortType
     }
 
     private let userDefaults = UserDefaults.standard
