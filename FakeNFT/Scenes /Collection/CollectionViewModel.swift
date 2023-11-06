@@ -10,6 +10,8 @@ import Foundation
 final class CollectionViewModel {
     let service = CollectionService(networkClient: DefaultNetworkClient())
     let profileService = ProfileService(networkClient: DefaultNetworkClient())
+    let cartService = CartService.shared
+    
     var onChange: (() -> Void)?
     var author: AutorModel? {
         didSet {
@@ -29,7 +31,20 @@ final class CollectionViewModel {
         }
     }
 
-    func getUsers (id: String) {
+    var carts: [String] = [] {
+        didSet {
+            onChange?()
+        }
+    }
+
+    func bindCart() {
+        self.carts = cartService.nfts.map { $0.id }
+        cartService.$nfts.bind { nfts in
+            self.carts = nfts.map { $0.id }
+        }
+    }
+
+    func getUsers(id: String) {
         service.getUsers(id: id) { result in
             switch result {
             case .success(let model):
@@ -40,7 +55,7 @@ final class CollectionViewModel {
         }
     }
 
-    func getNFT (id: String) {
+    private func getNFT(id: String) {
         service.getNFT(id: id) { result in
             switch result {
             case .success(let model):
@@ -51,9 +66,11 @@ final class CollectionViewModel {
         }
     }
 
-    func getNFTs (nfts:[String]) {
+    func getNFTs(nfts:[String]) {
         nfts.forEach { id in
-            getNFT(id:id)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.getNFT(id:id)
+            }
         }
     }
 
@@ -66,10 +83,10 @@ final class CollectionViewModel {
         let likeModel = LikesModel(likes: likes)
         profileService.setLikes(likeModel) { result in
             switch result {
-            case .success(_):
+            case .success:
                 self.getFavouriteNFTs()
-            case .failure(_):
-                self.likes.removeAll{ $0 == id}
+            case .failure:
+                self.likes.removeAll { $0 == id}
             }
         }
     }
@@ -82,6 +99,14 @@ final class CollectionViewModel {
             case .failure(let error):
                 print(error.localizedDescription)
             }
+        }
+    }
+
+    func setCart(id: String) {
+        if carts.contains(where: { $0 == id }) {
+            self.cartService.changeOrder(deleteNftId: id)
+        } else {
+            self.cartService.changeOrder(addNftId: id)
         }
     }
 }

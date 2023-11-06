@@ -87,11 +87,16 @@ final class CollectionViewController: UIViewController {
         collectionCollectionView.reloadData()
         loaderView.stopAnimating()
         loaderView.isHidden = true
+
+        let backItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backItem
+
         collectionCollectionView.isHidden = false
         guard let model = model else {return}
         viewModel.getUsers(id:model.author)
         viewModel.getNFTs(nfts: model.nfts)
         viewModel.getFavouriteNFTs()
+        viewModel.bindCart()
         viewModel.onChange = {
             DispatchQueue.main.async {
                 self.collectionCollectionView.reloadData()
@@ -174,7 +179,12 @@ extension CollectionViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath)
         if let cell = cell as? CollectionCell {
             if let id = model?.nfts[indexPath.row], let nft = viewModel.NFT[id] {
-                cell.setData(collectionCellData: nft, id: id, isFavorite: viewModel.likes.contains(where: {$0 == id}))
+                cell.setData(
+                    collectionCellData: nft,
+                    id: id,
+                    isFavorite: viewModel.likes.contains(where: {$0 == id}),
+                    isInCart: viewModel.carts.contains(where: {$0 == id})
+                )
             }
             cell.viewModel = viewModel
         }

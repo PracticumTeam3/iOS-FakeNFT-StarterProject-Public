@@ -125,10 +125,12 @@ class CollectionCell:UICollectionViewCell {
 
     @objc
     private func didTapСartButton () {
-
+        if let id = id {
+            viewModel?.setCart(id: id)
+        }
     }
 
-    func setData(collectionCellData: NFTCollectionModel, id: String, isFavorite:Bool) {
+    func setData(collectionCellData: NFTCollectionModel, id: String, isFavorite:Bool, isInCart: Bool) {
         self.id = id
         lableCost.text = "\(collectionCellData.price) ETH"
         lableName.text = collectionCellData.name
@@ -138,10 +140,16 @@ class CollectionCell:UICollectionViewCell {
             imageCard.kf.setImage(with:url)
         }
         ratingView.setData(rating: collectionCellData.rating)
-        if isFavorite == true {
+        if isFavorite {
             likeButton.setImage(UIImage(named: A.Icons.favouriteActive.name), for: .normal)
         } else {
             likeButton.setImage(UIImage(named: A.Icons.favouriteInactive.name), for: .normal)
+        }
+
+        if isInCart {
+            сartButton.setImage(UIImage(named: A.Icons.deleteNft.name), for: .normal)
+        } else {
+            сartButton.setImage(UIImage(named: A.Icons.basket.name), for: .normal)
         }
     }
 

@@ -24,6 +24,7 @@ class CollectionWebViewController: UIViewController, WKNavigationDelegate {
 
         view.addSubview(webView)
 
+        view.backgroundColor = UIColor(named: A.Colors.white.name)
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             webView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
