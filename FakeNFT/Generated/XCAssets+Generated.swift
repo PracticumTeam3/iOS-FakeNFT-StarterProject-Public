@@ -48,14 +48,20 @@ public enum A {
     public static let back = ImageAsset(name: "back")
     public static let basket = ImageAsset(name: "basket")
     public static let close = ImageAsset(name: "close")
+    public static let deleteNft = ImageAsset(name: "deleteNft")
     public static let edit = ImageAsset(name: "edit")
     public static let favouriteActive = ImageAsset(name: "favouriteActive")
     public static let favouriteInactive = ImageAsset(name: "favouriteInactive")
     public static let inactiveStar = ImageAsset(name: "inactiveStar")
+    public static let ratingOff = ImageAsset(name: "ratingOff")
+    public static let ratingOn = ImageAsset(name: "ratingOn")
     public static let sort = ImageAsset(name: "sort")
     public static let splashScreen = ImageAsset(name: "splashScreen")
   }
   public enum Images {
+    public enum Cart {
+      public static let successPay = ImageAsset(name: "successPay")
+    }
     public enum Onboarding {
       public static let page1 = ImageAsset(name: "page1")
       public static let page2 = ImageAsset(name: "page2")

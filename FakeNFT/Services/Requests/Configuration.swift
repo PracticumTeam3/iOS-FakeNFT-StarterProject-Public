@@ -12,6 +12,9 @@ enum Endpoint {
     case profile
     case nftById(id: String)
     case userById(id: String)
+    case order
+    case currencies
+    case paymentById(id: String)
 
     static var baseURL: URL {
         switch StorageService.shared.environment {
@@ -27,6 +30,9 @@ enum Endpoint {
         case .profile: return "api/v1/profile/1"
         case .nftById(let id): return "api/v1/nft/\(id)"
         case .userById(let id): return "api/v1/users/\(id)"
+        case .order: return "/api/v1/orders/1"
+        case .currencies: return "/api/v1/currencies"
+        case .paymentById(let id): return "/api/v1/orders/1/payment/\(id)"
         }
     }
 
@@ -36,7 +42,13 @@ enum Endpoint {
         case .nftById(let id): return URL(string: Endpoint.nftById(id: id).path,
                                           relativeTo: Endpoint.baseURL)
         case .userById(let id): return URL(string: Endpoint.userById(id: id).path,
-                                          relativeTo: Endpoint.baseURL)
+                                           relativeTo: Endpoint.baseURL)
+        case .order: return URL(string: Endpoint.order.path,
+                                relativeTo: Endpoint.baseURL)
+        case .currencies: return URL(string: Endpoint.currencies.path,
+                                     relativeTo: Endpoint.baseURL)
+        case .paymentById(let id): return URL(string: Endpoint.paymentById(id: id).path,
+                                              relativeTo: Endpoint.baseURL)
         }
     }
 
