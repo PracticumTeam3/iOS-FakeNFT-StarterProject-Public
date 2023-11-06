@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 class CollectionWebViewController: UIViewController, WKNavigationDelegate {
-
+    var url:String = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
     var webView: WKWebView = {
         let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,7 @@ class CollectionWebViewController: UIViewController, WKNavigationDelegate {
             webView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
             webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
-        if let url = URL(string: "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley") {
+        if let url = URL(string: url) {
             let request = URLRequest(url: url)
             webView.load(request)
         }

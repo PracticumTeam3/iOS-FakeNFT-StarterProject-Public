@@ -71,6 +71,7 @@ final class CollectionViewController: UIViewController {
         return loader
     }()
 
+    private let viewModel = CollectionViewModel()
     private let itemsPerRow: CGFloat = 3
     private let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
 
@@ -87,6 +88,15 @@ final class CollectionViewController: UIViewController {
         loaderView.stopAnimating()
         loaderView.isHidden = true
         collectionCollectionView.isHidden = false
+        guard let model = model else {return}
+        viewModel.getUsers(id:model.author)
+        viewModel.onChange = {
+            DispatchQueue.main.async {
+                self.loaderView.stopAnimating()
+                self.loaderView.isHidden = true
+                self.setData()
+            }
+        }
     }
 
     private func setData () {
@@ -95,7 +105,7 @@ final class CollectionViewController: UIViewController {
             imageHeader.kf.setImage(with:url)
         }
         titleLable.text = model?.collectionName
-        authorButton.setTitle(model?.author, for: .normal)
+        authorButton.setTitle(viewModel.author?.name, for: .normal)
         descriptionLable.text = model?.description
     }
 
@@ -143,6 +153,8 @@ final class CollectionViewController: UIViewController {
     @objc
     func didAuthorButton() {
         let webView = CollectionWebViewController()
+        guard let url = viewModel.author?.website else {return}
+        webView.url = url
         self.navigationController?.pushViewController(webView, animated: true)
     }
     

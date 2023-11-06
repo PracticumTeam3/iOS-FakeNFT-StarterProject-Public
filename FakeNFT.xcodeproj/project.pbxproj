@@ -41,6 +41,8 @@
 		AA8225FA2AF82CCA00222B7A /* GetCollectionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8225F92AF82CCA00222B7A /* GetCollectionsRequest.swift */; };
 		AA8225FC2AF82CEC00222B7A /* CatalogNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8225FB2AF82CEC00222B7A /* CatalogNetworkModel.swift */; };
 		AA8225FE2AF82D1E00222B7A /* CollectionWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8225FD2AF82D1E00222B7A /* CollectionWebViewController.swift */; };
+		AA8226022AF90CB800222B7A /* CollectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8226012AF90CB800222B7A /* CollectionService.swift */; };
+		AA8226062AF90D4C00222B7A /* AutorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8226052AF90D4C00222B7A /* AutorModel.swift */; };
 		AAF482A0D4C1738DA9FBC45E /* Pods_FakeNFT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B85D3BC7736CC3B5B1F6A961 /* Pods_FakeNFT.framework */; };
 		AAFDD7C62AEC232A00E66E31 /* CatalogCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDD7C52AEC232A00E66E31 /* CatalogCellModel.swift */; };
 		AAFDD7C92AED863E00E66E31 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDD7C82AED863E00E66E31 /* CollectionViewController.swift */; };
@@ -203,6 +205,8 @@
 		AA8225F92AF82CCA00222B7A /* GetCollectionsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCollectionsRequest.swift; sourceTree = "<group>"; };
 		AA8225FB2AF82CEC00222B7A /* CatalogNetworkModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogNetworkModel.swift; sourceTree = "<group>"; };
 		AA8225FD2AF82D1E00222B7A /* CollectionWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionWebViewController.swift; sourceTree = "<group>"; };
+		AA8226012AF90CB800222B7A /* CollectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionService.swift; sourceTree = "<group>"; };
+		AA8226052AF90D4C00222B7A /* AutorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutorModel.swift; sourceTree = "<group>"; };
 		AAFDD7BE2AE15F5300E66E31 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		AAFDD7C02AE15FC300E66E31 /* CatalogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModel.swift; sourceTree = "<group>"; };
 		AAFDD7C22AE166A300E66E31 /* CatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCell.swift; sourceTree = "<group>"; };
@@ -418,6 +422,7 @@
 			children = (
 				3FC8C38F29D245250081F015 /* Requests */,
 				AAFDD7D62AF2A71900E66E31 /* CatalogService.swift */,
+				AA8226012AF90CB800222B7A /* CollectionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -532,6 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				AAFDD7C52AEC232A00E66E31 /* CatalogCellModel.swift */,
+				AA8226052AF90D4C00222B7A /* AutorModel.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1232,6 +1238,7 @@
 				F382C57F2AF2B56500EBDD8E /* AccessibilityIdentifier.swift in Sources */,
 				F373FEE42AEAB8C100610B6E /* PageControl.swift in Sources */,
 				F3568BCE2AD59FB300D46FC1 /* String+Extensions.swift in Sources */,
+				AA8226062AF90D4C00222B7A /* AutorModel.swift in Sources */,
 				F373FED92AE83BC100610B6E /* RefreshControl.swift in Sources */,
 				F3ACCA192AD455860039431A /* UIBlockingProgressHUD.swift in Sources */,
 				F3F10D462ACEDFFA00C53BF4 /* ProfileViewModel.swift in Sources */,
@@ -1273,6 +1280,7 @@
 				F3568BC12AD57FBF00D46FC1 /* ChangeProfileRequest.swift in Sources */,
 				3F6806CB29CBBCC700B4F915 /* ExampleNetworkModel.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
+				AA8226022AF90CB800222B7A /* CollectionService.swift in Sources */,
 				F3568BC82AD5895800D46FC1 /* AlertButton.swift in Sources */,
 				F3FD164D2AD702D40042BF12 /* RatingStackView.swift in Sources */,
 				F3568BCC2AD59B8400D46FC1 /* Configuration.swift in Sources */,

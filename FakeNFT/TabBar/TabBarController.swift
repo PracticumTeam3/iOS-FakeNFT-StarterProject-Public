@@ -34,7 +34,7 @@ final class TabBarController: UITabBarController {
 
         setupUI()
 
-        self.viewControllers = [profileNavigationController]
+        self.viewControllers = [UINavigationController(rootViewController: CatalogViewController()), profileNavigationController]
     }
 
     // MARK: - Public Methods
