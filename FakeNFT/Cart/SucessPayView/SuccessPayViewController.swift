@@ -8,7 +8,7 @@
 import UIKit
 
 final class SuccessPayViewController: UIViewController {
-    
+
     private enum Constants {
         enum ImageView {
             static let topInsetVertOrient: CGFloat = 196
@@ -46,11 +46,11 @@ final class SuccessPayViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private lazy var backCatalogeButton: UIButton = {
         let button = UIButton()
         button.setTitle(L.Cart.backCataloge, for: .normal)
-        button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal) 
+        button.setTitleColor(A.Colors.whiteDynamic.color, for: .normal)
         button.titleLabel?.font = .Bold.small
         button.backgroundColor = A.Colors.blackDynamic.color
         button.addTarget(self, action: #selector(backCatalog), for: .touchUpInside)
@@ -59,25 +59,25 @@ final class SuccessPayViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = A.Colors.whiteDynamic.color
         return scrollView
     }()
-    
+
     private lazy var contentView: UIView = {
         let view = UIView()
         view.backgroundColor = A.Colors.whiteDynamic.color
         return view
     }()
-    
+
     private lazy var contenSize: CGSize = {
         return CGSize(width: view.frame.width, height: view.frame.height)
     }()
-    
+
     private var topImageViewConstraint: NSLayoutConstraint?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = A.Colors.whiteDynamic.color
@@ -89,17 +89,19 @@ final class SuccessPayViewController: UIViewController {
         layoutSupport()
         view.layoutIfNeeded()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateContentSize()
     }
 
     private func layoutSupport() {
-        topImageViewConstraint = successImageView.topAnchor.constraint(equalTo: contentView.topAnchor,
-                                                                       constant: Constants.ImageView.topInsetVertOrient)
+        topImageViewConstraint = successImageView.topAnchor.constraint(
+            equalTo: contentView.topAnchor,
+            constant: Constants.ImageView.topInsetVertOrient
+        )
         topImageViewConstraint?.isActive = true
-        
+
         NSLayoutConstraint.activate([
             successImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
@@ -118,18 +120,17 @@ final class SuccessPayViewController: UIViewController {
             backCatalogeButton.heightAnchor.constraint(equalToConstant: Constants.Button.height)
         ])
     }
-    
+
     @objc
     private func backCatalog() {
         guard let window = UIApplication.shared.windows.first else {
             print("Error SuccessPayViewController: backCatalog")
             return
-            
         }
         let tabBar = TabBarController()
         window.rootViewController = tabBar
     }
-    
+
     private func updateContentSize() {
         if traitCollection.verticalSizeClass == .compact {
             topImageViewConstraint?.constant = Constants.ImageView.topInsetGorOrient
@@ -150,5 +151,5 @@ final class SuccessPayViewController: UIViewController {
         scrollView.frame = view.bounds
         contentView.frame.size = contenSize
     }
-    
+
 }

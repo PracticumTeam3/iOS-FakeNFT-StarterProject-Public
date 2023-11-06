@@ -1,5 +1,5 @@
 //
-//  StorageServiceSpy.swift
+//  ProfileStorageServiceSpy.swift
 //  FakeNFTTests
 //
 //  Created by Artem Novikov on 01.11.2023.
@@ -7,8 +7,8 @@
 
 @testable import FakeNFT
 
-// MARK: - StorageServiceSpy
-final class StorageServiceSpy: StorageServiceProtocol {
+// MARK: - ProfileStorageServiceSpy
+final class ProfileStorageServiceSpy: ProfileStorageServiceProtocol {
 
     var onProfileInfoChanged: (() -> Void)?
 
@@ -21,6 +21,5 @@ final class StorageServiceSpy: StorageServiceProtocol {
         likes: ["4"]
     )
     var sortType: SortType = .byName
-    var wasOnboardingShown: Bool = false
 
 }

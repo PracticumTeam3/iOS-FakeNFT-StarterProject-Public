@@ -13,7 +13,7 @@ struct NftModel {
     var rating: Int
     var price: Float
     var id: String
-    
+
     init(name: String, images: [String], rating: Int, price: Float, id: String) {
         self.name = name
         if images.isEmpty {

@@ -24,7 +24,7 @@ enum Loading {
 }
 
 class CartService {
-    
+
     static let shared = CartService()
     private let networkClient: NetworkClient
     @CartObservable private(set) var nfts = [NftModel]()
@@ -37,7 +37,7 @@ class CartService {
             fetchNFT()
         }
     }
-    
+
     private var nftArray = [NftModel]() {
         didSet {
             guard let currentOrder = currentOrder else { return }
@@ -46,11 +46,11 @@ class CartService {
             }
         }
     }
-    
+
     init(networkClient: NetworkClient = DefaultNetworkClient()) {
         self.networkClient = networkClient
     }
-    
+
     func fetchOrder() {
         loadIsShow = Loading.fetchOrder
         let request = GetOrderRequest()
@@ -71,14 +71,14 @@ class CartService {
             }
         }
     }
-    
+
     func changeOrder(deleteNftId: String) {
         loadIsShow = Loading.changeOrder
         guard let currentOrder = currentOrder else { return }
         let newNfts = currentOrder.nfts.filter { $0 != deleteNftId }
         let orderNetwork = OrderNetwork(nfts: newNfts, id: currentOrder.id)
         let request = SetOrderRequest(model: orderNetwork)
-        
+
         networkClient.send(request: request,
                            type: OrderNetwork.self) { [weak self] result in
             guard let self else { return }
@@ -95,7 +95,7 @@ class CartService {
             }
         }
     }
-    
+
     func fetchCurrencies() {
         loadIsShow = Loading.fetchCurrencies
         let request = GetCurrencyRequest()
@@ -118,7 +118,7 @@ class CartService {
             }
         }
     }
-    
+
     func payOrder(_ currencyID: String, completion: @escaping (Result <ResultOrder, Error>) -> Void) {
         loadIsShow = Loading.payOrder
         let request = GetResultOrderRequest(id: currencyID)
@@ -139,7 +139,7 @@ class CartService {
             }
         }
     }
-    
+
     private func fetchNFT() {
         guard let nftsOrder = currentOrder?.nfts else { return }
         nftArray = []
@@ -167,7 +167,7 @@ class CartService {
             }
         }
     }
-    
+
     private func getNFT(id: String, completion: @escaping (Result<NftModel,Error>) -> Void ) {
         let nftRequest = GetNFTRequest(id: id)
         networkClient.send(request: nftRequest, type: NftNetwork.self) { result in
@@ -187,5 +187,5 @@ class CartService {
             }
         }
     }
-        
+
 }

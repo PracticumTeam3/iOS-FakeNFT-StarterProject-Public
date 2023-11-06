@@ -12,7 +12,7 @@ protocol NfyDeleteAlertDelegate: AnyObject {
 }
 
 final class NftDeleteAlert: UIViewController {
-    
+
     private enum Constants {
         enum SafeArea {
             static let topInset: CGFloat = 20
@@ -44,7 +44,7 @@ final class NftDeleteAlert: UIViewController {
             static let topInset: CGFloat = 20
         }
     }
-    
+
     weak var delegate:NfyDeleteAlertDelegate?
     var id: String
     private let alertImage: UIImageView = {
@@ -54,7 +54,7 @@ final class NftDeleteAlert: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private let questionLabel: UILabel = {
         let label = UILabel()
         label.font = .Regular.small
@@ -65,7 +65,7 @@ final class NftDeleteAlert: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let deleteButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = A.Colors.blackDynamic.color
@@ -76,7 +76,7 @@ final class NftDeleteAlert: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private let returnButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = A.Colors.blackDynamic.color
@@ -87,17 +87,17 @@ final class NftDeleteAlert: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     init(image:UIImage, id: String) {
         self.alertImage.image = image
         self.id = id
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         deleteButton.addTarget(self, action: #selector(pressedDelete), for: .touchUpInside)
@@ -109,7 +109,7 @@ final class NftDeleteAlert: UIViewController {
         view.addSubview(returnButton)
         layoutSupport()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         additionalSafeAreaInsets = UIEdgeInsets(top: -Constants.SafeArea.topInset,
@@ -117,7 +117,7 @@ final class NftDeleteAlert: UIViewController {
                                                 bottom: Constants.SafeArea.bottonInset,
                                                 right: Constants.SafeArea.rightInset)
     }
-    
+
     private func backgroudViewSupport() {
         var blurEffect = UIBlurEffect()
         if traitCollection.userInterfaceStyle == .dark {
@@ -130,7 +130,7 @@ final class NftDeleteAlert: UIViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
     }
-    
+
     private func layoutSupport() {
         NSLayoutConstraint.activate([
             alertImage.widthAnchor.constraint(equalToConstant: Constants.AlertImage.width),
@@ -161,13 +161,13 @@ final class NftDeleteAlert: UIViewController {
                                               constant: Constants.ReturnButton.topInset)
         ])
     }
-    
+
     @objc
     private func pressedDelete() {
         delegate?.deleteNft(id: id)
         dismiss(animated: false)
     }
-    
+
     @objc
     private func pressedReturn() {
         dismiss(animated: false)

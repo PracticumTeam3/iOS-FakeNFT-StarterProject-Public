@@ -5,9 +5,6 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
   - control_statement
   - todo
   - blanket_disable_command
-  - trailing_whitespace
-  - redundant_optional_initialization
-  - block_based_kvo
 opt_in_rules: # some rules are turned off by default, so you need to opt-in
   - empty_count # find all the available rules by running: `swiftlint rules`
 
@@ -37,7 +34,7 @@ force_try:
   severity: warning # explicitly
 # rules that have both warning and error levels, can set just the warning level
 # implicitly
-line_length: 125
+line_length: 110
 # they can set both implicitly with an array
 type_body_length:
   - 300 # warning
@@ -55,14 +52,14 @@ type_name:
     error: 50
   excluded: iPhone # excluded via string
 identifier_name:
-  min_length: 1 
+  min_length: 1
   excluded: # excluded via string array
     - id
     - URL
     - GlobalAPIKey
 nesting:
   type_level:
-    warning: 3 
+    warning: 3
     error: 6
   function_level:
     warning: 5

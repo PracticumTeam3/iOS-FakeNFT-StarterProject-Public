@@ -9,7 +9,7 @@ import UIKit
 import ProgressHUD
 
 final class CartTableViewViewController: UIViewController {
-    
+
     private enum Constants {
         enum NftTableView {
             static let topInset: CGFloat = 20
@@ -34,10 +34,9 @@ final class CartTableViewViewController: UIViewController {
             static let bottomInset: CGFloat = 16
         }
     }
-    
+
     private let viewModel: CartTableViewViewModel
-    private let alertPresenter = AlertPresenter()
-    
+
     private let emptyLabel: UILabel = {
         let label = UILabel()
         label.isHidden = true
@@ -48,7 +47,7 @@ final class CartTableViewViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let nftTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CartTableViewCell.self)
@@ -60,7 +59,7 @@ final class CartTableViewViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
+
     private let cartView: UIView = {
         let view = UIView()
         view.backgroundColor = A.Colors.lightGrayDynamic.color
@@ -70,7 +69,7 @@ final class CartTableViewViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     private let countNFTLabel: UILabel = {
         let label = UILabel()
         label.font = .Regular.medium
@@ -81,7 +80,7 @@ final class CartTableViewViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.font = .Bold.small
@@ -91,7 +90,7 @@ final class CartTableViewViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private lazy var payButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(payNFT), for: .touchUpInside)
@@ -104,7 +103,7 @@ final class CartTableViewViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private lazy var rightBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: A.Icons.sort.image,
                                              style: .done,
@@ -113,17 +112,17 @@ final class CartTableViewViewController: UIViewController {
         button.tintColor = A.Colors.blackDynamic.color
         return button
     }()
-    
+
     init(viewModel: CartTableViewViewModel = CartTableViewViewModel()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = A.Colors.whiteDynamic.color
@@ -131,13 +130,13 @@ final class CartTableViewViewController: UIViewController {
         bind()
         nftTableView.dataSource = self
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         progressHUD(viewModel.progressHUDIsActive)
         showNetworkAlert(viewModel.showNetWorkError)
     }
-    
+
     private func layoutSupport() {
         view.addSubview(emptyLabel)
         view.addSubview(nftTableView)
@@ -181,7 +180,7 @@ final class CartTableViewViewController: UIViewController {
                                             constant: Constants.PayButton.leftInset)
         ])
     }
-    
+
     private func bind() {
         countNFTLabel.text = viewModel.nftCount
         priceLabel.text = viewModel.nftPrices
@@ -216,12 +215,12 @@ final class CartTableViewViewController: UIViewController {
             }
         }
     }
-    
+
     private func navigationSupport() {
         guard let navigationController = navigationController else { return }
         navigationController.navigationBar.topItem?.rightBarButtonItem = rightBarButton
     }
-    
+
     private func tableViewIsEmpty(_ isEmpty: Bool) {
         nftTableView.isHidden = isEmpty
         cartView.isHidden = isEmpty
@@ -232,7 +231,7 @@ final class CartTableViewViewController: UIViewController {
             navigationSupport()
         }
     }
-    
+
     private func progressHUD(_ isShow: Bool) {
         if isShow {
             ProgressHUD.show()
@@ -241,45 +240,34 @@ final class CartTableViewViewController: UIViewController {
             tableViewIsEmpty(viewModel.nftIsEmpty)
         }
     }
-    
+
     private func showNetworkAlert(_ isShow: Bool?) {
         if isShow == true {
-            alertPresenter.showNetworkAlert(viewController: self) {
-                self.viewModel.fetchOrder()
-            }
+            AlertPresenter.show(in: self, model: .cartNetworkError { [weak self] in
+                self?.viewModel.fetchOrder()
+            })
         }
     }
-    
+
     @objc
     private func sortedNFT() {
         showActionSheet()
     }
-    
+
     private func showActionSheet() {
-        let alert = UIAlertController(title: L.Cart.sorted,
-                                      message: nil,
-                                      preferredStyle: .actionSheet)
-        let action1 = UIAlertAction(title: L.Cart.sortedByPrice,
-                                    style: .default) { [weak self] _ in
-            self?.viewModel.changeSortes(CartSortedStorage.price)
-        }
-        let action2 = UIAlertAction(title: L.Cart.sortedByRating,
-                                    style: .default) { [weak self] _ in
-            self?.viewModel.changeSortes(CartSortedStorage.rating)
-        }
-        let action3 = UIAlertAction(title: L.Cart.sortedByName,
-                                    style: .default) { [weak self] _ in
-            self?.viewModel.changeSortes(CartSortedStorage.name)
-        }
-        let action4 = UIAlertAction(title: L.Cart.sortedClose,
-                                    style: .cancel,
-                                    handler: nil)
-        alert.addAction(action1)
-        alert.addAction(action2)
-        alert.addAction(action3)
-        alert.addAction(action4)
-        self.present(alert, animated: true)
+        AlertPresenter.show(in: self, model: .sortActionSheet(
+            priceCompletion: { [weak self] in
+                self?.viewModel.changeSortes(CartSortedStorage.price)
+            },
+            ratingCompletion: { [weak self] in
+                self?.viewModel.changeSortes(CartSortedStorage.rating)
+            },
+            nameCompletion: { [weak self] in
+                self?.viewModel.changeSortes(CartSortedStorage.name)
+            })
+        )
     }
+
     @objc
     private func payNFT() {
         let paymentViewModel = PaymentViewViewModel()
