@@ -26,55 +26,12 @@ public enum L {
     public static let yes = L.tr("Localizable", "alert.yes", fallback: "Да")
   }
   public enum Cart {
-    /// Вернуться в каталог
-    public static let backCataloge = L.tr("Localizable", "cart.backCataloge", fallback: "Вернуться в каталог")
-    /// Отмена
-    public static let cancel = L.tr("Localizable", "cart.cancel", fallback: "Отмена")
-    /// Корзина пуста
-    public static let cartEmpty = L.tr("Localizable", "cart.cartEmpty", fallback: "Корзина пуста")
-    /// Выберите способ оплаты
-    public static let choosePay = L.tr("Localizable", "cart.choosePay", fallback: "Выберите способ оплаты")
-    /// Удалить
-    public static let delete = L.tr("Localizable", "cart.delete", fallback: "Удалить")
-    /// Вы уверены, что хотите
-    /// удалить объект из корзины?
-    public static let deleteQuestion = L.tr("Localizable", "cart.deleteQuestion", fallback: "Вы уверены, что хотите\nудалить объект из корзины?")
-    /// Не удалось произвести
-    /// оплату
-    public static let failurePay = L.tr("Localizable", "cart.failurePay", fallback: "Не удалось произвести\nоплату")
-    /// Проблема с интернет-соединением
-    public static let networkAlertMessage = L.tr("Localizable", "cart.networkAlertMessage", fallback: "Проблема с интернет-соединением")
-    /// Что-то пошло не так(
-    public static let networkAlertTitle = L.tr("Localizable", "cart.networkAlertTitle", fallback: "Что-то пошло не так(")
     /// Оплатить
     public static let pay = L.tr("Localizable", "cart.pay", fallback: "Оплатить")
-    /// Цена
-    public static let price = L.tr("Localizable", "cart.price", fallback: "Цена")
-    /// Повторить
-    public static let `repeat` = L.tr("Localizable", "cart.repeat", fallback: "Повторить")
-    /// Вернуться
-    public static let `return` = L.tr("Localizable", "cart.return", fallback: "Вернуться")
-    /// Сортировка
-    public static let sorted = L.tr("Localizable", "cart.sorted", fallback: "Сортировка")
-    /// По названию
-    public static let sortedByName = L.tr("Localizable", "cart.sortedByName", fallback: "По названию")
-    /// По цене
-    public static let sortedByPrice = L.tr("Localizable", "cart.sortedByPrice", fallback: "По цене")
-    /// По рейтингу
-    public static let sortedByRating = L.tr("Localizable", "cart.sortedByRating", fallback: "По рейтингу")
-    /// Закрыть
-    public static let sortedClose = L.tr("Localizable", "cart.sortedClose", fallback: "Закрыть")
-    /// Успех! Оплата прошла,
-    /// поздравляем с покупкой!
-    public static let successPay = L.tr("Localizable", "cart.successPay", fallback: "Успех! Оплата прошла,\nпоздравляем с покупкой!")
     /// Корзина
     public static let title = L.tr("Localizable", "cart.title", fallback: "Корзина")
     /// К оплате
     public static let toBePaid = L.tr("Localizable", "cart.toBePaid", fallback: "К оплате")
-    /// Пользовательского соглашения
-    public static let userAgreementEnd = L.tr("Localizable", "cart.userAgreementEnd", fallback: "Пользовательского соглашения")
-    /// Совершая покупку, вы соглашаетесь с условиями
-    public static let userAgreementStart = L.tr("Localizable", "cart.userAgreementStart", fallback: "Совершая покупку, вы соглашаетесь с условиями")
   }
   public enum Catalog {
     /// Каталог

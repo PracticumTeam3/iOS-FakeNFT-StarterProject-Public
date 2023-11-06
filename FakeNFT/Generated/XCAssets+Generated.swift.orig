@@ -44,16 +44,23 @@ public enum A {
       public static let profile = ImageAsset(name: "profile")
       public static let statistic = ImageAsset(name: "statistic")
     }
+<<<<<<< HEAD
     public static let activeStar = ImageAsset(name: "activeStar")
     public static let back = ImageAsset(name: "back")
+=======
     public static let backward = ImageAsset(name: "backward")
+>>>>>>> kudryashov/epic_cart
     public static let close = ImageAsset(name: "close")
     public static let deleteNft = ImageAsset(name: "deleteNft")
     public static let edit = ImageAsset(name: "edit")
     public static let favouriteActive = ImageAsset(name: "favouriteActive")
     public static let favouriteInactive = ImageAsset(name: "favouriteInactive")
+<<<<<<< HEAD
+    public static let inactiveStar = ImageAsset(name: "inactiveStar")
+=======
     public static let ratingOff = ImageAsset(name: "ratingOff")
     public static let ratingOn = ImageAsset(name: "ratingOn")
+>>>>>>> kudryashov/epic_cart
     public static let sort = ImageAsset(name: "sort")
     public static let splashScreen = ImageAsset(name: "splashScreen")
   }

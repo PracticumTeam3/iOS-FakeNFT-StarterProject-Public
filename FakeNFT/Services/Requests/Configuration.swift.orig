@@ -2,19 +2,21 @@
 //  Configuration.swift
 //  FakeNFT
 //
+<<<<<<< HEAD
 //  Created by Artem Novikov on 10.10.2023.
+=======
+//  Created by Александр Кудряшов on 30.10.2023.
+>>>>>>> kudryashov/epic_cart
 //
 
 import Foundation
 
 enum Endpoint {
+<<<<<<< HEAD
 
     case profile
     case nftById(id: String)
     case userById(id: String)
-    case order
-    case currencies
-    case paymentById(id: String)
 
     static var baseURL: URL {
         switch StorageService.shared.environment {
@@ -30,26 +32,45 @@ enum Endpoint {
         case .profile: return "api/v1/profile/1"
         case .nftById(let id): return "api/v1/nft/\(id)"
         case .userById(let id): return "api/v1/users/\(id)"
+=======
+    case order
+    case nftById(id: String)
+    case currencies
+    case paymentById(id: String)
+
+    static let baseURL = URL(string: "https://651ff0bd906e276284c3c180.mockapi.io/")!
+
+    var path: String {
+        switch self {
         case .order: return "/api/v1/orders/1"
+        case .nftById(let id): return "api/v1/nft/\(id)"
         case .currencies: return "/api/v1/currencies"
         case .paymentById(let id): return "/api/v1/orders/1/payment/\(id)"
+>>>>>>> kudryashov/epic_cart
         }
     }
 
     var url: URL? {
         switch self {
+<<<<<<< HEAD
         case .profile: return URL(string: Endpoint.profile.path, relativeTo: Endpoint.baseURL)
         case .nftById(let id): return URL(string: Endpoint.nftById(id: id).path,
                                           relativeTo: Endpoint.baseURL)
         case .userById(let id): return URL(string: Endpoint.userById(id: id).path,
                                           relativeTo: Endpoint.baseURL)
-        case .order: return URL(string: Endpoint.order.path,
-                                relativeTo: Endpoint.baseURL)
-        case .currencies: return URL(string: Endpoint.currencies.path,
-                                        relativeTo: Endpoint.baseURL)
-        case .paymentById(let id): return URL(string: Endpoint.paymentById(id: id).path,
-                                                relativeTo: Endpoint.baseURL)
         }
     }
 
+=======
+        case .order: return URL(string: Endpoint.order.path,
+                                relativeTo: Endpoint.baseURL)
+        case .nftById(let id): return URL(string: Endpoint.nftById(id: id).path,
+                                          relativeTo: Endpoint.baseURL)
+        case .currencies: return URL(string: Endpoint.currencies.path,
+                                     relativeTo: Endpoint.baseURL)
+        case .paymentById(let id): return URL(string: Endpoint.paymentById(id: id).path,
+                                          relativeTo: Endpoint.baseURL)
+        }
+    }
+>>>>>>> kudryashov/epic_cart
 }
