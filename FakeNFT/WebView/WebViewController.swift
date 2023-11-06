@@ -14,16 +14,23 @@ final class WebViewController: UIViewController {
     // MARK: - Private properties
     private let webViewModel: WebViewModelProtocol
     private let url: URL
+    private let titleString: String?
     private var estimatedProgressObservation: NSKeyValueObservation?
     private let webView: WebView
     private let presentation: WebViewPresentation
 
     // MARK: - Initializers
-    init(webViewModel: WebViewModelProtocol, url: URL, presentation: WebViewPresentation) {
+    init(
+        webViewModel: WebViewModelProtocol,
+        url: URL,
+        presentation: WebViewPresentation,
+        title: String? = nil
+    ) {
         self.presentation = presentation
         self.webView = WebView(presentation: presentation)
         self.webViewModel = webViewModel
         self.url = url
+        self.titleString = title
         super.init(nibName: nil, bundle: nil)
         webView.delegate = self
         hidesBottomBarWhenPushed = true
@@ -89,7 +96,7 @@ final class WebViewController: UIViewController {
             action: #selector(back)
         )
         navigationItem.setLeftBarButton(leftButton, animated: false)
-        navigationItem.title = L.Profile.AboutDeveloper.title
+        navigationItem.title = titleString
         navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifier.WebView.backButton
     }
 

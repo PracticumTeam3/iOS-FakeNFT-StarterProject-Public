@@ -20,7 +20,7 @@ final class CartTableViewCellViewModel {
     private(set) var priceString: String
     private let id: String
     weak var delegate: CartCellViewModelDelegate?
-    
+
     init(imageURL: URL?, nftName: String, rating: Int, price: Float, currency: String, id: String ) {
         self.imageURL = imageURL
         self.nftName = nftName
@@ -30,7 +30,7 @@ final class CartTableViewCellViewModel {
         self.id = id
         self.priceString = price.nftPriceString(price: currency)
     }
-    
+
     func pressDelete(image:UIImage) {
         delegate?.showAlert(nftImage: image, id: id)
     }

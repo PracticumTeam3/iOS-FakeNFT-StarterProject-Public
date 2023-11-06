@@ -7,7 +7,13 @@
 "alert.yes" = "Да";
 "alert.no" = "Нет";
 "alert.close" = "Закрыть";
+"alert.cancel" = "Отменить";
 "alert.tryAgain" = "Попробовать еще раз";
+"alert.repeat" = "Повторить";
+"alert.sort.title" = "Сортировка";
+"alert.sort.price" = "По цене";
+"alert.sort.rating" = "По рейтингу";
+"alert.sort.name" = "По названию";
 
 "onboarding.page1.title" = "Исследуйте";
 "onboarding.page1.subtitle" = "Присоединяйтесь и откройте новый мир уникальных NFT для коллекционеров";
@@ -47,10 +53,6 @@
 "profile.myNFT.nothingFound" = "Ничего не найдено";
 "profile.myNFT.price.title" = "Цена";
 "profile.myNFT.author.title" = "от";
-"profile.myNFT.sort.title" = "Сортировка";
-"profile.myNFT.sort.price" = "По цене";
-"profile.myNFT.sort.rating" = "По рейтингу";
-"profile.myNFT.sort.name" = "По названию";
 "profile.myNFT.alert.fetchError" = "Произошла ошибка во время загрузки NFT";
 
 "profile.favouriteNFT.title" = "Избранные NFT";
@@ -69,11 +71,6 @@
 "cart.delete" = "Удалить";
 "cart.return" =  "Вернуться";
 "cart.deleteQuestion" = "Вы уверены, что хотите\nудалить объект из корзины?";
-"cart.sorted" = "Сортировка";
-"cart.sortedByPrice" = "По цене";
-"cart.sortedByRating" = "По рейтингу";
-"cart.sortedByName" = "По названию";
-"cart.sortedClose" = "Закрыть";
 "cart.cartEmpty" = "Корзина пуста";
 "cart.choosePay" = "Выберите способ оплаты";
 "cart.userAgreementStart" = "Совершая покупку, вы соглашаетесь с условиями";
@@ -81,8 +78,6 @@
 "cart.successPay" = "Успех! Оплата прошла,\nпоздравляем с покупкой!";
 "cart.backCataloge" = "Вернуться в каталог";
 "cart.failurePay" = "Не удалось произвести\nоплату";
-"cart.cancel" = "Отмена";
-"cart.repeat" = "Повторить";
 "cart.networkAlertTitle" = "Что-то пошло не так(";
 "cart.networkAlertMessage" = "Проблема с интернет-соединением";
 

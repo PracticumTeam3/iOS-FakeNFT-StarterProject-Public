@@ -9,8 +9,9 @@ import UIKit
 import ProgressHUD
 
 final class PaymentViewController: UIViewController {
-    
+
     private enum Constants {
+        static let termsOfUseURLString = "https://yandex.ru/legal/practicum_termsofuse/"
         enum CollectionView {
             static let topInset: CGFloat = 20
             static let leftInset: CGFloat = 16
@@ -43,10 +44,9 @@ final class PaymentViewController: UIViewController {
             static let leftInset: CGFloat = 16
         }
     }
-    
+
     private let viewModel: PaymentViewViewModel
-    private let alertPresenter = AlertPresenter()
-    
+
     private let termsOfUseView: UIView = {
         let view = UIView()
         view.backgroundColor = A.Colors.lightGrayDynamic.color
@@ -56,7 +56,7 @@ final class PaymentViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     private let termsOfUseLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
@@ -67,7 +67,7 @@ final class PaymentViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private lazy var termsOfUseButton: UIButton = {
         let button = UIButton()
         button.setTitle(L.Cart.userAgreementEnd, for: .normal)
@@ -78,7 +78,7 @@ final class PaymentViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private lazy var payButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = A.Colors.blackDynamic.color
@@ -91,7 +91,7 @@ final class PaymentViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private let collectionView : UICollectionView = {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: UICollectionViewFlowLayout())
@@ -101,16 +101,16 @@ final class PaymentViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
-        
+
     init(viewModel: PaymentViewViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         viewSupport()
@@ -119,27 +119,27 @@ final class PaymentViewController: UIViewController {
         termsOfUseView.addSubview(payButton)
         termsOfUseView.addSubview(termsOfUseLabel)
         termsOfUseView.addSubview(termsOfUseButton)
-        
+
         collectionView.dataSource = self
         collectionView.delegate = self
-        
+
         bind()
         buttonIsActivate(viewModel.isSelectedCoin)
-    
+
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             collectionView.bottomAnchor.constraint(equalTo: termsOfUseView.topAnchor)
         ])
-        
+
         NSLayoutConstraint.activate([
             termsOfUseView.heightAnchor.constraint(equalToConstant: Constants.TermsOfUseView.height),
             termsOfUseView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             termsOfUseView.leftAnchor.constraint(equalTo: view.leftAnchor),
             termsOfUseView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
-        
+
         NSLayoutConstraint.activate([
             payButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
                                             constant: Constants.PayButton.leftInset),
@@ -150,7 +150,7 @@ final class PaymentViewController: UIViewController {
                                               constant: -Constants.PayButton.bottomInset),
             payButton.centerXAnchor.constraint(equalTo: termsOfUseView.centerXAnchor)
         ])
-        
+
         NSLayoutConstraint.activate([
             termsOfUseLabel.topAnchor.constraint(equalTo: termsOfUseView.topAnchor,
                                                  constant: Constants.TermsOfUseLabel.topInset),
@@ -159,29 +159,30 @@ final class PaymentViewController: UIViewController {
             termsOfUseLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
                                                    constant: -Constants.TermsOfUseLabel.rightInset)
         ])
-        
+
         NSLayoutConstraint.activate([
             termsOfUseButton.topAnchor.constraint(equalTo: termsOfUseLabel.bottomAnchor),
             termsOfUseButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
                                                    constant: Constants.TermsOfUseButton.leftInset)
         ])
-  
+
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         progressHUD(viewModel.progressHUDIsActive)
         showNetWorkAlert(viewModel.showNetWorkError)
     }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
         coordinator.animate(alongsideTransition: { [weak self] _ in
             self?.collectionView.collectionViewLayout.invalidateLayout()
         }, completion: nil)
     }
-    
+
     private func viewSupport() {
         view.backgroundColor = A.Colors.whiteDynamic.color
         navigationItem.title = L.Cart.choosePay
@@ -189,22 +190,27 @@ final class PaymentViewController: UIViewController {
                                             style: .done,
                                             target: self,
                                             action: #selector(backVC))
-        leftBarButtom.tintColor = A.Colors.blackDynamic.color
         navigationItem.leftBarButtonItem = leftBarButtom
+        navigationController?.navigationBar.tintColor = A.Colors.blackDynamic.color
     }
-    
+
     @objc
     func backVC() {
         navigationController?.popViewController(animated: true)
     }
-    
+
     @objc
     func termsOfUsePressed() {
-        let webViewModel = CartWebViewModel()
-        let webVC = CartWebViewController(viewModel: webViewModel)
+        guard let url = URL(string: Constants.termsOfUseURLString) else { return }
+        let webViewModel = WebViewModel()
+        let webVC = WebViewController(
+            webViewModel: webViewModel,
+            url: url,
+            presentation: .navigation
+        )
         navigationController?.pushViewController(webVC, animated: true)
     }
-    
+
     @objc
     func pressedButton() {
         viewModel.pressPay { [weak self] result in
@@ -227,29 +233,19 @@ final class PaymentViewController: UIViewController {
             }
         }
     }
-    
+
     private func showSuccessVC() {
         let vc = SuccessPayViewController()
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: true)
     }
-    
+
     private func showAlert() {
-        let alert = UIAlertController(title: L.Cart.failurePay,
-                                      message: nil,
-                                      preferredStyle: .alert)
-        let actionCancel = UIAlertAction(title: L.Cart.cancel,
-                                    style: .default)
-        let actionRepeat = UIAlertAction(title: L.Cart.repeat,
-                                         style: .default) { [weak self] _ in
+        AlertPresenter.show(in: self, model: .cartPaymentError { [weak self] in
             self?.pressedButton()
-        }
-        alert.addAction(actionCancel)
-        alert.addAction(actionRepeat)
-        alert.preferredAction = actionRepeat
-        self.present(alert, animated: true)
+        })
     }
-    
+
     private func bind() {
         viewModel.$coins.bind { [weak self] _ in
             DispatchQueue.main.async {
@@ -272,7 +268,7 @@ final class PaymentViewController: UIViewController {
             }
         }
     }
-    
+
     private func progressHUD(_ isShow: Bool) {
         if isShow {
             ProgressHUD.show()
@@ -280,15 +276,15 @@ final class PaymentViewController: UIViewController {
             ProgressHUD.dismiss()
         }
     }
-    
+
     private func showNetWorkAlert(_ isShow: Bool?) {
         if isShow == true {
-            alertPresenter.showNetworkAlert(viewController: self) {
-                self.viewModel.fetchCoins()
-            }
+            AlertPresenter.show(in: self, model: .cartNetworkError { [weak self] in
+                self?.viewModel.fetchCoins()
+            })
         }
     }
-    
+
     private func buttonIsActivate(_ activate: Bool) {
         if activate {
             payButton.isEnabled = true
@@ -298,7 +294,7 @@ final class PaymentViewController: UIViewController {
             payButton.backgroundColor = A.Colors.blackDynamic.color.withAlphaComponent(0.5)
         }
     }
-    
+
 }
 
 // MARK: - Extension UICollectionViewDataSource
@@ -307,8 +303,9 @@ extension PaymentViewController: UICollectionViewDataSource {
                         numberOfItemsInSection section: Int) -> Int {
         return viewModel.coins.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PaymentCollectionCell = collectionView.dequeueReusableCell(indexPath: indexPath)
         let cellViewModel = viewModel.coins[indexPath.row]
         cell.viewModel = cellViewModel
@@ -321,7 +318,7 @@ extension PaymentViewController: UICollectionViewDataSource {
 
 // MARK: - Extension UICollectionViewDelegateFlowLayout
 extension PaymentViewController: UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? PaymentCollectionCell
         else { return }
@@ -329,14 +326,14 @@ extension PaymentViewController: UICollectionViewDelegateFlowLayout {
         cell.layer.borderColor = A.Colors.blackDynamic.color.cgColor
         cell.layer.borderWidth = Constants.Cell.selectBorderWidth
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? PaymentCollectionCell
         else { return }
         cell.layer.borderColor = UIColor.clear.cgColor
         cell.layer.borderWidth = Constants.Cell.deselectBorderWidth
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -345,7 +342,7 @@ extension PaymentViewController: UICollectionViewDelegateFlowLayout {
                             bottom: Constants.CollectionView.bottomInset,
                             right: Constants.CollectionView.rightInset)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -355,11 +352,11 @@ extension PaymentViewController: UICollectionViewDelegateFlowLayout {
                               Constants.CollectionView.minimumSpacing)/2,
                       height: Constants.Cell.height)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return Constants.CollectionView.minimumSpacing
     }
-    
+
 }

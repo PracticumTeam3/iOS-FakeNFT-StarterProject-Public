@@ -15,28 +15,28 @@ final class TabBarController: UITabBarController {
         // TODO: - добавить каталог
         let vc = UIViewController()
         let navVC = UINavigationController(rootViewController: vc)
-        
+
         navVC.tabBarItem = UITabBarItem(
             title: L.Catalog.title,
             image: A.Icons.TabBar.catalog.image,
             selectedImage: nil)
-        
+
         return navVC
     }
-    
+
     private var cartNavigationController: UINavigationController {
         let cartVM = CartTableViewViewModel()
         let vc = CartTableViewViewController(viewModel: cartVM)
         let navVC = UINavigationController(rootViewController: vc)
-        
+
         navVC.tabBarItem = UITabBarItem(
             title: L.Cart.title,
             image: A.Icons.TabBar.cart.image,
             selectedImage: nil)
-        
+
         return navVC
     }
-    
+
     private var profileNavigationController: UINavigationController {
         let navigationController = ProfileNavigationController()
         let viewModel = ProfileViewModel()
@@ -53,17 +53,17 @@ final class TabBarController: UITabBarController {
         navigationController.title = L.Profile.title
         return navigationController
     }
-    
+
     private var statisticNavigationController: UINavigationController {
         // TODO: - добавить статистику
         let vc = UIViewController()
         let navVC = UINavigationController(rootViewController: vc)
-        
+
         navVC.tabBarItem = UITabBarItem(
             title: L.Statistics.title,
             image: A.Icons.TabBar.statistic.image,
             selectedImage: nil)
-        
+
         return navVC
     }
 

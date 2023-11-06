@@ -7,7 +7,13 @@
 "alert.yes" = "Yes";
 "alert.no" = "No";
 "alert.close" = "Close";
+"alert.cancel" = "Cancel";
 "alert.tryAgain" = "Try again";
+"alert.repeat" = "Repeat";
+"alert.sort.title" = "Sort";
+"alert.sort.price" = "By price";
+"alert.sort.rating" = "By rating";
+"alert.sort.name" = "By name";
 
 "onboarding.page1.title" = "Explore";
 "onboarding.page1.subtitle" = "Join us and discover a new world of unique NFT for collectors";
@@ -47,10 +53,6 @@
 "profile.myNFT.nothingFound" = "Nothing found";
 "profile.myNFT.price.title" = "Price";
 "profile.myNFT.author.title" = "by";
-"profile.myNFT.sort.title" = "Sort";
-"profile.myNFT.sort.price" = "By price";
-"profile.myNFT.sort.rating" = "By rating";
-"profile.myNFT.sort.name" = "By name";
 "profile.myNFT.alert.fetchError" = "An error occurred while loading the nfts";
 
 "profile.favouriteNFT.title" = "Favourite NFT";
@@ -69,11 +71,6 @@
 "cart.delete" = "Delete";
 "cart.return" =  "Return";
 "cart.deleteQuestion" = "Are you sure you want\nto remove the item from the Trash?";
-"cart.sorted" = "Sorting";
-"cart.sortedByPrice" = "By price";
-"cart.sortedByRating" = "By rating";
-"cart.sortedByName" = "By name";
-"cart.sortedClose" = "Close";
 "cart.cartEmpty" = "Cart is Empty";
 "cart.choosePay" = "Select a payment method";
 "cart.userAgreementStart" = "By making a purchase, you agree to the terms and conditions";
@@ -81,8 +78,6 @@
 "cart.successPay" = "Success! Payment completed,\ncongratulations on your purchase!";
 "cart.backCataloge" = "Return to catalog";
 "cart.failurePay" = "Failed to make\npayment";
-"cart.cancel" = "Cancel";
-"cart.repeat" = "Repeat";
 "cart.networkAlertTitle" = "Something went wrong(";
 "cart.networkAlertMessage" = "Internet connection problem";
 

@@ -13,6 +13,8 @@ public enum L {
   /// Потяните, чтобы обновить
   public static let ptr = L.tr("Localizable", "ptr", fallback: "Потяните, чтобы обновить")
   public enum Alert {
+    /// Отменить
+    public static let cancel = L.tr("Localizable", "alert.cancel", fallback: "Отменить")
     /// Закрыть
     public static let close = L.tr("Localizable", "alert.close", fallback: "Закрыть")
     /// Нет
@@ -20,16 +22,26 @@ public enum L {
     /// Localizable.strings
     ///   FakeNFT
     public static let ok = L.tr("Localizable", "alert.ok", fallback: "ОК")
+    /// Повторить
+    public static let `repeat` = L.tr("Localizable", "alert.repeat", fallback: "Повторить")
     /// Попробовать еще раз
     public static let tryAgain = L.tr("Localizable", "alert.tryAgain", fallback: "Попробовать еще раз")
     /// Да
     public static let yes = L.tr("Localizable", "alert.yes", fallback: "Да")
+    public enum Sort {
+      /// По названию
+      public static let name = L.tr("Localizable", "alert.sort.name", fallback: "По названию")
+      /// По цене
+      public static let price = L.tr("Localizable", "alert.sort.price", fallback: "По цене")
+      /// По рейтингу
+      public static let rating = L.tr("Localizable", "alert.sort.rating", fallback: "По рейтингу")
+      /// Сортировка
+      public static let title = L.tr("Localizable", "alert.sort.title", fallback: "Сортировка")
+    }
   }
   public enum Cart {
     /// Вернуться в каталог
     public static let backCataloge = L.tr("Localizable", "cart.backCataloge", fallback: "Вернуться в каталог")
-    /// Отмена
-    public static let cancel = L.tr("Localizable", "cart.cancel", fallback: "Отмена")
     /// Корзина пуста
     public static let cartEmpty = L.tr("Localizable", "cart.cartEmpty", fallback: "Корзина пуста")
     /// Выберите способ оплаты
@@ -50,20 +62,8 @@ public enum L {
     public static let pay = L.tr("Localizable", "cart.pay", fallback: "Оплатить")
     /// Цена
     public static let price = L.tr("Localizable", "cart.price", fallback: "Цена")
-    /// Повторить
-    public static let `repeat` = L.tr("Localizable", "cart.repeat", fallback: "Повторить")
     /// Вернуться
     public static let `return` = L.tr("Localizable", "cart.return", fallback: "Вернуться")
-    /// Сортировка
-    public static let sorted = L.tr("Localizable", "cart.sorted", fallback: "Сортировка")
-    /// По названию
-    public static let sortedByName = L.tr("Localizable", "cart.sortedByName", fallback: "По названию")
-    /// По цене
-    public static let sortedByPrice = L.tr("Localizable", "cart.sortedByPrice", fallback: "По цене")
-    /// По рейтингу
-    public static let sortedByRating = L.tr("Localizable", "cart.sortedByRating", fallback: "По рейтингу")
-    /// Закрыть
-    public static let sortedClose = L.tr("Localizable", "cart.sortedClose", fallback: "Закрыть")
     /// Успех! Оплата прошла,
     /// поздравляем с покупкой!
     public static let successPay = L.tr("Localizable", "cart.successPay", fallback: "Успех! Оплата прошла,\nпоздравляем с покупкой!")
@@ -206,16 +206,6 @@ public enum L {
       public enum Search {
         /// Введите название NFT или имя автора
         public static let placeholder = L.tr("Localizable", "profile.myNFT.search.placeholder", fallback: "Введите название NFT или имя автора")
-      }
-      public enum Sort {
-        /// По названию
-        public static let name = L.tr("Localizable", "profile.myNFT.sort.name", fallback: "По названию")
-        /// По цене
-        public static let price = L.tr("Localizable", "profile.myNFT.sort.price", fallback: "По цене")
-        /// По рейтингу
-        public static let rating = L.tr("Localizable", "profile.myNFT.sort.rating", fallback: "По рейтингу")
-        /// Сортировка
-        public static let title = L.tr("Localizable", "profile.myNFT.sort.title", fallback: "Сортировка")
       }
     }
   }

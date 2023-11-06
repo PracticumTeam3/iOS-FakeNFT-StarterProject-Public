@@ -71,6 +71,51 @@ struct AlertModel {
         )
     }
 
+    static func cartNetworkError(
+        repeatCompletion: @escaping () -> Void
+    ) -> AlertModel {
+        AlertModel(
+            title: L.Cart.networkAlertTitle,
+            message: L.Cart.networkAlertMessage,
+            buttons: [
+                AlertButton(
+                    text:  L.Alert.cancel,
+                    style: .default,
+                    completion: {}
+                ),
+                AlertButton(
+                    text:  L.Alert.repeat,
+                    style: .default,
+                    completion: repeatCompletion
+                )
+            ],
+            preferredStyle: .alert
+        )
+    }
+
+    static func cartPaymentError(
+        repeatCompletion: @escaping () -> Void
+    ) -> AlertModel {
+        AlertModel(
+            title: L.Cart.failurePay,
+            message: nil,
+            buttons: [
+                AlertButton(
+                    text:  L.Alert.cancel,
+                    style: .default,
+                    completion: {}
+                ),
+                AlertButton(
+                    text:  L.Alert.repeat,
+                    style: .default,
+                    completion: repeatCompletion,
+                    isPreferredAction: true
+                )
+            ],
+            preferredStyle: .alert
+        )
+    }
+
     static func myNFTLoadError(message: String) -> AlertModel {
         baseLoadError(
             title: L.Profile.MyNFT.Alert.fetchError,
@@ -116,21 +161,21 @@ struct AlertModel {
         nameCompletion: @escaping () -> Void
     ) -> AlertModel {
         AlertModel(
-            title: L.Profile.MyNFT.Sort.title,
+            title: L.Alert.Sort.title,
             message: nil,
             buttons: [
                 AlertButton(
-                    text: L.Profile.MyNFT.Sort.price,
+                    text: L.Alert.Sort.price,
                     style: .default,
                     completion: priceCompletion
                 ),
                 AlertButton(
-                    text: L.Profile.MyNFT.Sort.rating,
+                    text: L.Alert.Sort.rating,
                     style: .default,
                     completion: ratingCompletion
                 ),
                 AlertButton(
-                    text: L.Profile.MyNFT.Sort.name,
+                    text: L.Alert.Sort.name,
                     style: .default,
                     completion: nameCompletion
                 ),

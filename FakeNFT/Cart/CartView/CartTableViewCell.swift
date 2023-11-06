@@ -9,9 +9,9 @@ import UIKit
 import Kingfisher
 
 final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
-    
+
     static var defaultReuseIdentifier: String  = "CartTableViewCell"
-    
+
     private enum Constants {
         static let height: CGFloat = 140
         enum NftImageView {
@@ -44,7 +44,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         }
 
     }
-    
+
     private let nftImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
@@ -52,7 +52,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private let nftNameLabel: UILabel = {
         let label = UILabel()
         label.font = .Bold.small
@@ -63,7 +63,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let ratingView = RatingStackView()
     private let priceLabel: UILabel = {
         let label = UILabel()
@@ -74,7 +74,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let nftPriceLabel: UILabel = {
         let label = UILabel()
         label.font = .Bold.small
@@ -84,7 +84,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let deletebutton: UIButton = {
         let button = UIButton()
         let image = A.Icons.deleteNft.image
@@ -93,7 +93,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     var viewModel: CartTableViewCellViewModel! {
         didSet {
             nftImageView.kf.indicatorType = .activity
@@ -103,7 +103,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
             ratingView.setRating(rating: viewModel.rating)
         }
     }
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = A.Colors.whiteDynamic.color
@@ -117,11 +117,11 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         contentView.addSubview(deletebutton)
         layoutSupport()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func layoutSupport() {
         NSLayoutConstraint.activate([
             contentView.heightAnchor.constraint(equalToConstant: Constants.height),
@@ -165,7 +165,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
             deletebutton.widthAnchor.constraint(equalToConstant: Constants.DeleteButton.width)
         ])
     }
-    
+
     @objc
     private func deleteNft() {
         guard let image = nftImageView.image else { return }

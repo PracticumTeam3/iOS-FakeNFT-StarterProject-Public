@@ -12,26 +12,26 @@ protocol CartTableViewViewModelDelegate: AnyObject {
 }
 
 final class CartTableViewViewModel {
-    
+
     private var nfts = [CartTableViewCellViewModel]()
-    
+
     private enum ConstantName {
         static let nft = "NFT"
         static let eth = "ETH"
     }
-    
+
     @CartObservable private(set) var sortedNFT = [CartTableViewCellViewModel]()
     @CartObservable private(set) var nftIsEmpty: Bool = true
     @CartObservable private(set) var nftCount: String = ""
     @CartObservable private(set) var nftPrices: String = ""
     @CartObservable private(set) var progressHUDIsActive: Bool = false
     @CartObservable private(set) var showNetWorkError: Bool?
-    
+
     private let userSortedService = UserSortedService()
     private let cartService = CartService.shared
     private var sortedName: CartSortedStorage?
     weak var delegate: CartTableViewViewModelDelegate?
-    
+
     init() {
         sortedName = userSortedService.cartSorted
         checkProgress(cartService.loadIsShow)
@@ -42,28 +42,28 @@ final class CartTableViewViewModel {
         checkOverPrice()
         checkAlert(cartService.netWorkAlert)
     }
-    
+
     func fetchOrder() {
         cartService.fetchOrder()
         self.nfts = self.cartService.nfts.compactMap { CartTableViewCellViewModel(imageURL: $0.imagesURL[0],
-                                                                                              nftName: $0.name,
-                                                                                              rating: $0.rating,
-                                                                                              price: $0.price,
-                                                                                              currency: ConstantName.eth,
-                                                                                              id: $0.id)}
+                                                                                  nftName: $0.name,
+                                                                                  rating: $0.rating,
+                                                                                  price: $0.price,
+                                                                                  currency: ConstantName.eth,
+                                                                                  id: $0.id)}
 
     }
-    
+
     func changeSortes(_ newParametr: CartSortedStorage) {
         userSortedService.cartSorted = newParametr
         sortedName = userSortedService.cartSorted
         sortedCart()
     }
-    
+
     private func checkNFTCount() {
         nftIsEmpty = nfts.isEmpty
     }
-    
+
     private func sortedCart() {
         guard let sortedName = sortedName else { return }
         if nftIsEmpty { return }
@@ -76,7 +76,7 @@ final class CartTableViewViewModel {
             sortedNFT = nfts.sorted {$0.rating > $1.rating}
         }
     }
-    
+
     private func bind() {
         cartService.$nfts.bind { [weak self] newNftModel in
             self?.nfts = newNftModel.compactMap { CartTableViewCellViewModel(imageURL: $0.imagesURL[0],
@@ -98,7 +98,7 @@ final class CartTableViewViewModel {
             self?.checkProgress(loading)
         }
     }
-    
+
     private func checkProgress(_ loading: Loading?) {
         guard let loading else {
             self.progressHUDIsActive = false
@@ -111,7 +111,7 @@ final class CartTableViewViewModel {
             self.progressHUDIsActive = false
         }
     }
-    
+
     private func checkAlert(_ networkAlert: NetworkAlert?) {
         guard let networkAlert else {
             self.showNetWorkError = nil
@@ -124,16 +124,16 @@ final class CartTableViewViewModel {
             self.showNetWorkError = false
         }
     }
-    
+
     private func countNft() {
         nftCount = String(nfts.count) + " " + ConstantName.nft
     }
-    
+
     private func checkOverPrice() {
         let price = nfts.reduce(0) {$0 + $1.price}
         nftPrices = price.nftPriceString(price: ConstantName.eth)
     }
-    
+
 }
 // MARK: - Extension CartCellViewModelDelegate
 extension CartTableViewViewModel: CartCellViewModelDelegate {

@@ -128,7 +128,8 @@ final class ProfileViewController: UIViewController {
         let viewModel = WebViewModel()
         let viewController = WebViewController(webViewModel: viewModel,
                                                url: url,
-                                               presentation: .navigation)
+                                               presentation: .navigation,
+                                               title: L.Profile.AboutDeveloper.title)
         navigationController?.pushViewController(viewController, animated: true)
     }
 

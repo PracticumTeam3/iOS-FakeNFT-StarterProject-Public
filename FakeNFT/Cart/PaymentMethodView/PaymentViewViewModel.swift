@@ -8,7 +8,7 @@
 import Foundation
 
 final class PaymentViewViewModel {
-    
+
     @CartObservable private(set) var coins: [PaymentCellViewModel] = []
     @CartObservable private(set) var isSelectedCoin:Bool = false
     @CartObservable private(set) var progressHUDIsActive: Bool = true
@@ -20,7 +20,7 @@ final class PaymentViewViewModel {
             checkSelectedCoin()
         }
     }
-    
+
     init(selectedCoin: String? = nil) {
         fetchCoins()
         checkProgress(cartService.loadIsShow)
@@ -29,18 +29,18 @@ final class PaymentViewViewModel {
         bind()
         checkAlert(cartService.netWorkAlert)
     }
-    
+
     func fetchCoins() {
         cartService.fetchCurrencies()
         DispatchQueue.main.async {
             self.coins = self.currenciesToCoins(self.cartService.currencies)
         }
     }
-    
+
     func changeSelectedCoin(id: String) {
         self.selectedCoin = id
     }
-    
+
     func pressPay(completion: @escaping (Result<Bool,Error>) -> Void) {
         guard let selectedCoin = selectedCoin else { return }
         cartService.payOrder(selectedCoin) { result in
@@ -56,11 +56,11 @@ final class PaymentViewViewModel {
             }
         }
     }
-    
+
     private func checkSelectedCoin() {
         isSelectedCoin = selectedCoin != nil
     }
-    
+
     private func bind() {
         cartService.$currencies.bind { [weak self] newCurrencies in
             guard let self else { return }
@@ -75,7 +75,7 @@ final class PaymentViewViewModel {
             self?.checkProgress(loading)
         }
     }
-    
+
     private func checkAlert(_ netWorkAlert: NetworkAlert?) {
         guard let netWorkAlert else {
             self.showNetWorkError = nil
@@ -88,7 +88,7 @@ final class PaymentViewViewModel {
             self.showNetWorkError = false
         }
     }
-    
+
     private func checkProgress(_ loading: Loading?) {
         guard let loading else {
             self.progressHUDIsActive = false
@@ -101,7 +101,7 @@ final class PaymentViewViewModel {
             self.progressHUDIsActive = false
         }
     }
-    
+
     private func currenciesToCoins(_ currencies: [Currency]) -> [PaymentCellViewModel] {
         return currencies.compactMap { PaymentCellViewModel(imageURL: $0.imageURL,
                                                             coinName: $0.title,
