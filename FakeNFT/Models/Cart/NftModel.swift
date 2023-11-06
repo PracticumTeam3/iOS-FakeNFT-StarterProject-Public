@@ -16,7 +16,11 @@ struct NftModel {
     
     init(name: String, images: [String], rating: Int, price: Float, id: String) {
         self.name = name
-        self.imagesURL = images.compactMap({ URL(string: $0) })
+        if images.isEmpty {
+            self.imagesURL = [nil]
+        } else {
+            self.imagesURL = images.compactMap({ URL(string: $0) })
+        }
         self.rating = rating
         self.price = price
         self.id = id

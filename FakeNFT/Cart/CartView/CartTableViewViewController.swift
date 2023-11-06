@@ -36,7 +36,7 @@ final class CartTableViewViewController: UIViewController {
     }
     
     private let viewModel: CartTableViewViewModel
-    private let alertPresenter = CartAlertPresenter()
+    private let alertPresenter = AlertPresenter()
     
     private let emptyLabel: UILabel = {
         let label = UILabel()
@@ -135,7 +135,7 @@ final class CartTableViewViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         progressHUD(viewModel.progressHUDIsActive)
-        showNetWorkAlert(viewModel.showNetWorkError)
+        showNetworkAlert(viewModel.showNetWorkError)
     }
     
     private func layoutSupport() {
@@ -212,7 +212,7 @@ final class CartTableViewViewController: UIViewController {
         }
         viewModel.$showNetWorkError.bind { [weak self] isShow in
             DispatchQueue.main.async {
-                self?.showNetWorkAlert(isShow)
+                self?.showNetworkAlert(isShow)
             }
         }
     }
@@ -242,9 +242,9 @@ final class CartTableViewViewController: UIViewController {
         }
     }
     
-    private func showNetWorkAlert(_ isShow: Bool?) {
+    private func showNetworkAlert(_ isShow: Bool?) {
         if isShow == true {
-            alertPresenter.showNetWorkAlert(viewController: self) {
+            alertPresenter.showNetworkAlert(viewController: self) {
                 self.viewModel.fetchOrder()
             }
         }

@@ -59,5 +59,18 @@ final class AlertPresenter {
             controller.present(alert, animated: true, completion: nil)
         }
     }
+    
+    func showNetworkAlert(viewController: UIViewController, completion: @escaping() -> Void) {
+        let alert = UIAlertController(title: L.Cart.networkAlertTitle,
+                                      message: L.Cart.networkAlertMessage,
+                                      preferredStyle: .alert)
+        let actionCancel = UIAlertAction(title: L.Cart.cancel, style: .default)
+        let actionRepeat = UIAlertAction(title: L.Cart.repeat, style: .default) { _ in
+            completion()
+        }
+        alert.addAction(actionCancel)
+        alert.addAction(actionRepeat)
+        viewController.present(alert, animated: true)
+    }
 
 }

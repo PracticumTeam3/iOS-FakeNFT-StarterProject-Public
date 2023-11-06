@@ -79,7 +79,7 @@ final class CartWebViewController: UIViewController {
     
     private func viewSupport() {
         view.backgroundColor = A.Colors.whiteDynamic.color
-        let leftBarButtom = UIBarButtonItem(image: A.Icons.backward.image,
+        let leftBarButtom = UIBarButtonItem(image: A.Icons.back.image,
                                             style: .done,
                                             target: self,
                                             action: #selector(backVC))

@@ -42,13 +42,13 @@ enum Endpoint {
         case .nftById(let id): return URL(string: Endpoint.nftById(id: id).path,
                                           relativeTo: Endpoint.baseURL)
         case .userById(let id): return URL(string: Endpoint.userById(id: id).path,
-                                          relativeTo: Endpoint.baseURL)
+                                           relativeTo: Endpoint.baseURL)
         case .order: return URL(string: Endpoint.order.path,
                                 relativeTo: Endpoint.baseURL)
         case .currencies: return URL(string: Endpoint.currencies.path,
-                                        relativeTo: Endpoint.baseURL)
+                                     relativeTo: Endpoint.baseURL)
         case .paymentById(let id): return URL(string: Endpoint.paymentById(id: id).path,
-                                                relativeTo: Endpoint.baseURL)
+                                              relativeTo: Endpoint.baseURL)
         }
     }
 

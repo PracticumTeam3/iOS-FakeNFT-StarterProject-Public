@@ -45,7 +45,7 @@ final class PaymentViewController: UIViewController {
     }
     
     private let viewModel: PaymentViewViewModel
-    private let alertPresenter = CartAlertPresenter()
+    private let alertPresenter = AlertPresenter()
     
     private let termsOfUseView: UIView = {
         let view = UIView()
@@ -185,7 +185,7 @@ final class PaymentViewController: UIViewController {
     private func viewSupport() {
         view.backgroundColor = A.Colors.whiteDynamic.color
         navigationItem.title = L.Cart.choosePay
-        let leftBarButtom = UIBarButtonItem(image: A.Icons.backward.image,
+        let leftBarButtom = UIBarButtonItem(image: A.Icons.back.image,
                                             style: .done,
                                             target: self,
                                             action: #selector(backVC))
@@ -283,7 +283,7 @@ final class PaymentViewController: UIViewController {
     
     private func showNetWorkAlert(_ isShow: Bool?) {
         if isShow == true {
-            alertPresenter.showNetWorkAlert(viewController: self) {
+            alertPresenter.showNetworkAlert(viewController: self) {
                 self.viewModel.fetchCoins()
             }
         }

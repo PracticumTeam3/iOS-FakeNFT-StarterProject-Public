@@ -26,6 +26,8 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         enum RatingView {
             static let topInset: CGFloat = 50
             static let leftInset: CGFloat = 20
+            static let width: CGFloat = 68
+            static let height: CGFloat = 12
         }
         enum PriceLabel {
             static let leftInset: CGFloat = 20
@@ -40,6 +42,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
             static let width: CGFloat = 40
             static let height: CGFloat = 40
         }
+
     }
     
     private let nftImageView: UIImageView = {
@@ -61,7 +64,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         return label
     }()
     
-    private let ratingView = RatingView(rating: 0)
+    private let ratingView = RatingStackView()
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.font = .Regular.small
@@ -97,7 +100,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
             nftImageView.kf.setImage(with: viewModel.imageURL)
             nftNameLabel.text = viewModel.nftName
             nftPriceLabel.text = viewModel.priceString
-            ratingView.updateRating(viewModel.rating)
+            ratingView.setRating(rating: viewModel.rating)
         }
     }
     
@@ -106,6 +109,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         self.backgroundColor = A.Colors.whiteDynamic.color
         contentView.addSubview(nftImageView)
         contentView.addSubview(nftNameLabel)
+        ratingView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(ratingView)
         contentView.addSubview(priceLabel)
         contentView.addSubview(nftPriceLabel)
@@ -134,6 +138,8 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
                                                constant: Constants.NftNameLabel.leftInset)
         ])
         NSLayoutConstraint.activate([
+            ratingView.heightAnchor.constraint(equalToConstant: Constants.RatingView.height),
+            ratingView.widthAnchor.constraint(equalToConstant: Constants.RatingView.width),
             ratingView.leftAnchor.constraint(equalTo: nftImageView.rightAnchor,
                                              constant: Constants.RatingView.leftInset),
             ratingView.topAnchor.constraint(equalTo: contentView.topAnchor,
