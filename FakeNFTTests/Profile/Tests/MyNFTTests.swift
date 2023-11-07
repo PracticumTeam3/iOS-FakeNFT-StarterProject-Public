@@ -38,8 +38,8 @@ final class MyNFTTests: XCTestCase {
 
     func testStorageSortType() {
         // given
-        let storageService = StorageServiceSpy()
-        let myNFTViewModel = MyNFTViewModel(storageService: storageService)
+        let storageService = ProfileStorageServiceSpy()
+        let myNFTViewModel = MyNFTViewModel(profileStorageService: storageService)
         XCTAssertEqual(myNFTViewModel.sortType, .byName)
 
         // when
@@ -51,8 +51,8 @@ final class MyNFTTests: XCTestCase {
 
     func testViewModelSortType() {
         // given
-        let storageService = StorageServiceSpy()
-        let myNFTViewModel = MyNFTViewModel(storageService: storageService)
+        let storageService = ProfileStorageServiceSpy()
+        let myNFTViewModel = MyNFTViewModel(profileStorageService: storageService)
         XCTAssertEqual(myNFTViewModel.sortType, .byName)
 
         // when

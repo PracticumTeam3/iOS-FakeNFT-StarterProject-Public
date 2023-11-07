@@ -3,6 +3,13 @@
 # Установка
 Вызвать `pod install` в директории проекта
 
+# Скринкасты с демонстрацией эпиков
+
+- [Profile](https://disk.yandex.ru/i/LdN-nzewVwcf8Q)
+
+Дополнительно:
+- [Onboarding](https://disk.yandex.ru/i/nPWqVcCMEdtueQ)
+
 # Ссылки
 
 [Дизайн Figma](https://www.figma.com/file/k1LcgXHGTHIeiCv4XuPbND/FakeNFT-(YP)?node-id=96-5542&t=YdNbOI8EcqdYmDeg-0)

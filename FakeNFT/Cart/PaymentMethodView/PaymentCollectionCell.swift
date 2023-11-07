@@ -9,9 +9,9 @@ import UIKit
 import Kingfisher
 
 final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
-    
+
     static var defaultReuseIdentifier: String  = "PaymentCollectionCell"
-    
+
     private enum Constants {
         static let cornerRadius: CGFloat = 12
         enum CoinImageView {
@@ -27,7 +27,7 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
             static let leftInset: CGFloat = 4
         }
     }
-    
+
     var viewModel: PaymentCellViewModel! {
         didSet {
             coinImageView.kf.indicatorType = .activity
@@ -36,7 +36,7 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
             coinShortNameLabel.text = viewModel.coinShortName
         }
     }
-    
+
     private let coinImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
@@ -46,7 +46,7 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     private let coinNameLabel: UILabel = {
         let label = UILabel()
         label.font = .Regular.small
@@ -56,7 +56,7 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let coinShortNameLabel: UILabel = {
         let label = UILabel()
         label.font = .Regular.small
@@ -66,22 +66,22 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: CGRect())
         cellSupport()
         layoutSupport()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func layoutSupport() {
         self.addSubview(coinImageView)
         self.addSubview(coinNameLabel)
         self.addSubview(coinShortNameLabel)
-        
+
         NSLayoutConstraint.activate([
             coinImageView.widthAnchor.constraint(equalToConstant: Constants.CoinImageView.width),
             coinImageView.heightAnchor.constraint(equalToConstant: Constants.CoinImageView.height),
@@ -100,7 +100,7 @@ final class PaymentCollectionCell: UICollectionViewCell, ReuseIdentifying {
                                                      constant: Constants.CoinShortNameLabel.leftInset)
         ])
     }
-    
+
     private func cellSupport() {
         self.backgroundColor = A.Colors.lightGrayDynamic.color
         self.layer.masksToBounds = true

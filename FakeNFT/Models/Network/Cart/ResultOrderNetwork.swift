@@ -11,7 +11,7 @@ struct ResultOrderNetwork: Codable {
     let success: Bool
     let orderId: String
     let currencyId: String
-    
+
     enum CodingKeys: String, CodingKey {
         case success
         case orderId

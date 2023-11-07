@@ -19,5 +19,5 @@ struct SetOrderRequest: NetworkRequest {
     init(model:OrderNetwork) {
         self.model = model
     }
-    
+
 }

@@ -8,8 +8,8 @@
 import Foundation
 @propertyWrapper
 class CartObservable<Value> {
-    
-    private var onChange: ((Value) -> Void)? = nil
+
+    private var onChange: ((Value) -> Void)?
     var wrappedValue: Value {
         didSet {
             onChange?(wrappedValue)
@@ -18,11 +18,11 @@ class CartObservable<Value> {
     var projectedValue: CartObservable<Value> {
         return self
     }
-    
+
     init(wrappedValue: Value) {
         self.wrappedValue = wrappedValue
     }
-    
+
     func bind(action: @escaping (Value) -> Void) {
         self.onChange = action
     }
