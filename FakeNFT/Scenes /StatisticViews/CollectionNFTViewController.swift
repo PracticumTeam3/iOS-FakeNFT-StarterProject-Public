@@ -5,6 +5,7 @@
 //  Created by Andrey Ovchinnikov on 01.11.2023.
 //
 
+import ProgressHUD
 import UIKit
 
 final class CollectionNFTViewController: UIViewController {
@@ -32,14 +33,14 @@ final class CollectionNFTViewController: UIViewController {
         return collectionView
     }()
     
-   private let parameters = Parameters(
+    private let parameters = Parameters(
         countCells: 3,
         heightCell: 192,
         xSpacing: 9,
         ySpacing: 8
     )
     
-    private let items = Array(1...10)
+    private var viewModel: CollectionNFTViewModelProtocol?
     
     // MARK: - Override methods
     override func viewDidLoad() {
@@ -50,9 +51,15 @@ final class CollectionNFTViewController: UIViewController {
         setupConstraints()
         collectionView.dataSource = self
         collectionView.delegate = self
+        fetchNFTs()
     }
     
     // MARK: - Private methods
+    func configure(nftsID: [String]) {
+        viewModel = CollectionNFTViewModel(nftIDs: nftsID)
+        viewModel?.delegate = self
+    }
+    
     private func addSubviews() {
         view.addSubview(collectionView)
     }
@@ -65,6 +72,33 @@ final class CollectionNFTViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    private func fetchNFTs() {
+        ProgressHUD.show()
+        viewModel?.fetchNFT { [weak self] in
+                self?.collectionView.reloadData()
+                ProgressHUD.dismiss()
+            let n = self?.viewModel?.nftsIsEmpty()
+            if n! {
+                self?.showAlertWithError()
+            }
+        }
+    }
+    
+    private func showAlertWithError() {
+        let alert = UIAlertController(
+            title: nil,
+            message: L.Statistics.isEmpty,
+            preferredStyle: .alert
+        )
+        let cancel = UIAlertAction(
+            title: L.Statistics.errorActionCancel,
+            style: .default) { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
 }
 
 // MARK: - Extension UICollectionViewDataSource
@@ -73,22 +107,25 @@ extension CollectionNFTViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        items.count
+        viewModel?.numberOfRows() ?? 0
+        
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "cell",
             for: indexPath
         ) as? CollectionNFTCell else { return UICollectionViewCell() }
-    
+        guard let viewModel = viewModel?.cellViewModel(
+            at: indexPath,
+            delegate: self
+        ) else { return UICollectionViewCell() }
+        cell.configure(viewModel: viewModel)
         return cell
     }
-    
 }
+
 // MARK: - Extension UICollectionViewDelegateFlowLayout
 extension CollectionNFTViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
@@ -115,5 +152,23 @@ extension CollectionNFTViewController: UICollectionViewDelegateFlowLayout {
         minimumInteritemSpacingForSectionAt section: Int
     ) -> CGFloat {
         parameters.xSpacing
+    }
+}
+
+extension CollectionNFTViewController: CollectionNFTCellViewModelDelegate {
+    func reloadItems(indexPath: IndexPath) {
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadItems(at: [indexPath])
+        }
+    }
+    
+    func showAlert() {
+        showAlertWithError()
+    }
+}
+
+extension CollectionNFTViewController: CollectionNFTViewModelDelegate {
+    func showAlertNftModel() {
+        showAlertWithError()
     }
 }

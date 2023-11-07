@@ -6,8 +6,8 @@
 //
 
 import Kingfisher
+import ProgressHUD
 import UIKit
-import WebKit
 
 final class DetailsProfileViewController: UIViewController {
     // MARK: - Private properties
@@ -94,7 +94,12 @@ final class DetailsProfileViewController: UIViewController {
         setupConstraints()
         setupNavigationBar()
     }
-     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ProgressHUD.dismiss()
+    }
+    
     // MARK: - Public methods
     func configure(viewModel: ProfileCellViewModelProtocol) {
         nameUser.text = viewModel.profileName
@@ -160,7 +165,12 @@ final class DetailsProfileViewController: UIViewController {
         let backImageBackButton = UIImage(asset: A.Icons.back)
         navigationController?.navigationBar.backIndicatorImage = backImageBackButton
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImageBackButton
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
         navigationItem.backBarButtonItem?.tintColor = A.Colors.blackDynamic.color
     }
     
@@ -177,6 +187,8 @@ final class DetailsProfileViewController: UIViewController {
     
     @objc private func pushToUserCollections() {
         let collectionVC = CollectionNFTViewController()
+        guard let viewModel = viewModel else { return }
+        collectionVC.configure(nftsID: viewModel.nfts)
         navigationController?.pushViewController(collectionVC, animated: true)
     }
 }

@@ -22,5 +22,6 @@
 "statistics.Error" = "Network error";
 "statistics.ErrorAction" = "Again";
 "statistics.ErrorActionCancel" = "Cancel";
+"statistics.isEmpty" = "It's empty";
 
 "catalog.title" = "Catalog";

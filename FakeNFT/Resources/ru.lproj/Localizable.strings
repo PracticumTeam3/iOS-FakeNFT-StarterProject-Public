@@ -22,5 +22,6 @@
 "statistics.Error" = "Проблемы с интернет соединением";
 "statistics.ErrorAction" = "Еще раз";
 "statistics.ErrorActionCancel" = "Выход";
+"statistics.isEmpty" = "Тут пусто";
 
 "catalog.title" = "Каталог";

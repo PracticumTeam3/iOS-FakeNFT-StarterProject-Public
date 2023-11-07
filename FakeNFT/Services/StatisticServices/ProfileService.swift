@@ -9,7 +9,7 @@ import Foundation
 
 final class ProfileService {
     // MARK: - Private properties
-    private let request = GetProfilesRequest()
+    private let request = GetUsersRequest()
     private let networkClient = DefaultNetworkClient()
     
     // MARK: - Public properties
@@ -17,9 +17,9 @@ final class ProfileService {
     
     // MARK: - Initializers
     private init() {}
-    
+     
     // MARK: - Public methods
-    func fetchProfiles(completion: @escaping(Result<[ProfileResult], Error>)-> Void) {
+    func fetchProfiles(completion: @escaping(Result<[ProfileResult], Error>) -> Void) {
         networkClient.send(
             request: request,
             type: [ProfileResult].self) { result in

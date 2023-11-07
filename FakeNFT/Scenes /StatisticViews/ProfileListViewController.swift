@@ -39,7 +39,7 @@ final class ProfileListViewController: UIViewController {
         tableView.delegate = self
         viewModel = ProfileListViewModel(delegate: self)
         fetchProfiles()
-        setupNavigationBar()
+        appearanceNavBarAndTabBar()
     }
     
     // MARK: - Private methods
@@ -56,7 +56,7 @@ final class ProfileListViewController: UIViewController {
         ])
     }
     
-    private func setupNavigationBar() {
+    private func appearanceNavBarAndTabBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         let rightButton = UIBarButtonItem(customView: sortButton)
@@ -66,6 +66,8 @@ final class ProfileListViewController: UIViewController {
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImageBackButton
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = A.Colors.blackDynamic.color
+        tabBarController?.tabBar.shadowImage = UIImage()
+        tabBarController?.tabBar.backgroundImage = UIImage()
     }
     
     private func fetchProfiles() {

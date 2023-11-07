@@ -5,6 +5,7 @@
 //  Created by Andrey Ovchinnikov on 01.11.2023.
 //
 
+import Kingfisher
 import UIKit
 
 final class CollectionNFTCell: UICollectionViewCell {
@@ -18,15 +19,15 @@ final class CollectionNFTCell: UICollectionViewCell {
          return view
      }()
     
-    private let iconNFT: UIView = {
-         let view = UIView()
-         view.backgroundColor = .systemBlue
+    private let iconNFT: UIImageView = {
+         let view = UIImageView()
+         view.clipsToBounds = true
          view.layer.cornerRadius = 12
          view.translatesAutoresizingMaskIntoConstraints = false
          return view
     }()
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.spacing = 2
@@ -34,9 +35,9 @@ final class CollectionNFTCell: UICollectionViewCell {
         return stack
     }()
     
-    private let basketButton: UIButton = {
+   lazy private var basketButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(A.Icons.basket.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.addTarget(self, action: #selector(basketButtonTapped), for: .touchUpInside)
         button.tintColor = A.Colors.blackDynamic.color
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -45,7 +46,7 @@ final class CollectionNFTCell: UICollectionViewCell {
     private let nameLabel: UILabel = {
        let label = UILabel()
         label.font = .bold17
-        label.text = "Stella"
+        label.text = ""
         label.textColor = A.Colors.blackDynamic.color
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -54,32 +55,64 @@ final class CollectionNFTCell: UICollectionViewCell {
     private let priceLabel: UILabel = {
        let label = UILabel()
         label.font = .medium10
-        label.text = "1,78ETH"
+        label.text = ""
         label.textColor = A.Colors.blackDynamic.color
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let likeButton: UIButton = {
+    lazy private var likeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(A.Icons.favouriteInactive.image, for: .normal)
+        button.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
+    // MARK: - Public properties
+    var viewModel: CollectionNFTCellViewModelProtocol?
+    
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Public methods
-    func configure() {
+    func configure(viewModel: CollectionNFTCellViewModelProtocol) {
+        self.viewModel = viewModel
+        nameLabel.text = viewModel.name
+        priceLabel.text = viewModel.price + " ETH"
+        iconNFT.kf.setImage(with: URL(string: viewModel.images[0]))
+        setupStarsOnStackView(rating: Int(viewModel.rating) ?? 0)
+        viewModel.fetchProfileLikes() { [weak self] in
+            if viewModel.profileLikes.contains(viewModel.id) {
+                DispatchQueue.main.async {
+                    self?.likeButton.setImage(A.Icons.favouriteActive.image, for: .normal)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.likeButton.setImage(A.Icons.favouriteInactive.image, for: .normal)
+                }
+            }
+        }
         
+        viewModel.fetchProfileNfts() { [weak self] in
+            if viewModel.profileNfts.contains(String(viewModel.id)) {
+                DispatchQueue.main.async {
+                    self?.basketButton.setImage(A.Icons.inactiveBasket.image, for: .normal)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.basketButton.setImage(A.Icons.basket.image, for: .normal)
+                }
+            }
+        }
     }
     
     // MARK: - Private methods
@@ -91,11 +124,6 @@ final class CollectionNFTCell: UICollectionViewCell {
         contentView.addSubview(stackView)
         contentView.addSubview(priceLabel)
         contentView.addSubview(likeButton)
-        stackView.addArrangedSubview(UIImageView(image: A.Icons.starActive.image))
-        stackView.addArrangedSubview(UIImageView(image: A.Icons.starActive.image))
-        stackView.addArrangedSubview(UIImageView(image: A.Icons.starActive.image))
-        stackView.addArrangedSubview(UIImageView(image: A.Icons.star.image))
-        stackView.addArrangedSubview(UIImageView(image: A.Icons.star.image))
     }
     
     private func setupConstraints() {
@@ -124,8 +152,31 @@ final class CollectionNFTCell: UICollectionViewCell {
             likeButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             likeButton.heightAnchor.constraint(equalToConstant: 42),
             likeButton.widthAnchor.constraint(equalToConstant: 42)
-            
         ])
     }
     
+    private func setupStarsOnStackView(rating: Int) {
+        if stackView.arrangedSubviews.isEmpty {
+            for _ in 1...rating {
+                let starActive = UIImageView(image: A.Icons.starActive.image)
+                stackView.addArrangedSubview(starActive)
+            }
+            
+            if rating < 5 {
+                for _ in rating...4 {
+                    let star =  UIImageView(image: A.Icons.star.image.withRenderingMode(.alwaysTemplate))
+                    star.tintColor = A.Colors.lightGrayDynamic.color
+                    stackView.addArrangedSubview(star)
+                }
+            }
+        }
+    }
+    
+    @objc private func likeButtonTapped() {
+        viewModel?.likeButtonTapped()
+    }
+    
+    @objc private func basketButtonTapped() {
+        viewModel?.basketButtonTapped()
+   }
 }
