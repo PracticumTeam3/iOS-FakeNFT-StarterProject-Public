@@ -16,7 +16,7 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 included: # case-sensitive paths to include during linting. `--path` is ignored if present
 #  - Sources
 excluded: # case-sensitive paths to ignore during linting. Takes precedence over `included`
-#  - Pods
+  - Pods
 #  - Sources/ExcludedFolder
 #  - Sources/ExcludedFile.swift
 #  - Sources/*/ExcludedFile.swift # exclude files with a wildcard
@@ -52,14 +52,14 @@ type_name:
     error: 50
   excluded: iPhone # excluded via string
 identifier_name:
-  min_length: 1 
+  min_length: 1
   excluded: # excluded via string array
     - id
     - URL
     - GlobalAPIKey
 nesting:
   type_level:
-    warning: 3 
+    warning: 3
     error: 6
   function_level:
     warning: 5
