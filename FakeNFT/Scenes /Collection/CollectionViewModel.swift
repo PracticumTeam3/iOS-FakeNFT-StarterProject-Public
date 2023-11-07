@@ -66,9 +66,14 @@ final class CollectionViewModel {
         }
     }
 
+    var lastNftRequestTime: DispatchTime = .now()
+
     func getNFTs(nfts:[String]) {
+        lastNftRequestTime = .now()
         nfts.forEach { id in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            let newTime = lastNftRequestTime + 0.3
+            lastNftRequestTime = newTime
+            DispatchQueue.main.asyncAfter(deadline: lastNftRequestTime) {
                 self.getNFT(id:id)
             }
         }
