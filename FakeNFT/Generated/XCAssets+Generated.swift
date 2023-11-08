@@ -46,6 +46,7 @@ public enum A {
     }
     public static let activeStar = ImageAsset(name: "activeStar")
     public static let back = ImageAsset(name: "back")
+    public static let basket = ImageAsset(name: "basket")
     public static let close = ImageAsset(name: "close")
     public static let deleteNft = ImageAsset(name: "deleteNft")
     public static let edit = ImageAsset(name: "edit")

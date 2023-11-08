@@ -13,7 +13,7 @@ final class TabBarController: UITabBarController {
     // MARK: - Private Properties
     private var catalogNavigationController: UINavigationController {
         // TODO: - добавить каталог
-        let vc = UIViewController()
+        let vc = CatalogViewController()
         let navVC = UINavigationController(rootViewController: vc)
 
         navVC.tabBarItem = UITabBarItem(
