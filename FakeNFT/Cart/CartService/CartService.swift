@@ -96,6 +96,32 @@ class CartService {
         }
     }
 
+    func changeOrder(addNftId: String) {
+        loadIsShow = Loading.changeOrder
+        guard let currentOrder = currentOrder else { return }
+        var newNfts = currentOrder.nfts
+        newNfts.append(addNftId)
+
+        let orderNetwork = OrderNetwork(nfts: newNfts, id: currentOrder.id)
+        let request = SetOrderRequest(model: orderNetwork)
+
+        networkClient.send(request: request,
+                           type: OrderNetwork.self) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case (.success(let orderNetwork)):
+                let order = OrderModel(nfts: orderNetwork.nfts,
+                                       id: orderNetwork.id)
+                self.currentOrder = order
+                self.netWorkAlert = nil
+            case (.failure(let error)):
+                print(error.localizedDescription)
+                self.loadIsShow = nil
+                self.netWorkAlert = NetworkAlert.changeOrder
+            }
+        }
+    }
+    
     func fetchCurrencies() {
         loadIsShow = Loading.fetchCurrencies
         let request = GetCurrencyRequest()

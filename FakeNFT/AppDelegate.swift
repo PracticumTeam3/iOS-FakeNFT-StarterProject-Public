@@ -23,8 +23,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         _: UIApplication,
         didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        UINavigationBar.appearance().tintColor = UIColor(named: "black")
         setEnvironment()
+        UINavigationBar.appearance().tintColor = UIColor(named: "black")
         return true
     }
 

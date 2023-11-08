@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class CollectionCell:UICollectionViewCell {
 
@@ -19,7 +20,7 @@ class CollectionCell:UICollectionViewCell {
     }()
 
     let ratingView: RatingBarView = {
-        let label = RatingBarView(rating: 3)
+        let label = RatingBarView(rating: 0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -66,6 +67,9 @@ class CollectionCell:UICollectionViewCell {
         cell.translatesAutoresizingMaskIntoConstraints = false
         return cell
     }()
+
+    var viewModel: CollectionViewModel?
+    var id: String?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -114,12 +118,39 @@ class CollectionCell:UICollectionViewCell {
 
     @objc
     private func didTaplikeButton () {
-
+        if let id = id {
+            viewModel?.setLikes(id: id)
+        }
     }
 
     @objc
     private func didTapСartButton () {
+        if let id = id {
+            viewModel?.setCart(id: id)
+        }
+    }
 
+    func setData(collectionCellData: NFTCollectionModel, id: String, isFavorite:Bool, isInCart: Bool) {
+        self.id = id
+        lableCost.text = "\(collectionCellData.price) ETH"
+        lableName.text = collectionCellData.name
+        if let image = collectionCellData.image?.addingPercentEncoding(
+            withAllowedCharacters: .urlFragmentAllowed) {
+            let url = URL(string: image)
+            imageCard.kf.setImage(with:url)
+        }
+        ratingView.setData(rating: collectionCellData.rating)
+        if isFavorite {
+            likeButton.setImage(UIImage(named: A.Icons.favouriteActive.name), for: .normal)
+        } else {
+            likeButton.setImage(UIImage(named: A.Icons.favouriteInactive.name), for: .normal)
+        }
+
+        if isInCart {
+            сartButton.setImage(UIImage(named: A.Icons.deleteNft.name), for: .normal)
+        } else {
+            сartButton.setImage(UIImage(named: A.Icons.basket.name), for: .normal)
+        }
     }
 
 } // end CollectionCell

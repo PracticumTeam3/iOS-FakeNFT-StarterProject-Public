@@ -27,4 +27,13 @@ class CatalogViewModel {
             }
         }
     }
+
+    func sortByName () {
+        collections.sort(by: { $0.collectionName < $1.collectionName })
+    }
+
+
+    func sortByNFTCount () {
+        collections.sort(by: { $0.nftCount < $1.nftCount })
+    }
 }

@@ -14,4 +14,5 @@ struct CatalogCellModel {
     let nftCount: Int
     let author:String
     let description:String
+    let nfts: [String]
 }

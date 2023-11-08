@@ -71,6 +71,7 @@ final class CollectionViewController: UIViewController {
         return loader
     }()
 
+    private let viewModel = CollectionViewModel()
     private let itemsPerRow: CGFloat = 3
     private let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
 
@@ -86,16 +87,35 @@ final class CollectionViewController: UIViewController {
         collectionCollectionView.reloadData()
         loaderView.stopAnimating()
         loaderView.isHidden = true
+
+        let backItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backItem
+
         collectionCollectionView.isHidden = false
+        guard let model = model else {return}
+        viewModel.getUsers(id:model.author)
+        viewModel.getNFTs(nfts: model.nfts)
+        viewModel.getFavouriteNFTs()
+        viewModel.bindCart()
+        viewModel.onChange = {
+            DispatchQueue.main.async {
+                self.collectionCollectionView.reloadData()
+                self.loaderView.stopAnimating()
+                self.loaderView.isHidden = true
+                self.collectionCollectionView.isHidden = false
+                self.setData()
+            }
+        }
     }
 
     private func setData () {
-        if let image = model?.imageCollection.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) {
+        if let image = model?.imageCollection.addingPercentEncoding(
+            withAllowedCharacters: .urlFragmentAllowed) {
             let url = URL(string: image)
             imageHeader.kf.setImage(with:url)
         }
         titleLable.text = model?.collectionName
-        authorButton.setTitle(model?.author, for: .normal)
+        authorButton.setTitle(viewModel.author?.name, for: .normal)
         descriptionLable.text = model?.description
     }
 
@@ -142,7 +162,9 @@ final class CollectionViewController: UIViewController {
 
     @objc
     func didAuthorButton() {
-        let webView = WebViewController()
+        let webView = CollectionWebViewController()
+        guard let url = viewModel.author?.website else {return}
+        webView.url = url
         self.navigationController?.pushViewController(webView, animated: true)
     }
     
@@ -150,11 +172,22 @@ final class CollectionViewController: UIViewController {
 
 extension CollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return viewModel.NFT.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath)
+        if let cell = cell as? CollectionCell {
+            if let id = model?.nfts[indexPath.row], let nft = viewModel.NFT[id] {
+                cell.setData(
+                    collectionCellData: nft,
+                    id: id,
+                    isFavorite: viewModel.likes.contains(where: {$0 == id}),
+                    isInCart: viewModel.carts.contains(where: {$0 == id})
+                )
+            }
+            cell.viewModel = viewModel
+        }
         return cell
     }
 }
@@ -176,4 +209,3 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
 }
-
