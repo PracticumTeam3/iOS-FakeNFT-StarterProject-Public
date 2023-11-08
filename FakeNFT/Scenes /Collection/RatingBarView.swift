@@ -23,7 +23,7 @@ final class RatingBarView:UIStackView {
         subviews.forEach { view in
             removeArrangedSubview(view)
         }
-        
+
         let activeStarImage = UIImage(named: A.Icons.activeStar.name)
         let inactiveStarImage = UIImage(named: A.Icons.inactiveStar.name)
 

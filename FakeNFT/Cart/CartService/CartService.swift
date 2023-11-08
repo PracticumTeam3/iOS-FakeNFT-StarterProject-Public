@@ -121,7 +121,7 @@ class CartService {
             }
         }
     }
-    
+
     func fetchCurrencies() {
         loadIsShow = Loading.fetchCurrencies
         let request = GetCurrencyRequest()

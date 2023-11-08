@@ -154,6 +154,7 @@ final class FavouriteNFTViewController: UIViewController {
 
 // MARK: - UICollectionViewDataSource
 extension FavouriteNFTViewController: SkeletonCollectionViewDataSource {
+
     func collectionSkeletonView(
         _ skeletonView: UICollectionView,
         cellIdentifierForItemAt indexPath: IndexPath

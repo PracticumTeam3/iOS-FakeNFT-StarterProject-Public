@@ -45,7 +45,7 @@ class CollectionCell:UICollectionViewCell {
         return label
     }()
 
-    let likeButton: UIButton = {
+    lazy var likeButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(Self.didTaplikeButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,7 @@ class CollectionCell:UICollectionViewCell {
         return button
     }()
 
-    let сartButton: UIButton = {
+    lazy var сartButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(Self.didTapСartButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false

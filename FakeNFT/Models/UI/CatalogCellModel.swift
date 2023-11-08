@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-// swiftlint:disable trailing_whitespace
+
 struct CatalogCellModel {
     let imageCollection:String
     let collectionName: String

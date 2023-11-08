@@ -15,6 +15,4 @@ struct CatalogNetworkModel: Codable {
     let description: String
     let author: String
     let id: String
-
 }
-

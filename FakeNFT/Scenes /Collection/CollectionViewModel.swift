@@ -11,7 +11,7 @@ final class CollectionViewModel {
     let service = CollectionService(networkClient: DefaultNetworkClient())
     let profileService = ProfileService(networkClient: DefaultNetworkClient())
     let cartService = CartService.shared
-    
+
     var onChange: (() -> Void)?
     var author: AutorModel? {
         didSet {
