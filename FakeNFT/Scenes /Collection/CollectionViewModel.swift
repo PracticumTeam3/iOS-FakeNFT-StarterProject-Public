@@ -66,10 +66,7 @@ final class CollectionViewModel {
         }
     }
 
-    var lastNftRequestTime: DispatchTime = .now()
-
     func getNFTs(nfts:[String]) {
-        lastNftRequestTime = .now()
         var index = 0.0
         nfts.forEach { id in
             let sleepTime = 0.5 * index
