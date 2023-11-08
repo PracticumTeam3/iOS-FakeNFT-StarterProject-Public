@@ -69,7 +69,7 @@ final class CollectionViewModel {
     func getNFTs(nfts:[String]) {
         var index = 0.0
         nfts.forEach { id in
-            let sleepTime = 0.5 * index
+            let sleepTime = 1 * index
             index += 1.0
             DispatchQueue.global().async {
                 sleep(UInt32(sleepTime))
