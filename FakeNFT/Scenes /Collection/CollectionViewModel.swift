@@ -70,10 +70,12 @@ final class CollectionViewModel {
 
     func getNFTs(nfts:[String]) {
         lastNftRequestTime = .now()
+        var index = 0.0
         nfts.forEach { id in
-            let newTime = lastNftRequestTime + 0.3
-            lastNftRequestTime = newTime
-            DispatchQueue.main.asyncAfter(deadline: lastNftRequestTime) {
+            let sleepTime = 0.5 * index
+            index += 1.0
+            DispatchQueue.global().async {
+                sleep(UInt32(sleepTime))
                 self.getNFT(id:id)
             }
         }
