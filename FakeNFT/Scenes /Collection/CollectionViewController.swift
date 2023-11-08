@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-// swiftlint:disable trailing_whitespace
+
 final class CollectionViewController: UIViewController {
 
     var model: CatalogCellModel?
@@ -40,7 +40,7 @@ final class CollectionViewController: UIViewController {
         return lable
     }()
 
-    private let authorButton: UIButton = {
+    private lazy var authorButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(Self.didAuthorButton), for: .touchUpInside)
@@ -148,10 +148,22 @@ final class CollectionViewController: UIViewController {
         ])
 
         NSLayoutConstraint.activate([
-            collectionCollectionView.topAnchor.constraint(equalTo: descriptionLable.bottomAnchor, constant: 24),
-            collectionCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            collectionCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            collectionCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+            collectionCollectionView.topAnchor.constraint(
+                equalTo: descriptionLable.bottomAnchor,
+                constant: 24
+            ),
+            collectionCollectionView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: 0
+            ),
+            collectionCollectionView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: 0
+            ),
+            collectionCollectionView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: 0
+            )
         ])
 
         NSLayoutConstraint.activate([
@@ -167,7 +179,7 @@ final class CollectionViewController: UIViewController {
         webView.url = url
         self.navigationController?.pushViewController(webView, animated: true)
     }
-    
+
 }// end CollectionViewController
 
 extension CollectionViewController: UICollectionViewDataSource {
@@ -175,7 +187,10 @@ extension CollectionViewController: UICollectionViewDataSource {
         return viewModel.NFT.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath)
         if let cell = cell as? CollectionCell {
             if let id = model?.nfts[indexPath.row], let nft = viewModel.NFT[id] {
@@ -193,7 +208,11 @@ extension CollectionViewController: UICollectionViewDataSource {
 }
 
 extension CollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
@@ -201,11 +220,19 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: widthPerItem, height: heightPerItem)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
         return sectionInsets
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
         return sectionInsets.left
     }
 }

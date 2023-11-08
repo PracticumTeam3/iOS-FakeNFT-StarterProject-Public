@@ -48,7 +48,7 @@ struct DefaultNetworkClient: NetworkClient {
             } else {
                 assertionFailure("Unexpected condition!")
                 return
-            }  
+            }
         }
 
         task.resume()

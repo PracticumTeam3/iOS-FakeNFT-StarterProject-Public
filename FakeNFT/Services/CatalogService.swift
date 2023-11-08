@@ -28,7 +28,14 @@ struct CatalogService: CatalogServiceProtocol {
             switch result {
             case .success(let model):
                 let model = model.map { collection in
-                    CatalogCellModel(imageCollection: collection.cover, collectionName: collection.name, nftCount: collection.nfts.count,author: collection.author, description: collection.description, nfts: collection.nfts)
+                    CatalogCellModel(
+                        imageCollection: collection.cover,
+                        collectionName: collection.name,
+                        nftCount: collection.nfts.count,
+                        author: collection.author,
+                        description: collection.description,
+                        nfts: collection.nfts
+                    )
                 }
                 completion(.success(model))
             case .failure(let error):

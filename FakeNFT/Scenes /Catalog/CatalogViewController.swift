@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-// swiftlint:disable trailing_whitespace
+
 final class CatalogViewController: UIViewController {
 
     private let catalogTableView: UITableView = {
@@ -27,7 +27,7 @@ final class CatalogViewController: UIViewController {
     }()
 
     private let viewModel = CatalogViewModel()
-    
+
     override func viewDidLoad() {
         catalogTableView.dataSource = self
         catalogTableView.delegate = self
@@ -47,18 +47,32 @@ final class CatalogViewController: UIViewController {
         let backItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backItem
     }
-    
+
     func setupViews() {
         view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "sort"), style: .plain, target: self, action: #selector(didTapSortButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "sort"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapSortButton)
+        )
         view.addSubview(catalogTableView)
         view.addSubview(loaderView)
-        
+
         NSLayoutConstraint.activate([
-            catalogTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            catalogTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            catalogTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 16),
-            catalogTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)
+            catalogTableView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: 16
+            ),
+            catalogTableView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -16
+            ),
+            catalogTableView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: 16
+            ),
+            catalogTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
 
         NSLayoutConstraint.activate([
@@ -66,10 +80,14 @@ final class CatalogViewController: UIViewController {
             loaderView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
     }
-    
+
     @objc
     func didTapSortButton() {
-        let alertController = UIAlertController(title: "Сортировка", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(
+            title: "Сортировка",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
         let sortByTitleAction = UIAlertAction(title: "По названию", style: .default) { _ in
             self.viewModel.sortByName()
         }
@@ -86,16 +104,19 @@ final class CatalogViewController: UIViewController {
 
         present(alertController, animated: true, completion: nil)
     }
-    
+
 } // end CatalogViewController
 
 extension CatalogViewController:UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.collections.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "catalogCell", for: indexPath) as? CatalogCell
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "catalogCell",
+            for: indexPath
+        ) as? CatalogCell
         cell?.setData(catalogCellData: viewModel.collections[indexPath.row])
         cell?.contentView.layer.cornerRadius = 12
         cell?.contentView.clipsToBounds = true

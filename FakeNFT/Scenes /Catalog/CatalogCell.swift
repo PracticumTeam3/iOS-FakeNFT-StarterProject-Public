@@ -8,7 +8,6 @@
 import UIKit
 import Kingfisher
 
-// swiftlint:disable trailing_whitespace
 class CatalogCell:UITableViewCell {
     let imageCell: UIImageView = {
         let image = UIImageView()
@@ -69,12 +68,14 @@ class CatalogCell:UITableViewCell {
     }
 
     func setData(catalogCellData: CatalogCellModel) {
-        if let image = catalogCellData.imageCollection.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) {
+        if let image = catalogCellData.imageCollection.addingPercentEncoding(
+            withAllowedCharacters: .urlFragmentAllowed
+        ) {
             let url = URL(string: image)
             imageCell.kf.setImage(with:url)
         }
 
         lableCell.text = "\(catalogCellData.collectionName) (\(catalogCellData.nftCount))"
     }
-    
+
 } // end CatalogCell
