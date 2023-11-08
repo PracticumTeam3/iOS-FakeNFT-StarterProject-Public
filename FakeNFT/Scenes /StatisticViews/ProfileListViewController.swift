@@ -131,6 +131,7 @@ extension ProfileListViewController: UITableViewDataSource {
             for: indexPath) as? ProfileTableViewCell else { return UITableViewCell() }
         guard let viewModel = viewModel?.cellViewModel(at: indexPath) else { return UITableViewCell() }
         cell.configure(viewModel: viewModel)
+        cell.selectionStyle = .none
         return cell
     }
 }
@@ -144,6 +145,7 @@ extension ProfileListViewController: UITableViewDelegate {
         let vc = DetailsProfileViewController()
         guard let viewModel = viewModel?.cellViewModel(at: indexPath) else { return }
         vc.configure(viewModel: viewModel)
+        vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }
 }

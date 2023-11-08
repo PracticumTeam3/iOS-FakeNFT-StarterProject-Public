@@ -9,11 +9,3 @@ struct ProfileResult: Codable {
     let rating: String
     let id: String
 }
-
-struct NFTResult: Codable {
-    let name: String
-    let rating: Int
-    let price: Double
-    let images: [String]
-    let id: String
-}

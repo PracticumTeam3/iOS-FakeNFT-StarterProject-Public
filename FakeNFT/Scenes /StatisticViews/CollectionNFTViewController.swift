@@ -54,12 +54,13 @@ final class CollectionNFTViewController: UIViewController {
         fetchNFTs()
     }
     
-    // MARK: - Private methods
+    // MARK: - Public methods
     func configure(nftsID: [String]) {
         viewModel = CollectionNFTViewModel(nftIDs: nftsID)
         viewModel?.delegate = self
     }
     
+    // MARK: - Private methods
     private func addSubviews() {
         view.addSubview(collectionView)
     }

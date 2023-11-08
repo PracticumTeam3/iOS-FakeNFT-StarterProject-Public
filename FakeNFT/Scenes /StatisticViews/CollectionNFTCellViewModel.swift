@@ -65,8 +65,8 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
     func likeButtonTapped() {
         putProfileLikes(like: id) { [weak self] in
             guard let self = self,
-                  let indexPath = indexPath,
-                  let delegate = delegate
+                  let indexPath = self.indexPath,
+                  let delegate = self.delegate
             else { return }
             delegate.reloadItems(indexPath: indexPath)
         }
@@ -75,8 +75,8 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
     func basketButtonTapped() {
       putProfileNftBasket(nft: id) { [weak self] in
             guard let self = self,
-                  let indexPath = indexPath,
-                  let delegate = delegate
+                  let indexPath = self.indexPath,
+                  let delegate = self.delegate
             else { return }
             delegate.reloadItems(indexPath: indexPath)
         }
@@ -90,7 +90,7 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
                 self.profileLikes = profile.likes
                 completion()
             case .failure(_):
-                delegate?.showAlert()
+                self.delegate?.showAlert()
             }
         }
     }
@@ -103,7 +103,7 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
                 self.profileNfts = profile.nfts
                 completion()
             case .failure(_):
-                delegate?.showAlert()
+                self.delegate?.showAlert()
             }
         }
     }
@@ -123,7 +123,7 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
                 self.profileNfts = newProfileNfts.nfts
                 completion()
             case .failure(_):
-                delegate?.showAlert()
+                self.delegate?.showAlert()
             }
         }
     }
@@ -143,7 +143,7 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
                 self.profileLikes = newProfileLikes.likes
                 completion()
             case .failure(_):
-                delegate?.showAlert()
+                self.delegate?.showAlert()
             }
         }
     }

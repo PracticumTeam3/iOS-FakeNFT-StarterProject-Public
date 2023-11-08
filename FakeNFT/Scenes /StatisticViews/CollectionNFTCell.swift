@@ -38,7 +38,8 @@ final class CollectionNFTCell: UICollectionViewCell {
    lazy private var basketButton: UIButton = {
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(basketButtonTapped), for: .touchUpInside)
-        button.tintColor = A.Colors.blackDynamic.color
+       button.setImage(A.Icons.basket.image.withRenderingMode(.alwaysTemplate), for: .normal)
+       button.tintColor = A.Colors.blackDynamic.color
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -87,7 +88,7 @@ final class CollectionNFTCell: UICollectionViewCell {
     func configure(viewModel: CollectionNFTCellViewModelProtocol) {
         self.viewModel = viewModel
         nameLabel.text = viewModel.name
-        priceLabel.text = viewModel.price + " ETH"
+        priceLabel.text = viewModel.price.replacingOccurrences(of: ".", with: ",") + " ETH"
         iconNFT.kf.setImage(with: URL(string: viewModel.images[0]))
         setupStarsOnStackView(rating: Int(viewModel.rating) ?? 0)
         viewModel.fetchProfileLikes() { [weak self] in
@@ -105,11 +106,17 @@ final class CollectionNFTCell: UICollectionViewCell {
         viewModel.fetchProfileNfts() { [weak self] in
             if viewModel.profileNfts.contains(String(viewModel.id)) {
                 DispatchQueue.main.async {
-                    self?.basketButton.setImage(A.Icons.inactiveBasket.image, for: .normal)
+                    self?.basketButton.setImage(
+                        A.Icons.inactiveBasket.image.withRenderingMode(.alwaysTemplate),
+                        for: .normal
+                    )
                 }
             } else {
                 DispatchQueue.main.async {
-                    self?.basketButton.setImage(A.Icons.basket.image, for: .normal)
+                    self?.basketButton.setImage(
+                        A.Icons.basket.image.withRenderingMode(.alwaysTemplate),
+                        for: .normal
+                    )
                 }
             }
         }

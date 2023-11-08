@@ -67,6 +67,7 @@ final class CollectionNFTViewModel: CollectionNFTViewModelProtocol {
         }
         
         dGroup.notify(queue: .main) {
+            nftsGroup.sort { $0.name < $1.name }
             self.nfts = nftsGroup
             completion()
         }

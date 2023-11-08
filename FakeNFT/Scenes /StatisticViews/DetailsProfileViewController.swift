@@ -83,6 +83,14 @@ final class DetailsProfileViewController: UIViewController {
         return button
     }()
     
+    lazy private var forwardButton: UIButton = {
+        let button = UIButton()
+        button.setImage(A.Icons.forward.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = A.Colors.blackDynamic.color
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     // MARK: - Public properties
     private var viewModel: ProfileCellViewModelProtocol?
     
@@ -100,8 +108,14 @@ final class DetailsProfileViewController: UIViewController {
         ProgressHUD.dismiss()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+            webSiteUserButton.layer.borderColor = A.Colors.blackDynamic.color.cgColor
+    }
+    
     // MARK: - Public methods
     func configure(viewModel: ProfileCellViewModelProtocol) {
+        countNFTLabel.text = "(\(viewModel.nfts.count))"
         nameUser.text = viewModel.profileName
         infoUser.attributedText = mutableString(text: viewModel.infoUser)
         photoUser.kf.setImage(with: URL(string: viewModel.profileImage))
@@ -117,32 +131,50 @@ final class DetailsProfileViewController: UIViewController {
         view.addSubview(containerButton)
         view.addSubview(countNFTLabel)
         view.addSubview(collectionNFTLabel)
+        view.addSubview(forwardButton)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             photoUser.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            photoUser.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            photoUser.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             photoUser.widthAnchor.constraint(equalToConstant: 70),
             photoUser.heightAnchor.constraint(equalToConstant: 70),
             nameUser.centerYAnchor.constraint(equalTo: photoUser.centerYAnchor),
             nameUser.leadingAnchor.constraint(equalTo: photoUser.trailingAnchor, constant: 16),
             nameUser.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            infoUser.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            infoUser.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             infoUser.topAnchor.constraint(equalTo: photoUser.bottomAnchor, constant: 20),
-            infoUser.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            infoUser.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -16
+            ),
             webSiteUserButton.topAnchor.constraint(equalTo: infoUser.bottomAnchor, constant: 28),
-            webSiteUserButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            webSiteUserButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            webSiteUserButton.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: 16
+            ),
+            webSiteUserButton.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -16
+            ),
             webSiteUserButton.heightAnchor.constraint(equalToConstant: 40),
-            containerButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            containerButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            containerButton.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: 16
+            ),
+            containerButton.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -16
+            ),
             containerButton.heightAnchor.constraint(equalToConstant: 55),
             containerButton.topAnchor.constraint(equalTo: webSiteUserButton.bottomAnchor, constant: 40),
             collectionNFTLabel.leadingAnchor.constraint(equalTo: containerButton.leadingAnchor),
             collectionNFTLabel.centerYAnchor.constraint(equalTo: containerButton.centerYAnchor),
             countNFTLabel.leadingAnchor.constraint(equalTo: collectionNFTLabel.trailingAnchor, constant: 16),
-            countNFTLabel.centerYAnchor.constraint(equalTo: containerButton.centerYAnchor)
+            countNFTLabel.centerYAnchor.constraint(equalTo: containerButton.centerYAnchor),
+            forwardButton.trailingAnchor.constraint(equalTo: containerButton.trailingAnchor),
+            forwardButton.centerYAnchor.constraint(equalTo: containerButton.centerYAnchor)
         ])
     }
     
