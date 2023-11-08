@@ -9,16 +9,10 @@ import UIKit
 
 final class ProfileListViewController: UIViewController {
     // MARK: - Private properties
-    private let topView: UIView = {
-        let view = UIView()
-        view.backgroundColor = A.Colors.whiteDynamic.color
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     lazy private var sortButton: UIButton = {
         let button = UIButton()
-        button.setImage(A.Icons.sort.image, for: .normal)
+        button.setImage(A.Icons.sort.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = A.Colors.blackDynamic.color
         button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -45,43 +39,35 @@ final class ProfileListViewController: UIViewController {
         tableView.delegate = self
         viewModel = ProfileListViewModel(delegate: self)
         fetchProfiles()
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        if #available(iOS 13.0, *),
-           traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            if traitCollection.userInterfaceStyle == .dark {
-                sortButton.setImage(A.Icons.sortDarkMode.image, for: .normal)
-            } else {
-                sortButton.setImage(A.Icons.sort.image, for: .normal)
-            }
-        }
+        appearanceNavBarAndTabBar()
     }
     
     // MARK: - Private methods
     private func addSubviews() {
-        view.addSubview(topView)
-        view.addSubview(sortButton)
         view.addSubview(tableView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topView.topAnchor.constraint(equalTo: view.topAnchor),
-            topView.heightAnchor.constraint(equalToConstant: 88),
-            sortButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -9),
-            sortButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
-            sortButton.heightAnchor.constraint(equalToConstant: 42),
-            sortButton.widthAnchor.constraint(equalToConstant: 42),
-            tableView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    private func appearanceNavBarAndTabBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        let rightButton = UIBarButtonItem(customView: sortButton)
+        navigationController?.navigationBar.topItem?.rightBarButtonItem = rightButton
+        let backImageBackButton = UIImage(asset: A.Icons.back)
+        navigationController?.navigationBar.backIndicatorImage = backImageBackButton
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImageBackButton
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = A.Colors.blackDynamic.color
+        tabBarController?.tabBar.shadowImage = UIImage()
+        tabBarController?.tabBar.backgroundImage = UIImage()
     }
     
     private func fetchProfiles() {
@@ -145,6 +131,7 @@ extension ProfileListViewController: UITableViewDataSource {
             for: indexPath) as? ProfileTableViewCell else { return UITableViewCell() }
         guard let viewModel = viewModel?.cellViewModel(at: indexPath) else { return UITableViewCell() }
         cell.configure(viewModel: viewModel)
+        cell.selectionStyle = .none
         return cell
     }
 }
@@ -158,8 +145,8 @@ extension ProfileListViewController: UITableViewDelegate {
         let vc = DetailsProfileViewController()
         guard let viewModel = viewModel?.cellViewModel(at: indexPath) else { return }
         vc.configure(viewModel: viewModel)
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

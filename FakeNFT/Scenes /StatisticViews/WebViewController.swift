@@ -16,27 +16,20 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
         return view
     }()
     
-    lazy private var backButton: UIButton = {
-        let button = UIButton()
-        button.setImage(A.Icons.back.image, for: .normal)
-        button.addTarget(self, action: #selector(backToDetailsVC), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private let progressViewContainer: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemRed
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = A.Colors.whiteDynamic.color
         addSubviews()
         setupConstraints()
         webView.navigationDelegate = self
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
+        ProgressHUD.dismiss()
     }
     
     // MARK: - Public methods
@@ -57,23 +50,14 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
     // MARK: - Private methods
     private func addSubviews() {
         view.addSubview(webView)
-        view.addSubview(backButton)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 9),
-            backButton.widthAnchor.constraint(equalToConstant: 24),
-            backButton.heightAnchor.constraint(equalToConstant: 24)
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-    
-    @objc private func backToDetailsVC() {
-        dismiss(animated: true)
     }
 }

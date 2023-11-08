@@ -16,6 +16,6 @@ final class TabBarViewModel {
         self.catalogeVC = UIViewController()
         self.cartVC = UIViewController()
         self.profileVC = UIViewController()
-        self.statisticVC = ProfileListViewController()
+        self.statisticVC = UINavigationController(rootViewController: ProfileListViewController())
     }
 }

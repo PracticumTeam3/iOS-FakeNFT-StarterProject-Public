@@ -45,14 +45,17 @@ public enum A {
       public static let statistic = ImageAsset(name: "statistic")
     }
     public static let back = ImageAsset(name: "back")
-    public static let backDarkMode = ImageAsset(name: "backDarkMode")
+    public static let basket = ImageAsset(name: "basket")
     public static let close = ImageAsset(name: "close")
     public static let edit = ImageAsset(name: "edit")
     public static let favouriteActive = ImageAsset(name: "favouriteActive")
     public static let favouriteInactive = ImageAsset(name: "favouriteInactive")
+    public static let forward = ImageAsset(name: "forward")
+    public static let inactiveBasket = ImageAsset(name: "inactiveBasket")
     public static let sort = ImageAsset(name: "sort")
-    public static let sortDarkMode = ImageAsset(name: "sortDarkMode")
     public static let splashScreen = ImageAsset(name: "splashScreen")
+    public static let star = ImageAsset(name: "star")
+    public static let starActive = ImageAsset(name: "starActive")
   }
   public enum Images {
     public enum Onboarding {

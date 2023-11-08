@@ -54,6 +54,8 @@ public enum L {
     public static let errorActionCancel = L.tr("Localizable", "statistics.ErrorActionCancel", fallback: "Выход")
     /// Перейти на сайт пользователя
     public static let goToWebsite = L.tr("Localizable", "statistics.goToWebsite", fallback: "Перейти на сайт пользователя")
+    /// Тут пусто
+    public static let isEmpty = L.tr("Localizable", "statistics.isEmpty", fallback: "Тут пусто")
     /// Сортировка
     public static let sorted = L.tr("Localizable", "statistics.sorted", fallback: "Сортировка")
     /// Статистика
