@@ -12,14 +12,14 @@ final class TabBarController: UITabBarController {
 
     // MARK: - Private Properties
     private var catalogNavigationController: UINavigationController {
-        // TODO: - добавить каталог
         let vc = CatalogViewController()
         let navVC = UINavigationController(rootViewController: vc)
 
         navVC.tabBarItem = UITabBarItem(
             title: L.Catalog.title,
             image: A.Icons.TabBar.catalog.image,
-            selectedImage: nil)
+            selectedImage: nil
+        )
 
         return navVC
     }
@@ -32,7 +32,8 @@ final class TabBarController: UITabBarController {
         navVC.tabBarItem = UITabBarItem(
             title: L.Cart.title,
             image: A.Icons.TabBar.cart.image,
-            selectedImage: nil)
+            selectedImage: nil
+        )
 
         return navVC
     }
@@ -61,7 +62,8 @@ final class TabBarController: UITabBarController {
         navVC.tabBarItem = UITabBarItem(
             title: L.Statistics.title,
             image: A.Icons.TabBar.statistic.image,
-            selectedImage: nil)
+            selectedImage: nil
+        )
 
         return navVC
     }
@@ -72,10 +74,12 @@ final class TabBarController: UITabBarController {
 
         setupUI()
 
-        self.viewControllers = [catalogNavigationController,
-                                cartNavigationController,
-                                profileNavigationController,
-                                statisticNavigationController]
+        self.viewControllers = [
+            profileNavigationController,
+            catalogNavigationController,
+            cartNavigationController,
+            statisticNavigationController
+        ]
     }
 
     // MARK: - Public Methods
@@ -96,6 +100,7 @@ final class TabBarController: UITabBarController {
         tabBar.backgroundColor = A.Colors.whiteDynamic.color
         tabBar.barTintColor = A.Colors.whiteDynamic.color
         tabBar.tintColor = A.Colors.blue.color
+        tabBar.unselectedItemTintColor = A.Colors.blackDynamic.color
         tabBar.isTranslucent = false
         tabBar.barStyle = .default
     }
