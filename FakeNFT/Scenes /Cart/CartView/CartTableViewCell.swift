@@ -97,7 +97,7 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
     var viewModel: CartTableViewCellViewModel! {
         didSet {
             nftImageView.kf.indicatorType = .activity
-            nftImageView.kf.setImage(with: viewModel.imageURL)
+            nftImageView.kf.setImage(with: viewModel.imageURL, placeholder: A.Images.Profile.stub.image)
             nftNameLabel.text = viewModel.nftName
             nftPriceLabel.text = viewModel.priceString
             ratingView.setRating(rating: viewModel.rating)

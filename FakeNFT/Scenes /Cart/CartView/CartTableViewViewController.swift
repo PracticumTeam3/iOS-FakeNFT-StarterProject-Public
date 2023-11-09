@@ -27,13 +27,15 @@ final class CartTableViewViewController: UIViewController {
             static let bottomInset: CGFloat = 16
         }
         enum PayButton {
+            static let width: CGFloat = 240
             static let cornerRadius: CGFloat = 16
             static let topInset: CGFloat = 16
-            static let leftInset: CGFloat = 24
             static let rightInset: CGFloat = 16
             static let bottomInset: CGFloat = 16
         }
     }
+
+    private let refreshControl = RefreshControl()
 
     private let viewModel: CartTableViewViewModel
 
@@ -116,6 +118,8 @@ final class CartTableViewViewController: UIViewController {
     init(viewModel: CartTableViewViewModel = CartTableViewViewModel()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        refreshControl.addTarget(self, action: #selector(reloadTableView), for: .valueChanged)
+        nftTableView.refreshControl = refreshControl
         viewModel.delegate = self
     }
 
@@ -144,6 +148,7 @@ final class CartTableViewViewController: UIViewController {
         cartView.addSubview(countNFTLabel)
         cartView.addSubview(priceLabel)
         cartView.addSubview(payButton)
+        nftTableView.addSubview(refreshControl)
         NSLayoutConstraint.activate([
             emptyLabel.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             emptyLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
@@ -176,8 +181,7 @@ final class CartTableViewViewController: UIViewController {
                                              constant: -Constants.PayButton.rightInset),
             payButton.bottomAnchor.constraint(equalTo: cartView.bottomAnchor,
                                               constant: -Constants.PayButton.bottomInset),
-            payButton.leftAnchor.constraint(equalTo: priceLabel.rightAnchor,
-                                            constant: Constants.PayButton.leftInset)
+            payButton.widthAnchor.constraint(equalToConstant: Constants.PayButton.width)
         ])
     }
 
@@ -275,6 +279,12 @@ final class CartTableViewViewController: UIViewController {
         paymentVC.modalPresentationStyle = .fullScreen
         paymentVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(paymentVC, animated: true)
+    }
+
+    @objc
+    private func reloadTableView() {
+        viewModel.fetchOrder()
+        refreshControl.endRefreshing()
     }
 }
 

@@ -51,7 +51,10 @@ final class CartTableViewViewModel {
                                                                                   price: $0.price,
                                                                                   currency: ConstantName.eth,
                                                                                   id: $0.id)}
-
+        self.checkNFTCount()
+        self.sortedCart()
+        self.countNft()
+        self.checkOverPrice()
     }
 
     func changeSortes(_ newParametr: CartSortedStorage) {
