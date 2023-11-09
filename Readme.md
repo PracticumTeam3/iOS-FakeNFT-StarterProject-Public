@@ -7,6 +7,7 @@
 
 - [Profile](https://disk.yandex.ru/i/LdN-nzewVwcf8Q)
 - [Statistic](https://disk.yandex.ru/i/nSptAoREkx-rwg)
+- [Catalog](https://drive.google.com/file/d/17SoVnsOvcWer6ICIWec7zUW1PABJ3Ril/view?usp=sharing)
 
 Дополнительно:
 - [Onboarding](https://disk.yandex.ru/i/nPWqVcCMEdtueQ)
