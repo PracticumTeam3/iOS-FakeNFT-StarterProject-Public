@@ -13,6 +13,7 @@ enum NetworkAlert {
     case fetchCurrencies
     case payOrder
     case fetchNFT
+    case addNFT
 }
 
 enum Loading {
@@ -21,6 +22,7 @@ enum Loading {
     case fetchCurrencies
     case payOrder
     case fetchNFT
+    case addNFT
 }
 
 class CartService {
@@ -61,7 +63,6 @@ class CartService {
             case (.success(let orderNetwork)):
                 let order = OrderModel(nfts: orderNetwork.nfts,
                                        id: orderNetwork.id)
-                print(order)
                 self.currentOrder = order
                 self.netWorkAlert = nil
             case (.failure(let error)):
@@ -97,7 +98,7 @@ class CartService {
     }
 
     func changeOrder(addNftId: String) {
-        loadIsShow = Loading.changeOrder
+        loadIsShow = Loading.addNFT
         guard let currentOrder = currentOrder else { return }
         var newNfts = currentOrder.nfts
         newNfts.append(addNftId)
@@ -117,7 +118,7 @@ class CartService {
             case (.failure(let error)):
                 print(error.localizedDescription)
                 self.loadIsShow = nil
-                self.netWorkAlert = NetworkAlert.changeOrder
+                self.netWorkAlert = NetworkAlert.addNFT
             }
         }
     }
@@ -205,7 +206,6 @@ class CartService {
                                         price: nftNetwork.price,
                                         id: nftNetwork.id)
                 self.netWorkAlert = nil
-                print(nftModel)
                 completion(.success(nftModel))
             case .failure(let error):
                 self.netWorkAlert = NetworkAlert.fetchNFT
