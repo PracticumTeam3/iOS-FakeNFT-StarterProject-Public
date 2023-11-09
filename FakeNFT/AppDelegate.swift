@@ -24,7 +24,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         setEnvironment()
-        UINavigationBar.appearance().tintColor = UIColor(named: "black")
         return true
     }
 

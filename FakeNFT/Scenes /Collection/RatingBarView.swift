@@ -24,8 +24,8 @@ final class RatingBarView:UIStackView {
             removeArrangedSubview(view)
         }
 
-        let activeStarImage = UIImage(named: A.Icons.activeStar.name)
-        let inactiveStarImage = UIImage(named: A.Icons.inactiveStar.name)
+        let activeStarImage = A.Icons.activeStar.image
+        let inactiveStarImage = A.Icons.inactiveStar.image
 
          for i in 0..<totalStars {
              let starImageView = UIImageView()

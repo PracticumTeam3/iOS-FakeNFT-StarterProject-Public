@@ -28,8 +28,8 @@ class CollectionCell:UICollectionViewCell {
     let lableName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(named:A.Colors.black.name)
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.textColor = A.Colors.blackDynamic.color
+        label.font = .Bold.small
         label.textAlignment = .left
         label.text = "Archie"
         return label
@@ -38,8 +38,8 @@ class CollectionCell:UICollectionViewCell {
     let lableCost: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(named:A.Colors.black.name)
-        label.font = UIFont.systemFont(ofSize: 10, weight: .medium)
+        label.textColor = A.Colors.blackDynamic.color
+        label.font = .Medium.small
         label.textAlignment = .left
         label.text = "1 ETH"
         return label
@@ -49,7 +49,7 @@ class CollectionCell:UICollectionViewCell {
         let button = UIButton()
         button.addTarget(self, action: #selector(Self.didTaplikeButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: A.Icons.favouriteInactive.name), for: .normal)
+        button.setImage(A.Icons.favouriteInactive.image, for: .normal)
         return button
     }()
 
@@ -57,8 +57,8 @@ class CollectionCell:UICollectionViewCell {
         let button = UIButton()
         button.addTarget(self, action: #selector(Self.didTapСartButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: A.Icons.basket.name), for: .normal)
-        button.tintColor = UIColor(named:A.Colors.black.name)
+        button.setImage(A.Icons.basket.image, for: .normal)
+        button.tintColor = A.Colors.blackDynamic.color
         return button
     }()
 
@@ -73,6 +73,7 @@ class CollectionCell:UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = A.Colors.whiteDynamic.color
         contentView.addSubview(viewCell)
 
         NSLayoutConstraint.activate([
@@ -141,15 +142,15 @@ class CollectionCell:UICollectionViewCell {
         }
         ratingView.setData(rating: collectionCellData.rating)
         if isFavorite {
-            likeButton.setImage(UIImage(named: A.Icons.favouriteActive.name), for: .normal)
+            likeButton.setImage(A.Icons.favouriteActive.image, for: .normal)
         } else {
-            likeButton.setImage(UIImage(named: A.Icons.favouriteInactive.name), for: .normal)
+            likeButton.setImage(A.Icons.favouriteInactive.image, for: .normal)
         }
 
         if isInCart {
-            сartButton.setImage(UIImage(named: A.Icons.deleteNft.name), for: .normal)
+            сartButton.setImage(A.Icons.deleteNft.image, for: .normal)
         } else {
-            сartButton.setImage(UIImage(named: A.Icons.basket.name), for: .normal)
+            сartButton.setImage(A.Icons.basket.image, for: .normal)
         }
     }
 

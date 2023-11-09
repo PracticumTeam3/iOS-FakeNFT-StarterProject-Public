@@ -14,7 +14,7 @@ final class CatalogViewController: UIViewController {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(CatalogCell.self, forCellReuseIdentifier: "catalogCell")
-        table.backgroundColor = .white
+        table.backgroundColor = A.Colors.whiteDynamic.color
         table.estimatedRowHeight = 44.0
         table.separatorStyle = .none
         return table
@@ -49,13 +49,14 @@ final class CatalogViewController: UIViewController {
     }
 
     func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = A.Colors.whiteDynamic.color
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "sort"),
+            image: A.Icons.sort.image,
             style: .plain,
             target: self,
             action: #selector(didTapSortButton)
         )
+        navigationController?.navigationBar.tintColor = A.Colors.blackDynamic.color
         view.addSubview(catalogTableView)
         view.addSubview(loaderView)
 
