@@ -6,8 +6,9 @@
 # Скринкасты с демонстрацией эпиков
 
 - [Profile](https://disk.yandex.ru/i/LdN-nzewVwcf8Q)
-- [Statistic](https://disk.yandex.ru/i/nSptAoREkx-rwg)
 - [Catalog](https://drive.google.com/file/d/17SoVnsOvcWer6ICIWec7zUW1PABJ3Ril/view?usp=sharing)
+- [Cart](https://disk.yandex.ru/i/Ps8KocCie0yXNw)
+- [Statistic](https://disk.yandex.ru/i/nSptAoREkx-rwg)
 
 Дополнительно:
 - [Onboarding](https://disk.yandex.ru/i/nPWqVcCMEdtueQ)
