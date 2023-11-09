@@ -7,7 +7,7 @@ strings:
       params:
         publicAccess: true
         enumName: L
-      output: Generated/Strings+Generated.swift
+      output: DesignSystem/Strings+Generated.swift
 
 xcassets:
   inputs:
@@ -20,5 +20,5 @@ xcassets:
         forceProvidesNamespaces: true
         publicAccess: true
         enumName: A
-      output: Generated/XCAssets+Generated.swift
+      output: DesignSystem/XCAssets+Generated.swift
 

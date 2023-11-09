@@ -1,5 +1,5 @@
 //
-//  Storage.swift
+//  StatisticStorage.swift
 //  FakeNFT
 //
 //  Created by Andrey Ovchinnikov on 30.10.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Storage {
+final class StatisticStorage {
    static var isSortByName: Bool {
         get {
             UserDefaults.standard.bool(forKey: "isSortByKey")

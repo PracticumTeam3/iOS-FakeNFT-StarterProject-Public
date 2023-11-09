@@ -1,5 +1,5 @@
 //
-//  UserSortedServise.swift
+//  CartStorageService.swift
 //  FakeNFT
 //
 //  Created by Александр Кудряшов on 12.10.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class UserSortedService {
+final class CartStorageService {
     private let userDefaults = UserDefaults.standard
     var cartSorted: CartSortedStorage {
         get {
