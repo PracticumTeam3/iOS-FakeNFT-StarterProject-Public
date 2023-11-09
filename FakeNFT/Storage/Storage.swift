@@ -16,6 +16,6 @@ final class Storage {
             UserDefaults.standard.set(newValue, forKey: "isSortByKey")
         }
     }
-    
+
     private init() {}
 }

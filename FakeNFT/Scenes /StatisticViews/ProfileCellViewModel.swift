@@ -16,7 +16,7 @@ protocol ProfileCellViewModelProtocol {
     var websiteUrl: String { get }
     var nfts: [String] { get }
     var id: String { get }
-    init(profile: ProfileResult, indexPath: IndexPath)
+    init(profile: UserNetworkModel, indexPath: IndexPath)
 }
 
 struct ProfileCellViewModel: ProfileCellViewModelProtocol {
@@ -43,12 +43,12 @@ struct ProfileCellViewModel: ProfileCellViewModelProtocol {
     var id: String {
         profile.id
     }
-    
+
     // MARK: - Private properties
-    private let profile: ProfileResult
-    
+    private let profile: UserNetworkModel
+
     // MARK: - init
-    init(profile: ProfileResult, indexPath: IndexPath) {
+    init(profile: UserNetworkModel, indexPath: IndexPath) {
         self.profile = profile
         numberUser = String(indexPath.row + 1)
     }

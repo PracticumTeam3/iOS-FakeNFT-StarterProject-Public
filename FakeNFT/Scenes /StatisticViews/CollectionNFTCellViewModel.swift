@@ -26,7 +26,6 @@ protocol CollectionNFTCellViewModelProtocol {
     func putProfileLikes(like: String, completion: @escaping() -> Void)
     func basketButtonTapped()
     func likeButtonTapped()
-    
 }
 
 final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
@@ -50,17 +49,17 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
     var profileNfts : [String] = []
     var indexPath: IndexPath?
     weak var delegate: CollectionNFTCellViewModelDelegate?
-    
+
     // MARK: - Private properties
     private var nft: NFTResult
-    
+
     // MARK: - Initializers
     init(nft: NFTResult, indexPath: IndexPath, delegate: CollectionNFTCellViewModelDelegate) {
         self.nft = nft
         self.indexPath = indexPath
         self.delegate = delegate
     }
-    
+
     // MARK: - Public properties
     func likeButtonTapped() {
         putProfileLikes(like: id) { [weak self] in
@@ -71,7 +70,7 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
             delegate.reloadItems(indexPath: indexPath)
         }
     }
-    
+
     func basketButtonTapped() {
       putProfileNftBasket(nft: id) { [weak self] in
             guard let self = self,
@@ -81,7 +80,7 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
             delegate.reloadItems(indexPath: indexPath)
         }
     }
-    
+
     func fetchProfileLikes(completion: @escaping() -> Void) {
         ProfileLikeService.shared.fetchProfile { [weak self] result in
             guard let self = self else { return }
@@ -89,12 +88,12 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
             case .success(let profile):
                 self.profileLikes = profile.likes
                 completion()
-            case .failure(_):
+            case .failure:
                 self.delegate?.showAlert()
             }
         }
     }
-    
+
     func fetchProfileNfts(completion: @escaping() -> Void) {
         ProfileNftService.shared.fetchProfile { [weak self] result in
             guard let self = self else { return }
@@ -102,12 +101,12 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
             case .success(let profile):
                 self.profileNfts = profile.nfts
                 completion()
-            case .failure(_):
+            case .failure:
                 self.delegate?.showAlert()
             }
         }
     }
-    
+
     func putProfileNftBasket(nft: String, completion: @escaping() -> Void) {
         if profileNfts.contains(nft) {
             let filteredNfts = profileNfts.filter { $0 != nft }
@@ -122,12 +121,12 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
             case .success(let newProfileNfts):
                 self.profileNfts = newProfileNfts.nfts
                 completion()
-            case .failure(_):
+            case .failure:
                 self.delegate?.showAlert()
             }
         }
     }
-    
+
     func putProfileLikes(like: String, completion: @escaping() -> Void) {
         if profileLikes.contains(like) {
             let filteredNfts = profileLikes.filter { $0 != like }
@@ -135,14 +134,14 @@ final class CollectionNFTCellViewModel: CollectionNFTCellViewModelProtocol {
         } else {
             profileLikes.append(like)
         }
-        let model = ProfileLikesModel(likes: profileLikes)
+        let model = LikesModel(likes: profileLikes)
         ProfileLikeService.shared.putProfileLikes(model: model) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let newProfileLikes):
                 self.profileLikes = newProfileLikes.likes
                 completion()
-            case .failure(_):
+            case .failure:
                 self.delegate?.showAlert()
             }
         }

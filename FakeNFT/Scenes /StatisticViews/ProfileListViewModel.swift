@@ -11,7 +11,7 @@ protocol ProfileListViewModelDelegate: AnyObject {
 }
 
 protocol ProfileListViewModelProtocol {
-    var profiles: [ProfileResult] { get }
+    var profiles: [UserNetworkModel] { get }
     var onChange: (() -> Void)? { get set }
     func fetchProfiles(completion: @escaping() -> Void)
     func sortProfilesByName()
@@ -23,22 +23,22 @@ protocol ProfileListViewModelProtocol {
 final class ProfileListViewModel: ProfileListViewModelProtocol {
     // MARK: - Public properties
     var onChange: (() -> Void)?
-    var profiles: [ProfileResult] = [] {
+    var profiles: [UserNetworkModel] = [] {
         didSet {
             onChange?()
         }
     }
 
     let delegate: ProfileListViewModelDelegate
-    
+
     // MARK: - Initializers
     init(delegate: ProfileListViewModelDelegate) {
         self.delegate = delegate
     }
-    
+
     // MARK: - Public methods
     func fetchProfiles(completion: @escaping() -> Void) {
-        ProfileService.shared.fetchProfiles { [weak self] result in
+        UsersService.shared.fetchUsers { [weak self] result in
             switch result {
             case .success(let profiles):
                 DispatchQueue.global(qos: .background).async {
@@ -50,28 +50,28 @@ final class ProfileListViewModel: ProfileListViewModelProtocol {
                     }
                     completion()
                 }
-            case .failure(_):
+            case .failure:
                 DispatchQueue.main.async {
-                        self?.delegate.showAlertWithError()
+                    self?.delegate.showAlertWithError()
                 }
             }
         }
     }
-    
+
     func numberOfRows() -> Int {
         profiles.count
     }
-    
+
     func cellViewModel(at indexPath: IndexPath) -> ProfileCellViewModelProtocol {
         return ProfileCellViewModel(profile: profiles[indexPath.row], indexPath: indexPath)
     }
-    
+
     func sortProfilesByName() {
         let sortProfiles = profiles.sorted { $0.name < $1.name }
         Storage.isSortByName = true
         profiles = sortProfiles
     }
-    
+
     func sortProfilesByRating() {
         let sortProfiles = profiles.sorted { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
         Storage.isSortByName = false

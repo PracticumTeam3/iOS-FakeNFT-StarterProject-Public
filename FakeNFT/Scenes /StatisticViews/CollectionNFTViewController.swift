@@ -15,9 +15,8 @@ final class CollectionNFTViewController: UIViewController {
         let heightCell: CGFloat
         let xSpacing: CGFloat
         let ySpacing: CGFloat
-        
     }
-    
+
     // MARK: - Private Properties
     private let collectionView: UICollectionView = {
         let collectionView = UICollectionView(
@@ -32,16 +31,16 @@ final class CollectionNFTViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
-    
+
     private let parameters = Parameters(
         countCells: 3,
         heightCell: 192,
         xSpacing: 9,
         ySpacing: 8
     )
-    
+
     private var viewModel: CollectionNFTViewModelProtocol?
-    
+
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,18 +52,18 @@ final class CollectionNFTViewController: UIViewController {
         collectionView.delegate = self
         fetchNFTs()
     }
-    
+
     // MARK: - Public methods
     func configure(nftsID: [String]) {
         viewModel = CollectionNFTViewModel(nftIDs: nftsID)
         viewModel?.delegate = self
     }
-    
+
     // MARK: - Private methods
     private func addSubviews() {
         view.addSubview(collectionView)
     }
-    
+
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -73,7 +72,7 @@ final class CollectionNFTViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    
+
     private func fetchNFTs() {
         ProgressHUD.show()
         viewModel?.fetchNFT { [weak self] in
@@ -85,7 +84,7 @@ final class CollectionNFTViewController: UIViewController {
             }
         }
     }
-    
+
     private func showAlertWithError() {
         let alert = UIAlertController(
             title: nil,
@@ -109,9 +108,8 @@ extension CollectionNFTViewController: UICollectionViewDataSource {
         numberOfItemsInSection section: Int
     ) -> Int {
         viewModel?.numberOfRows() ?? 0
-        
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
@@ -138,7 +136,7 @@ extension CollectionNFTViewController: UICollectionViewDelegateFlowLayout {
         let width = (widthCollection - (2 * parameters.xSpacing)) / parameters.countCells
         return CGSize(width: width, height: parameters.heightCell)
     }
-    
+
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -146,7 +144,7 @@ extension CollectionNFTViewController: UICollectionViewDelegateFlowLayout {
     ) -> CGFloat {
         parameters.ySpacing
     }
-    
+
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -162,7 +160,7 @@ extension CollectionNFTViewController: CollectionNFTCellViewModelDelegate {
             self?.collectionView.reloadItems(at: [indexPath])
         }
     }
-    
+
     func showAlert() {
         showAlertWithError()
     }

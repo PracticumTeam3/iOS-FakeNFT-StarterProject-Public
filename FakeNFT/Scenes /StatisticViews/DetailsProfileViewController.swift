@@ -14,22 +14,22 @@ final class DetailsProfileViewController: UIViewController {
     private let nameUser: UILabel = {
         let label = UILabel()
         label.text = "Placeholder"
-        label.font = .bold22
+        label.font = .Bold.medium
         label.numberOfLines = 0
         label.textColor = A.Colors.blackDynamic.color
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let infoUser: UILabel = {
         let label = UILabel()
-        label.font = .regular13
+        label.font = .Regular.small
         label.numberOfLines = 0
         label.textColor = A.Colors.blackDynamic.color
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let photoUser: UIImageView = {
         let image = UIImageView()
         let placeholderImage = UIImage(systemName: "person.crop.circle.fill")
@@ -42,10 +42,10 @@ final class DetailsProfileViewController: UIViewController {
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    
+
     lazy private var webSiteUserButton: UIButton = {
         let button = UIButton(type: .system)
-        button.titleLabel?.font = .regular15
+        button.titleLabel?.font = .Regular.medium
         button.setTitle(L.Statistics.goToWebsite, for: .normal)
         button.tintColor = A.Colors.blackDynamic.color
         button.layer.borderWidth = 1
@@ -55,34 +55,34 @@ final class DetailsProfileViewController: UIViewController {
         button.addTarget(self, action: #selector(pushToWebSiteUser), for: .touchUpInside)
         return button
     }()
-    
+
     private let collectionNFTLabel: UILabel = {
         let label = UILabel()
         label.text = L.Statistics.collectionNFT
-        label.font = .bold17
+        label.font = .Bold.small
         label.numberOfLines = 0
         label.textColor = A.Colors.blackDynamic.color
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let countNFTLabel: UILabel = {
         let label = UILabel()
         label.text = "(112)"
-        label.font = .bold17
+        label.font = .Bold.small
         label.numberOfLines = 0
         label.textColor = A.Colors.blackDynamic.color
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     lazy private var containerButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(pushToUserCollections), for: .touchUpInside)
         return button
     }()
-    
+
     lazy private var forwardButton: UIButton = {
         let button = UIButton()
         button.setImage(A.Icons.forward.image.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -90,10 +90,10 @@ final class DetailsProfileViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     // MARK: - Public properties
     private var viewModel: ProfileCellViewModelProtocol?
-    
+
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,17 +102,17 @@ final class DetailsProfileViewController: UIViewController {
         setupConstraints()
         setupNavigationBar()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ProgressHUD.dismiss()
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
             super.traitCollectionDidChange(previousTraitCollection)
             webSiteUserButton.layer.borderColor = A.Colors.blackDynamic.color.cgColor
     }
-    
+
     // MARK: - Public methods
     func configure(viewModel: ProfileCellViewModelProtocol) {
         countNFTLabel.text = "(\(viewModel.nfts.count))"
@@ -121,7 +121,7 @@ final class DetailsProfileViewController: UIViewController {
         photoUser.kf.setImage(with: URL(string: viewModel.profileImage))
         self.viewModel = viewModel
     }
-    
+
     // MARK: - Private methods
     private func addSubviews() {
         view.addSubview(nameUser)
@@ -133,7 +133,7 @@ final class DetailsProfileViewController: UIViewController {
         view.addSubview(collectionNFTLabel)
         view.addSubview(forwardButton)
     }
-    
+
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             photoUser.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -177,7 +177,7 @@ final class DetailsProfileViewController: UIViewController {
             forwardButton.centerYAnchor.constraint(equalTo: containerButton.centerYAnchor)
         ])
     }
-    
+
     private func mutableString(text: String) -> NSMutableAttributedString {
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 5
@@ -192,7 +192,7 @@ final class DetailsProfileViewController: UIViewController {
         )
         return mutableText
     }
-    
+
     private func setupNavigationBar() {
         let backImageBackButton = UIImage(asset: A.Icons.back)
         navigationController?.navigationBar.backIndicatorImage = backImageBackButton
@@ -205,18 +205,26 @@ final class DetailsProfileViewController: UIViewController {
         )
         navigationItem.backBarButtonItem?.tintColor = A.Colors.blackDynamic.color
     }
-    
+
     @objc private func backToProfileList() {
         navigationController?.popViewController(animated: true)
     }
-    
+
     @objc private func pushToWebSiteUser() {
-        let webVC = WebViewController()
-        guard let viewModel = viewModel else { return }
-        webVC.configure(viewModel: viewModel)
-        navigationController?.pushViewController(webVC, animated: true)
+        guard
+            let viewModel,
+            let url = URL(string: viewModel.websiteUrl)
+        else {
+            AlertPresenter.show(in: self, model: .urlParsingError)
+            return
+        }
+        let webViewModel = WebViewModel()
+        let viewController = WebViewController(webViewModel: webViewModel,
+                                               url: url,
+                                               presentation: .navigation)
+        navigationController?.pushViewController(viewController, animated: true)
     }
-    
+
     @objc private func pushToUserCollections() {
         let collectionVC = CollectionNFTViewController()
         guard let viewModel = viewModel else { return }

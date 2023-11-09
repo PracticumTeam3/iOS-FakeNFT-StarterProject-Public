@@ -17,22 +17,23 @@ final class ProfileListViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = A.Colors.whiteDynamic.color
         tableView.separatorStyle = .none
-        tableView.register(ProfileTableViewCell.self,
+        tableView.register(ProfileListTableViewCell.self,
                            forCellReuseIdentifier: "cell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
+
     private var viewModel: ProfileListViewModelProtocol?
-    
+
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = A.Colors.whiteDynamic.color
         addSubviews()
         setupConstraints()
         tableView.dataSource = self
@@ -41,12 +42,12 @@ final class ProfileListViewController: UIViewController {
         fetchProfiles()
         appearanceNavBarAndTabBar()
     }
-    
+
     // MARK: - Private methods
     private func addSubviews() {
         view.addSubview(tableView)
     }
-    
+
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -55,21 +56,19 @@ final class ProfileListViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
+
     private func appearanceNavBarAndTabBar() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
         let rightButton = UIBarButtonItem(customView: sortButton)
         navigationController?.navigationBar.topItem?.rightBarButtonItem = rightButton
         let backImageBackButton = UIImage(asset: A.Icons.back)
         navigationController?.navigationBar.backIndicatorImage = backImageBackButton
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImageBackButton
+        navigationController?.navigationBar.tintColor = A.Colors.blackDynamic.color
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem?.tintColor = A.Colors.blackDynamic.color
         tabBarController?.tabBar.shadowImage = UIImage()
         tabBarController?.tabBar.backgroundImage = UIImage()
     }
-    
+
     private func fetchProfiles() {
         ProgressHUD.show()
         viewModel?.fetchProfiles { [weak self] in
@@ -80,18 +79,18 @@ final class ProfileListViewController: UIViewController {
             }
         }
     }
-    
+
     private func bind() {
         self.viewModel?.onChange = self.tableView.reloadData
     }
-    
+
     @objc private func showAlert() {
         let alert = UIAlertController(
             title: L.Statistics.sorted,
             message: nil,
             preferredStyle: .actionSheet
         )
-        
+
         let sortByNameAction = UIAlertAction(
             title: L.Statistics.byName,
             style: .default
@@ -99,7 +98,7 @@ final class ProfileListViewController: UIViewController {
             guard let self = self else { return }
             self.viewModel?.sortProfilesByName()
         }
-        
+
         let sortByRatingAction = UIAlertAction(
             title: L.Statistics.byRating,
             style: .default
@@ -107,7 +106,7 @@ final class ProfileListViewController: UIViewController {
             guard let self = self else { return }
             self.viewModel?.sortProfilesByRating()
         }
-        
+
         let cancel = UIAlertAction(
             title: L.Statistics.close,
             style: .cancel
@@ -124,11 +123,11 @@ extension ProfileListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel?.numberOfRows() ?? 0
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "cell",
-            for: indexPath) as? ProfileTableViewCell else { return UITableViewCell() }
+            for: indexPath) as? ProfileListTableViewCell else { return UITableViewCell() }
         guard let viewModel = viewModel?.cellViewModel(at: indexPath) else { return UITableViewCell() }
         cell.configure(viewModel: viewModel)
         cell.selectionStyle = .none
@@ -140,7 +139,7 @@ extension ProfileListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailsProfileViewController()
         guard let viewModel = viewModel?.cellViewModel(at: indexPath) else { return }

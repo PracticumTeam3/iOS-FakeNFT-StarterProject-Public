@@ -44,24 +44,31 @@ public enum A {
       public static let profile = ImageAsset(name: "profile")
       public static let statistic = ImageAsset(name: "statistic")
     }
+    public static let activeStar = ImageAsset(name: "activeStar")
     public static let back = ImageAsset(name: "back")
     public static let basket = ImageAsset(name: "basket")
     public static let close = ImageAsset(name: "close")
+    public static let deleteNft = ImageAsset(name: "deleteNft")
     public static let edit = ImageAsset(name: "edit")
     public static let favouriteActive = ImageAsset(name: "favouriteActive")
     public static let favouriteInactive = ImageAsset(name: "favouriteInactive")
     public static let forward = ImageAsset(name: "forward")
     public static let inactiveBasket = ImageAsset(name: "inactiveBasket")
+    public static let inactiveStar = ImageAsset(name: "inactiveStar")
     public static let sort = ImageAsset(name: "sort")
     public static let splashScreen = ImageAsset(name: "splashScreen")
-    public static let star = ImageAsset(name: "star")
-    public static let starActive = ImageAsset(name: "starActive")
   }
   public enum Images {
+    public enum Cart {
+      public static let successPay = ImageAsset(name: "successPay")
+    }
     public enum Onboarding {
       public static let page1 = ImageAsset(name: "page1")
       public static let page2 = ImageAsset(name: "page2")
       public static let page3 = ImageAsset(name: "page3")
+    }
+    public enum Profile {
+      public static let stub = ImageAsset(name: "stub")
     }
   }
 }

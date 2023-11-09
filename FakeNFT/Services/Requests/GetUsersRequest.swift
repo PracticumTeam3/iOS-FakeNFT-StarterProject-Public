@@ -9,7 +9,6 @@ import Foundation
 
 struct GetUsersRequest: NetworkRequest {
     var endpoint: URL? {
-        let baseUrl = Request().endpoint
-        return URL(string: "/api/v1/users", relativeTo: baseUrl)
+        Endpoint.users.url
     }
 }

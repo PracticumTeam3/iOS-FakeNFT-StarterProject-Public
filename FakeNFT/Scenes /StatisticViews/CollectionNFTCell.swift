@@ -18,7 +18,7 @@ final class CollectionNFTCell: UICollectionViewCell {
          view.translatesAutoresizingMaskIntoConstraints = false
          return view
      }()
-    
+
     private let iconNFT: UIImageView = {
          let view = UIImageView()
          view.clipsToBounds = true
@@ -26,7 +26,7 @@ final class CollectionNFTCell: UICollectionViewCell {
          view.translatesAutoresizingMaskIntoConstraints = false
          return view
     }()
-    
+
     private let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
@@ -34,7 +34,7 @@ final class CollectionNFTCell: UICollectionViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    
+
    lazy private var basketButton: UIButton = {
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(basketButtonTapped), for: .touchUpInside)
@@ -43,25 +43,25 @@ final class CollectionNFTCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private let nameLabel: UILabel = {
        let label = UILabel()
-        label.font = .bold17
+        label.font = .Bold.small
         label.text = ""
         label.textColor = A.Colors.blackDynamic.color
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let priceLabel: UILabel = {
        let label = UILabel()
-        label.font = .medium10
+        label.font = .Medium.small
         label.text = ""
         label.textColor = A.Colors.blackDynamic.color
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     lazy private var likeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(A.Icons.favouriteInactive.image, for: .normal)
@@ -69,10 +69,10 @@ final class CollectionNFTCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     // MARK: - Public properties
     var viewModel: CollectionNFTCellViewModelProtocol?
-    
+
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -83,7 +83,7 @@ final class CollectionNFTCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Public methods
     func configure(viewModel: CollectionNFTCellViewModelProtocol) {
         self.viewModel = viewModel
@@ -91,7 +91,7 @@ final class CollectionNFTCell: UICollectionViewCell {
         priceLabel.text = viewModel.price.replacingOccurrences(of: ".", with: ",") + " ETH"
         iconNFT.kf.setImage(with: URL(string: viewModel.images[0]))
         setupStarsOnStackView(rating: Int(viewModel.rating) ?? 0)
-        viewModel.fetchProfileLikes() { [weak self] in
+        viewModel.fetchProfileLikes { [weak self] in
             if viewModel.profileLikes.contains(viewModel.id) {
                 DispatchQueue.main.async {
                     self?.likeButton.setImage(A.Icons.favouriteActive.image, for: .normal)
@@ -102,8 +102,8 @@ final class CollectionNFTCell: UICollectionViewCell {
                 }
             }
         }
-        
-        viewModel.fetchProfileNfts() { [weak self] in
+
+        viewModel.fetchProfileNfts { [weak self] in
             if viewModel.profileNfts.contains(String(viewModel.id)) {
                 DispatchQueue.main.async {
                     self?.basketButton.setImage(
@@ -121,7 +121,7 @@ final class CollectionNFTCell: UICollectionViewCell {
             }
         }
     }
-    
+
     // MARK: - Private methods
     private func addSubviews() {
         contentView.addSubview(containerView)
@@ -132,7 +132,7 @@ final class CollectionNFTCell: UICollectionViewCell {
         contentView.addSubview(priceLabel)
         contentView.addSubview(likeButton)
     }
-    
+
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -161,28 +161,30 @@ final class CollectionNFTCell: UICollectionViewCell {
             likeButton.widthAnchor.constraint(equalToConstant: 42)
         ])
     }
-    
+
     private func setupStarsOnStackView(rating: Int) {
         if stackView.arrangedSubviews.isEmpty {
             for _ in 1...rating {
-                let starActive = UIImageView(image: A.Icons.starActive.image)
+                let starActive = UIImageView(image: A.Icons.activeStar.image)
                 stackView.addArrangedSubview(starActive)
             }
-            
+
             if rating < 5 {
                 for _ in rating...4 {
-                    let star =  UIImageView(image: A.Icons.star.image.withRenderingMode(.alwaysTemplate))
+                    let star =  UIImageView(
+                        image: A.Icons.inactiveStar.image.withRenderingMode(.alwaysTemplate)
+                    )
                     star.tintColor = A.Colors.lightGrayDynamic.color
                     stackView.addArrangedSubview(star)
                 }
             }
         }
     }
-    
+
     @objc private func likeButtonTapped() {
         viewModel?.likeButtonTapped()
     }
-    
+
     @objc private func basketButtonTapped() {
         viewModel?.basketButtonTapped()
    }

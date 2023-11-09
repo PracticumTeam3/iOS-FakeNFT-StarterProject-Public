@@ -37,12 +37,12 @@ final class CollectionNFTViewModel: CollectionNFTViewModelProtocol {
     weak var delegate: CollectionNFTViewModelDelegate?
     let nftIDs: [String]
     var service: NFTService?
-    
+
     // MARK: - init
     init(nftIDs: [String]) {
         self.nftIDs = nftIDs
     }
-    
+
     // MARK: - Public methods
     func fetchNFT(completion: @escaping() -> Void) {
         let dGroup = DispatchGroup()
@@ -58,21 +58,21 @@ final class CollectionNFTViewModel: CollectionNFTViewModelProtocol {
                         nftsGroup.append(nft)
                     }
                     dGroup.leave()
-                case .failure(_):
+                case .failure:
                     DispatchQueue.main.async {
                         self.delegate?.showAlertNftModel()
                     }
                 }
             }
         }
-        
+
         dGroup.notify(queue: .main) {
             nftsGroup.sort { $0.name < $1.name }
             self.nfts = nftsGroup
             completion()
         }
     }
-    
+
     func cellViewModel(
         at indexPath: IndexPath,
         delegate: CollectionNFTCellViewModelDelegate
@@ -83,11 +83,11 @@ final class CollectionNFTViewModel: CollectionNFTViewModelProtocol {
             delegate: delegate
         )
     }
-    
+
     func numberOfRows() -> Int {
         nfts.count
     }
-    
+
     func nftsIsEmpty() -> Bool {
         nfts.isEmpty
     }

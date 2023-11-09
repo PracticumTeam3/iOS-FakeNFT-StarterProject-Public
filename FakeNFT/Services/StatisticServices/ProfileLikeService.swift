@@ -11,13 +11,13 @@ final class ProfileLikeService {
     // MARK: - Private properties
     private var request = GetProfileRequest()
     private let networkClient = DefaultNetworkClient()
-    
+
     // MARK: - Public properties
     static let shared = ProfileLikeService()
-    
+
     // MARK: - Initializers
     private init() {}
-    
+
     // MARK: - Public methods
     func fetchProfile(completion: @escaping(Result<ProfileLikesModel, Error>) -> Void) {
         networkClient.send(request: request, type: ProfileLikesModel.self) { result in
@@ -29,10 +29,10 @@ final class ProfileLikeService {
             }
         }
     }
-    
-    func putProfileLikes(model: ProfileLikesModel,
+
+    func putProfileLikes(model: LikesModel,
                          completion: @escaping(Result<ProfileLikesModel, Error>) -> Void) {
-        let request = PutLikesRequest(model: model)
+        let request = SetLikesRequest(model: model)
         networkClient.send(request: request, type: ProfileLikesModel.self) { result in
             switch result {
             case .success(let profile):

@@ -9,16 +9,16 @@ import Foundation
 
 final class NFTService {
     // MARK: - Private properties
-    private var request: GetNFTByIDRequest?
+    private var request: GetNFTRequest?
     private let networkClient = DefaultNetworkClient()
-    
+
     // MARK: - Initializers
     private init() {}
-    
+
     init(id: String) {
-        self.request = GetNFTByIDRequest(id: id)
+        self.request = GetNFTRequest(id: id)
     }
-    
+
     // MARK: - Public methods
     func fetchNFT(completion: @escaping(Result<NFTResult, Error>) -> Void) {
         guard let request = request else { return }
