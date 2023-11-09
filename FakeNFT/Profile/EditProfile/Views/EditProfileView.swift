@@ -109,7 +109,6 @@ final class EditProfileView: UIView {
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = A.Images.Profile.avatar.image
         imageView.layer.cornerRadius = Constants.ImageView.widthAndHeight / 2
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill

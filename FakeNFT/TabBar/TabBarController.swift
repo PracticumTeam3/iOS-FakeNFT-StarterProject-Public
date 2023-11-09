@@ -55,8 +55,7 @@ final class TabBarController: UITabBarController {
     }
 
     private var statisticNavigationController: UINavigationController {
-        // TODO: - добавить статистику
-        let vc = UIViewController()
+        let vc = ProfileListViewController()
         let navVC = UINavigationController(rootViewController: vc)
 
         navVC.tabBarItem = UITabBarItem(

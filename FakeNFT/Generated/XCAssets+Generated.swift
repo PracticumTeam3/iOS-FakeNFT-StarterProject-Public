@@ -52,6 +52,8 @@ public enum A {
     public static let edit = ImageAsset(name: "edit")
     public static let favouriteActive = ImageAsset(name: "favouriteActive")
     public static let favouriteInactive = ImageAsset(name: "favouriteInactive")
+    public static let forward = ImageAsset(name: "forward")
+    public static let inactiveBasket = ImageAsset(name: "inactiveBasket")
     public static let inactiveStar = ImageAsset(name: "inactiveStar")
     public static let sort = ImageAsset(name: "sort")
     public static let splashScreen = ImageAsset(name: "splashScreen")
@@ -66,8 +68,6 @@ public enum A {
       public static let page3 = ImageAsset(name: "page3")
     }
     public enum Profile {
-      public static let avatar = ImageAsset(name: "avatar")
-      public static let nft1 = ImageAsset(name: "nft1")
       public static let stub = ImageAsset(name: "stub")
     }
   }

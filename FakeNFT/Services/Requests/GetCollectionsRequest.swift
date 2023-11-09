@@ -9,7 +9,7 @@ import Foundation
 
 struct GetCollectionsRequest: NetworkRequest {
     var endpoint: URL? {
-        URL(string: "https://651ff0bd906e276284c3c180.mockapi.io/api/v1/collections")
+        Endpoint.collections.url
     }
     var httpMethod: HttpMethod {
         .get

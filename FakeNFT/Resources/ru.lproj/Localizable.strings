@@ -82,5 +82,15 @@
 "cart.networkAlertMessage" = "Проблема с интернет-соединением";
 
 "statistics.title" = "Статистика";
+"statistics.sorted" = "Сортировка";
+"statistics.byName" = "По имени";
+"statistics.byRating" = "По рейтингу";
+"statistics.close" = "Закрыть";
+"statistics.goToWebsite" = "Перейти на сайт пользователя";
+"statistics.collectionNFT" = "Коллекция NFT";
+"statistics.Error" = "Проблемы с интернет соединением";
+"statistics.ErrorAction" = "Еще раз";
+"statistics.ErrorActionCancel" = "Выход";
+"statistics.isEmpty" = "Тут пусто";
 
 "catalog.title" = "Каталог";

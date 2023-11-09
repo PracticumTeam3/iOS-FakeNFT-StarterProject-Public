@@ -210,6 +210,26 @@ public enum L {
     }
   }
   public enum Statistics {
+    /// По имени
+    public static let byName = L.tr("Localizable", "statistics.byName", fallback: "По имени")
+    /// По рейтингу
+    public static let byRating = L.tr("Localizable", "statistics.byRating", fallback: "По рейтингу")
+    /// Закрыть
+    public static let close = L.tr("Localizable", "statistics.close", fallback: "Закрыть")
+    /// Коллекция NFT
+    public static let collectionNFT = L.tr("Localizable", "statistics.collectionNFT", fallback: "Коллекция NFT")
+    /// Проблемы с интернет соединением
+    public static let error = L.tr("Localizable", "statistics.Error", fallback: "Проблемы с интернет соединением")
+    /// Еще раз
+    public static let errorAction = L.tr("Localizable", "statistics.ErrorAction", fallback: "Еще раз")
+    /// Выход
+    public static let errorActionCancel = L.tr("Localizable", "statistics.ErrorActionCancel", fallback: "Выход")
+    /// Перейти на сайт пользователя
+    public static let goToWebsite = L.tr("Localizable", "statistics.goToWebsite", fallback: "Перейти на сайт пользователя")
+    /// Тут пусто
+    public static let isEmpty = L.tr("Localizable", "statistics.isEmpty", fallback: "Тут пусто")
+    /// Сортировка
+    public static let sorted = L.tr("Localizable", "statistics.sorted", fallback: "Сортировка")
     /// Статистика
     public static let title = L.tr("Localizable", "statistics.title", fallback: "Статистика")
   }

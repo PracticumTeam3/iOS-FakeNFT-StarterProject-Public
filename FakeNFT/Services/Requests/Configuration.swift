@@ -15,6 +15,8 @@ enum Endpoint {
     case order
     case currencies
     case paymentById(id: String)
+    case collections
+    case users
 
     static var baseURL: URL {
         switch StorageService.shared.environment {
@@ -33,6 +35,8 @@ enum Endpoint {
         case .order: return "/api/v1/orders/1"
         case .currencies: return "/api/v1/currencies"
         case .paymentById(let id): return "/api/v1/orders/1/payment/\(id)"
+        case .collections: return "/api/v1/collections"
+        case .users: return "/api/v1/users"
         }
     }
 
@@ -49,6 +53,10 @@ enum Endpoint {
                                      relativeTo: Endpoint.baseURL)
         case .paymentById(let id): return URL(string: Endpoint.paymentById(id: id).path,
                                               relativeTo: Endpoint.baseURL)
+        case .collections: return URL(string: Endpoint.collections.path,
+                                      relativeTo: Endpoint.baseURL)
+        case .users: return URL(string: Endpoint.users.path,
+                                relativeTo: Endpoint.baseURL)
         }
     }
 
