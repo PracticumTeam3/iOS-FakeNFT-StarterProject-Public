@@ -43,7 +43,7 @@ final class ProfileListViewModel: ProfileListViewModelProtocol {
             case .success(let profiles):
                 DispatchQueue.global(qos: .background).async {
                     self?.profiles = profiles
-                    if Storage.isSortByName {
+                    if StatisticStorage.isSortByName {
                         self?.sortProfilesByName()
                     } else {
                         self?.sortProfilesByRating()
@@ -68,13 +68,13 @@ final class ProfileListViewModel: ProfileListViewModelProtocol {
 
     func sortProfilesByName() {
         let sortProfiles = profiles.sorted { $0.name < $1.name }
-        Storage.isSortByName = true
+        StatisticStorage.isSortByName = true
         profiles = sortProfiles
     }
 
     func sortProfilesByRating() {
         let sortProfiles = profiles.sorted { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
-        Storage.isSortByName = false
+        StatisticStorage.isSortByName = false
         profiles = sortProfiles
     }
 }

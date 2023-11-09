@@ -27,7 +27,7 @@ final class CartTableViewViewModel {
     @CartObservable private(set) var progressHUDIsActive: Bool = false
     @CartObservable private(set) var showNetWorkError: Bool?
 
-    private let userSortedService = UserSortedService()
+    private let userSortedService = CartStorageService()
     private let cartService = CartService.shared
     private var sortedName: CartSortedStorage?
     weak var delegate: CartTableViewViewModelDelegate?
