@@ -21,8 +21,8 @@ class CatalogCell:UITableViewCell {
     let lableCell: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-        lable.textColor = UIColor(named:A.Colors.black.name)
-        lable.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        lable.textColor = A.Colors.blackDynamic.color
+        lable.font = .Bold.small
         lable.textAlignment = .left
         lable.text = "нижний текст (11)"
         return lable
@@ -36,13 +36,13 @@ class CatalogCell:UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = A.Colors.whiteDynamic.color
         contentView.addSubview(viewCell)
-       NSLayoutConstraint.activate([
-
-        viewCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
-        viewCell.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
-        viewCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
-        viewCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+        NSLayoutConstraint.activate([
+            viewCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
+            viewCell.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            viewCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
+            viewCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
         setupViews()
     }

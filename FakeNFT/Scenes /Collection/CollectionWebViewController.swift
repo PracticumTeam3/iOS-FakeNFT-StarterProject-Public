@@ -21,15 +21,16 @@ class CollectionWebViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
 
         webView.navigationDelegate = self
+        navigationController?.navigationBar.tintColor = A.Colors.blackDynamic.color
 
         view.addSubview(webView)
 
-        view.backgroundColor = UIColor(named: A.Colors.white.name)
+        view.backgroundColor = A.Colors.whiteDynamic.color
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             webView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             webView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
         if let url = URL(string: url) {
             let request = URLRequest(url: url)

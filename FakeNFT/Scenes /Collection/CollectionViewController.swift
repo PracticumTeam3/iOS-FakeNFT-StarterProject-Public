@@ -24,8 +24,8 @@ final class CollectionViewController: UIViewController {
     private let titleLable: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-        lable.textColor = UIColor(named:A.Colors.black.name)
-        lable.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        lable.textColor = A.Colors.blackDynamic.color
+        lable.font = .Bold.medium
         lable.textAlignment = .left
         return lable
     }()
@@ -33,8 +33,8 @@ final class CollectionViewController: UIViewController {
     private let authorLable: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-        lable.textColor = UIColor(named:A.Colors.black.name)
-        lable.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        lable.textColor = A.Colors.blackDynamic.color
+        lable.font = .Regular.small
         lable.text = "Автор коллекции:"
         lable.textAlignment = .left
         return lable
@@ -50,8 +50,8 @@ final class CollectionViewController: UIViewController {
     private let descriptionLable: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-        lable.textColor = UIColor(named:A.Colors.black.name)
-        lable.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        lable.textColor = A.Colors.blackDynamic.color
+        lable.font = .Regular.small
         lable.textAlignment = .left
         lable.numberOfLines = 4
         return lable
@@ -62,6 +62,7 @@ final class CollectionViewController: UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(CollectionCell.self, forCellWithReuseIdentifier: "CollectionCell")
+        collection.backgroundColor = A.Colors.whiteDynamic.color
         return collection
     }()
 
@@ -76,7 +77,7 @@ final class CollectionViewController: UIViewController {
     private let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
 
     override func viewDidLoad() {
-        view.backgroundColor = .white
+        view.backgroundColor = A.Colors.whiteDynamic.color
         collectionCollectionView.dataSource = self
         collectionCollectionView.delegate = self
         setupViews()
@@ -90,6 +91,7 @@ final class CollectionViewController: UIViewController {
 
         let backItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backItem
+        navigationController?.navigationBar.tintColor = A.Colors.black.color
 
         collectionCollectionView.isHidden = false
         guard let model = model else {return}
