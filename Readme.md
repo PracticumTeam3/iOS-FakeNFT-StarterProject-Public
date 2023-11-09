@@ -6,6 +6,7 @@
 # Скринкасты с демонстрацией эпиков
 
 - [Profile](https://disk.yandex.ru/i/LdN-nzewVwcf8Q)
+- [Statistic](https://disk.yandex.ru/i/nSptAoREkx-rwg)
 
 Дополнительно:
 - [Onboarding](https://disk.yandex.ru/i/nPWqVcCMEdtueQ)
