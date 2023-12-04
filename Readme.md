@@ -1,5 +1,18 @@
 # ТЗ мобильного приложения FakeNFT
 
+# Установка
+Вызвать `pod install` в директории проекта
+
+# Скринкасты с демонстрацией эпиков
+
+- [Profile](https://disk.yandex.ru/i/LdN-nzewVwcf8Q)
+- [Catalog](https://drive.google.com/file/d/17SoVnsOvcWer6ICIWec7zUW1PABJ3Ril/view?usp=sharing)
+- [Cart](https://disk.yandex.ru/i/Ps8KocCie0yXNw)
+- [Statistic](https://disk.yandex.ru/i/nSptAoREkx-rwg)
+
+Дополнительно:
+- [Onboarding](https://disk.yandex.ru/i/nPWqVcCMEdtueQ)
+
 # Ссылки
 
 [Дизайн Figma](https://www.figma.com/file/k1LcgXHGTHIeiCv4XuPbND/FakeNFT-(YP)?node-id=96-5542&t=YdNbOI8EcqdYmDeg-0)
